@@ -98,8 +98,10 @@ def vendor_truth(
     f["contract.status"] = _known(v.contract_status, "system_of_record")
 
     f["mfa.admin_enforced"] = (
-        _bool(False, "vendor_answer") if "S08" in codes
-        else _unknown("vendor_answer") if "S05" in codes
+        _bool(False, "vendor_answer")
+        if "S08" in codes
+        else _unknown("vendor_answer")
+        if "S05" in codes
         else _bool(True, "vendor_answer")
     )
     f["mfa.remote_enforced"] = _bool(True, "vendor_answer")
@@ -114,7 +116,8 @@ def vendor_truth(
     # Every planted incident opens 120 days before as_of, inside the 24-month window.
     related = [i for i in v.incidents if i["category"] in MATERIAL_CATEGORIES]
     material = [
-        i for i in related
+        i
+        for i in related
         if i["severity"] in {"P1", "P2"} and (i.get("rca_completed") is not True or i["status"] == "open")
     ]
     f["incidents.vendor_reported_24m"] = _known(0, "vendor_answer")
@@ -127,8 +130,8 @@ def vendor_truth(
     if signed:
         f["breach.notify_hours_contract"] = _known(v.breach_notification_hours, "system_of_record")
         f["breach.notify_hours"] = _known(v.breach_notification_hours, "system_of_record")
-        f["dpa.signed"] = _unknown("system_of_record") if v.dq_dpa_date_null else _bool(
-            v.dpa_signed, "system_of_record"
+        f["dpa.signed"] = (
+            _unknown("system_of_record") if v.dq_dpa_date_null else _bool(v.dpa_signed, "system_of_record")
         )
         contract_regions = REGION_CLAUSE.get(v.hosting_region_clause or "", [])
         f["residency.regions_contract"] = _known(contract_regions, "system_of_record")
@@ -148,6 +151,7 @@ def vendor_truth(
 
     names = {_norm(a) for a in aliases}
     exact = [w for w in watchlist if _norm(w["entity_name"]) in names]
+
     def similar(a: str, b: str) -> bool:
         return difflib.SequenceMatcher(None, a, b).ratio() >= NEAR_MATCH_RATIO
 
@@ -179,13 +183,9 @@ def vendor_truth(
         )
     claimed_regions = set(f["residency.regions_claimed"]["value"])
     if signed and not claimed_regions <= set(f["residency.regions_contract"]["value"]):
-        contradictions.append(
-            {"key": "residency.regions", "control_id": "C09", "severity": "material"}
-        )
+        contradictions.append({"key": "residency.regions", "control_id": "C09", "severity": "material"})
     if signed and "Q09" in v.answers and v.breach_notification_hours != 72:
-        contradictions.append(
-            {"key": "breach.notify_hours", "control_id": "C07", "severity": "minor"}
-        )
+        contradictions.append({"key": "breach.notify_hours", "control_id": "C07", "severity": "minor"})
 
     return {
         "case_ref": v.vendor_id,
