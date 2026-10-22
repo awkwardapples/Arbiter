@@ -8,8 +8,6 @@ from typing import Any
 
 import pytest
 
-from app.schemas.api import HealthResponse, RunResponse
-from app.schemas.case import CaseInput
 from ui.client import ArbiterAPIError
 
 FIXTURES = Path(__file__).resolve().parents[2] / "fixtures" / "ui"
@@ -26,20 +24,20 @@ class FakeArbiterClient:
     run_calls: int = 0
 
     def __init__(self) -> None:
-        self.health_data = HealthResponse.model_validate(_load("health.json"))
+        self.health_data = _load("health.json")
         self.queue = _load("queue.json")
         self.case_detail = _load("case_detail.json")
         self.vendors = _load("vendors.json")
         self.precedents = _load("precedents.json")
         self.trace = _load("example_2_trace.json")
 
-    def health(self) -> HealthResponse:
+    def health(self) -> dict[str, Any]:
         return self.health_data
 
     def list_vendors(self) -> list[dict[str, object]]:
         return self.vendors
 
-    def run(self, case: CaseInput, *, options: Any = None) -> RunResponse:
+    def run(self, case: Any, *, options: Any = None) -> dict[str, Any]:
         self.run_calls += 1
         raise AssertionError("run should not be called in this test")
 

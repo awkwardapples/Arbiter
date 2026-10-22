@@ -7,7 +7,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from app.schemas.case import CaseInput, VendorSubmission
+from ui.models import CaseInput, VendorSubmission
 
 
 def parse_case_input(raw: str | dict[str, Any]) -> tuple[CaseInput | None, list[str]]:

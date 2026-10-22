@@ -23,11 +23,12 @@ def _sidebar_status() -> None:
     except ArbiterAPIError as exc:
         st.sidebar.error(exc.message)
         return
-    mode = health.mode
+    mode = health.get("mode") or {}
     st.sidebar.markdown(f"**Data:** {mode.get('data', 'unknown')}")
     st.sidebar.markdown(f"**LLM:** {mode.get('llm', 'unknown')}")
-    if health.provider and health.provider.get("models"):
-        st.sidebar.caption(f"Models: {health.provider.get('models')}")
+    provider = health.get("provider") or {}
+    if provider.get("models"):
+        st.sidebar.caption(f"Models: {provider.get('models')}")
 
 
 def main() -> None:
