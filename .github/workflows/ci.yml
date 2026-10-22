@@ -24,3 +24,59 @@ jobs:
         run: python scripts/tasks.py secret-scan
       - name: hardcode-check
         run: python scripts/tasks.py hardcode-check
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: build image from the repo Dockerfile
+        run: docker build -t arbiter .
+      - name: sample-mode smoke
+        run: |
+          set -euo pipefail
+          mkdir -p logs
+          docker rm -f arbiter >/dev/null 2>&1 || true
+          docker run -d --name arbiter -p 8000:8000 -e SAMPLE_MODE=true arbiter
+          python - <<'PY'
+          import json, time, urllib.request
+          from pathlib import Path
+
+          deadline = time.monotonic() + 90
+          while time.monotonic() < deadline:
+              try:
+                  with urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=3) as resp:
+                      if resp.status == 200:
+                          break
+              except Exception:
+                  time.sleep(2)
+          else:
+              raise SystemExit("health check timed out")
+
+          expected = json.loads(Path("input_examples/expected.json").read_text(encoding="utf-8"))
+          seen = []
+          for name, spec in sorted(expected.items()):
+              payload = Path("input_examples", name).read_bytes()
+              request = urllib.request.Request(
+                  "http://127.0.0.1:8000/run",
+                  data=payload,
+                  headers={"Content-Type": "application/json"},
+                  method="POST",
+              )
+              with urllib.request.urlopen(request, timeout=180) as resp:
+                  body = json.loads(resp.read().decode("utf-8"))
+              got = body["output"]["decision"]
+              if got != spec["outcome"]:
+                  raise SystemExit(f"{name}: {got} != {spec['outcome']}")
+              seen.append(json.dumps(body["output"], sort_keys=True))
+          if len(set(seen)) != len(seen):
+              raise SystemExit("example outputs were not distinct")
+          print("docker smoke ok")
+          PY
+          mkdir -p logs
+          docker cp arbiter:/app/logs/. logs/
+      - name: upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-logs
+          path: logs/

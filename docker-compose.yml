@@ -1,0 +1,26 @@
+# Live Nightshift binds the host's 127.0.0.1, so a live API run stays on the host.
+# This file is the sample-mode stack: api, the reviewer console, and the optional simulator.
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SAMPLE_MODE: "true"
+  ui:
+    build: .
+    command: ["python", "run.py", "ui"]
+    ports:
+      - "8501:8501"
+    environment:
+      ARBITER_API_URL: http://api:8000
+    depends_on:
+      - api
+  sources:
+    build: .
+    command: ["python", "run.py", "sources"]
+    ports:
+      - "8100:8100"
+    profiles:
+      - zetaris

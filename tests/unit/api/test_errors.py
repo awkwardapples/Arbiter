@@ -25,7 +25,16 @@ def test_p4_t16_error_paths(status_code: int, offline_env: Path, monkeypatch: py
     del offline_env
     store = Store()
     pending = issued_decline("CASE-PENDING", now=datetime.now(UTC))
-    executed = sign(pending.model_copy(update={"state": "executed", "signature": "", "case_id": "CASE-DONE"}))
+    executed = sign(
+        pending.model_copy(
+            update={
+                "contract_id": "ctr-executed",
+                "state": "executed",
+                "signature": "",
+                "case_id": "CASE-DONE",
+            }
+        )
+    )
     store.put_contract(pending)
     store.put_contract(executed)
     client = TestClient(app, raise_server_exceptions=False)

@@ -1,13 +1,14 @@
-"""Case store: JSON files under `var/` (P4-B swaps in SQLite behind the same interface)."""
+"""Case store: SQLite at `{root}/arbiter.db` (WAL), same public methods as the P3 JSON store."""
 
 from __future__ import annotations
 
 import json
+import sqlite3
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.errors import NotFound
 from app.schemas.case import CaseInput
@@ -18,7 +19,16 @@ from app.schemas.report import Report
 _RISK_ORDER = {"DECLINE": 0, "ESCALATE": 1, "REQUEST_INFO": 2, "APPROVE_WITH_CONDITIONS": 3, "APPROVE": 4}
 
 
+def _risk_key(bundle: CaseBundle) -> tuple[int, int, str]:
+    decision = bundle.decision
+    return (_RISK_ORDER[decision.outcome], -decision.residual_risk, bundle.case_id)
+
+
 class CaseBundle(BaseModel):
+    """One persisted case. Unknown keys are kept so a P3 field this model does not declare survives."""
+
+    model_config = ConfigDict(extra="allow")
+
     case_id: str
     run_id: str
     created_at: datetime
@@ -36,64 +46,191 @@ class CaseBundle(BaseModel):
     limitations: list[str] = Field(default_factory=list)
 
 
+def _dump(model: BaseModel) -> str:
+    return json.dumps(model.model_dump(mode="json"))
+
+
 class Store:
     def __init__(self, root: Path | str = "var") -> None:
         self.root = Path(root)
+        self.root.mkdir(parents=True, exist_ok=True)
+        self._conn = sqlite3.connect(str(self.root / "arbiter.db"), check_same_thread=False)
+        self._conn.execute("PRAGMA journal_mode=WAL")
+        self._create()
+        self._import_json()
 
-    def _dir(self, name: str) -> Path:
-        path = self.root / name
-        path.mkdir(parents=True, exist_ok=True)
-        return path
+    def _create(self) -> None:
+        self._conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS cases (
+                case_id TEXT PRIMARY KEY,
+                run_id TEXT NOT NULL,
+                vendor_ref TEXT NOT NULL,
+                legal_name TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                status TEXT NOT NULL,
+                outcome TEXT NOT NULL,
+                tier TEXT NOT NULL,
+                residual_risk INTEGER NOT NULL,
+                decision_json TEXT NOT NULL,
+                report_json TEXT NOT NULL,
+                trace_path TEXT NOT NULL,
+                mode_json TEXT NOT NULL,
+                bundle_json TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS contracts (
+                contract_id TEXT PRIMARY KEY,
+                case_id TEXT NOT NULL,
+                parent_id TEXT,
+                state TEXT NOT NULL,
+                json TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS reviews (
+                review_id INTEGER PRIMARY KEY,
+                case_id TEXT NOT NULL,
+                json TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS human_decisions (
+                id INTEGER PRIMARY KEY,
+                case_id TEXT NOT NULL,
+                json TEXT NOT NULL
+            );
+            """
+        )
+        self._conn.commit()
 
-    @staticmethod
-    def _write(path: Path, model: BaseModel | dict[str, Any]) -> None:
-        data = model.model_dump(mode="json") if isinstance(model, BaseModel) else model
-        tmp = path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-        tmp.replace(path)
+    def _import_json(self) -> None:
+        if self._count("cases") == 0:
+            folder = self.root / "cases"
+            if folder.is_dir():
+                for path in sorted(folder.glob("*.json")):
+                    self.save(CaseBundle.model_validate_json(path.read_text(encoding="utf-8")))
+        if self._count("contracts") == 0:
+            folder = self.root / "contracts"
+            if folder.is_dir():
+                for path in sorted(folder.glob("*.json")):
+                    self.put_contract(ExecutionContract.model_validate_json(path.read_text(encoding="utf-8")))
+        if self._count("reviews") == 0:
+            folder = self.root / "reviews"
+            if folder.is_dir():
+                for path in sorted(folder.glob("*.json")):
+                    self.put_review(json.loads(path.read_text(encoding="utf-8")))
+
+    def _count(self, table: str) -> int:
+        row = self._conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()
+        return int(row[0])
 
     def save(self, bundle: CaseBundle) -> None:
-        self._write(self._dir("cases") / f"{bundle.case_id}.json", bundle)
+        data = bundle.model_dump(mode="json")
+        decision = bundle.decision
+        self._conn.execute(
+            """
+            INSERT INTO cases (
+                case_id, run_id, vendor_ref, legal_name, created_at, status, outcome, tier,
+                residual_risk, decision_json, report_json, trace_path, mode_json, bundle_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(case_id) DO UPDATE SET
+                run_id = excluded.run_id,
+                vendor_ref = excluded.vendor_ref,
+                legal_name = excluded.legal_name,
+                created_at = excluded.created_at,
+                status = excluded.status,
+                outcome = excluded.outcome,
+                tier = excluded.tier,
+                residual_risk = excluded.residual_risk,
+                decision_json = excluded.decision_json,
+                report_json = excluded.report_json,
+                trace_path = excluded.trace_path,
+                mode_json = excluded.mode_json,
+                bundle_json = excluded.bundle_json
+            """,
+            (
+                bundle.case_id,
+                bundle.run_id,
+                bundle.vendor_ref,
+                bundle.legal_name,
+                data["created_at"],
+                bundle.status,
+                decision.outcome,
+                decision.tier,
+                decision.residual_risk,
+                json.dumps(data["decision"]),
+                json.dumps(data["report"]),
+                bundle.log_file,
+                json.dumps(data["mode"]),
+                json.dumps(data),
+            ),
+        )
+        self._conn.commit()
 
     def get(self, case_id: str) -> CaseBundle:
-        path = self.root / "cases" / f"{case_id}.json"
-        if not path.is_file():
+        row = self._conn.execute("SELECT bundle_json FROM cases WHERE case_id = ?", (case_id,)).fetchone()
+        if row is None:
             raise NotFound(f"case {case_id} not found")
-        return CaseBundle.model_validate_json(path.read_text(encoding="utf-8"))
+        return CaseBundle.model_validate_json(row[0])
 
     def list(self, order: Literal["risk", "recent"] = "risk") -> list[CaseBundle]:
-        folder = self.root / "cases"
-        bundles = [
-            CaseBundle.model_validate_json(p.read_text(encoding="utf-8")) for p in folder.glob("*.json")
-        ]
+        rows = self._conn.execute("SELECT bundle_json FROM cases").fetchall()
+        bundles = [CaseBundle.model_validate_json(row[0]) for row in rows]
         if order == "recent":
-            return sorted(bundles, key=lambda b: b.created_at, reverse=True)
-        return sorted(
-            bundles,
-            key=lambda b: (_RISK_ORDER[b.decision.outcome], -b.decision.residual_risk, b.case_id),
-        )
+            return sorted(bundles, key=lambda bundle: bundle.created_at, reverse=True)
+        return sorted(bundles, key=_risk_key)
 
     def put_contract(self, contract: ExecutionContract) -> None:
-        self._write(self._dir("contracts") / f"{contract.contract_id}.json", contract)
+        self._conn.execute(
+            """
+            INSERT INTO contracts (contract_id, case_id, parent_id, state, json)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(contract_id) DO UPDATE SET
+                case_id = excluded.case_id,
+                parent_id = excluded.parent_id,
+                state = excluded.state,
+                json = excluded.json
+            """,
+            (
+                contract.contract_id,
+                contract.case_id,
+                contract.parent_id,
+                contract.state,
+                _dump(contract),
+            ),
+        )
+        self._conn.commit()
+
+    def get_contract(self, contract_id: str) -> ExecutionContract:
+        row = self._conn.execute(
+            "SELECT json FROM contracts WHERE contract_id = ?",
+            (contract_id,),
+        ).fetchone()
+        if row is None:
+            raise NotFound(f"contract {contract_id} not found")
+        return ExecutionContract.model_validate_json(row[0])
 
     def contracts_for(self, case_id: str) -> list[ExecutionContract]:
-        folder = self.root / "contracts"
-        found = [
-            ExecutionContract.model_validate_json(p.read_text(encoding="utf-8"))
-            for p in folder.glob("*.json")
-        ]
-        return sorted((c for c in found if c.case_id == case_id), key=lambda c: (c.issued_at, c.contract_id))
+        rows = self._conn.execute("SELECT json FROM contracts WHERE case_id = ?", (case_id,)).fetchall()
+        found = [ExecutionContract.model_validate_json(row[0]) for row in rows]
+        return sorted(found, key=lambda contract: (contract.issued_at, contract.contract_id))
 
     def put_review(self, review: BaseModel | dict[str, Any]) -> None:
         data = review.model_dump(mode="json") if isinstance(review, BaseModel) else dict(review)
-        folder = self._dir("reviews")
-        index = len(list(folder.glob(f"{data['case_id']}-*.json"))) + 1
-        self._write(folder / f"{data['case_id']}-{index:03d}.json", data)
+        self._conn.execute(
+            "INSERT INTO reviews (case_id, json) VALUES (?, ?)",
+            (str(data["case_id"]), json.dumps(data)),
+        )
+        self._conn.commit()
 
     def reviews_for(self, case_id: str) -> list[dict[str, Any]]:
-        folder = self.root / "reviews"
-        return [json.loads(p.read_text(encoding="utf-8")) for p in sorted(folder.glob(f"{case_id}-*.json"))]
+        rows = self._conn.execute(
+            "SELECT json FROM reviews WHERE case_id = ? ORDER BY review_id",
+            (case_id,),
+        ).fetchall()
+        return [json.loads(row[0]) for row in rows]
 
     def put_human_decision(self, record: DecisionRecord) -> None:
+        self._conn.execute(
+            "INSERT INTO human_decisions (case_id, json) VALUES (?, ?)",
+            (record.case_id, _dump(record)),
+        )
+        self._conn.commit()
         bundle = self.get(record.case_id)
         self.save(bundle.model_copy(update={"decision": record}))

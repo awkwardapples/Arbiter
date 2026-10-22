@@ -27,8 +27,14 @@ def _replay():
     return replay
 
 
-def test_p4_t10_replay_matches_six_examples(offline_env: Path) -> None:
+def test_p4_t10_replay_matches_six_examples(offline_env: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """P4-T10: replay match=true for all six e2e examples run offline."""
+    monkeypatch.setenv("ARBITER_SIGNING_KEY", "ab" * 32)
+    from app.actions.keys import reset_signing_key_cache_for_tests
+    from app.config import get_settings
+
+    get_settings.cache_clear()
+    reset_signing_key_cache_for_tests()
     replay = _replay()
     for name in EXAMPLE_FILES:
         response = run(load_example(name), options=RunOptions())

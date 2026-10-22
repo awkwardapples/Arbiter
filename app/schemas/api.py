@@ -134,3 +134,7 @@ class ApprovalRequest(BaseModel):
 class HealthResponse(BaseModel):
     status: Literal["ok"] = "ok"
     mode: dict[str, str]
+    data: dict[str, Any] | None = None
+    provider: dict[str, Any] | None = None
+    hmem_records: int | None = None
+    audit_chain_length: int = 0
