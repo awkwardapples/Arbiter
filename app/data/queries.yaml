@@ -1,2 +1,257 @@
-# Query registry (lane P1-A fills definitions).
-queries: {}
+queries:
+  Q_VENDOR_LIST:
+    description: Onboarding requests from procurement
+    sql: |
+      SELECT vendor_id, legal_name, category, criticality, onboarding_status
+      FROM {T.vendor}
+      WHERE onboarding_status IN ('requested', 'in_review')
+      ORDER BY vendor_id
+    params: []
+    columns: [vendor_id, legal_name, category, criticality, onboarding_status]
+    systems: [procurement]
+    control_ids: []
+
+  Q_VENDOR_PROFILE:
+    description: Vendor master record
+    sql: |
+      SELECT vendor_id, legal_name, trading_name, category, requested_service, business_owner,
+        annual_spend_gbp, criticality, data_categories, processing_countries, clm_supplier_ref,
+        onboarding_status, requested_at
+      FROM {T.vendor}
+      WHERE vendor_id = :vendor_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns:
+      - vendor_id
+      - legal_name
+      - trading_name
+      - category
+      - requested_service
+      - business_owner
+      - annual_spend_gbp
+      - criticality
+      - data_categories
+      - processing_countries
+      - clm_supplier_ref
+      - onboarding_status
+      - requested_at
+    systems: [procurement]
+    control_ids: []
+
+  Q_VENDOR_ALIASES:
+    description: Normalised aliases for a vendor
+    sql: |
+      SELECT alias_id, vendor_id, alias_lower
+      FROM {T.vendor_alias}
+      WHERE vendor_id = :vendor_id
+      ORDER BY alias_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [alias_id, vendor_id, alias_lower]
+    systems: [procurement]
+    control_ids: [C06, C11]
+
+  Q_VENDOR_CONTRACT:
+    description: CLM contract joined to procurement vendor
+    sql: |
+      SELECT v.vendor_id, c.contract_id, c.supplier_ref, c.status, c.dpa_signed, c.dpa_signed_date,
+        c.hosting_region_clause, c.transfer_mechanism, c.breach_notification_hours,
+        c.subprocessor_list_attached, c.renewal_date
+      FROM {T.vendor} v
+      INNER JOIN {T.contract} c ON v.clm_supplier_ref = c.supplier_ref
+      WHERE v.vendor_id = :vendor_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns:
+      - vendor_id
+      - contract_id
+      - supplier_ref
+      - status
+      - dpa_signed
+      - dpa_signed_date
+      - hosting_region_clause
+      - transfer_mechanism
+      - breach_notification_hours
+      - subprocessor_list_attached
+      - renewal_date
+    systems: [procurement, clm]
+    control_ids: [C07, C08, C09, C10]
+
+  Q_VENDOR_INCIDENTS:
+    description: ITSM incidents matched via vendor aliases
+    sql: |
+      SELECT i.incident_number, i.opened_at, i.vendor_name_raw, i.severity, i.category,
+        i.root_cause_tag, i.status, i.rca_completed, i.closed_at
+      FROM {T.incident} i
+      INNER JOIN {T.vendor_alias} a
+        ON lower(trim(i.vendor_name_raw)) = a.alias_lower
+      WHERE a.vendor_id = :vendor_id
+        AND i.opened_at >= :since
+      ORDER BY i.opened_at DESC
+    params:
+      - {name: vendor_id, type: vendor_id}
+      - {name: since, type: date}
+    columns:
+      - incident_number
+      - opened_at
+      - vendor_name_raw
+      - severity
+      - category
+      - root_cause_tag
+      - status
+      - rca_completed
+      - closed_at
+    systems: [itsm, procurement]
+    control_ids: [C06]
+
+  Q_WATCHLIST_SCREEN:
+    description: Watchlist entries exactly matching vendor aliases
+    sql: |
+      SELECT w.entry_id, w.entity_name, w.list_name, w.country, w.added_on, w.reason
+      FROM {T.watchlist_entry} w
+      INNER JOIN {T.vendor_alias} a
+        ON lower(trim(w.entity_name)) = a.alias_lower
+      WHERE a.vendor_id = :vendor_id
+      ORDER BY w.entry_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [entry_id, entity_name, list_name, country, added_on, reason]
+    systems: [grc_watchlist, procurement]
+    control_ids: [C11]
+
+  Q_SUBMISSION:
+    description: Latest trust portal submission header
+    sql: |
+      SELECT submission_id, vendor_id, submitted_at, patch_sla_critical_days, contact_role
+      FROM {T.submission}
+      WHERE vendor_id = :vendor_id
+      ORDER BY submitted_at DESC
+      LIMIT 1
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [submission_id, vendor_id, submitted_at, patch_sla_critical_days, contact_role]
+    systems: [trust_portal]
+    control_ids: [C12]
+
+  Q_VENDOR_COMPONENTS:
+    description: Declared software components
+    sql: |
+      SELECT component_id, vendor_id, vendor_project, product, version
+      FROM {T.vendor_component}
+      WHERE vendor_id = :vendor_id
+      ORDER BY component_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [component_id, vendor_id, vendor_project, product, version]
+    systems: [trust_portal]
+    control_ids: [C12]
+
+  Q_SUBMISSION_ANSWERS:
+    description: Questionnaire answers for vendor
+    sql: |
+      SELECT answer_id, submission_id, vendor_id, question_id, question, answer_text
+      FROM {T.submission_answer}
+      WHERE vendor_id = :vendor_id
+      ORDER BY question_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [answer_id, submission_id, vendor_id, question_id, question, answer_text]
+    systems: [trust_portal]
+    control_ids: []
+
+  Q_SUBMISSION_DOCUMENTS:
+    description: Assurance documents for vendor
+    sql: |
+      SELECT doc_id, submission_id, vendor_id, doc_type, title, issued_on, expires_on, text
+      FROM {T.submission_document}
+      WHERE vendor_id = :vendor_id
+      ORDER BY doc_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [doc_id, submission_id, vendor_id, doc_type, title, issued_on, expires_on, text]
+    systems: [trust_portal]
+    control_ids: [C05, C12]
+
+  Q_COMPONENT_KEV:
+    description: KEV matches for declared components
+    sql: |
+      SELECT DISTINCT c.component_id, c.vendor_id, k.cve_id, k.vendor_project, k.product,
+        k.vulnerability_name, k.date_added, k.due_date, k.ransomware_use
+      FROM {T.vendor_component} c
+      INNER JOIN {T.kev_vuln} k
+        ON lower(k.vendor_project) = lower(c.vendor_project)
+       AND lower(k.product) LIKE concat('%', lower(c.product), '%')
+      WHERE c.vendor_id = :vendor_id
+      ORDER BY k.cve_id
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns:
+      - component_id
+      - vendor_id
+      - cve_id
+      - vendor_project
+      - product
+      - vulnerability_name
+      - date_added
+      - due_date
+      - ransomware_use
+    systems: [trust_portal, cisa_kev]
+    control_ids: [C12]
+
+  Q_KEV_BY_PRODUCTS:
+    description: KEV lookup by product names (inline submissions)
+    sql: |
+      SELECT cve_id, vendor_project, product, vulnerability_name, date_added, due_date, ransomware_use
+      FROM {T.kev_vuln}
+      WHERE lower(product) IN :products
+      ORDER BY cve_id
+    params:
+      - {name: products, type: product_list}
+    columns: [cve_id, vendor_project, product, vulnerability_name, date_added, due_date, ransomware_use]
+    systems: [cisa_kev]
+    control_ids: [C12]
+
+  Q_WATCHLIST_ALL:
+    description: Entire synthetic watchlist
+    sql: |
+      SELECT entry_id, entity_name, list_name, country, added_on, reason
+      FROM {T.watchlist_entry}
+      ORDER BY entry_id
+    params: []
+    columns: [entry_id, entity_name, list_name, country, added_on, reason]
+    systems: [grc_watchlist]
+    control_ids: [C11]
+
+  Q_INCIDENTS_BY_NAME:
+    description: ITSM incidents for normalised vendor names
+    sql: |
+      SELECT incident_number, opened_at, vendor_name_raw, severity, category, root_cause_tag,
+        status, rca_completed, closed_at
+      FROM {T.incident}
+      WHERE lower(trim(vendor_name_raw)) IN :names
+        AND opened_at >= :since
+      ORDER BY opened_at DESC
+    params:
+      - {name: names, type: string_list}
+      - {name: since, type: date}
+    columns:
+      - incident_number
+      - opened_at
+      - vendor_name_raw
+      - severity
+      - category
+      - root_cause_tag
+      - status
+      - rca_completed
+      - closed_at
+    systems: [itsm]
+    control_ids: [C06]
+
+  Q_DQ_INVALID:
+    description: DQ-invalid primary keys for vendor-related tables
+    handler: dq_invalid
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns: [rule_id, table_name, record_key]
+    systems: [clm, trust_portal, itsm, procurement]
+    control_ids: [C05, C07, C08]

@@ -1,0 +1,85 @@
+# Ground truth for synthetic vendors (labels derive from this file only).
+assignments:
+  VND-0001: S01
+  VND-0002: S01
+  VND-0003: S01
+  VND-0004: S01
+  VND-0005: S01
+  VND-0006: S02
+  VND-0008: S02
+  VND-0009: S02
+  VND-0010: S03
+  VND-0013: S03
+  VND-0014: S04
+  VND-0016: S04
+  VND-0017: S04
+  VND-0018: S05
+  VND-0020: S05
+  VND-0021: S05
+  VND-0007: S06+S09
+  VND-0023: S06
+  VND-0024: S07
+  VND-0026: S07
+  VND-0025: S08
+  VND-0027: S08
+  VND-0029: S08
+  VND-0031: S09
+  VND-0019: S10
+  VND-0015: S11
+  VND-0032: S11
+  VND-0011: S12
+  VND-0012: S12
+  VND-0028: S13
+  VND-0030: S14
+  VND-0022: S04+S05
+
+named_vendors:
+  VND-0003: {legal_name: "Pellucid Forms Ltd", trading_name: "Pellucid Forms"}
+  VND-0007: {legal_name: "Quillfeather Payroll Cloud Ltd", trading_name: "Quillfeather Payroll"}
+  VND-0011: {legal_name: "Marrowgate Analytics Ltd", trading_name: "Marrowgate"}
+  VND-0012: {legal_name: "Tessellate HR Cloud Ltd", trading_name: "Tessellate HR"}
+  VND-0015: {legal_name: "Oakhaven Mail Relay Ltd", trading_name: "Oakhaven Mail"}
+  VND-0019: {legal_name: "Corvid Ledger Services Ltd", trading_name: "Corvid Ledger"}
+  VND-0022: {legal_name: "Fennimore Survey Tools Ltd", trading_name: "Fennimore Survey"}
+  VND-0026: {legal_name: "Halberd Identity Ltd", trading_name: "Halberd Identity"}
+  VND-0028: {legal_name: "Kestrel Docs Ltd", trading_name: "Kestrel Docs"}
+
+expected_outcomes:
+  S01: {outcome: APPROVE, reasons: [ALL_REQUIRED_CONTROLS_MET]}
+  S02: {outcome: APPROVE, reasons: [ALL_REQUIRED_CONTROLS_MET]}
+  S03: {outcome: APPROVE, reasons: [ALL_REQUIRED_CONTROLS_MET], contract_note: pending_approval}
+  S04: {outcome: REQUEST_INFO, reasons: [EVIDENCE_MISSING]}
+  S05: {outcome: REQUEST_INFO, reasons: [EVIDENCE_MISSING]}
+  S06: {outcome: ESCALATE, reasons: [CONTRADICTION]}
+  S07: {outcome: ESCALATE, reasons: [CONTRADICTION, CONTROL_FAILED]}
+  S08: {outcome: ESCALATE, reasons: [CONTROL_FAILED]}
+  S09: {outcome: ESCALATE, reasons: [CONTROL_FAILED]}
+  S10: {outcome: DECLINE, reasons: [HARD_GATE_DECLINE], contract_note: pending_approval}
+  S11: {outcome: ESCALATE, reasons: [UNTRUSTED_CONTENT_TAMPERING]}
+  S12: {outcome: ESCALATE, reasons: [CONTROL_FAILED]}
+  S13: {outcome: REQUEST_INFO, reasons: [EVIDENCE_MISSING]}
+  S14: {outcome: ESCALATE, reasons: [HARD_GATE_ESCALATE]}
+  S06+S09: {outcome: ESCALATE, reasons: [CONTRADICTION, CONTROL_FAILED]}
+  S04+S05: {outcome: REQUEST_INFO, reasons: [EVIDENCE_MISSING]}
+
+input_examples:
+  example_1.json: {vendor_id: VND-0003, outcome: APPROVE}
+  example_2.json: {vendor_id: VND-0007, outcome: ESCALATE}
+  example_3.json: {vendor_id: VND-0015, outcome: ESCALATE}
+  example_4.json: {vendor_id: VND-0022, outcome: REQUEST_INFO}
+  example_5.json: {vendor_id: VND-0019, outcome: DECLINE}
+  example_6.json: {inline: inline_clean_t3, outcome: APPROVE}
+
+inline_cases:
+  - id: inline_clean_t3
+    file: inline_clean_t3.json
+    outcome: APPROVE
+  - id: inline_injection
+    file: inline_injection.json
+    outcome: ESCALATE
+  - id: inline_missing
+    file: inline_missing.json
+    outcome: REQUEST_INFO
+  - id: inline_kev
+    file: inline_kev.json
+    outcome: ESCALATE

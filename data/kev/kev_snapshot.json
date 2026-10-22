@@ -1,0 +1,1338 @@
+{
+  "title": "CISA Catalog of Known Exploited Vulnerabilities",
+  "catalogVersion": "2026.10.21",
+  "dateReleased": "2026-10-21T14:04:39.8983Z",
+  "count": 84,
+  "vulnerabilities": [
+    {
+      "cveID": "CVE-2026-8452",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and NetScaler Gateway Improper Restriction of Operations within the Bounds of a Memory Buffer Vulnerability",
+      "dateAdded": "2026-08-26",
+      "shortDescription": "Citrix NetScaler ADC and NetScaler Gateway contain an improper restriction of operations within the bounds of a memory buffer vulnerability which could lead to denial of service. ",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-08-29",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.citrix.com/support-home/kbsearch/article?articleNumber=CTX696604 ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-8452",
+      "cwes": [
+        "CWE-119"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-68686",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Exposure of Sensitive Information to an Unauthorized Actor Vulnerability",
+      "dateAdded": "2026-07-27",
+      "shortDescription": "Fortinet FortiOS contains an exposure of sensitive information to an unauthorized actor vulnerability. This may allow a remote unauthenticated attacker to bypass the patch developed for the symbolic link persistency mechanism observed in some post-exploit cases, via crafted HTTP requests. An attacker would need first to have compromised the product via another vulnerability, at filesystem level.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-08-10",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://fortiguard.fortinet.com/psirt/FG-IR-25-934 ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2025-68686",
+      "cwes": [
+        "CWE-200"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-6973",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) Improper Input Validation Vulnerability",
+      "dateAdded": "2026-05-07",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) contains an improper input validation vulnerability that allows a remotely authenticated user with administrative access to achieve remote code execution.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2026-05-10",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://hub.ivanti.com/s/article/May-2026-Security-Advisory-Ivanti-Endpoint-Manager-Mobile-EPMM-Multiple-CVEs?language=en_US ; https://nvd.nist.gov/vuln/detail/CVE-2026-6973",
+      "cwes": [
+        "CWE-20"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-1340",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) Code Injection Vulnerability",
+      "dateAdded": "2026-04-08",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) contains a code injection vulnerability that could allow attackers to achieve unauthenticated remote code execution.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2026-04-11",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "Please adhere to Ivanti's guidelines to assess exposure and mitigate risks. Check for signs of potential compromise on all internet accessible Ivanti products affected by this vulnerability. Apply any final mitigations provided by the vendor as soon as possible. For more information please see: https://hub.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-Mobile-EPMM-CVE-2026-1281-CVE-2026-1340?language=en_US ; https://support.mobileiron.com/mi/vsp/AB1786671/ivanti-security-update-1761642-1.1.0S-5.noarch.rpm ; https://support.mobileiron.com/mi/vsp/AB1786671/ivanti-security-update-1761642-1.1.0L-5.noarch.rpm ; https://nvd.nist.gov/vuln/detail/CVE-2026-1340",
+      "cwes": [
+        "CWE-94"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-1281",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) Code Injection Vulnerability",
+      "dateAdded": "2026-01-29",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) contains a code injection vulnerability that could allow attackers to achieve unauthenticated remote code execution.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2026-02-01",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "Please adhere to Ivanti's guidelines to assess exposure and mitigate risks. Check for signs of potential compromise on all internet accessible Ivanti products affected by this vulnerability. Apply any final mitigations provided by the vendor as soon as possible. For more information please: see: https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-Mobile-EPMM-CVE-2026-1281-CVE-2026-1340 ; https://support.mobileiron.com/mi/vsp/AB1771634/ivanti-security-update-1761642-1.0.0S-5.noarch.rpm ; https://support.mobileiron.com/mi/vsp/AB1771634/ivanti-security-update-1761642-1.0.0L-5.noarch.rpm ; https://nvd.nist.gov/vuln/detail/CVE-2026-1281",
+      "cwes": [
+        "CWE-94"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-5777",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and Gateway Out-of-Bounds Read Vulnerability",
+      "dateAdded": "2025-07-10",
+      "shortDescription": "Citrix NetScaler ADC and Gateway contain an out-of-bounds read vulnerability due to insufficient input validation. This vulnerability can lead to memory overread when the NetScaler is configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) OR AAA virtual server.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-07-11",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://support.citrix.com/support-home/kbsearch/article?articleNumber=CTX693420 ; https://nvd.nist.gov/vuln/detail/CVE-2025-5777",
+      "cwes": [
+        "CWE-125"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-6543",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and Gateway Buffer Overflow Vulnerability",
+      "dateAdded": "2025-06-30",
+      "shortDescription": "Citrix NetScaler ADC and Gateway contain a buffer overflow vulnerability leading to unintended control flow and Denial of Service. NetScaler must be configured as Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) OR AAA virtual server.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-07-21",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.citrix.com/support-home/kbsearch/article?articleNumber=CTX694788 ; https://www.netscaler.com/blog/news/netscaler-critical-security-updates-for-cve-2025-6543-and-cve-2025-5777/ ;   https://nvd.nist.gov/vuln/detail/CVE-2025-6543",
+      "cwes": [
+        "CWE-119"
+      ]
+    },
+    {
+      "cveID": "CVE-2019-6693",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Use of Hard-Coded Credentials Vulnerability",
+      "dateAdded": "2025-06-25",
+      "shortDescription": "Fortinet FortiOS contains a use of hard-coded credentials vulnerability that could allow an attacker to cipher sensitive data in FortiOS configuration backup file via knowledge of the hard-coded key. ",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-07-16",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://fortiguard.com/advisory/FG-IR-19-007 ; https://nvd.nist.gov/vuln/detail/CVE-2019-6693",
+      "cwes": [
+        "CWE-798"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-4428",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) Code Injection Vulnerability",
+      "dateAdded": "2025-05-19",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) contains a code injection vulnerability in the API component that allows an authenticated attacker to remotely execute arbitrary code via crafted API requests. This vulnerability results from an insecure implementation of the Hibernate Validator open-source library, as represented by CVE-2025-35036.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-06-09",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-Mobile-EPMM ; https://nvd.nist.gov/vuln/detail/CVE-2025-4428",
+      "cwes": [
+        "CWE-94"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-4427",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) Authentication Bypass Vulnerability",
+      "dateAdded": "2025-05-19",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) contains an authentication bypass vulnerability in the API component that allows an attacker to access protected resources without proper credentials via crafted API requests. This vulnerability results from an insecure implementation of the Spring Framework open-source library.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-06-09",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-Mobile-EPMM ; https://nvd.nist.gov/vuln/detail/CVE-2025-4427",
+      "cwes": [
+        "CWE-288"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-24472",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS and FortiProxy",
+      "vulnerabilityName": "Fortinet FortiOS and FortiProxy Authentication Bypass Vulnerability",
+      "dateAdded": "2025-03-18",
+      "shortDescription": " Fortinet FortiOS and FortiProxy contain an authentication bypass vulnerability that allows a remote attacker to gain super-admin privileges via crafted CSF proxy requests.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-04-08",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://fortiguard.fortinet.com/psirt/FG-IR-24-535 ; https://nvd.nist.gov/vuln/detail/CVE-2025-24472",
+      "cwes": [
+        "CWE-288"
+      ]
+    },
+    {
+      "cveID": "CVE-2024-55591",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS and FortiProxy",
+      "vulnerabilityName": "Fortinet FortiOS and FortiProxy Authentication Bypass Vulnerability",
+      "dateAdded": "2025-01-14",
+      "shortDescription": "Fortinet FortiOS and FortiProxy contain an authentication bypass vulnerability that may allow an unauthenticated, remote attacker to gain super-admin privileges via crafted requests to Node.js websocket module.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-01-21",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://fortiguard.fortinet.com/psirt/FG-IR-24-535 ; https://nvd.nist.gov/vuln/detail/CVE-2024-55591",
+      "cwes": [
+        "CWE-288"
+      ]
+    },
+    {
+      "cveID": "CVE-2024-21762",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Out-of-Bound Write Vulnerability",
+      "dateAdded": "2024-02-09",
+      "shortDescription": "Fortinet FortiOS contains an out-of-bound write vulnerability that allows a remote unauthenticated attacker to execute code or commands via specially crafted HTTP requests.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-02-16",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://fortiguard.fortinet.com/psirt/FG-IR-24-015 ;   https://nvd.nist.gov/vuln/detail/CVE-2024-21762",
+      "cwes": [
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-22527",
+      "vendorProject": "Atlassian",
+      "product": "Confluence Data Center and Server",
+      "vulnerabilityName": "Atlassian Confluence Data Center and Server Template Injection Vulnerability",
+      "dateAdded": "2024-01-24",
+      "shortDescription": "Atlassian Confluence Data Center and Server contain an unauthenticated OGNL template injection vulnerability that can lead to remote code execution.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-02-14",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://confluence.atlassian.com/security/cve-2023-22527-rce-remote-code-execution-vulnerability-in-confluence-data-center-and-confluence-server-1333990257.html;  https://nvd.nist.gov/vuln/detail/CVE-2023-22527",
+      "cwes": [
+        "CWE-74"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-35082",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM) and MobileIron Core",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) and MobileIron Core Authentication Bypass Vulnerability",
+      "dateAdded": "2024-01-18",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) and MobileIron Core contain an authentication bypass vulnerability that allows unauthorized users to access restricted functionality or resources of the application.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-02-08",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://forums.ivanti.com/s/article/CVE-2023-35082-Remote-Unauthenticated-API-Access-Vulnerability-in-MobileIron-Core-11-2-and-older;  https://nvd.nist.gov/vuln/detail/CVE-2023-35082",
+      "cwes": [
+        "CWE-287"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-6549",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and NetScaler Gateway Buffer Overflow Vulnerability",
+      "dateAdded": "2024-01-17",
+      "shortDescription": "Citrix NetScaler ADC and NetScaler Gateway contain a buffer overflow vulnerability that allows for a denial-of-service when configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-02-07",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.citrix.com/article/CTX584986/netscaler-adc-and-netscaler-gateway-security-bulletin-for-cve20236548-and-cve20236549;   https://nvd.nist.gov/vuln/detail/CVE-2023-6549",
+      "cwes": [
+        "CWE-119"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-6548",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and NetScaler Gateway Code Injection Vulnerability",
+      "dateAdded": "2024-01-17",
+      "shortDescription": "Citrix NetScaler ADC and NetScaler Gateway contain a code injection vulnerability that allows for authenticated remote code execution on the management interface with access to NSIP, CLIP, or SNIP.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-01-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.citrix.com/article/CTX584986/netscaler-adc-and-netscaler-gateway-security-bulletin-for-cve20236548-and-cve20236549;   https://nvd.nist.gov/vuln/detail/CVE-2023-6548",
+      "cwes": [
+        "CWE-94"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-22518",
+      "vendorProject": "Atlassian",
+      "product": "Confluence Data Center and Server",
+      "vulnerabilityName": "Atlassian Confluence Data Center and Server Improper Authorization Vulnerability",
+      "dateAdded": "2023-11-07",
+      "shortDescription": "Atlassian Confluence Data Center and Server contain an improper authorization vulnerability that can result in significant data loss when exploited by an unauthenticated attacker. There is no impact on confidentiality since the attacker cannot exfiltrate any data.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-11-28",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://confluence.atlassian.com/security/cve-2023-22518-improper-authorization-vulnerability-in-confluence-data-center-and-server-1311473907.html;  https://nvd.nist.gov/vuln/detail/CVE-2023-22518",
+      "cwes": [
+        "CWE-863"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-4966",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and NetScaler Gateway Buffer Overflow Vulnerability",
+      "dateAdded": "2023-10-18",
+      "shortDescription": "Citrix NetScaler ADC and NetScaler Gateway contain a buffer overflow vulnerability that allows for sensitive information disclosure when configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server.",
+      "requiredAction": "Apply mitigations and kill all active and persistent sessions per vendor instructions [https://www.netscaler.com/blog/news/cve-2023-4966-critical-security-update-now-available-for-netscaler-adc-and-netscaler-gateway/] OR discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-11-08",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://www.netscaler.com/blog/news/cve-2023-4966-critical-security-update-now-available-for-netscaler-adc-and-netscaler-gateway/, https://support.citrix.com/article/CTX579459/netscaler-adc-and-netscaler-gateway-security-bulletin-for-cve20234966-and-cve20234967 ;  https://nvd.nist.gov/vuln/detail/CVE-2023-4966",
+      "cwes": [
+        "CWE-119"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-22515",
+      "vendorProject": "Atlassian",
+      "product": "Confluence Data Center and Server",
+      "vulnerabilityName": "Atlassian Confluence Data Center and Server Broken Access Control Vulnerability",
+      "dateAdded": "2023-10-05",
+      "shortDescription": "Atlassian Confluence Data Center and Server contains a broken access control vulnerability that allows an attacker to create unauthorized Confluence administrator accounts and access Confluence.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable. Check all affected Confluence instances for evidence of compromise per vendor instructions and report any positive findings to CISA.",
+      "dueDate": "2023-10-13",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://confluence.atlassian.com/security/cve-2023-22515-privilege-escalation-vulnerability-in-confluence-data-center-and-server-1295682276.html;  https://nvd.nist.gov/vuln/detail/CVE-2023-22515",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2023-35081",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile (EPMM) Path Traversal Vulnerability",
+      "dateAdded": "2023-07-31",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM) contains a path traversal vulnerability that enables an authenticated administrator to perform malicious file writes to the EPMM server. This vulnerability can be used in conjunction with CVE-2023-35078 to bypass authentication and ACLs restrictions (if applicable).",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-08-21",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://forums.ivanti.com/s/article/CVE-2023-35081-Arbitrary-File-Write?language=en_US;  https://nvd.nist.gov/vuln/detail/CVE-2023-35081",
+      "cwes": [
+        "CWE-22"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-35078",
+      "vendorProject": "Ivanti",
+      "product": "Endpoint Manager Mobile (EPMM)",
+      "vulnerabilityName": "Ivanti Endpoint Manager Mobile Authentication Bypass Vulnerability",
+      "dateAdded": "2023-07-25",
+      "shortDescription": "Ivanti Endpoint Manager Mobile (EPMM, previously branded MobileIron Core) contains an authentication bypass vulnerability that allows unauthenticated access to specific API paths. An attacker with access to these API paths can access personally identifiable information (PII) such as names, phone numbers, and other mobile device details for users on a vulnerable system. An attacker can also make other configuration changes including installing software and modifying security profiles on registered devices.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-08-15",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://forums.ivanti.com/s/article/CVE-2023-35078-Remote-unauthenticated-API-access-vulnerability?language=en_US;  https://nvd.nist.gov/vuln/detail/CVE-2023-35078",
+      "cwes": [
+        "CWE-287"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-3519",
+      "vendorProject": "Citrix",
+      "product": "NetScaler ADC and NetScaler Gateway",
+      "vulnerabilityName": "Citrix NetScaler ADC and NetScaler Gateway Code Injection Vulnerability",
+      "dateAdded": "2023-07-19",
+      "shortDescription": "Citrix NetScaler ADC and NetScaler Gateway contains a code injection vulnerability that allows for unauthenticated remote code execution.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-08-09",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://support.citrix.com/article/CTX561482/citrix-adc-and-citrix-gateway-security-bulletin-for-cve20233519-cve20233466-cve20233467;  https://nvd.nist.gov/vuln/detail/CVE-2023-3519",
+      "cwes": [
+        "CWE-94"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-27997",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS and FortiProxy SSL-VPN",
+      "vulnerabilityName": "Fortinet FortiOS and FortiProxy SSL-VPN Heap-Based Buffer Overflow Vulnerability",
+      "dateAdded": "2023-06-13",
+      "shortDescription": "Fortinet FortiOS and FortiProxy SSL-VPN contain a heap-based buffer overflow vulnerability which can allow an unauthenticated, remote attacker to execute code or commands via specifically crafted requests.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-07-04",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://www.fortiguard.com/psirt/FG-IR-23-097;  https://nvd.nist.gov/vuln/detail/CVE-2023-27997",
+      "cwes": [
+        "CWE-122"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-34362",
+      "vendorProject": "Progress",
+      "product": "MOVEit Transfer",
+      "vulnerabilityName": "Progress MOVEit Transfer SQL Injection Vulnerability",
+      "dateAdded": "2023-06-02",
+      "shortDescription": "Progress MOVEit Transfer contains a SQL injection vulnerability that could allow an unauthenticated attacker to gain unauthorized access to MOVEit Transfer's database. Depending on the database engine being used (MySQL, Microsoft SQL Server, or Azure SQL), an attacker may be able to infer information about the structure and contents of the database in addition to executing SQL statements that alter or delete database elements.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-06-23",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "This CVE has a CISA AA located here: https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-158a. Please see the AA for associated IOCs. Additional information is available at: https://community.progress.com/s/article/MOVEit-Transfer-Critical-Vulnerability-31May2023.;  https://nvd.nist.gov/vuln/detail/CVE-2023-34362",
+      "cwes": [
+        "CWE-89"
+      ]
+    },
+    {
+      "cveID": "CVE-2022-41328",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Path Traversal Vulnerability",
+      "dateAdded": "2023-03-14",
+      "shortDescription": "Fortinet FortiOS contains a path traversal vulnerability that may allow a local privileged attacker to read and write files via crafted CLI commands.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-04-04",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://www.fortiguard.com/psirt/FG-IR-22-369;  https://nvd.nist.gov/vuln/detail/CVE-2022-41328",
+      "cwes": [
+        "CWE-22"
+      ]
+    },
+    {
+      "cveID": "CVE-2022-42475",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Heap-Based Buffer Overflow Vulnerability",
+      "dateAdded": "2022-12-13",
+      "shortDescription": "Multiple versions of Fortinet FortiOS SSL-VPN contain a heap-based buffer overflow vulnerability which can allow an unauthenticated, remote attacker to execute arbitrary code or commands via specifically crafted requests.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-01-03",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://www.fortiguard.com/psirt/FG-IR-22-398;  https://nvd.nist.gov/vuln/detail/CVE-2022-42475",
+      "cwes": [
+        "CWE-197"
+      ]
+    },
+    {
+      "cveID": "CVE-2018-13374",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS and FortiADC",
+      "vulnerabilityName": "Fortinet FortiOS and FortiADC Improper Access Control Vulnerability",
+      "dateAdded": "2022-09-08",
+      "shortDescription": "Fortinet FortiOS and FortiADC contain an improper access control vulnerability that allows attackers to obtain the LDAP server login credentials configured in FortiGate by pointing a LDAP server connectivity test request to a rogue LDAP server.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-09-29",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://www.fortiguard.com/psirt/FG-IR-18-157; https://nvd.nist.gov/vuln/detail/CVE-2018-13374",
+      "cwes": [
+        "CWE-732"
+      ]
+    },
+    {
+      "cveID": "CVE-2018-13382",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS and FortiProxy",
+      "vulnerabilityName": "Fortinet FortiOS and FortiProxy Improper Authorization",
+      "dateAdded": "2022-01-10",
+      "shortDescription": "An Improper Authorization vulnerability in Fortinet FortiOS and FortiProxy under SSL VPN web portal allows an unauthenticated attacker to modify the password.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-07-10",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2018-13382",
+      "cwes": [
+        "CWE-285"
+      ]
+    },
+    {
+      "cveID": "CVE-2018-13383",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS and FortiProxy",
+      "vulnerabilityName": "Fortinet FortiOS and FortiProxy Out-of-bounds Write",
+      "dateAdded": "2022-01-10",
+      "shortDescription": "A heap buffer overflow in Fortinet FortiOS and FortiProxy may cause the SSL VPN web service termination for logged in users.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-07-10",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2018-13383",
+      "cwes": [
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2021-44168",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Arbitrary File Download",
+      "dateAdded": "2021-12-10",
+      "shortDescription": "Fortinet FortiOS \"execute restore src-vis\" downloads code without integrity checking, allowing an attacker to arbitrarily download files.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2021-12-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2021-44168",
+      "cwes": [
+        "CWE-494"
+      ]
+    },
+    {
+      "cveID": "CVE-2019-5591",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS Default Configuration Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Fortinet FortiOS contains a default configuration vulnerability that may allow an unauthenticated attacker on the same subnet to intercept sensitive information by impersonating the Lightweight Directory Access Protocol (LDAP) server.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2019-5591",
+      "cwes": [
+        "CWE-306"
+      ]
+    },
+    {
+      "cveID": "CVE-2020-12812",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS SSL VPN Improper Authentication Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Fortinet FortiOS SSL VPN contains an improper authentication vulnerability that may allow a user to login successfully without being prompted for the second factor of authentication (FortiToken) if they change the case in their username.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2020-12812",
+      "cwes": [
+        "CWE-178",
+        "CWE-287"
+      ]
+    },
+    {
+      "cveID": "CVE-2018-13379",
+      "vendorProject": "Fortinet",
+      "product": "FortiOS",
+      "vulnerabilityName": "Fortinet FortiOS SSL VPN Path Traversal Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Fortinet FortiOS SSL VPN web portal contains a path traversal vulnerability that may allow an unauthenticated attacker to download FortiOS system files through specially crafted HTTP resource requests.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2018-13379",
+      "cwes": [
+        "CWE-22"
+      ]
+    },
+    {
+      "cveID": "CVE-2018-0125",
+      "vendorProject": "Cisco",
+      "product": "VPN Routers",
+      "vulnerabilityName": "Cisco VPN Routers Remote Code Execution Vulnerability",
+      "dateAdded": "2022-03-25",
+      "shortDescription": "A vulnerability in the web interface of the Cisco VPN Routers could allow an unauthenticated, remote attacker to execute arbitrary code as root and gain full control of an affected system.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-04-15",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2018-0125",
+      "cwes": [
+        "CWE-20"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-0770",
+      "vendorProject": "Langflow",
+      "product": "Langflow",
+      "vulnerabilityName": "Langflow Inclusion of Functionality from Untrusted Control Sphere Vulnerability",
+      "dateAdded": "2026-07-21",
+      "shortDescription": "Langflow contains an inclusion of functionality from untrusted control sphere vulnerability that allows remote attackers to execute arbitrary code on affected installations. ",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-07-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "Yes",
+      "notes": "https://github.com/langflow-ai/langflow/releases/tag/v1.9.0 ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-0770 ",
+      "cwes": [
+        "CWE-829"
+      ]
+    },
+    {
+      "cveID": "CVE-2021-40539",
+      "vendorProject": "Zoho",
+      "product": "ManageEngine",
+      "vulnerabilityName": "Zoho ManageEngine ADSelfService Plus Authentication Bypass Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Zoho ManageEngine ADSelfService Plus contains an authentication bypass vulnerability affecting the REST API URLs which allow for remote code execution.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2021-11-17",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
+      "cwes": [
+        "CWE-55"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-63030",
+      "vendorProject": "WordPress",
+      "product": "Core",
+      "vulnerabilityName": "WordPress Core Interpretation Conflict Vulnerability",
+      "dateAdded": "2026-07-21",
+      "shortDescription": "WordPress Core contains an interpretation conflict vulnerability that could allow an attacker to perform SQL Injection and achieve Remote Code Execution. This vulnerability can be chained with CVE-2026-60137.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-07-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "Yes",
+      "notes": "https://wordpress.org/news/2026/07/wordpress-7-0-2-release/ ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-63030",
+      "cwes": [
+        "CWE-436"
+      ]
+    },
+    {
+      "cveID": "CVE-2021-30883",
+      "vendorProject": "Apple",
+      "product": "Multiple Products",
+      "vulnerabilityName": "Apple Multiple Products Memory Corruption Vulnerability",
+      "dateAdded": "2022-05-23",
+      "shortDescription": "Apple iOS, macOS, watchOS, and tvOS contain a memory corruption vulnerability that could allow for remote code execution.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-06-13",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2021-30883",
+      "cwes": [
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-24984",
+      "vendorProject": "Microsoft",
+      "product": "Windows",
+      "vulnerabilityName": "Microsoft Windows NTFS Information Disclosure Vulnerability",
+      "dateAdded": "2025-03-11",
+      "shortDescription": "Microsoft Windows New Technology File System (NTFS) contains an insertion of sensitive Information into log file vulnerability that allows an unauthorized attacker to disclose information with a physical attack. An attacker who successfully exploited this vulnerability could potentially read portions of heap memory.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-04-01",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2025-24984 ; https://nvd.nist.gov/vuln/detail/CVE-2025-24984",
+      "cwes": [
+        "CWE-532"
+      ]
+    },
+    {
+      "cveID": "CVE-2013-2551",
+      "vendorProject": "Microsoft",
+      "product": "Internet Explorer",
+      "vulnerabilityName": "Microsoft Internet Explorer Use-After-Free Vulnerability",
+      "dateAdded": "2022-03-28",
+      "shortDescription": "Use-after-free vulnerability in Microsoft Internet Explorer allows remote attackers to execute remote code via a crafted web site that triggers access to a deleted object.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-04-18",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2013-2551",
+      "cwes": [
+        "CWE-416"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-32975",
+      "vendorProject": "Quest",
+      "product": "KACE Systems Management Appliance (SMA)",
+      "vulnerabilityName": "Quest KACE Systems Management Appliance (SMA) Improper Authentication Vulnerability",
+      "dateAdded": "2026-04-20",
+      "shortDescription": "Quest KACE Systems Management Appliance (SMA) contains an improper authentication vulnerability that could allow attackers to impersonate legitimate users without valid credentials.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2026-05-04",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.quest.com/kb/4379499/quest-response-to-kace-sma-vulnerabilities-cve-2025-32975-cve-2025-32976-cve-2025-32977-cve-2025-32978 ; https://nvd.nist.gov/vuln/detail/CVE-2025-32975",
+      "cwes": [
+        "CWE-287"
+      ]
+    },
+    {
+      "cveID": "CVE-2020-8655",
+      "vendorProject": "EyesOfNetwork",
+      "product": "EyesOfNetwork",
+      "vulnerabilityName": "EyesOfNetwork Improper Privilege Management Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "EyesOfNetwork contains an improper privilege management vulnerability that may allow a user to run commands as root via a crafted Nmap Scripting Engine (NSE) script to nmap7.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2020-8655",
+      "cwes": [
+        "CWE-269"
+      ]
+    },
+    {
+      "cveID": "CVE-2022-0609",
+      "vendorProject": "Google",
+      "product": "Chromium Animation",
+      "vulnerabilityName": "Google Chromium Animation Use-After-Free Vulnerability",
+      "dateAdded": "2022-02-15",
+      "shortDescription": "Google Chromium Animation contains a use-after-free vulnerability that allows a remote attacker to potentially exploit heap corruption via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-03-01",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2022-0609",
+      "cwes": [
+        "CWE-416"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-53690",
+      "vendorProject": "Sitecore",
+      "product": "Multiple Products",
+      "vulnerabilityName": "Sitecore Multiple Products Deserialization of Untrusted Data Vulnerability",
+      "dateAdded": "2025-09-04",
+      "shortDescription": "Sitecore Experience Manager (XM), Experience Platform (XP), Experience Commerce (XC), and Managed Cloud contain a deserialization of untrusted data vulnerability involving the use of default machine keys. This flaw allows attackers to exploit exposed ASP.NET machine keys to achieve remote code execution. ",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-09-25",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.sitecore.com/kb?id=kb_article_view&sysparm_article=KB1003865 ; https://nvd.nist.gov/vuln/detail/CVE-2025-53690",
+      "cwes": [
+        "CWE-502"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-38831",
+      "vendorProject": "RARLAB",
+      "product": "WinRAR",
+      "vulnerabilityName": "RARLAB WinRAR Code Execution Vulnerability",
+      "dateAdded": "2023-08-24",
+      "shortDescription": "RARLAB WinRAR contains an unspecified vulnerability that allows an attacker to execute code when a user attempts to view a benign file within a ZIP archive.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-09-14",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "http://www.win-rar.com/singlenewsview.html?&L=0&tx_ttnews%5Btt_news%5D=232&cHash=c5bf79590657e32554c6683296a8e8aa;  https://nvd.nist.gov/vuln/detail/CVE-2023-38831",
+      "cwes": [
+        "CWE-351"
+      ]
+    },
+    {
+      "cveID": "CVE-2022-47966",
+      "vendorProject": "Zoho",
+      "product": "ManageEngine",
+      "vulnerabilityName": "Zoho ManageEngine Multiple Products Remote Code Execution Vulnerability",
+      "dateAdded": "2023-01-23",
+      "shortDescription": "Multiple Zoho ManageEngine products contain an unauthenticated remote code execution vulnerability due to the usage of an outdated third-party dependency, Apache Santuario.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-02-13",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://www.manageengine.com/security/advisory/CVE/cve-2022-47966.html;  https://nvd.nist.gov/vuln/detail/CVE-2022-47966",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2026-72529",
+      "vendorProject": "TrueConf",
+      "product": "Server",
+      "vulnerabilityName": "TrueConf Server Missing Authentication for Critical Function Vulnerability",
+      "dateAdded": "2026-08-20",
+      "shortDescription": "TrueConf Server contains a missing authentication for critical function vulnerability which could allow a remote unauthorized attacker with network access via port 4307/TCP to execute an arbitrary script.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-08-23",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "Yes",
+      "notes": "https://trueconf.com/blog/news/security-fixes-updates-and-advisories ; https://ics-cert.kaspersky.com/advisories/2026/08/11/trueconf-server-missing-authentication-for-critical-function/ ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-72529",
+      "cwes": [
+        "CWE-306"
+      ]
+    },
+    {
+      "cveID": "CVE-2014-0196",
+      "vendorProject": "Linux",
+      "product": "Kernel",
+      "vulnerabilityName": "Linux Kernel Race Condition Vulnerability",
+      "dateAdded": "2023-05-12",
+      "shortDescription": "Linux Kernel contains a race condition vulnerability within the n_tty_write function that allows local users to cause a denial-of-service (DoS) or gain privileges via read and write operations with long strings.",
+      "requiredAction": "The impacted product is end-of-life and should be disconnected if still in use.",
+      "dueDate": "2023-06-02",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://lkml.iu.edu/hypermail/linux/kernel/1609.1/02103.html; https://nvd.nist.gov/vuln/detail/CVE-2014-0196",
+      "cwes": [
+        "CWE-362"
+      ]
+    },
+    {
+      "cveID": "CVE-2015-5317",
+      "vendorProject": "Jenkins",
+      "product": "Jenkins User Interface (UI)",
+      "vulnerabilityName": "Jenkins User Interface (UI) Information Disclosure Vulnerability",
+      "dateAdded": "2023-05-12",
+      "shortDescription": "Jenkins User Interface (UI) contains an information disclosure vulnerability that allows users to see the names of jobs and builds otherwise inaccessible to them on the \"Fingerprints\" pages.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-06-02",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://www.jenkins.io/security/advisory/2015-11-11/; https://nvd.nist.gov/vuln/detail/CVE-2015-5317",
+      "cwes": [
+        "CWE-200"
+      ]
+    },
+    {
+      "cveID": "CVE-2006-1547",
+      "vendorProject": "Apache",
+      "product": "Struts 1",
+      "vulnerabilityName": "Apache Struts 1 ActionForm Denial-of-Service Vulnerability",
+      "dateAdded": "2022-01-21",
+      "shortDescription": "ActionForm in Apache Struts versions before 1.2.9 with BeanUtils 1.7 contains a vulnerability that allows for denial-of-service (DoS).",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-07-21",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2006-1547",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2023-32434",
+      "vendorProject": "Apple",
+      "product": "Multiple Products",
+      "vulnerabilityName": "Apple Multiple Products Integer Overflow Vulnerability",
+      "dateAdded": "2023-06-23",
+      "shortDescription": "Apple iOS. iPadOS, macOS, and watchOS contain an integer overflow vulnerability that could allow an application to execute code with kernel privileges.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-07-14",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.apple.com/en-us/HT213808, https://support.apple.com/en-us/HT213812, https://support.apple.com/en-us/HT213809, https://support.apple.com/en-us/HT213810, https://support.apple.com/en-us/HT213813, https://support.apple.com/en-us/HT213811, https://support.apple.com/en-us/HT213814;  https://nvd.nist.gov/vuln/detail/CVE-2023-32434",
+      "cwes": [
+        "CWE-190"
+      ]
+    },
+    {
+      "cveID": "CVE-2009-1123",
+      "vendorProject": "Microsoft",
+      "product": "Windows",
+      "vulnerabilityName": "Microsoft Windows Improper Input Validation Vulnerability",
+      "dateAdded": "2022-03-03",
+      "shortDescription": "The kernel in Microsoft Windows does not properly validate changes to unspecified kernel objects, which allows local users to gain privileges via a crafted application.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-03-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2009-1123",
+      "cwes": [
+        "CWE-20"
+      ]
+    },
+    {
+      "cveID": "CVE-2017-17562",
+      "vendorProject": "Embedthis",
+      "product": "GoAhead",
+      "vulnerabilityName": "Embedthis GoAhead Remote Code Execution Vulnerability",
+      "dateAdded": "2021-12-10",
+      "shortDescription": "Embedthis GoAhead before 3.6.5 allows remote code execution if CGI is enabled and a CGI program is dynamically linked.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-06-10",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2017-17562",
+      "cwes": [
+        "CWE-20"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-8875",
+      "vendorProject": "N-able",
+      "product": "N-Central",
+      "vulnerabilityName": "N-able N-Central Insecure Deserialization Vulnerability",
+      "dateAdded": "2025-08-13",
+      "shortDescription": "N-able N-Central contains an insecure deserialization vulnerability that could lead to command execution.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-08-20",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://status.n-able.com/2025/08/13/announcing-the-ga-of-n-central-2025-3-1/ ; https://nvd.nist.gov/vuln/detail/CVE-2025-8875",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2023-32409",
+      "vendorProject": "Apple",
+      "product": "Multiple Products",
+      "vulnerabilityName": "Apple Multiple Products WebKit Sandbox Escape Vulnerability",
+      "dateAdded": "2023-05-22",
+      "shortDescription": "Apple iOS, iPadOS, macOS, tvOS, watchOS, and Safari WebKit contain an unspecified vulnerability that can allow a remote attacker to break out of the Web Content sandbox. This vulnerability could impact HTML parsers that use WebKit, including but not limited to Apple Safari and non-Apple products which rely on WebKit for HTML processing.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2023-06-12",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.apple.com/HT213757, https://support.apple.com/HT213758, https://support.apple.com/HT213761, https://support.apple.com/HT213762, https://support.apple.com/HT213764, https://support.apple.com/HT213765; https://nvd.nist.gov/vuln/detail/CVE-2023-32409",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2019-2616",
+      "vendorProject": "Oracle",
+      "product": "BI Publisher (Formerly XML Publisher)",
+      "vulnerabilityName": "Oracle BI Publisher Unauthorized Access Vulnerability",
+      "dateAdded": "2022-03-25",
+      "shortDescription": "Oracle BI Publisher, formerly XML Publisher, contains an unspecified vulnerability that allows for various unauthorized actions. Open-source reporting attributes this vulnerability to allowing for authentication bypass.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-04-15",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2019-2616",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2016-0162",
+      "vendorProject": "Microsoft",
+      "product": "Internet Explorer",
+      "vulnerabilityName": "Microsoft Internet Explorer Information Disclosure Vulnerability",
+      "dateAdded": "2022-05-24",
+      "shortDescription": "An information disclosure vulnerability exists when Internet Explorer does not properly handle JavaScript. The vulnerability could allow an attacker to detect specific files on the user's computer.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-06-14",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2016-0162",
+      "cwes": [
+        "CWE-200"
+      ]
+    },
+    {
+      "cveID": "CVE-2021-20123",
+      "vendorProject": "DrayTek",
+      "product": "VigorConnect",
+      "vulnerabilityName": "Draytek VigorConnect Path Traversal Vulnerability ",
+      "dateAdded": "2024-09-03",
+      "shortDescription": "Draytek VigorConnect contains a path traversal vulnerability in the DownloadFileServlet endpoint. An unauthenticated attacker could leverage this vulnerability to download arbitrary files from the underlying operating system with root privileges. ",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-09-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://www.draytek.com/about/security-advisory/vigorconnect-software-security-vulnerability-(cve-2021-20123-cve-2021-20129); https://nvd.nist.gov/vuln/detail/CVE-2021-20123",
+      "cwes": [
+        "CWE-22"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-72898",
+      "vendorProject": "Metabase",
+      "product": "Metabase",
+      "vulnerabilityName": "Metabase SQL Injection Vulnerability",
+      "dateAdded": "2026-08-11",
+      "shortDescription": "Metabase contains a SQL Injection vulnerability that allows an unauthenticated remote attacker to inject arbitrary SQL into the Metabase application database, which can give them administrator access to the instance. From there, the attacker could change the application configuration, steal stored credentials for the connected databases, read any data accessible through those connections, and export data.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-08-14",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "Yes",
+      "notes": "https://www.metabase.com/blog/security-update ; https://github.com/metabase/metabase/security/advisories/GHSA-vwf4-m7j8-wcjf ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-72898",
+      "cwes": [
+        "CWE-89"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-25181",
+      "vendorProject": "Advantive",
+      "product": "VeraCore",
+      "vulnerabilityName": " Advantive VeraCore SQL Injection Vulnerability",
+      "dateAdded": "2025-03-10",
+      "shortDescription": "Advantive VeraCore contains a SQL injection vulnerability in timeoutWarning.asp that allows a remote attacker to execute arbitrary SQL commands via the PmSess1 parameter.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-03-31",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://advantive.my.site.com/support/s/article/Veracore-Release-Notes-2025-1-1-3 ; https://nvd.nist.gov/vuln/detail/CVE-2025-25181",
+      "cwes": [
+        "CWE-89"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-87491",
+      "vendorProject": "Google",
+      "product": "Chromium V8",
+      "vulnerabilityName": "Google Chromium V8 Out of Bounds Write Vulnerability",
+      "dateAdded": "2026-09-09",
+      "shortDescription": "Google Chromium V8 contains an out of bounds write vulnerability that allows a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-09-23",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://chromereleases.googleblog.com/2026/09/stable-channel-update-for-desktop_0808145027.html ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-87491 ",
+      "cwes": [
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2015-1427",
+      "vendorProject": "Elastic",
+      "product": "Elasticsearch",
+      "vulnerabilityName": "Elasticsearch Groovy Scripting Engine Remote Code Execution Vulnerability",
+      "dateAdded": "2022-03-25",
+      "shortDescription": "The Groovy scripting engine in Elasticsearch allows remote attackers to bypass the sandbox protection mechanism and execute arbitrary shell commands.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-04-15",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2015-1427",
+      "cwes": [
+        "CWE-284"
+      ]
+    },
+    {
+      "cveID": "CVE-2021-20021",
+      "vendorProject": "SonicWall",
+      "product": "SonicWall Email Security",
+      "vulnerabilityName": "SonicWall Email Security Improper Privilege Management Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "SonicWall Email Security contains an improper privilege management vulnerability that allows an attacker to create an administrative account by sending a crafted HTTP request to the remote host. This vulnerability has known usage in a SonicWall Email Security exploit chain along with CVE-2021-20022 and CVE-2021-20023 to achieve privilege escalation.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2021-11-17",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2021-20021",
+      "cwes": [
+        "CWE-306"
+      ]
+    },
+    {
+      "cveID": "CVE-2014-8439",
+      "vendorProject": "Adobe",
+      "product": "Flash Player",
+      "vulnerabilityName": "Adobe Flash Player Dereferenced Pointer Vulnerability",
+      "dateAdded": "2022-05-25",
+      "shortDescription": "Adobe Flash Player has a vulnerability in the way it handles a dereferenced memory pointer which could lead to code execution.",
+      "requiredAction": "The impacted product is end-of-life and should be disconnected if still in use.",
+      "dueDate": "2022-06-15",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2014-8439",
+      "cwes": [
+        "CWE-119"
+      ]
+    },
+    {
+      "cveID": "CVE-2024-51567",
+      "vendorProject": "CyberPersons",
+      "product": "CyberPanel",
+      "vulnerabilityName": "CyberPanel Incorrect Default Permissions Vulnerability",
+      "dateAdded": "2024-11-07",
+      "shortDescription": "CyberPanel contains an incorrect default permissions vulnerability that allows a remote, unauthenticated attacker to execute commands as root.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-11-28",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://cyberpanel.net/blog/detials-and-fix-of-recent-security-issue-and-patch-of-cyberpanel ; https://nvd.nist.gov/vuln/detail/CVE-2024-51567",
+      "cwes": [
+        "CWE-276"
+      ]
+    },
+    {
+      "cveID": "CVE-2019-0543",
+      "vendorProject": "Microsoft",
+      "product": "Windows",
+      "vulnerabilityName": "Microsoft Windows Privilege Escalation Vulnerability",
+      "dateAdded": "2022-03-15",
+      "shortDescription": "A privilege escalation vulnerability exists when Windows improperly handles authentication requests. An attacker who successfully exploited this vulnerability could run processes in an elevated context.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-04-05",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2019-0543",
+      "cwes": [
+        "CWE-287"
+      ]
+    },
+    {
+      "cveID": "CVE-2020-0938",
+      "vendorProject": "Microsoft",
+      "product": "Windows",
+      "vulnerabilityName": "Microsoft Windows Adobe Font Manager Library Remote Code Execution Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Microsoft Windows Adobe Font Manager Library contains an unspecified vulnerability when handling specially crafted multi-master fonts (Adobe Type 1 PostScript format) that allows for remote code execution for all systems except Windows 10. For systems running Windows 10, an attacker who successfully exploited the vulnerability could execute code in an AppContainer sandbox context with limited privileges and capabilities.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2020-0938",
+      "cwes": [
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2025-20337",
+      "vendorProject": "Cisco",
+      "product": "Identity Services Engine",
+      "vulnerabilityName": "Cisco Identity Services Engine Injection Vulnerability",
+      "dateAdded": "2025-07-28",
+      "shortDescription": "Cisco Identity Services Engine contains an injection vulnerability in a specific API of Cisco ISE and Cisco ISE-PIC due to insufficient validation of user-supplied input allowing an attacker to exploit this vulnerability by submitting a crafted API request. Successful exploitation could allow an attacker to perform remote code execution and obtaining root privileges on an affected device.",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2025-08-18",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-unauth-rce-ZAd2GnJ6 ; https://nvd.nist.gov/vuln/detail/CVE-2025-20337",
+      "cwes": [
+        "CWE-74"
+      ]
+    },
+    {
+      "cveID": "CVE-2014-3153",
+      "vendorProject": "Linux",
+      "product": "Kernel",
+      "vulnerabilityName": "Linux Kernel Privilege Escalation Vulnerability",
+      "dateAdded": "2022-05-25",
+      "shortDescription": "The futex_requeue function in kernel/futex.c in Linux kernel does not ensure that calls have two different futex addresses, which allows local users to gain privileges.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-06-15",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2014-3153",
+      "cwes": [
+        "CWE-269"
+      ]
+    },
+    {
+      "cveID": "CVE-2016-3715",
+      "vendorProject": "ImageMagick",
+      "product": "ImageMagick",
+      "vulnerabilityName": "ImageMagick Arbitrary File Deletion Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "ImageMagick contains an unspecified vulnerability that could allow users to delete files by using ImageMagick's 'ephemeral' pseudo protocol, which deletes files after reading.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2016-3715",
+      "cwes": [
+        "CWE-284"
+      ]
+    },
+    {
+      "cveID": "CVE-2019-8394",
+      "vendorProject": "Zoho",
+      "product": "ManageEngine",
+      "vulnerabilityName": "Zoho ManageEngine ServiceDesk Plus (SDP) File Upload Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Zoho ManageEngine ServiceDesk Plus (SDP) contains an unspecified vulnerability that allows remote users to upload files via login page customization.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
+      "cwes": [
+        "CWE-434"
+      ]
+    },
+    {
+      "cveID": "CVE-2010-5326",
+      "vendorProject": "SAP",
+      "product": "NetWeaver",
+      "vulnerabilityName": "SAP NetWeaver Remote Code Execution Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "SAP NetWeaver Application Server Java Platforms Invoker Servlet does not require authentication, allowing for remote code execution via a HTTP or HTTPS request.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2010-5326",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2023-7028",
+      "vendorProject": "GitLab",
+      "product": "GitLab CE/EE",
+      "vulnerabilityName": "GitLab Community and Enterprise Editions Improper Access Control Vulnerability",
+      "dateAdded": "2024-05-01",
+      "shortDescription": "GitLab Community and Enterprise Editions contain an improper access control vulnerability. This allows an attacker to trigger password reset emails to be sent to an unverified email address to ultimately facilitate an account takeover.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-05-22",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://about.gitlab.com/releases/2024/01/11/critical-security-release-gitlab-16-7-2-released/ ;  https://nvd.nist.gov/vuln/detail/CVE-2023-7028",
+      "cwes": [
+        "CWE-284"
+      ]
+    },
+    {
+      "cveID": "CVE-2022-22587",
+      "vendorProject": "Apple",
+      "product": "iOS and macOS",
+      "vulnerabilityName": "Apple Memory Corruption Vulnerability",
+      "dateAdded": "2022-01-28",
+      "shortDescription": "Apple IOMobileFrameBuffer contains a memory corruption vulnerability which can allow a malicious application to execute arbitrary code with kernel privileges.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-02-11",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2022-22587",
+      "cwes": [
+        "CWE-20",
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-20109",
+      "vendorProject": "Cisco",
+      "product": "IOS and IOS XE",
+      "vulnerabilityName": "Cisco IOS and IOS XE Group Encrypted Transport VPN Out-of-Bounds Write Vulnerability",
+      "dateAdded": "2023-10-10",
+      "shortDescription": "Cisco IOS and IOS XE contain an out-of-bounds write vulnerability in the Group Encrypted Transport VPN (GET VPN) feature that could allow an authenticated, remote attacker who has administrative control of either a group member or a key server to execute malicious code or cause a device to crash.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2023-10-31",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-getvpn-rce-g8qR68sx;  https://nvd.nist.gov/vuln/detail/CVE-2023-20109",
+      "cwes": [
+        "CWE-787"
+      ]
+    },
+    {
+      "cveID": "CVE-2016-1646",
+      "vendorProject": "Google",
+      "product": "Chromium V8",
+      "vulnerabilityName": "Google Chromium V8 Out-of-Bounds Read Vulnerability",
+      "dateAdded": "2022-06-08",
+      "shortDescription": "Google Chromium V8 Engine contains an out-of-bounds read vulnerability that allows a remote attacker to cause a denial of service or possibly have another unspecified impact via crafted JavaScript code. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-06-22",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2016-1646",
+      "cwes": [
+        "CWE-119"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-21510",
+      "vendorProject": "Microsoft",
+      "product": "Windows",
+      "vulnerabilityName": "Microsoft Windows Shell Protection Mechanism Failure Vulnerability",
+      "dateAdded": "2026-02-10",
+      "shortDescription": "Microsoft Windows Shell contains a protection mechanism failure vulnerability that could allow an unauthorized attacker to bypass a security feature over a network. ",
+      "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2026-03-03",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-21510 ; https://nvd.nist.gov/vuln/detail/CVE-2026-21510 ",
+      "cwes": [
+        "CWE-693"
+      ]
+    },
+    {
+      "cveID": "CVE-2023-41990",
+      "vendorProject": "Apple",
+      "product": "Multiple Products",
+      "vulnerabilityName": "Apple Multiple Products Code Execution Vulnerability",
+      "dateAdded": "2024-01-08",
+      "shortDescription": "Apple iOS, iPadOS, macOS, tvOS, and watchOS contain an unspecified vulnerability that allows for code execution when processing a font file.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-01-29",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://support.apple.com/en-us/HT213599, https://support.apple.com/en-us/HT213601, https://support.apple.com/en-us/HT213605, https://support.apple.com/en-us/HT213606, https://support.apple.com/en-us/HT213842, https://support.apple.com/en-us/HT213844, https://support.apple.com/en-us/HT213845 ;  https://nvd.nist.gov/vuln/detail/CVE-2023-41990",
+      "cwes": []
+    },
+    {
+      "cveID": "CVE-2026-21962",
+      "vendorProject": "Oracle",
+      "product": "HTTP Server and Oracle Weblogic Server Proxy Plug-in",
+      "vulnerabilityName": "Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in Improper Access Control Vulnerability",
+      "dateAdded": "2026-08-24",
+      "shortDescription": "Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in contain an improper access control vulnerability that can result in unauthorized creation, deletion or modification access to critical data as well as unauthorized access to critical data or complete access to all Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in accessible data.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-08-27",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "Yes",
+      "notes": "https://www.oracle.com/security-alerts/cpujan2026.html ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-21962",
+      "cwes": [
+        "CWE-284"
+      ]
+    },
+    {
+      "cveID": "CVE-2026-48710",
+      "vendorProject": "Kludex",
+      "product": "Starlette",
+      "vulnerabilityName": "Kludex Starlette HTTP Request/Response Smuggling Vulnerability",
+      "dateAdded": "2026-09-02",
+      "shortDescription": "Kludex Starlette contains a HTTP request/response smuggling vulnerability that could allow attackers to inject paths into the host part, prepending the actual path leading to issues such as authentication bypass when the authentication depends on the reconstructed URL\u2019s path. This vulnerability could be chaned with CVE-2026-42271.",
+      "requiredAction": "Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA\u2019s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA\u2019s \u201cForensics Triage Requirements\u201d (see URL in Notes). Follow applicable BOD 26-04 guidance for cloud services or discontinue use of the product if mitigations are unavailable. Stakeholders are responsible for evaluating each asset's internet exposure and ensuring adherence to BOD 26-04 patching guidelines.",
+      "dueDate": "2026-09-16",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "This vulnerability affects an open-source component, third-party library, protocol, or proprietary implementation that could be used by different products. For more information, please see: https://github.com/Kludex/starlette/security/advisories/GHSA-86qp-5c8j-p5mr ; BOD 26-04: https://www.cisa.gov/news-events/directives/bod-26-04-prioritizing-security-updates-based-risk ; Forensics Triage Requirements: https://www.cisa.gov/news-events/directives/bod-26-04-implementation-guidance-prioritizing-security-updates-based-risk ; https://nvd.nist.gov/vuln/detail/CVE-2026-48710",
+      "cwes": [
+        "CWE-444"
+      ]
+    },
+    {
+      "cveID": "CVE-2017-12617",
+      "vendorProject": "Apache",
+      "product": "Tomcat",
+      "vulnerabilityName": "Apache Tomcat Remote Code Execution Vulnerability",
+      "dateAdded": "2022-03-25",
+      "shortDescription": "When running Apache Tomcat, it is possible to upload a JSP file to the server via a specially crafted request. This JSP could then be requested and any code it contained would be executed by the server.",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-04-15",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2017-12617",
+      "cwes": [
+        "CWE-434"
+      ]
+    },
+    {
+      "cveID": "CVE-2024-45519",
+      "vendorProject": "Synacor",
+      "product": "Zimbra Collaboration Suite (ZCS)",
+      "vulnerabilityName": "Synacor Zimbra Collaboration Suite (ZCS) Command Execution Vulnerability",
+      "dateAdded": "2024-10-03",
+      "shortDescription": "Synacor Zimbra Collaboration Suite (ZCS) contains an unspecified vulnerability in the postjournal service that may allow an unauthenticated user to execute commands.",
+      "requiredAction": "Apply mitigations per vendor instructions or discontinue use of the product if mitigations are unavailable.",
+      "dueDate": "2024-10-24",
+      "knownRansomwareCampaignUse": "Unknown",
+      "forensicTriage": "No",
+      "notes": "https://wiki.zimbra.com/wiki/Zimbra_Security_Advisories ; https://nvd.nist.gov/vuln/detail/CVE-2024-45519",
+      "cwes": [
+        "CWE-284"
+      ]
+    },
+    {
+      "cveID": "CVE-2020-12271",
+      "vendorProject": "Sophos",
+      "product": "SFOS",
+      "vulnerabilityName": "Sophos SFOS SQL Injection Vulnerability",
+      "dateAdded": "2021-11-03",
+      "shortDescription": "Sophos Firewall operating system (SFOS) firmware contains a SQL injection vulnerability when configured with either the administration (HTTPS) service or the User Portal is exposed on the WAN zone. Successful exploitation may cause remote code execution to exfiltrate usernames and hashed passwords for the local device admin(s), portal admins, and user accounts used for remote access (but not external Active Directory or LDAP passwords).",
+      "requiredAction": "Apply updates per vendor instructions.",
+      "dueDate": "2022-05-03",
+      "knownRansomwareCampaignUse": "Known",
+      "forensicTriage": "No",
+      "notes": "https://nvd.nist.gov/vuln/detail/CVE-2020-12271",
+      "cwes": [
+        "CWE-89"
+      ]
+    }
+  ]
+}

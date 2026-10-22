@@ -1,0 +1,39 @@
+{
+  "example_1.json": {
+    "outcome": "APPROVE",
+    "reasons": [
+      "ALL_REQUIRED_CONTROLS_MET"
+    ]
+  },
+  "example_2.json": {
+    "outcome": "ESCALATE",
+    "reasons": [
+      "CONTRADICTION",
+      "CONTROL_FAILED"
+    ]
+  },
+  "example_3.json": {
+    "outcome": "ESCALATE",
+    "reasons": [
+      "UNTRUSTED_CONTENT_TAMPERING"
+    ]
+  },
+  "example_4.json": {
+    "outcome": "REQUEST_INFO",
+    "reasons": [
+      "EVIDENCE_MISSING"
+    ]
+  },
+  "example_5.json": {
+    "outcome": "DECLINE",
+    "reasons": [
+      "HARD_GATE_DECLINE"
+    ]
+  },
+  "example_6.json": {
+    "outcome": "APPROVE",
+    "reasons": [
+      "ALL_REQUIRED_CONTROLS_MET"
+    ]
+  }
+}
