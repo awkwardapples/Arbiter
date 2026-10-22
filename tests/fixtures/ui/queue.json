@@ -1,0 +1,11 @@
+[
+  {
+    "case_id": "CASE-0007",
+    "vendor": "VND-0007",
+    "outcome": "REQUEST_INFO",
+    "tier": "T2",
+    "residual_risk": 98,
+    "status": "partial_success",
+    "created": "2026-10-22T07:52:41.907214+00:00"
+  }
+]
