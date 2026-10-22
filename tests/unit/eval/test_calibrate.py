@@ -29,7 +29,10 @@ def test_p5_t3_calibration_split_only(tmp_path: Path, monkeypatch: pytest.Monkey
     second = calibrate_split(out_dir=tmp_path / "b")
     assert first.path.read_bytes() == second.path.read_bytes()
     assert first.split == "calibration"
-    assert first.unsafe_approvals == 0
+    assert first.unsafe_approvals == 0, (
+        "VND-0023 (S06) offline path approves with ALL_REQUIRED_CONTROLS_MET; "
+        "contradiction on residency.regions not raised by extractor."
+    )
     splits = json.loads((ROOT / "data" / "evals" / "splits.json").read_text(encoding="utf-8"))
     assert first.split_sha256 == splits["sha256"]["calibration"]
     assert first.split_sha256 != splits["sha256"]["test"]

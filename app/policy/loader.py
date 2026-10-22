@@ -147,6 +147,10 @@ class Calibration(_Strict):
     version: str
     gates: dict[str, float]
     weights: dict[str, float]
+    # P5-B additive fields. Absent on cal-initial.json; gates and weights are unchanged.
+    split_sha256: str | None = None
+    objective: str | None = None
+    calibration_results: dict[str, Any] | None = None
 
     def gate(self, tier: str) -> float:
         try:

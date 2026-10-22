@@ -100,7 +100,7 @@ def test_p5_t1_abstain_invalid_and_direction() -> None:
     """P5-T1: all-abstain selective accuracy is null; INVALID is wrong; unsafe and over-escalation counts."""
     abstained = _score(
         [
-            _row(reasons=["LOW_CONFIDENCE_ABSTAIN"]),
+            _row(predicted_outcome="ESCALATE", reasons=["LOW_CONFIDENCE_ABSTAIN"]),
             _row(
                 case_ref="C2",
                 expected_outcome="ESCALATE",

@@ -1,0 +1,101 @@
+{
+  "header": {
+    "generated_at": "2026-10-22T09:30:17Z",
+    "generated_by": "orchestrator.run offline gate (sample mode, DuckDB)",
+    "git_sha": "a7228be2efe2bca9f004f981db12c1e8dd53704f",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "n_runs": 3,
+    "p50_ms": 334.30550399862113,
+    "provider": "offline",
+    "run_id": "run-72f010fb10d3",
+    "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
+  },
+  "response": {
+    "agents": [
+      {
+        "name": "PlannerAgent",
+        "role": "Chooses registry queries and extraction targets; revises the plan from feedback"
+      },
+      {
+        "name": "EvidenceAgent",
+        "role": "Runs registry queries via the data layer, guards vendor text, extracts quoted claims"
+      },
+      {
+        "name": "EvaluatorAgent",
+        "role": "Grounds claims, derives facts, critiques coverage and requests verification"
+      },
+      {
+        "name": "ChallengerAgent",
+        "role": "Stress-tests a favourable decision; can only accept, re-plan or escalate"
+      },
+      {
+        "name": "ReporterAgent",
+        "role": "Writes a cited report of the policy decision, or the deterministic template"
+      }
+    ],
+    "execution_time_seconds": 0.32515507100106333,
+    "log_file": "logs/trace-run-72f010fb10d3.jsonl",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "output": {
+      "actions": [
+        {
+          "capability": "itsm.ticket.create",
+          "contract_id": "ctr-becaaa48c74f",
+          "intent": "vendor.onboarding.escalate",
+          "state": "executed"
+        }
+      ],
+      "artifacts": [
+        "var/outbox/itsm/ctr-becaaa48c74f.json"
+      ],
+      "case_id": "CASE-0015",
+      "confidence": {
+        "abstained": false,
+        "gate": 0.8,
+        "signals": {
+          "contradiction_free": 1.0,
+          "coverage": 1.0,
+          "grounding": 1.0,
+          "precedent_alignment": 1.0,
+          "source_health": 1.0
+        },
+        "value": 1.0
+      },
+      "contradictions": [],
+      "counterfactuals": [],
+      "decision": "ESCALATE",
+      "findings": [
+        {
+          "citations": [
+            "F-C01-1"
+          ],
+          "text": "No required control failed for outcome ESCALATE."
+        }
+      ],
+      "limitations": [
+        "template:v1 deterministic report from the decision record.",
+        "LLM offline: deterministic extraction and reporting used."
+      ],
+      "precedents": [],
+      "recommendations": [
+        "Open a ticket for the TPRM lead."
+      ],
+      "residual_risk": 30,
+      "risk_tier": "T3",
+      "summary": "Outcome ESCALATE: UNTRUSTED_CONTENT_TAMPERING, ALL_REQUIRED_CONTROLS_MET.",
+      "vendor": {
+        "legal_name": "Oakhaven Mail Relay Ltd",
+        "vendor_id": "VND-0015"
+      }
+    },
+    "run_id": "run-72f010fb10d3",
+    "status": "success",
+    "trace_id": "run-72f010fb10d3"
+  }
+}
