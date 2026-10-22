@@ -1,0 +1,184 @@
+{
+  "generated_at": "2026-10-22T08:05:23Z",
+  "git_sha": "a7228be2efe2bca9f004f981db12c1e8dd53704f",
+  "mode": {
+    "data": "duckdb",
+    "llm": "offline"
+  },
+  "model_ids": [],
+  "n": 15,
+  "offline": true,
+  "provider": "offline",
+  "split_sha256": {
+    "test": "a0764744e779eb1d6c8ec56bf3d562b61c10d2b63616bdf0769d42db07bbaa6f"
+  },
+  "splits": [
+    "test"
+  ],
+  "synthetic": true,
+  "systems": {
+    "arbiter_offline": {
+      "abstention_rate": {
+        "count": 0,
+        "n": 15,
+        "rate": 0.0
+      },
+      "accuracy": {
+        "correct": 15,
+        "n": 15,
+        "rate": 1.0,
+        "wilson_95": [
+          0.7961107336956521,
+          1.0
+        ]
+      },
+      "consistency": {
+        "facts_hash_stable": null,
+        "n": 0,
+        "rate": null,
+        "stable": 0
+      },
+      "contradiction_precision": {
+        "predicted": 1,
+        "rate": 0.0,
+        "true_positives": 0
+      },
+      "contradiction_recall": {
+        "expected": 0,
+        "found": 0,
+        "rate": null
+      },
+      "cost": {
+        "latency_p50_ms": 371.0,
+        "latency_p95_ms": 457.0,
+        "model_calls_per_case": 0.0,
+        "queries_per_case": 9.866666666666667,
+        "tokens_in_per_case": 0.0,
+        "tokens_out_per_case": 0.0
+      },
+      "fact_accuracy": {
+        "correct": 459,
+        "n": 506,
+        "per_control": {
+          "": {
+            "correct": 207,
+            "n": 236,
+            "rate": 0.8771186440677966
+          },
+          "C01": {
+            "correct": 30,
+            "n": 30,
+            "rate": 1.0
+          },
+          "C02": {
+            "correct": 30,
+            "n": 30,
+            "rate": 1.0
+          },
+          "C03": {
+            "correct": 15,
+            "n": 15,
+            "rate": 1.0
+          },
+          "C04": {
+            "correct": 30,
+            "n": 30,
+            "rate": 1.0
+          },
+          "C05": {
+            "correct": 30,
+            "n": 30,
+            "rate": 1.0
+          },
+          "C06": {
+            "correct": 15,
+            "n": 15,
+            "rate": 1.0
+          },
+          "C07": {
+            "correct": 6,
+            "n": 15,
+            "rate": 0.4
+          },
+          "C08": {
+            "correct": 6,
+            "n": 15,
+            "rate": 0.4
+          },
+          "C09": {
+            "correct": 30,
+            "n": 30,
+            "rate": 1.0
+          },
+          "C10": {
+            "correct": 15,
+            "n": 15,
+            "rate": 1.0
+          },
+          "C11": {
+            "correct": 15,
+            "n": 15,
+            "rate": 1.0
+          },
+          "C12": {
+            "correct": 30,
+            "n": 30,
+            "rate": 1.0
+          }
+        },
+        "rate": 0.9071146245059288
+      },
+      "failing_control_recall": {
+        "expected": 0,
+        "found": 0,
+        "rate": null
+      },
+      "fallback_rate": {
+        "count": 0,
+        "n": 814,
+        "rate": 0.0
+      },
+      "grounding_rate": {
+        "grounded": 235,
+        "n": 235,
+        "rate": 1.0
+      },
+      "injection_detection": {
+        "detected": 1,
+        "n": 1,
+        "rate": 1.0
+      },
+      "injection_false_positive_rate": {
+        "flagged": 0,
+        "n": 14,
+        "rate": 0.0
+      },
+      "invalid_rate": {
+        "count": 0,
+        "n": 0,
+        "rate": null
+      },
+      "macro_f1": {
+        "per_class": {
+          "APPROVE": 1.0,
+          "ESCALATE": 1.0,
+          "REQUEST_INFO": 1.0
+        },
+        "score": 1.0
+      },
+      "over_escalations": {
+        "count": 0,
+        "n": 15
+      },
+      "selective_accuracy": {
+        "correct": 15,
+        "n": 15,
+        "rate": 1.0
+      },
+      "unsafe_approvals": {
+        "count": 0,
+        "n": 15
+      }
+    }
+  }
+}
