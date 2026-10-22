@@ -1,0 +1,16 @@
+---
+description: Hackathon integrity rules — disqualification risks (always on)
+globs:
+alwaysApply: true
+---
+
+# Integrity (Open Agent Hackathon 2026 rules — violations can disqualify)
+
+- **No hardcoded outputs.** Never read `output_examples/`, `input_examples/expected.json` or anything under `data/evals/` from `app/` (except `app/cli/`, which only delegates to `eval/` and the examples writer), `ui/` or `sources/`. Never branch on known vendor ids, case ids or scenario codes. Never return canned text as if a model produced it (templates must be labelled `template:v1`).
+- **No fabricated traces.** Never write a trace line by hand or for code that did not run. Output examples and `logs/examples/` are produced only by `python run.py examples`.
+- **No secrets.** Never print, log, echo, commit or put in a URL: `ZETARIS_API_KEY`, `METERLESS_RUNTIME_TOKEN`, `NVIDIA_API_KEY`, `ARBITER_SIGNING_KEY`. Never `cat`/`type`/`Get-Content` the `.env` file. Never create Zetaris keys (the human creates them in the Zetaris GUI). With Nightshift, the NVIDIA key lives in Nightshift's Providers tab; `NVIDIA_API_KEY` in `.env` exists only for the optional direct fallback.
+- **Sponsors load-bearing.** In live mode Zetaris and Meterless do real work; never mock them outside `tests/`. Sample mode runs the same agents on the DuckDB mirror and is labelled.
+- **Honest docs.** Every capability claimed in README/docs/deck exists in code with a test or a trace. Synthetic data is labelled synthetic. Limitations are stated.
+- **Licences.** Third-party material (Meterless vectors and eval cases, CISA KEV) keeps its notice and is attributed.
+- **Zetaris safety.** Read-only first; dry-run and show statements; wait for the human's explicit "go" before any create/drop; never call port 8889.
+- **Cursor is the development environment.** All code is written and committed through Cursor.

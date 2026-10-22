@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      { "command": "python3 .cursor/hooks/shell_guard.py", "timeout": 10 }
+    ],
+    "stop": [
+      { "command": "python3 .cursor/hooks/verify_loop.py", "timeout": 900, "loop_limit": 6 }
+    ]
+  }
+}

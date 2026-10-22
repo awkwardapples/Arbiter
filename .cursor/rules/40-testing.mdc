@@ -1,0 +1,15 @@
+---
+description: Testing rules for Arbiter
+globs: tests/**,scripts/gates/**
+alwaysApply: false
+---
+
+# Testing rules
+
+- Acceptance tests are named and id'd exactly as in the pass file (`P<n>-T<k>` in the test docstring or param id) and carry the lane marker (`@pytest.mark.p1a` etc.).
+- Write acceptance tests first and commit them failing (`test(p<ID>): acceptance tests`). Confirm they fail for the right reason (not ImportError on a typo).
+- Never weaken, skip, xfail, loosen tolerances on, or delete an acceptance test to get green. If a test is wrong, set `.cursor/ACTIVE_PASS` to `<ID> blocked` and ask.
+- Tests requiring real Zetaris/Meterless/NVIDIA are marked `live` and run only with `ARBITER_LIVE_TESTS=1`. Default runs must pass with an empty environment and no network.
+- Test doubles (respx, fakes, captured fixtures) live only under `tests/`. Fixtures captured from real services are scrubbed of secrets and committed under `tests/fixtures/`.
+- Use the injected clock and seeds; no sleeps over 0.2 s; no reliance on test order.
+- Property tests use a fixed seed and report the seed on failure.

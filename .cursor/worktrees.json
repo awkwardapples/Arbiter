@@ -1,0 +1,9 @@
+{
+  "setup-worktree-unix": [
+    "ln -sf \"$ROOT_WORKTREE_PATH/.env\" .env",
+    "ln -sfn \"$ROOT_WORKTREE_PATH/.venv\" .venv"
+  ],
+  "setup-worktree-windows": [
+    "Copy-Item \"$env:ROOT_WORKTREE_PATH\\.env\" .env"
+  ]
+}

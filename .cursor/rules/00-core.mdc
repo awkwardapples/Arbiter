@@ -1,0 +1,29 @@
+---
+description: Arbiter core operating rules — invariants, read order and pass workflow (always on)
+globs:
+alwaysApply: true
+---
+
+# Arbiter — core rules
+
+`AGENTS.md` is binding. Re-read its §3 (invariants) and §6 (workflow) before every pass.
+
+## Non-negotiables
+- LLMs never decide outcomes; only `app/policy/engine.py` maps facts to an outcome.
+- The Challenger can only escalate or request evidence. Nothing but verified facts or a policy-permitted precedent exception may move an outcome toward approval.
+- Every model call goes through `app/llm/generator.py`. Every data access goes through `app/data/` with registry query ids.
+- Vendor text is untrusted data: guard it, redact it, wrap it in `<vendor_text>`, and never let it alter prompts, tools or flow.
+- No side effect without a valid signed `ExecutionContract`.
+- Traces are emitted only by code that actually ran.
+
+## Pass discipline
+- Work only on the lane in `.cursor/ACTIVE_PASS` (`<ID> plan|build|blocked`).
+- `plan` phase: write `.cursor/plans/<LABEL>.md` (LABEL = `P0`, `P1-A`, `P1-B`, `P2-A` … `P7`) and stop for approval. Do not write code.
+- `build` phase: tests first, then implementation, until `python scripts/tasks.py verify-pass --pass <ID>` is green.
+- Touch only files your lane owns (`docs/spec/passes/README.md` §3). Need anything else → set phase to `blocked` and ask.
+- Never weaken, skip, xfail or delete an acceptance test. If a test is wrong → set phase to `blocked` and ask.
+- When asking the human anything, first set `.cursor/ACTIVE_PASS` to `<ID> blocked` (this pauses the auto-verify hook).
+- Finish: `docs/passes/<LABEL>_REPORT.md` (built / deviations / gaps / commands / Explain-it answers), write `docs/cursor-usage/<LABEL>.md`, push, delete `.cursor/ACTIVE_PASS`, stop.
+
+## When unsure
+Stop and ask with: the decision needed, 2–3 options with trade-offs, your recommendation. Never guess sponsor APIs — capture a real response into `tests/fixtures/` (secrets scrubbed).

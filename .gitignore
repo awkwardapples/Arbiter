@@ -1,0 +1,20 @@
+# Minimal ignore list shipped with the spec pack so the very first commit can never include secrets.
+# P0 extends this file (see docs/spec/passes/P0_BOOTSTRAP.md).
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials/
+# no trailing slash: also matches a .venv symlink inside a git worktree
+.venv
+.venv/
+__pycache__/
+var/
+logs/*
+!logs/.gitkeep
+!logs/examples/
+.cursor/ACTIVE_PASS
+.pytest_cache/
+.ruff_cache/

@@ -1,0 +1,27 @@
+---
+description: Sponsor API contracts — Zetaris REST SQL and Meterless Nightshift POWER contract
+globs: app/data/**,app/llm/**,app/memory/**,app/guard/**,app/actions/**,zetaris/**,tests/live/**
+alwaysApply: false
+---
+
+# Sponsor contracts (verified from official docs; do not improvise)
+
+## Zetaris (Data)
+- REST: `POST {ZETARIS_REST_URL}/sql-editor/sqls/run` (local default `http://localhost:8888/api/v1.0`).
+- Headers: `Authorization: Bearer <ZETARIS_API_KEY>`, `X-Org-ID: <ZETARIS_ORG_ID>` (1 on local), `X-Request-ID: <fresh uuid4>`, `Content-Type: application/json`.
+- Body: `{"queryId": "<uuid4>", "sql": "<one statement, no trailing semicolon>", "source": "SqlEditor", "limit": <int>}`; result in `data`.
+- Lightning SQL only (not Spark/Hive). Qualified names. Mixed-case JSON keys need backticks. `CREATE SCHEMASTORE CONTAINER` has no IF NOT EXISTS. `lightning.metastore` namespace before child namespaces. Multi-table `COMPILE USL` is ONE statement. `UPDATE USL` clears activation. `SHOW DQ ALL INVALID TABLE <ns.usl.table>` needs the TABLE clause. Zetaris cannot read local files.
+- API reference: `http://localhost:8888/redoc/index.html`. Build normalisers against captured fixtures.
+
+## Meterless Nightshift Runtime (Power) — app must support it as primary provider
+- Base `METERLESS_BASE_URL` (Console default `http://127.0.0.1:8088/v1`); normalise to `<host>/v1`, accepting pasted `/v1`, `/v1/models`, `/v1/chat/completions` or `/healthz`; if unset, auto-detect ports 8088, 8090, 8787, 11434 on 127.0.0.1, localhost and [::1].
+- `Authorization: Bearer <METERLESS_RUNTIME_TOKEN>`; reject placeholder `rt-local`.
+- Header `meterless-app: <METERLESS_APP_ID>` on every request; `meterless-scope: user` on chat.
+- Status from `GET /v1/models` only: 401/403 → unauthorized; 200 with `meterless/*` ids → online; else offline. `/healthz` is not proof of a model.
+- Models are routing modes: `meterless/<disposition>` (auto, fast, deep, cheap, local, fusion), `meterless/<class>`, `meterless/<class>.<disposition>`. Use `METERLESS_MODEL_FAST` / `METERLESS_MODEL_DEEP`.
+- Timeout 180 s on every call (short timeouts read as false outages). OpenAI-compatible `POST /v1/chat/completions`.
+- Record `response.model` (NVIDIA Nemotron evidence) and any `meterless-*` response headers in the trace.
+
+## Meterless engines
+- H-MEM: Python port must pass all 13 official conformance vectors; preserve JS semantics (`app/memory/hmem/jsfmt.py`). Precedent retrieval uses the canonical key and threshold 0.0; the policy engine applies the 0.35 relevance and 0.70 confidence gates.
+- Scout subset: guard logs metadata only; contracts are HMAC-SHA256 over canonical JSON without `signature`; immutable after signing; approvals re-issue a child contract.

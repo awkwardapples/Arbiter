@@ -1,0 +1,17 @@
+---
+description: Python coding standards for Arbiter
+globs: **/*.py
+alwaysApply: false
+---
+
+# Python standards
+
+- Python 3.12, full type hints, pydantic v2 models for every cross-module contract (`app/schemas/`). Field names in master spec §7 are binding.
+- Pure functions where possible; side effects only in adapters (`app/data/zetaris.py`, `app/llm/providers/*`), outbox, audit, store and tracing.
+- Determinism: seed randomness; sort before hashing; use `app.canon.canonical_json` / `sha256_hex` for every hash or signature; take time from the injected clock, never `datetime.now()` inside policy or replay paths.
+- Errors: raise typed exceptions from `app/errors.py`; API returns `ErrorResponse`, never a traceback.
+- Logging: `app/tracing.py` for agent events; `logging` for diagnostics; no `print` in `app/`.
+- In `app/`, config only via `app/config.py` (`Settings`); `ui/`, `sources/` and `tests/` may read their own variables (master spec §10, last block). Never log secret values.
+- HTTP via `httpx` with explicit timeouts; retries via `tenacity`; no model SDKs.
+- Files ≲ 400 lines; composition over frameworks; no new dependencies (all are pinned in P0).
+- Ruff clean (`python scripts/tasks.py lint`).
