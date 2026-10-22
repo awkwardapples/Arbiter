@@ -7,9 +7,6 @@ from typing import Any
 
 import streamlit as st
 
-from app.schemas.api import ReviewRequest
-from app.schemas.decision import ControlResult
-from app.schemas.evidence import Fact
 from ui.client import ArbiterAPIError
 from ui.components import (
     confidence_gauge,
@@ -18,6 +15,7 @@ from ui.components import (
     tier_chip,
     timeline,
 )
+from ui.models import ReviewRequest
 from ui.session import get_client
 from ui.validation import parse_case_input
 
@@ -60,10 +58,12 @@ def page_new_assessment() -> None:
             except ArbiterAPIError as exc:
                 st.error(exc.message)
                 return
-        st.success(f"Run {resp.status} — case {resp.output.case_id if resp.output else 'unknown'}")
-        if resp.output:
-            st.session_state["last_case_id"] = resp.output.case_id
-            st.session_state["nav_case_id"] = resp.output.case_id
+        output = resp.get("output") or {}
+        case_id = output.get("case_id", "unknown")
+        st.success(f"Run {resp.get('status')} — case {case_id}")
+        if output.get("case_id"):
+            st.session_state["last_case_id"] = output["case_id"]
+            st.session_state["nav_case_id"] = output["case_id"]
 
 
 def page_queue() -> None:
@@ -114,9 +114,7 @@ def page_case() -> None:
         bool(conf.get("abstained", False)),
     )
     st.subheader("Why")
-    controls = [ControlResult.model_validate(c) for c in record.get("controls", [])]
-    facts = [Fact.model_validate(f) for f in record.get("facts", [])]
-    control_table(controls, facts)
+    control_table(list(record.get("controls") or []), list(record.get("facts") or []))
     st.subheader("Contradictions")
     for row in record.get("contradictions", []):
         c1, c2 = st.columns(2)

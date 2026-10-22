@@ -34,7 +34,7 @@ python run.py ui      # http://localhost:8501
 2. **Non-linear pipeline?** **Agent timeline** graph/table: dashed **EVALUATE→PLAN** loop edges and multiple agent nodes (example 2 trace).
 3. **Reviewer-only actions?** **Review** (override + precedent) and contract **Approve/Reject** on **Case** — human rationale ≥ 30 chars; machines cannot self-approve contracts.
 4. **Accessibility?** Every outcome/status uses visible text labels, not colour alone (P5-T12).
-5. **Why no `app.orchestrator` in UI?** API boundary only; P5-T10 AST import guard enforces `app.schemas` imports.
+5. **Why no core imports in the UI?** Streamlit puts `ui/` on `sys.path`, so `import app` binds `ui/app.py` and is not the package. The console talks only over HTTP. Wire models live in `ui/models.py`. P5-T10 rejects every `import app` / `from app.` in `ui/`, and a headless `streamlit run` smoke test checks the process actually starts.
 
 ## Screenshot list (pending)
 

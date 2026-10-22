@@ -7,9 +7,6 @@ from typing import Any
 
 import streamlit as st
 
-from app.schemas.common import Outcome, Provenance, Tier
-from app.schemas.decision import ControlResult
-from app.schemas.evidence import Fact
 from ui.timeline import build_timeline_dot, timeline_rows
 
 OUTCOME_LABELS: dict[str, str] = {
@@ -57,13 +54,13 @@ def status_label(status: str) -> str:
     return f"{icon} {text}"
 
 
-def decision_badge(outcome: Outcome | str) -> None:
+def decision_badge(outcome: str) -> None:
     key = str(outcome)
     label = OUTCOME_LABELS.get(key, key)
     st.markdown(f"**{label}**")
 
 
-def tier_chip(tier: Tier | str) -> None:
+def tier_chip(tier: str) -> None:
     st.markdown(f"**Tier {tier}**")
 
 
@@ -74,45 +71,39 @@ def confidence_gauge(value: float, gate: float, abstained: bool) -> None:
         st.caption("Confidence abstained — decision did not meet the gate.")
 
 
-def evidence_chip(provenance: Provenance, *, fact: Fact | None = None) -> None:
-    parts = [
-        p
-        for p in (
-            provenance.system,
-            provenance.query_id,
-            provenance.record_key,
-            provenance.field,
-        )
-        if p
-    ]
-    label = " · ".join(parts) if parts else provenance.kind
+def evidence_chip(provenance: dict[str, Any], *, fact: dict[str, Any] | None = None) -> None:
+    parts = [provenance.get(key) for key in ("system", "query_id", "record_key", "field")]
+    shown = [str(part) for part in parts if part]
+    label = " · ".join(shown) if shown else str(provenance.get("kind") or "evidence")
     with st.expander(label, expanded=False):
-        if provenance.quote:
-            st.write(provenance.quote)
+        if provenance.get("quote"):
+            st.write(provenance["quote"])
         if fact is not None:
-            st.json({"key": fact.key, "value": fact.value, "state": fact.state})
+            st.json({"key": fact.get("key"), "value": fact.get("value"), "state": fact.get("state")})
 
 
-def control_table(controls: list[ControlResult], facts: list[Fact]) -> None:
-    facts_by_id = {f.fact_id: f for f in facts}
+def control_table(controls: list[dict[str, Any]], facts: list[dict[str, Any]]) -> None:
+    facts_by_id = {str(fact.get("fact_id")): fact for fact in facts}
     rows = []
     for ctrl in controls:
-        cited = ", ".join(ctrl.fact_ids) if ctrl.fact_ids else "—"
+        fact_ids = [str(fid) for fid in ctrl.get("fact_ids") or []]
         rows.append(
             {
-                "Control": ctrl.control_id,
-                "Title": ctrl.title,
-                "State": ctrl.state,
-                "Rule": ctrl.rule_id,
-                "Facts": cited,
+                "Control": ctrl.get("control_id"),
+                "Title": ctrl.get("title"),
+                "State": ctrl.get("state"),
+                "Rule": ctrl.get("rule_id"),
+                "Facts": ", ".join(fact_ids) if fact_ids else "—",
             }
         )
     st.dataframe(rows, use_container_width=True, hide_index=True)
     for ctrl in controls:
-        for fid in ctrl.fact_ids:
-            fact = facts_by_id.get(fid)
-            if fact and fact.provenance:
-                evidence_chip(fact.provenance[0], fact=fact)
+        for fid in ctrl.get("fact_ids") or []:
+            fact = facts_by_id.get(str(fid))
+            provenance = (fact or {}).get("provenance") or []
+            if fact and provenance:
+                chip = provenance[0] if isinstance(provenance[0], dict) else {}
+                evidence_chip(chip, fact=fact)
 
 
 def glossary() -> None:

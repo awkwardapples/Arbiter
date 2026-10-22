@@ -1,8 +1,9 @@
-"""P5-T10: UI import boundary — app.schemas only."""
+"""P5-T10: the reviewer console imports nothing from the core package."""
 
 from __future__ import annotations
 
 import ast
+import re
 from pathlib import Path
 
 import pytest
@@ -10,45 +11,29 @@ import pytest
 pytestmark = pytest.mark.p5a
 
 UI_ROOT = Path(__file__).resolve().parents[3] / "ui"
-FORBIDDEN_PREFIXES = (
-    "app.policy",
-    "app.orchestrator",
-    "app.store",
-    "app.audit",
-    "app.agents",
-    "app.data",
-    "app.llm",
-    "app.memory",
-    "app.actions",
-    "app.api",
-)
+_IMPORT_LINE = re.compile(r"^\s*(?:from|import)\s+app(?:\.|\s|$)", re.MULTILINE)
 
 
-def _module_name(node: ast.AST) -> str | None:
-    if isinstance(node, ast.ImportFrom):
-        return node.module
-    if isinstance(node, ast.Import):
-        for alias in node.names:
-            return alias.name
-    return None
+def _imported_modules(tree: ast.AST) -> list[str]:
+    found: list[str] = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.module:
+            found.append(node.module)
+        elif isinstance(node, ast.Import):
+            found.extend(alias.name for alias in node.names)
+    return found
 
 
-def test_p5_t10_ui_imports_only_app_schemas() -> None:
-    """P5-T10: static import graph for ui/."""
+def test_p5_t10_ui_imports_nothing_from_app() -> None:
+    """P5-T10: any `import app` / `from app.` in ui/ is a boundary violation."""
     violations: list[str] = []
     for path in sorted(UI_ROOT.rglob("*.py")):
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-        for node in ast.walk(tree):
-            mod = _module_name(node)
-            if not mod or not mod.startswith("app"):
-                continue
-            if mod.startswith("app.schemas"):
-                continue
-            if mod == "app":
-                violations.append(f"{path.name}: import app (must use app.schemas)")
-                continue
-            violations.append(f"{path.relative_to(UI_ROOT.parent)}: {mod}")
-            for prefix in FORBIDDEN_PREFIXES:
-                if mod == prefix or mod.startswith(prefix + "."):
-                    violations.append(f"{path.name}: forbidden {mod}")
-    assert not violations, "Forbidden imports:\n" + "\n".join(sorted(set(violations)))
+        source = path.read_text(encoding="utf-8")
+        rel = path.relative_to(UI_ROOT.parent)
+        if _IMPORT_LINE.search(source):
+            violations.append(f"{rel}: source contains an app import")
+        tree = ast.parse(source, filename=str(path))
+        for mod in _imported_modules(tree):
+            if mod == "app" or mod.startswith("app."):
+                violations.append(f"{rel}: imports {mod}")
+    assert not violations, "ui/ must not import the core package:\n" + "\n".join(sorted(set(violations)))

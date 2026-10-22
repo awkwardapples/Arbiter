@@ -6,16 +6,7 @@ import os
 from typing import Any
 
 import httpx
-
-from app.schemas.api import (
-    ApprovalRequest,
-    CaseInput,
-    HealthResponse,
-    ReviewRequest,
-    RunRequestOptions,
-    RunResponse,
-)
-from app.schemas.trace import TraceEvent
+from pydantic import BaseModel
 
 DEFAULT_BASE_URL = "http://localhost:8000"
 TIMEOUT = 30.0
@@ -26,6 +17,12 @@ class ArbiterAPIError(Exception):
         super().__init__(message)
         self.message = message
         self.status_code = status_code
+
+
+def _as_json(body: Any) -> Any:
+    if isinstance(body, BaseModel):
+        return body.model_dump(mode="json")
+    return body
 
 
 class ArbiterClient:
@@ -67,18 +64,20 @@ class ArbiterClient:
             return str(body["detail"])
         return f"Request failed ({resp.status_code})."
 
-    def health(self) -> HealthResponse:
-        return HealthResponse.model_validate(self._request("GET", "/health"))
+    def health(self) -> dict[str, Any]:
+        data = self._request("GET", "/health")
+        return dict(data) if isinstance(data, dict) else {}
 
     def list_vendors(self) -> list[dict[str, object]]:
         data = self._request("GET", "/vendors")
         return list(data) if isinstance(data, list) else []
 
-    def run(self, case: CaseInput, *, options: RunRequestOptions | None = None) -> RunResponse:
-        payload: dict[str, Any] = {"case": case.model_dump(mode="json")}
+    def run(self, case: Any, *, options: Any = None) -> dict[str, Any]:
+        payload: dict[str, Any] = {"case": _as_json(case)}
         if options is not None:
-            payload["options"] = options.model_dump(mode="json", exclude_none=True)
-        return RunResponse.model_validate(self._request("POST", "/run", json=payload))
+            payload["options"] = _as_json(options)
+        data = self._request("POST", "/run", json=payload)
+        return dict(data) if isinstance(data, dict) else {}
 
     def list_cases(self) -> list[dict[str, Any]]:
         data = self._request("GET", "/cases")
@@ -96,13 +95,13 @@ class ArbiterClient:
         data = self._request("POST", f"/cases/{case_id}/replay")
         return dict(data) if isinstance(data, dict) else {}
 
-    def submit_review(self, case_id: str, body: ReviewRequest, *, dry_run: bool = False) -> dict[str, Any]:
+    def submit_review(self, case_id: str, body: Any, *, dry_run: bool = False) -> dict[str, Any]:
         params = {"dry_run": "true"} if dry_run else None
         data = self._request(
             "POST",
             f"/cases/{case_id}/review",
             params=params,
-            json=body.model_dump(mode="json"),
+            json=_as_json(body),
         )
         return dict(data) if isinstance(data, dict) else {}
 
@@ -114,17 +113,14 @@ class ArbiterClient:
         data = self._request("GET", "/audit/verify")
         return dict(data) if isinstance(data, dict) else {}
 
-    def approve_contract(self, contract_id: str, body: ApprovalRequest) -> dict[str, Any]:
+    def approve_contract(self, contract_id: str, body: Any) -> dict[str, Any]:
         data = self._request(
             "POST",
             f"/contracts/{contract_id}/approve",
-            json=body.model_dump(mode="json"),
+            json=_as_json(body),
         )
         return dict(data) if isinstance(data, dict) else {}
 
     def eval_latest(self) -> dict[str, Any]:
-        return dict(self._request("GET", "/eval/latest"))
-
-    @staticmethod
-    def parse_trace_events(events: list[dict[str, Any]]) -> list[TraceEvent]:
-        return [TraceEvent.model_validate(e) for e in events]
+        data = self._request("GET", "/eval/latest")
+        return dict(data) if isinstance(data, dict) else {}
