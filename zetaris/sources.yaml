@@ -1,0 +1,29 @@
+# REST table key → simulator path and committed JSON file (fallback B: github_raw).
+rest_tables:
+  procurement_vendors_raw:
+    simulator_path: /procurement/v1/vendors
+    raw_file: procurement_vendors.json
+  procurement_vendor_aliases_raw:
+    simulator_path: /procurement/v1/vendor-aliases
+    raw_file: procurement_vendor_aliases.json
+  clm_contracts_raw:
+    simulator_path: /clm/v2/contracts
+    raw_file: clm_contracts.json
+  itsm_incidents_raw:
+    simulator_path: /itsm/api/incidents
+    raw_file: itsm_incidents.json
+  grc_watchlist_raw:
+    simulator_path: /grc/v1/watchlist
+    raw_file: grc_watchlist.json
+  trust_submissions_raw:
+    simulator_path: /trust/v1/submissions
+    raw_file: trust_submissions.json
+  trust_answers_raw:
+    simulator_path: /trust/v1/answers
+    raw_file: trust_answers.json
+  trust_documents_raw:
+    simulator_path: /trust/v1/documents
+    raw_file: trust_documents.json
+  trust_components_raw:
+    simulator_path: /trust/v1/components
+    raw_file: trust_components.json
