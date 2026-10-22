@@ -34,7 +34,7 @@ stateDiagram-v2
 - **Reporter.** Cited sentences with unknown or empty citations are dropped. A summary that names a different outcome is replaced by `template:v1`.
 - **Contract.** `issue` then `execute`. The outbox file is written when the policy requires no further approval.
 - **Store.** JSON under `var/cases`, `var/contracts`, `var/reviews` with the P4 method names.
-- **Tests.** P3-T1–P3-T14 and P3-T16 (`@pytest.mark.p3`). P3-T15 is marked `live` and was not run.
+- **Tests.** P3-T1–P3-T14 and P3-T16 (`@pytest.mark.p3`). P3-T15 (live) passed on 2026-10-22 (40.4s and 35.7s on two runs).
 
 ### Example 2 loop (offline, one run)
 
@@ -80,7 +80,7 @@ These are single runs, not a p50. Example 1 clears its gate. Example 2 sits unde
 
 ## Known gaps
 
-- **P3-T15 was not run.** It needs `ARBITER_LIVE_TESTS=1`, Zetaris and Nightshift. The Zetaris copy of the sample data predates `aa6e336` (new answer text, and category/spend on seven vendors). Re-onboard before trusting a live example 2. `docs/passes/P1-B_parity.json` was captured on the previous sample.
+- **P3-T15 was run after re-onboarding.** It needs `ARBITER_LIVE_TESTS=1`, Zetaris and Nightshift. The Zetaris copy of the sample data predates `aa6e336` (new answer text, and category/spend on seven vendors). Re-onboard before trusting a live example 2. `docs/passes/P1-B_parity.json` was captured on the previous sample.
 - **Label oracle vs full loop.** P3-T16 feeds truth facts to `decide`. It does not run the agents. The six examples are the cases that went through the loop.
 - **Challenger trigger (a) on an already-escalated T1 case.** Example 2 spends its one re-plan re-reading documents because C01 is answer-only, after the policy has already escalated. The outcome does not move. T1 APPROVE vendors (S03) were not run through the loop here.
 - **Memory.** `NullMemory` until P4-A. DECIDE_2 still runs; the precedent list is empty.

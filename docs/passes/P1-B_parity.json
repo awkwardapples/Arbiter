@@ -538,21 +538,21 @@
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "ad5cf8c9b9ddd81e22b771826c927143b0316b8843706859b2df76da50c07efa",
+      "duckdb_hash": "025326ef015a92798babbf5019c94cca81b69f012b1412a1e9f9cd4389bc52b1",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0011",
-      "zetaris_hash": "ad5cf8c9b9ddd81e22b771826c927143b0316b8843706859b2df76da50c07efa",
+      "zetaris_hash": "025326ef015a92798babbf5019c94cca81b69f012b1412a1e9f9cd4389bc52b1",
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "23ca6615ce2c48d9c9759118a9cdaa9f40489971b6006e8c367ae3a33d3f6a3d",
+      "duckdb_hash": "6b6897b96cf94157ba0c69d81a8c0d214f85145d2f789c3c36ba70e6068455a2",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0012",
-      "zetaris_hash": "23ca6615ce2c48d9c9759118a9cdaa9f40489971b6006e8c367ae3a33d3f6a3d",
+      "zetaris_hash": "6b6897b96cf94157ba0c69d81a8c0d214f85145d2f789c3c36ba70e6068455a2",
       "zetaris_rows": 1
     },
     {
@@ -565,12 +565,12 @@
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "6835e934a283c34f9496ff5472fa48fedcb5f9bcb8e1f8a759a4fa1aaa597ccb",
+      "duckdb_hash": "6949fe21b2ab344a37e7a53f82ac4c81da43247bb1e4662d16782f0cca799748",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0014",
-      "zetaris_hash": "6835e934a283c34f9496ff5472fa48fedcb5f9bcb8e1f8a759a4fa1aaa597ccb",
+      "zetaris_hash": "6949fe21b2ab344a37e7a53f82ac4c81da43247bb1e4662d16782f0cca799748",
       "zetaris_rows": 1
     },
     {
@@ -583,21 +583,21 @@
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "918aecc22c535f9e0471ac62967a3747465ccd418d7c16e84e9e42f11267b7d9",
+      "duckdb_hash": "a2061cdcd1c94dc19be1ca179b8131dfc9c5daea796908bcf81b38433c03d99f",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0016",
-      "zetaris_hash": "918aecc22c535f9e0471ac62967a3747465ccd418d7c16e84e9e42f11267b7d9",
+      "zetaris_hash": "a2061cdcd1c94dc19be1ca179b8131dfc9c5daea796908bcf81b38433c03d99f",
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "f066dcc0e401c6fba337992ec640b7dc7a64f98ac1ae99328ebd8fbdb1495909",
+      "duckdb_hash": "cbed8f8d5f44c75aa78d7c4ad809098c4ecae0e0ca2d9f8ce0ed9a466c04f41e",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0017",
-      "zetaris_hash": "f066dcc0e401c6fba337992ec640b7dc7a64f98ac1ae99328ebd8fbdb1495909",
+      "zetaris_hash": "cbed8f8d5f44c75aa78d7c4ad809098c4ecae0e0ca2d9f8ce0ed9a466c04f41e",
       "zetaris_rows": 1
     },
     {
@@ -691,12 +691,12 @@
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "cc72bb2b3ea8dad4d94e142571fb0e3740c0fde1eeb7bba40ab9d657e0bb2065",
+      "duckdb_hash": "9468cb8e59315b5a26c8c38ea27dbb1e69cfa09d51571cdb8ca03c36795010b0",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0028",
-      "zetaris_hash": "cc72bb2b3ea8dad4d94e142571fb0e3740c0fde1eeb7bba40ab9d657e0bb2065",
+      "zetaris_hash": "9468cb8e59315b5a26c8c38ea27dbb1e69cfa09d51571cdb8ca03c36795010b0",
       "zetaris_rows": 1
     },
     {
@@ -709,12 +709,12 @@
       "zetaris_rows": 1
     },
     {
-      "duckdb_hash": "c7e8a59ca1f91de17a8f4c2094cb58d0b6eead5ffc605565e9b432c675f9a118",
+      "duckdb_hash": "bd6be72aff66f73f3081bf97953804c97cf832b9b5c81d5c8ff65a86cdc7d681",
       "duckdb_rows": 1,
       "ok": true,
       "query_id": "Q_VENDOR_PROFILE",
       "vendor_id": "VND-0030",
-      "zetaris_hash": "c7e8a59ca1f91de17a8f4c2094cb58d0b6eead5ffc605565e9b432c675f9a118",
+      "zetaris_hash": "bd6be72aff66f73f3081bf97953804c97cf832b9b5c81d5c8ff65a86cdc7d681",
       "zetaris_rows": 1
     },
     {
@@ -2464,291 +2464,291 @@
       "zetaris_rows": 0
     },
     {
-      "duckdb_hash": "cca7a848fa31e795c5d5652c3bdae236b1abb7864c1bdb96b9186f5af5c442cd",
+      "duckdb_hash": "e0e9769299ee27d39ad8ae92d49d732ab5e57b97c1ef90cbb33eca47498d23fe",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0001",
-      "zetaris_hash": "cca7a848fa31e795c5d5652c3bdae236b1abb7864c1bdb96b9186f5af5c442cd",
+      "zetaris_hash": "e0e9769299ee27d39ad8ae92d49d732ab5e57b97c1ef90cbb33eca47498d23fe",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "4a4640faf6fe84e4911be907c8eb07492358109133d2493a8f57978fff457cb2",
+      "duckdb_hash": "484c1eba9a8ef9c090803434f643c806c90cf3430f20baa4df5b3497fb22a1f9",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0002",
-      "zetaris_hash": "4a4640faf6fe84e4911be907c8eb07492358109133d2493a8f57978fff457cb2",
+      "zetaris_hash": "484c1eba9a8ef9c090803434f643c806c90cf3430f20baa4df5b3497fb22a1f9",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "befbbdecc281aa2e8749307df63a12aed4bb81000c4712066373e5fa01dc29bb",
+      "duckdb_hash": "164d1a24494dc1eebc68c88ddc1c47291dd9fd24d7067082311d066f44c1dfae",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0003",
-      "zetaris_hash": "befbbdecc281aa2e8749307df63a12aed4bb81000c4712066373e5fa01dc29bb",
+      "zetaris_hash": "164d1a24494dc1eebc68c88ddc1c47291dd9fd24d7067082311d066f44c1dfae",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "6046e09b6380088c6057f9c724b5f03e1a41f93af9f1b3083ba066e511a2c0bd",
+      "duckdb_hash": "1bdb22a42552183aa6d67db73769251fa2910cd7b93379626309dab48cd6926f",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0004",
-      "zetaris_hash": "6046e09b6380088c6057f9c724b5f03e1a41f93af9f1b3083ba066e511a2c0bd",
+      "zetaris_hash": "1bdb22a42552183aa6d67db73769251fa2910cd7b93379626309dab48cd6926f",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "bbc7afd64710528bedcb03cedd30b312e59b48fbdb19f855527c61f7302e3a9b",
+      "duckdb_hash": "371eb5423ce0b287d5cae2412ff3c023ea77b6904a42750081b0d67326879cbd",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0005",
-      "zetaris_hash": "bbc7afd64710528bedcb03cedd30b312e59b48fbdb19f855527c61f7302e3a9b",
+      "zetaris_hash": "371eb5423ce0b287d5cae2412ff3c023ea77b6904a42750081b0d67326879cbd",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "dba336f08b71bf6ce6afd39fceea0f179d88eed20466c5fe4af5a45844917c57",
+      "duckdb_hash": "043bbf33432409eede0c3716a9685a4b19b8cb1066f241a82b4f7fa7263439eb",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0006",
-      "zetaris_hash": "dba336f08b71bf6ce6afd39fceea0f179d88eed20466c5fe4af5a45844917c57",
+      "zetaris_hash": "043bbf33432409eede0c3716a9685a4b19b8cb1066f241a82b4f7fa7263439eb",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "8754ef56d2748ee1d96a136ce33f913c13acd6e030a5d2653b8b5100c1fd7f2a",
+      "duckdb_hash": "f1e4c7141bc2c28c9355e645f3395e91ad44ead7ce685d3bbbc8ffca140e42e4",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0007",
-      "zetaris_hash": "8754ef56d2748ee1d96a136ce33f913c13acd6e030a5d2653b8b5100c1fd7f2a",
+      "zetaris_hash": "f1e4c7141bc2c28c9355e645f3395e91ad44ead7ce685d3bbbc8ffca140e42e4",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "ad1e7809ac5aead884d469165a72a1006ee2c3754b5e7cada229ab3c1f912aa0",
+      "duckdb_hash": "1e17ee95416f209c2a517a362292243de7cd397daf73846fe2f8c67a9053df3a",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0008",
-      "zetaris_hash": "ad1e7809ac5aead884d469165a72a1006ee2c3754b5e7cada229ab3c1f912aa0",
+      "zetaris_hash": "1e17ee95416f209c2a517a362292243de7cd397daf73846fe2f8c67a9053df3a",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "784c27de7795317da0da094163019c9b5df132392052a63b96d2228a0530d660",
+      "duckdb_hash": "c5e307fba07564c9b2791d2bc9085ec6357e26954ae9024ecfe26edad060fcfe",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0009",
-      "zetaris_hash": "784c27de7795317da0da094163019c9b5df132392052a63b96d2228a0530d660",
+      "zetaris_hash": "c5e307fba07564c9b2791d2bc9085ec6357e26954ae9024ecfe26edad060fcfe",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "66871cff92aa960896de2c2b7346d4a9572bcec660d9180a1845683037ef2da0",
+      "duckdb_hash": "8b52c6e087c39e1a8c3833adc7e0dd272b5f382499e779e98b8f23207cc9fe03",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0010",
-      "zetaris_hash": "66871cff92aa960896de2c2b7346d4a9572bcec660d9180a1845683037ef2da0",
+      "zetaris_hash": "8b52c6e087c39e1a8c3833adc7e0dd272b5f382499e779e98b8f23207cc9fe03",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "0338b5203dbf8e304fb5ecf03bcb61ba9d12017e13f4b376f88e5120a8b11b10",
+      "duckdb_hash": "77555d1e84c1a1a1ecb5ec2558c42a57a07ebec7f5f2ca88ce18a8800ee1d228",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0011",
-      "zetaris_hash": "0338b5203dbf8e304fb5ecf03bcb61ba9d12017e13f4b376f88e5120a8b11b10",
+      "zetaris_hash": "77555d1e84c1a1a1ecb5ec2558c42a57a07ebec7f5f2ca88ce18a8800ee1d228",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "7ad43233e672c4be9e7c2df371ccb247d653900f050690dab974b724835d3273",
+      "duckdb_hash": "0f97453432800bc52c029e6f2795ebe35230be15532c2d0812a984cc2f381f4c",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0012",
-      "zetaris_hash": "7ad43233e672c4be9e7c2df371ccb247d653900f050690dab974b724835d3273",
+      "zetaris_hash": "0f97453432800bc52c029e6f2795ebe35230be15532c2d0812a984cc2f381f4c",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "6dce47508b3eb32cd2a8ecc839e0697d9f5fcb93ad119c6abbb899b757fcbb7f",
+      "duckdb_hash": "300bfa81c2f8c04788c52e185b74ebdc97d5b37d8ea9c0c2967422ff33664d2d",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0013",
-      "zetaris_hash": "6dce47508b3eb32cd2a8ecc839e0697d9f5fcb93ad119c6abbb899b757fcbb7f",
+      "zetaris_hash": "300bfa81c2f8c04788c52e185b74ebdc97d5b37d8ea9c0c2967422ff33664d2d",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "40fac51dde532e2c5cec828b1de6d35ff4dad02674250bc76ec941069c39415a",
+      "duckdb_hash": "950c219f82ee979344f56b5983932150f89ce990bf72b580985a43e2578b17db",
       "duckdb_rows": 14,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0014",
-      "zetaris_hash": "40fac51dde532e2c5cec828b1de6d35ff4dad02674250bc76ec941069c39415a",
+      "zetaris_hash": "950c219f82ee979344f56b5983932150f89ce990bf72b580985a43e2578b17db",
       "zetaris_rows": 14
     },
     {
-      "duckdb_hash": "b17d72717b264cd1ad7a89111989c2d8ade73fc4c85c1c4ef23e88b09f639025",
+      "duckdb_hash": "0904b085faea097dd476e38f430864f456fd07c52b0d0e4a55f1dce66bcaa5d0",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0015",
-      "zetaris_hash": "b17d72717b264cd1ad7a89111989c2d8ade73fc4c85c1c4ef23e88b09f639025",
+      "zetaris_hash": "0904b085faea097dd476e38f430864f456fd07c52b0d0e4a55f1dce66bcaa5d0",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "68d77f8d1d76a69466eeb3167b1479900483c42e25a21555d84732811ddb200a",
+      "duckdb_hash": "4bfb8de8278468fa0fc0b71a14bf9a94c1936e7ef2490ce5b34f5719bad0a935",
       "duckdb_rows": 14,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0016",
-      "zetaris_hash": "68d77f8d1d76a69466eeb3167b1479900483c42e25a21555d84732811ddb200a",
+      "zetaris_hash": "4bfb8de8278468fa0fc0b71a14bf9a94c1936e7ef2490ce5b34f5719bad0a935",
       "zetaris_rows": 14
     },
     {
-      "duckdb_hash": "1d5472c042b16adcfa8d49b884125eebaedf11078478c840a668b4032e38a80a",
+      "duckdb_hash": "7d95e296233f58fe55bfe1b809a27ecd96e391689882f3a801f007990bb974d8",
       "duckdb_rows": 14,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0017",
-      "zetaris_hash": "1d5472c042b16adcfa8d49b884125eebaedf11078478c840a668b4032e38a80a",
+      "zetaris_hash": "7d95e296233f58fe55bfe1b809a27ecd96e391689882f3a801f007990bb974d8",
       "zetaris_rows": 14
     },
     {
-      "duckdb_hash": "ca7cef4a246fd79d5f8a74cb70450e5c479d7022776857322b9466fb1b0654f7",
+      "duckdb_hash": "ebe93a068ec434e6489729ae1c12790ac499b0f66c2a05dbf5be9cd163a1328e",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0018",
-      "zetaris_hash": "ca7cef4a246fd79d5f8a74cb70450e5c479d7022776857322b9466fb1b0654f7",
+      "zetaris_hash": "ebe93a068ec434e6489729ae1c12790ac499b0f66c2a05dbf5be9cd163a1328e",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "dc11e1bd8cc203404c655ba7676b5b080ef36894c146c23b63eca26eb2c2d119",
+      "duckdb_hash": "a3c1b854826a0032035903d4f2763d9e23c2a95bacf677171c41dc7df3bdb4a3",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0019",
-      "zetaris_hash": "dc11e1bd8cc203404c655ba7676b5b080ef36894c146c23b63eca26eb2c2d119",
+      "zetaris_hash": "a3c1b854826a0032035903d4f2763d9e23c2a95bacf677171c41dc7df3bdb4a3",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "d96238fcacf059ff38c20899a0bfe593b6536178d4d333982d27f6b62dd022eb",
+      "duckdb_hash": "8e8b6d06b0e15280569d786961e870e6387b92ec2e941cd29e78e32e8335a93d",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0020",
-      "zetaris_hash": "d96238fcacf059ff38c20899a0bfe593b6536178d4d333982d27f6b62dd022eb",
+      "zetaris_hash": "8e8b6d06b0e15280569d786961e870e6387b92ec2e941cd29e78e32e8335a93d",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "c6953d2ce33b5d20864ec27a937b1fdfb501e71d256ea0bf1f7f67896c8f3281",
+      "duckdb_hash": "9fb1715061e61586abe1975b3a282195ebd9f09907d4daaee07fdceea0d32504",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0021",
-      "zetaris_hash": "c6953d2ce33b5d20864ec27a937b1fdfb501e71d256ea0bf1f7f67896c8f3281",
+      "zetaris_hash": "9fb1715061e61586abe1975b3a282195ebd9f09907d4daaee07fdceea0d32504",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "913f136334ca9d7e848476661f56436debc536beb3e495ca4f22a7c543f514db",
+      "duckdb_hash": "f19ea92e759a21c02153a8b3968f0ea49ae337a546ac6f51cf7e93b4140c976a",
       "duckdb_rows": 14,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0022",
-      "zetaris_hash": "913f136334ca9d7e848476661f56436debc536beb3e495ca4f22a7c543f514db",
+      "zetaris_hash": "f19ea92e759a21c02153a8b3968f0ea49ae337a546ac6f51cf7e93b4140c976a",
       "zetaris_rows": 14
     },
     {
-      "duckdb_hash": "c7ba423d25637fe836bbebeb4c087861944b6887476ad756dbec0af686625c0b",
+      "duckdb_hash": "8aaa65859f59a9fc45d535a1b0dc58360aeb687365699d8111a07561467b3bdd",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0023",
-      "zetaris_hash": "c7ba423d25637fe836bbebeb4c087861944b6887476ad756dbec0af686625c0b",
+      "zetaris_hash": "8aaa65859f59a9fc45d535a1b0dc58360aeb687365699d8111a07561467b3bdd",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "fb1677bfcc805127251044afdbe615e99b9970584c11388fe5a9094cbddfb5a1",
+      "duckdb_hash": "e3b17926f615e78dd920f0a91e9073937f53b7ad8affdc5b0992a7624453b5e9",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0024",
-      "zetaris_hash": "fb1677bfcc805127251044afdbe615e99b9970584c11388fe5a9094cbddfb5a1",
+      "zetaris_hash": "e3b17926f615e78dd920f0a91e9073937f53b7ad8affdc5b0992a7624453b5e9",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "82b3e3abe687584b194f8212434a0382f28cba9d4512db82aafe0aabf90f32c6",
+      "duckdb_hash": "5c79123688aaf84c714e9406844dd4e66183b9e2af7c4e4ebd6cdf34b41f260e",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0025",
-      "zetaris_hash": "82b3e3abe687584b194f8212434a0382f28cba9d4512db82aafe0aabf90f32c6",
+      "zetaris_hash": "5c79123688aaf84c714e9406844dd4e66183b9e2af7c4e4ebd6cdf34b41f260e",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "6748d683bd7b84ea1cf450635dd0fa98ccaead392575bef034c8f0d2007c5650",
+      "duckdb_hash": "c62929787592bc574d7bbcd0c3df04ce16916f803ecf6b94682fd8aa16b383d1",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0026",
-      "zetaris_hash": "6748d683bd7b84ea1cf450635dd0fa98ccaead392575bef034c8f0d2007c5650",
+      "zetaris_hash": "c62929787592bc574d7bbcd0c3df04ce16916f803ecf6b94682fd8aa16b383d1",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "d255bb6f61eb62681096abbb9d51f752dce23ca81a709ae522e0d189667a1207",
+      "duckdb_hash": "43ab38532ea6d248003ecbefc362cc27af1c8c947e01655e3cd524bce8b0969d",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0027",
-      "zetaris_hash": "d255bb6f61eb62681096abbb9d51f752dce23ca81a709ae522e0d189667a1207",
+      "zetaris_hash": "43ab38532ea6d248003ecbefc362cc27af1c8c947e01655e3cd524bce8b0969d",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "eb5871d25ba5f226b49fe60ee7be0565ddf2b8acc4783ccd30d06c301d53c2a8",
+      "duckdb_hash": "283d2dd9bfb5f75ed36ab1dca2a5e7993ba1c8f374d457d64993e25cb6bdb65d",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0028",
-      "zetaris_hash": "eb5871d25ba5f226b49fe60ee7be0565ddf2b8acc4783ccd30d06c301d53c2a8",
+      "zetaris_hash": "283d2dd9bfb5f75ed36ab1dca2a5e7993ba1c8f374d457d64993e25cb6bdb65d",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "feac2c0a57df359df7292812c0463e31e2e3dd4e46ca80a9f2f07f9fa08612aa",
+      "duckdb_hash": "b2a6816307d57d645aefacdaa2357d904d09a58f1c1d1222dc4ff4750acda818",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0029",
-      "zetaris_hash": "feac2c0a57df359df7292812c0463e31e2e3dd4e46ca80a9f2f07f9fa08612aa",
+      "zetaris_hash": "b2a6816307d57d645aefacdaa2357d904d09a58f1c1d1222dc4ff4750acda818",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "11e506cd6e8573212d9017dcdc73d1880b2b453c65b255f116e5e1b67fb9e7c2",
+      "duckdb_hash": "cc20c45be506c7ea37b69f828e7b4aa5487ac479c3cdb450968389cb7a84fdae",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0030",
-      "zetaris_hash": "11e506cd6e8573212d9017dcdc73d1880b2b453c65b255f116e5e1b67fb9e7c2",
+      "zetaris_hash": "cc20c45be506c7ea37b69f828e7b4aa5487ac479c3cdb450968389cb7a84fdae",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "4c17abf9727acd1627f9dc2d1c18d74189a56c8f21325579ed14eb74940646a6",
+      "duckdb_hash": "ec6d65c04caeb5acd0b4aa1505a16c603c31f99f19062fc0e77f4297374fbf30",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0031",
-      "zetaris_hash": "4c17abf9727acd1627f9dc2d1c18d74189a56c8f21325579ed14eb74940646a6",
+      "zetaris_hash": "ec6d65c04caeb5acd0b4aa1505a16c603c31f99f19062fc0e77f4297374fbf30",
       "zetaris_rows": 16
     },
     {
-      "duckdb_hash": "c9bb70f7e20e34b1e6540ca810f9b6ad82753b3e0a96eb36e3d9a001b6c68a73",
+      "duckdb_hash": "aa628adffbe8f6464d88044f12972fbe57dd27f422ba6abc05be1970971706f3",
       "duckdb_rows": 16,
       "ok": true,
       "query_id": "Q_SUBMISSION_ANSWERS",
       "vendor_id": "VND-0032",
-      "zetaris_hash": "c9bb70f7e20e34b1e6540ca810f9b6ad82753b3e0a96eb36e3d9a001b6c68a73",
+      "zetaris_hash": "aa628adffbe8f6464d88044f12972fbe57dd27f422ba6abc05be1970971706f3",
       "zetaris_rows": 16
     },
     {
