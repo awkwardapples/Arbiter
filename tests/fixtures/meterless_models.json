@@ -1,0 +1,1575 @@
+{
+  "body": {
+    "data": [
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/auto",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "ready",
+          "class": null,
+          "description": "Adaptive default. Works out what the request needs, uses what\u2019s already loaded, loads more only when there\u2019s room.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Auto",
+          "produces": "auto"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/fast",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "ready",
+          "class": null,
+          "description": "Lowest TTFT. Ready models only; refuses rather than waiting on a load.",
+          "disposition": "fast",
+          "dispositions": [
+            "fast"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Fast",
+          "produces": "auto"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/deep",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "ready",
+          "class": null,
+          "description": "Highest quality. Frontier routes and second opinions permitted.",
+          "disposition": "deep",
+          "dispositions": [
+            "deep"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Deep",
+          "produces": "auto"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/cheap",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "ready",
+          "class": null,
+          "description": "Minimises marginal cost. Free/local/subscription first.",
+          "disposition": "cheap",
+          "dispositions": [
+            "cheap"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Cheap",
+          "produces": "auto"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/local",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "ready",
+          "class": null,
+          "description": "On-device only. No cloud, ever.",
+          "disposition": "local",
+          "dispositions": [
+            "local"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Local",
+          "produces": "auto"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/fusion",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "ready",
+          "class": null,
+          "description": "Family-diverse panel plus a judge.",
+          "disposition": "fusion",
+          "dispositions": [
+            "fusion"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Fusion",
+          "produces": "auto"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/cluster",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "audio",
+            "video",
+            "pdf"
+          ],
+          "availability": "unavailable",
+          "class": null,
+          "description": "Answers from one cluster node only \u2014 the cluster\u2019s bound curator, no race, no substitute.",
+          "disposition": "cluster",
+          "dispositions": [
+            "cluster"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Cluster",
+          "produces": "auto",
+          "why": "the cluster disposition is declared but not served by this build \u2014 ask for meterless/<class> and pick a lane, or curate the cluster on the night field"
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/text",
+        "meterless": {
+          "accepts": [
+            "text"
+          ],
+          "availability": "ready",
+          "chat_carrier": true,
+          "class": "text",
+          "description": "Pinned text; no class detection.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Text",
+          "produces": "text",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/chat/completions"
+            }
+          ]
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/code",
+        "meterless": {
+          "accepts": [
+            "text"
+          ],
+          "availability": "ready",
+          "chat_carrier": true,
+          "class": "code",
+          "description": "Code synthesis and repair.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Code",
+          "produces": "text",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/chat/completions"
+            }
+          ]
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/vision",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "availability": "cloud",
+          "chat_carrier": true,
+          "class": "vision",
+          "description": "Reads images, screenshots and pages, then answers.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Vision",
+          "produces": "text",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/chat/completions"
+            }
+          ],
+          "why": "no local vision route on this box \u2014 a configured provider can serve it, and the request leaves the machine."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/perception",
+        "meterless": {
+          "accepts": [
+            "text",
+            "pdf",
+            "document"
+          ],
+          "availability": "unavailable",
+          "chat_carrier": false,
+          "class": "perception",
+          "description": "Pulls structure out of documents: text, tables, layout.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Perception",
+          "produces": "text",
+          "routes": [],
+          "why": "this box cannot serve perception: no lane carries the processing capability, nothing on disk provides it, and no configured provider serves it. Seat a perception lane in Lanes, or add a provider key in Setup."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/image",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image"
+          ],
+          "availability": "unavailable",
+          "chat_carrier": false,
+          "class": "image",
+          "description": "Makes a still.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat",
+            "images"
+          ],
+          "gate": "MEDIA_IMAGE",
+          "name": "Meterless Image",
+          "produces": "image",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/jobs/{id}/materialize"
+            }
+          ],
+          "why": "no room for a image lane \u2014 10.7 GB free of 10.7 GB, and it needs 14.6 GB plus 4.0 GB reserve. Stop a lane in Lanes, or add a hosted provider key."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/video",
+        "meterless": {
+          "accepts": [
+            "text",
+            "image"
+          ],
+          "availability": "unavailable",
+          "chat_carrier": false,
+          "class": "video",
+          "description": "Makes a clip. One core at a time; minutes, not seconds.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local"
+          ],
+          "endpoints": [
+            "chat",
+            "videos"
+          ],
+          "gate": "MEDIA_VIDEO",
+          "name": "Meterless Video",
+          "produces": "video",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/jobs/{id}/materialize"
+            }
+          ],
+          "why": "no room for a video lane \u2014 10.7 GB free of 10.7 GB, and it needs 20.3 GB plus 4.0 GB reserve. Stop a lane in Lanes, or add a hosted provider key."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/speech",
+        "meterless": {
+          "accepts": [
+            "text"
+          ],
+          "availability": "admittable",
+          "chat_carrier": false,
+          "class": "speech",
+          "description": "Reads text aloud.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local"
+          ],
+          "endpoints": [
+            "chat",
+            "audio.speech"
+          ],
+          "gate": "MEDIA_AUDIO",
+          "name": "Meterless Speech",
+          "produces": "audio",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/jobs/{id}/materialize"
+            }
+          ],
+          "why": "no speech lane is seated; the voice-tts engine can be leased for one step."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/transcribe",
+        "meterless": {
+          "accepts": [
+            "audio",
+            "video"
+          ],
+          "availability": "admittable",
+          "chat_carrier": false,
+          "class": "transcribe",
+          "description": "Turns audio or video into text.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat",
+            "audio.transcriptions"
+          ],
+          "gate": "MEDIA_AUDIO",
+          "name": "Meterless Transcribe",
+          "produces": "text",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/meterless/transcribe"
+            }
+          ],
+          "why": "no transcribe lane is seated; the voice-asr engine can be leased for one step."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/music",
+        "meterless": {
+          "accepts": [
+            "text"
+          ],
+          "availability": "unavailable",
+          "chat_carrier": false,
+          "class": "music",
+          "description": "Composes a score.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": "MEDIA_MUSIC",
+          "name": "Meterless Music",
+          "produces": "audio",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/jobs/{id}/materialize"
+            }
+          ],
+          "why": "no room for a music lane \u2014 10.7 GB free of 10.7 GB, and it needs 11.0 GB plus 4.0 GB reserve. Stop a lane in Lanes, or add a hosted provider key."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/embed",
+        "meterless": {
+          "accepts": [
+            "text"
+          ],
+          "availability": "admittable",
+          "chat_carrier": false,
+          "class": "embed",
+          "description": "Turns text into vectors.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local"
+          ],
+          "endpoints": [
+            "chat",
+            "embeddings"
+          ],
+          "gate": null,
+          "name": "Meterless Embed",
+          "produces": "vector",
+          "routes": [],
+          "why": "no embed lane is seated; weights are on disk and the envelope has room."
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "contextWindow": 1048576,
+        "created": 0,
+        "id": "meterless/judge",
+        "meterless": {
+          "accepts": [
+            "text"
+          ],
+          "availability": "ready",
+          "chat_carrier": true,
+          "class": "judge",
+          "description": "Grades an answer against a rubric.",
+          "disposition": "auto",
+          "dispositions": [
+            "auto",
+            "fast",
+            "deep",
+            "cheap",
+            "local",
+            "fusion"
+          ],
+          "endpoints": [
+            "chat"
+          ],
+          "gate": null,
+          "name": "Meterless Judge",
+          "produces": "text",
+          "routes": [
+            {
+              "method": "POST",
+              "path": "/v1/chat/completions"
+            }
+          ]
+        },
+        "object": "model",
+        "owned_by": "meterless"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "meterless": {
+          "context": 1048576,
+          "kind": "cloud",
+          "name": "Nemotron 3.5 Super VL 120B A12B",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "meterless": {
+          "context": 262144,
+          "kind": "cloud",
+          "name": "Nemotron 3.5 Lightning 30B A3B",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/nemotron-3-ultra-550b-a55b",
+        "meterless": {
+          "context": 1048576,
+          "kind": "cloud",
+          "name": "Nemotron 3 Ultra 550B A55B",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/nemotron-3-super-120b-a12b",
+        "meterless": {
+          "context": 262144,
+          "kind": "cloud",
+          "name": "Nemotron 3 Super 120B A12B",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/nemotron-3-nano-30b-a3b",
+        "meterless": {
+          "context": 131072,
+          "kind": "cloud",
+          "name": "Nemotron 3 Nano 30B A3B",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+        "meterless": {
+          "context": 131072,
+          "kind": "cloud",
+          "name": "Llama 3.1 Nemotron Ultra 253B v1",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
+        "meterless": {
+          "context": 131072,
+          "kind": "cloud",
+          "name": "Llama 3.3 Nemotron Super 49B v1.5",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "nvidia/nemotron-3-embed-1b",
+        "meterless": {
+          "context": 4096,
+          "kind": "cloud",
+          "name": "Nemotron 3 Embed 1B",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "nvidia"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen3.6-35b-a3b-mtp",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Qwen 3.6 35B A3B MTP (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gpt-oss-20b",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "GPT-OSS 20B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/llama-3.2-3b-instruct-q8",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Llama 3.2 3B Q8 Verifier (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/phi-4-mini-instruct",
+        "meterless": {
+          "context": 128000,
+          "kind": "local",
+          "name": "Phi 4 Mini (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/nomic-embed-text-v1.5",
+        "meterless": {
+          "context": 8192,
+          "kind": "local",
+          "name": "Nomic Embed Text v1.5 (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/bge-small-en-v1.5",
+        "meterless": {
+          "context": 512,
+          "kind": "local",
+          "name": "BGE Small EN v1.5 (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/llama-3.2-1b-instruct",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Llama 3.2 1B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/llama-3.2-3b-instruct",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Llama 3.2 3B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-coder-3b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 Coder 3B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/llama-3.1-8b-instruct",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Llama 3.1 8B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/mistral-7b-instruct-v0.3",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Mistral 7B Instruct v0.3 (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/codestral-22b-v0.1",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Codestral 22B v0.1 (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/deepseek-r1-distill-qwen-14b",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "DeepSeek R1 Distill Qwen 14B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/llama-3.3-70b-instruct",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Llama 3.3 70B \u26a0\ufe0f 48GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/llama-3.1-70b-instruct",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Llama 3.1 70B (alias \u2192 3.3)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-coder-7b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 Coder 7B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-14b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 14B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-32b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 32B \u26a0\ufe0f 24GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-coder-14b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 Coder 14B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-coder-32b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 Coder 32B \u26a0\ufe0f 24GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen2.5-72b-instruct",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "Qwen 2.5 72B \u26a0\ufe0f 48GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/deepseek-r1-distill-qwen-32b",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "DeepSeek R1 Distill Qwen 32B \u26a0\ufe0f 24GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/deepseek-r1-distill-llama-70b",
+        "meterless": {
+          "context": 32768,
+          "kind": "local",
+          "name": "DeepSeek R1 Distill Llama 70B \u26a0\ufe0f 48GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gemma-2-27b-it",
+        "meterless": {
+          "context": 8192,
+          "kind": "local",
+          "name": "Gemma 2 27B IT \u26a0\ufe0f 20GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gemma-4-e4b-it",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Gemma 4 E4B IT (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gemma-4-e4b-it-latest",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Gemma 4 E4B IT Latest (alias)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gemma-4-26b-a4b-it",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Gemma 4 26B MoE (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gemma4-26b",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Gemma 4 26B (alias)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/supergemma4-26b-uncensored",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "SuperGemma 4 26B Uncensored v2 \u26a0\ufe0f 20GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/gemma-4-e4b-it-obliterated",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Gemma 4 E4B IT Obliterated (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/command-r-35b",
+        "meterless": {
+          "context": 128000,
+          "kind": "local",
+          "name": "Command R 35B \u26a0\ufe0f 24GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/nemotron-3-nano-30b-a3b",
+        "meterless": {
+          "context": 128000,
+          "kind": "local",
+          "name": "Nemotron 3 Nano 30B-A3B \u26a0\ufe0f 22GB+ RAM (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/minicpm5-1b-claude-opus-fable5-v2-thinking",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "MiniCPM5 1B Fable5 V2 Thinking (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/vibethinker-3b",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "VibeThinker 3B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/rocinante-x-12b-v1",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Rocinante X 12B v1 (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/pixtral-12b",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Pixtral 12B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/nemotron-3.5-lightning-30b-a3b",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Nemotron 3.5 Lightning 30B-A3B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/nemotron-3.5-lightning-30b-a3b-mxfp4",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Nemotron 3.5 Lightning 30B-A3B MXFP4 DGX (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/muse-glimmer-30b",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Muse Glimmer 30B Judge (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen3.8-27b",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Qwen 3.8 27B Vision (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen3.8-27b-q2",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Qwen 3.8 27B UD-Q2 Swarm (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen3.8-27b-nvfp4",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Qwen 3.8 27B NVFP4 DGX (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/deepseek-v4-flash-0731",
+        "meterless": {
+          "context": 1000000,
+          "kind": "local",
+          "name": "DeepSeek V4-Flash 0731 \u26a0\ufe0f 91GB, deep fleet only (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/deepseek-v2.5",
+        "meterless": {
+          "context": 128000,
+          "kind": "local",
+          "name": "DeepSeek V2.5 236B MoE \u26a0\ufe0f 87GB (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "C"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/qwen3-coder-next-80b-a3b",
+        "meterless": {
+          "context": 262144,
+          "kind": "local",
+          "name": "Qwen3 Coder Next 80B-A3B \u26a0\ufe0f 45GB (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/muse-glimmer-30b-kquant",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Muse Glimmer 30B Judge K-Quant (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/muse-glimmer-30b-dflash",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Muse Glimmer 30B DFlash Drafter (companion)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/muse-glimmer-30b-mmproj",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "Muse Glimmer 30B Perception Encoder (companion)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/embeddinggemma-300m",
+        "meterless": {
+          "context": 2048,
+          "kind": "local",
+          "name": "EmbeddingGemma 300M (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/paddleocr-vl-1.6",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "PaddleOCR VL 1.6 (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "A"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      },
+      {
+        "created": 0,
+        "id": "local-runtime/granite-4.1-8b",
+        "meterless": {
+          "context": 131072,
+          "kind": "local",
+          "name": "IBM Granite 4.1 8B (Runtime GGUF)",
+          "price": {
+            "input_per_m": 0,
+            "output_per_m": 0
+          },
+          "tier": "B"
+        },
+        "object": "model",
+        "owned_by": "local-runtime"
+      }
+    ],
+    "object": "list"
+  },
+  "captured_at": "2026-10-22T02:41:21+00:00",
+  "headers": {},
+  "request": {
+    "method": "GET",
+    "path": "/v1/models"
+  },
+  "status": 200
+}
