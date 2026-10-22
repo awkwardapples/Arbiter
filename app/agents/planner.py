@@ -13,6 +13,7 @@ from app.agents.llm_schemas import PlanOut
 from app.data.inline import DELEGATED, INLINE_QUERIES
 from app.data.registry import QueryDef, load_registry
 from app.llm import prompts
+from app.memory.assessments import plan_queries_from_priors
 from app.state import CaseState, Plan, PlanStep
 
 NAME = "PlannerAgent"
@@ -52,11 +53,14 @@ def build_params(query_id: str, qdef: QueryDef, state: CaseState) -> dict[str, A
     return params
 
 
-def required_queries(state: CaseState) -> list[tuple[str, str]]:
+def required_queries(state: CaseState, memory: object | None = None) -> list[tuple[str, str]]:
     """(query id, reason) the plan must contain: screen set, Evaluator and Challenger requests."""
     if not state.plans:
         screen = SCREEN_QUERIES_INLINE if state.is_inline else SCREEN_QUERIES
-        return [(q, "screen: read what the vendor claims and run the C11 watchlist screen") for q in screen]
+        out = [(q, "screen: read what the vendor claims and run the C11 watchlist screen") for q in screen]
+        if memory is not None:
+            out.extend(plan_queries_from_priors(state.vendor_ref, memory))
+        return out
     out: list[tuple[str, str]] = []
     evaluation = state.latest_evaluation()
     if evaluation is not None and not evaluation.sufficient:
@@ -110,7 +114,7 @@ class PlannerAgent:
     def __call__(self, state: CaseState, ctx: AgentContext) -> CaseState:
         registry = load_registry()
         allowed = allowed_queries(state)
-        required = [(q, r) for q, r in required_queries(state) if q in allowed]
+        required = [(q, r) for q, r in required_queries(state, ctx.memory) if q in allowed]
 
         def deterministic() -> tuple[list[tuple[str, str]], str]:
             return list(required), ""

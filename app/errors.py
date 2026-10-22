@@ -71,6 +71,10 @@ class PolicyIneligible(ArbiterError):
     http_status = 422
     error_type = "PolicyIneligible"
 
+    def __init__(self, message: str, *, reasons: list[str] | None = None, recoverable: bool = False) -> None:
+        self.reasons = list(reasons or [])
+        super().__init__(message, recoverable=recoverable)
+
 
 class ContractInvalid(ArbiterError):
     http_status = 409

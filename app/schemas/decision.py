@@ -14,6 +14,7 @@ class TierProfile(BaseModel):
     criticality: Literal["low", "medium", "high"]
     annual_spend_gbp: float
     contract_status: str
+    vendor_category: str | None = None
 
 
 class ControlResult(BaseModel):

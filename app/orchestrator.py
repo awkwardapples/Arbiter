@@ -18,7 +18,6 @@ from app.agents.base import AgentContext, offline_generate
 from app.agents.challenger import ChallengerAgent
 from app.agents.evaluator import EvaluatorAgent
 from app.agents.evidence import EvidenceAgent, run_query
-from app.agents.memory_port import NullMemory
 from app.agents.planner import PlannerAgent
 from app.agents.reporter import ReporterAgent, template_report
 from app.agents.response import build_output
@@ -28,6 +27,7 @@ from app.data.factory import get_backend
 from app.errors import BudgetExceeded
 from app.facts import tier_profile
 from app.llm.generator import generate
+from app.memory.keeper import HMemMemory, build_memory
 from app.policy.engine import decide, force_escalate
 from app.policy.loader import load_default, policy_sha256
 from app.policy.tiering import tier as assign_tier
@@ -155,10 +155,17 @@ def _settings(options: RunOptions) -> Settings:
     return Settings().model_copy(update=updates) if updates else Settings()
 
 
-def _decide(state: CaseState, ctx: AgentContext, *, precedents: list[Any] | None = None) -> DecisionRecord:
+def _decide(
+    state: CaseState,
+    ctx: AgentContext,
+    *,
+    precedents: list[Any] | None = None,
+    precedent_alignment: float | None = None,
+) -> DecisionRecord:
     profile = tier_profile(state, state.facts)
     case_tier, _score = assign_tier(profile, ctx.policy)
-    confidence = compute(state, ctx.policy, ctx.calibration, tier=case_tier)
+    alignment = 1.0 if precedent_alignment is None else precedent_alignment
+    confidence = compute(state, ctx.policy, ctx.calibration, tier=case_tier, precedent_alignment=alignment)
     inputs = PolicyInputs(
         case_id=state.case_id,
         run_id=state.run_id,
@@ -211,13 +218,18 @@ def run(case_input: CaseInput, *, options: RunOptions, deps: Deps | None = None)
         if mono() >= deadline:
             raise BudgetExceeded(f"run budget of {settings.RUN_BUDGET_SECONDS}s exceeded")
 
+    memory = (
+        deps.memory
+        if deps.memory is not None
+        else build_memory(settings, var_dir=deps.var_dir, clock=clock, tracer=tracer)
+    )
     ctx = AgentContext(
         tracer=tracer,
         backend=backend,
         generator=deps.generator or (offline_generate if settings.LLM_PROVIDER == "offline" else generate),
         policy=policy,
         calibration=calibration,
-        memory=deps.memory or NullMemory(),
+        memory=memory,
         settings=settings,
         clock=clock,
         offline=settings.LLM_PROVIDER == "offline",
@@ -237,6 +249,8 @@ def run(case_input: CaseInput, *, options: RunOptions, deps: Deps | None = None)
         mode=mode,
         budget_deadline=deadline,
     )
+    if isinstance(memory, HMemMemory):
+        memory.set_run_context(run_id=run_id, case_tier="T2", failing=[], vendor_ref=state.vendor_ref)
     tracer.event(
         "Orchestrator",
         "start_run",
@@ -300,7 +314,12 @@ def _act(phase: State, state: CaseState, ctx: AgentContext, agents: dict[str, An
     elif phase is State.MEMORY_CHECK:
         _memory(state, ctx)
     elif phase is State.DECIDE_2:
-        state.decision = _decide(state, ctx, precedents=state.precedents)
+        alignment = 1.0
+        if isinstance(ctx.memory, HMemMemory):
+            alignment = ctx.memory.precedent_alignment(state.precedents)
+        state.decision = _decide(state, ctx, precedents=state.precedents, precedent_alignment=alignment)
+        if isinstance(ctx.memory, HMemMemory):
+            ctx.memory.trace_precedent_outcomes(state.decision)
         ctx.tracer.event(
             "Orchestrator",
             "redecide",
@@ -337,6 +356,13 @@ def _memory(state: CaseState, ctx: AgentContext) -> None:
         for control in record.controls
         if control.control_id in eligible and control.state != "TRUE"
     ]
+    if isinstance(ctx.memory, HMemMemory):
+        ctx.memory.set_run_context(
+            run_id=record.run_id,
+            case_tier=record.tier,
+            failing=failing,
+            vendor_ref=state.vendor_ref,
+        )
     state.precedents = list(ctx.memory.find_precedents(record.policy_inputs.profile, failing))
     ctx.tracer.event(
         "Orchestrator",
