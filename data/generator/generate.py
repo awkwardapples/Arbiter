@@ -13,6 +13,7 @@ import yaml
 
 from app.canon import sha256_hex
 from data.generator.kev_match import kev_matches
+from data.generator.truth import inline_truth, vendor_truth
 from data.kev.fetch_kev import fetch_kev
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -104,14 +105,23 @@ def _envelope(system: str, as_of: date, records: list[dict[str, Any]]) -> dict[s
     }
 
 
-def _pick(rng: random.Random, bank: dict[str, list[str]], qid: str, polarity: str) -> str:
+# Phrases added after the first data release. They are picked from a per-vendor RNG so the
+# main RNG sequence, and therefore every other generated row, is unchanged.
+_STABLE_QIDS = frozenset({"Q05", "Q06", "Q07"})
+
+
+def _pick(rng: random.Random, bank: dict[str, list[str]], qid: str, polarity: str, *, key: str = "") -> str:
     opts = (bank.get("questions", {}).get(qid, {}) or {}).get(polarity)
     if not opts:
-        return f"{polarity} response for {qid}"
+        raise ValueError(f"phrasebank has no {polarity!r} phrases for {qid}")
+    if qid in _STABLE_QIDS:
+        return random.Random(f"{key}:{qid}:{polarity}").choice(opts)
     return rng.choice(opts)
 
 
-def _default_answers(rng: random.Random, bank: dict, polarity: str = "affirm") -> dict[str, str]:
+def _default_answers(
+    rng: random.Random, bank: dict, polarity: str = "affirm", *, key: str = ""
+) -> dict[str, str]:
     out: dict[str, str] = {}
     for qid in QUESTIONS:
         if qid in {"Q03", "Q04", "Q09", "Q11", "Q12", "Q13", "Q14", "Q16"}:
@@ -127,13 +137,13 @@ def _default_answers(rng: random.Random, bank: dict, polarity: str = "affirm") -
             }
             out[qid] = defaults[qid]
         else:
-            out[qid] = _pick(rng, bank, qid, polarity)
+            out[qid] = _pick(rng, bank, qid, polarity, key=key)
     return out
 
 
 def _apply_scenario(v: VendorBuild, rng: random.Random, bank: dict) -> None:
     codes = set(v.scenarios)
-    v.answers = _default_answers(rng, bank, "affirm")
+    v.answers = _default_answers(rng, bank, "affirm", key=v.vendor_id)
     if "S01" in codes:
         v.data_categories = "internal"
         v.criticality = "low"
@@ -167,13 +177,18 @@ def _apply_scenario(v: VendorBuild, rng: random.Random, bank: dict) -> None:
                 ),
             }
         )
+    if codes & {"S04", "S12", "S13", "S14"} and not codes & {"S05"}:
+        # The controls these scenarios exercise (C05, C07, C08) are only required at T2+ or for
+        # personal data, so they carry the S02 profile (personal, low, £45k → T2).
+        v.data_categories = "personal"
+        v.annual_spend_gbp = 45000
     if "S04" in codes:
         v.contract_status = "draft"
         v.answers.pop("Q07", None)
         v.answers.pop("Q09", None)
     if "S05" in codes:
         v.answers["Q01"] = _pick(rng, bank, "Q01", "vague")
-        v.answers["Q05"] = _pick(rng, bank, "Q05", "vague")
+        v.answers["Q05"] = _pick(rng, bank, "Q05", "vague", key=v.vendor_id)
     if "S06" in codes:
         v.answers["Q10"] = _pick(rng, bank, "Q10", "affirm")
         v.hosting_region_clause = "US"
@@ -486,7 +501,14 @@ def _labels(vendors: list[VendorBuild], spec: dict[str, Any]) -> list[dict[str, 
                 "case_ref": v.vendor_id,
                 "kind": "vendor_id",
                 "scenario": v.scenario_key,
-                "tier": "T1" if "S03" in v.scenarios or v.scenario_key == "S06+S09" else "T2",
+                "tier": _policy_tier(
+                    {
+                        "data_categories": v.data_categories.split(","),
+                        "criticality": v.criticality,
+                        "annual_spend_gbp": v.annual_spend_gbp,
+                        "contract_status": v.contract_status,
+                    }
+                ),
                 "expected_outcome": meta.get("outcome", "ESCALATE"),
                 "expected_reasons": meta.get("reasons", []),
                 "expected_failing_controls": [],
@@ -555,6 +577,21 @@ def _inline_payloads() -> dict[str, dict[str, Any]]:
                 "question": QUESTIONS["Q02"],
                 "answer_text": "Yes, MFA is required for remote staff.",
             },
+            {
+                "question_id": "Q05",
+                "question": QUESTIONS["Q05"],
+                "answer_text": "Yes, customer data is encrypted at rest with AES-256.",
+            },
+            {
+                "question_id": "Q06",
+                "question": QUESTIONS["Q06"],
+                "answer_text": "Yes, all traffic uses TLS 1.2 or higher.",
+            },
+            {
+                "question_id": "Q08",
+                "question": QUESTIONS["Q08"],
+                "answer_text": "No security incidents affecting customer data in the last 24 months.",
+            },
         ],
         "documents": [],
         "declared_components": [],
@@ -587,6 +624,62 @@ def _inline_payloads() -> dict[str, dict[str, Any]]:
     }
 
 
+# Authored meaning of the inline answers above (ground truth for the label oracle).
+_INLINE_ANSWER_TRUTH: dict[str, dict[str, Any]] = {
+    "mfa.admin_enforced": {"value": True, "state": "TRUE", "source": "vendor_answer"},
+    "mfa.remote_enforced": {"value": True, "state": "TRUE", "source": "vendor_answer"},
+    "crypto.at_rest": {"value": True, "state": "TRUE", "source": "vendor_answer"},
+    "crypto.in_transit_tls12": {"value": True, "state": "TRUE", "source": "vendor_answer"},
+    "incidents.vendor_reported_24m": {"value": 0, "state": "TRUE", "source": "vendor_answer"},
+}
+_INLINE_TRUTH_KEYS = {
+    "inline_clean_t3": set(_INLINE_ANSWER_TRUTH),
+    "inline_injection": set(_INLINE_ANSWER_TRUTH),
+    "inline_missing": {"mfa.admin_enforced"},
+    "inline_kev": set(_INLINE_ANSWER_TRUTH),
+}
+
+
+def _truth_rows(
+    vendors: list[VendorBuild],
+    tables: dict[str, list[dict[str, Any]]],
+    as_of: date,
+    kev: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    watchlist = tables["grc_watchlist.json"]
+    aliases_by_vendor: dict[str, list[str]] = {}
+    for row in tables["procurement_vendor_aliases.json"]:
+        aliases_by_vendor.setdefault(row["vendor_id"], []).append(row["alias_lower"])
+    rows = [
+        vendor_truth(v, as_of=as_of, kev=kev, watchlist=watchlist, aliases=aliases_by_vendor[v.vendor_id])
+        for v in vendors
+    ]
+    for fname, payload in _inline_payloads().items():
+        case_id = fname.removesuffix(".json")
+        keys = _INLINE_TRUTH_KEYS[case_id]
+        rows.append(
+            inline_truth(
+                case_id,
+                payload,
+                as_of=as_of,
+                kev=kev,
+                watchlist=watchlist,
+                blocked=case_id == "inline_injection",
+                answer_truth={k: dict(_INLINE_ANSWER_TRUTH[k]) for k in sorted(keys)},
+            )
+        )
+    return rows
+
+
+def _policy_tier(profile: dict[str, Any]) -> str:
+    from app.policy.loader import load_default
+    from app.policy.tiering import tier
+    from app.schemas.decision import TierProfile
+
+    policy, _ = load_default()
+    return tier(TierProfile.model_validate(profile), policy)[0]
+
+
 def generate(*, seed: int, as_of: date, refresh_kev: bool = False, kev_url: str | None = None) -> None:
     if refresh_kev:
         from app.config import get_settings
@@ -617,14 +710,7 @@ def generate(*, seed: int, as_of: date, refresh_kev: bool = False, kev_url: str 
         json.dumps(_splits(vendors, seed), indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    truth = [
-        {
-            "vendor_id": v.vendor_id,
-            "scenario": v.scenario_key,
-            "facts": {"vendor.data_categories": v.data_categories},
-        }
-        for v in vendors
-    ]
+    truth = _truth_rows(vendors, tables, as_of, kev)
     (EVALS_DIR / "truth_facts.jsonl").write_text(
         "\n".join(json.dumps(row, sort_keys=True) for row in truth) + "\n",
         encoding="utf-8",

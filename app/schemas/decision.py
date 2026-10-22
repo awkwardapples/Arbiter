@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from typing import Literal
 
 from pydantic import BaseModel
@@ -104,3 +104,59 @@ class DecisionRecord(BaseModel):
     policy_inputs: PolicyInputs
     created_at: datetime
     record_sha256: str
+
+    @classmethod
+    def safe_escalation(
+        cls,
+        *,
+        case_id: str,
+        run_id: str,
+        as_of: date,
+        reason: str,
+        policy_version: str,
+        policy_sha256: str,
+        calibration_version: str,
+    ) -> DecisionRecord:
+        """A minimal ESCALATE record for when the policy engine itself could not run."""
+        from app.canon import sha256_hex
+
+        confidence = ConfidenceBreakdown(value=0.0, gate=1.0, abstained=True, signals={})
+        inputs = PolicyInputs(
+            case_id=case_id,
+            run_id=run_id,
+            as_of=as_of,
+            profile=TierProfile(
+                data_categories=[], criticality="high", annual_spend_gbp=0.0, contract_status="none"
+            ),
+            facts=[],
+            contradictions=[],
+            guard_flags=[],
+            confidence=confidence,
+        )
+        record = cls(
+            case_id=case_id,
+            run_id=run_id,
+            policy_version=policy_version,
+            policy_sha256=policy_sha256,
+            calibration_version=calibration_version,
+            tier="T1",
+            inherent_risk_score=0,
+            facts=[],
+            controls=[],
+            contradictions=[],
+            outcome="ESCALATE",
+            outcome_reasons=[],
+            escalation_reasons=[reason],
+            counterfactuals=[],
+            precedents_considered=[],
+            exceptions_applied=[],
+            residual_risk=100,
+            confidence=confidence,
+            as_of=as_of,
+            policy_inputs=inputs,
+            created_at=datetime.combine(as_of, datetime.min.time()).replace(tzinfo=UTC),
+            record_sha256="",
+        )
+        return record.model_copy(
+            update={"record_sha256": sha256_hex(record.model_dump(exclude={"record_sha256"}))}
+        )

@@ -154,12 +154,12 @@
       "vendor_id": "VND-0010"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "HR SaaS",
       "clm_supplier_ref": "SUP-7011",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Marrowgate Analytics Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",
@@ -169,12 +169,12 @@
       "vendor_id": "VND-0011"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "HR SaaS",
       "clm_supplier_ref": "SUP-7012",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Tessellate HR Cloud Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",
@@ -199,12 +199,12 @@
       "vendor_id": "VND-0013"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "SaaS",
       "clm_supplier_ref": "SUP-7014",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Fallow Survey 0014 Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",
@@ -229,12 +229,12 @@
       "vendor_id": "VND-0015"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "SaaS",
       "clm_supplier_ref": "SUP-7016",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Brindle Analytics 0016 Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",
@@ -244,12 +244,12 @@
       "vendor_id": "VND-0016"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "SaaS",
       "clm_supplier_ref": "SUP-7017",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Glimmer Forms 0017 Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",
@@ -409,12 +409,12 @@
       "vendor_id": "VND-0027"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "SaaS",
       "clm_supplier_ref": "SUP-7028",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Kestrel Docs Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",
@@ -439,12 +439,12 @@
       "vendor_id": "VND-0029"
     },
     {
-      "annual_spend_gbp": 8000.0,
+      "annual_spend_gbp": 45000,
       "business_owner": "procurement.owner@example.com",
       "category": "SaaS",
       "clm_supplier_ref": "SUP-7030",
       "criticality": "low",
-      "data_categories": "internal",
+      "data_categories": "personal",
       "legal_name": "Kettle Docs 0030 Ltd",
       "onboarding_status": "in_review",
       "processing_countries": "GB",

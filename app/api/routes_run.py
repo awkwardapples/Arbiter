@@ -1,13 +1,22 @@
+"""POST /run: one assessment, from intake through the signed contract."""
+
 from __future__ import annotations
 
 from fastapi import APIRouter
 
-from app.errors import NotImplemented as ArbiterNotImplemented
-from app.schemas.api import RunRequest
+from app.orchestrator import RunOptions, run
+from app.schemas.api import RunRequest, RunResponse
 
 router = APIRouter(tags=["run"])
 
 
-@router.post("/run")
-def run_case(_body: RunRequest) -> None:
-    raise ArbiterNotImplemented("Case execution is implemented in lane P3")
+@router.post("/run", response_model=RunResponse)
+def run_case(body: RunRequest) -> RunResponse:
+    options = body.options
+    return run(
+        body.case,
+        options=RunOptions(
+            sample_mode=None if options is None else options.sample_mode,
+            llm=None if options is None else options.llm,
+        ),
+    )

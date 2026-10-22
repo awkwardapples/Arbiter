@@ -274,10 +274,6 @@ def test_p0_t6_api_health_and_errors() -> None:
     body = health.json()
     assert "mode" in body
     assert "nvapi-" not in json.dumps(body)
-    run = client.post("/run", json={"vendor_id": "VND-0001"})
-    assert run.status_code == 501
-    err = run.json()
-    assert err["error"]["type"] == "NotImplemented"
     bad = client.post("/run", json={"vendor_id": 123})
     assert bad.status_code == 400
     assert bad.json()["error"]["type"] == "ValidationFailed"

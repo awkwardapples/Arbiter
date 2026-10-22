@@ -1,50 +1,77 @@
-"""Output models targeted by the JSON prompt templates (first version; P3 may refine)."""
+"""Output models targeted by the JSON prompt templates (strict: unknown fields are rejected)."""
 
 from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+
+from app.schemas.common import TriState
+from app.schemas.report import CitedSentence, Draft
 
 
-class PlannedQuery(BaseModel):
+class _Strict(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class PlannedQuery(_Strict):
     query_id: str
     params: dict[str, Any] = Field(default_factory=dict)
     reason: str = ""
 
 
-class PlanOut(BaseModel):
+class PlanOut(_Strict):
     queries: list[PlannedQuery]
+    extraction_targets: list[str] = Field(default_factory=list)
+    rationale: str = ""
 
 
-class ExtractedClaim(BaseModel):
+class ExtractedClaim(_Strict):
+    question_id: str
     key: str
-    value: Any
+    value: bool | int | float | str | list[str] | None
+    state: TriState
     quote: str
-    control_id: str | None = None
 
 
-class ExtractOut(BaseModel):
+class ClaimListOut(_Strict):
     claims: list[ExtractedClaim]
 
 
-class CritiqueIssue(BaseModel):
-    kind: Literal["gap", "contradiction", "ungrounded", "stale", "other"]
-    detail: str
-    fact_keys: list[str] = Field(default_factory=list)
+ExtractOut = ClaimListOut
 
 
-class CritiqueOut(BaseModel):
-    needs_revision: bool
-    issues: list[CritiqueIssue] = Field(default_factory=list)
+class Downgrade(_Strict):
+    claim_id: str
+    reason: str = ""
 
 
-class ChallengeOut(BaseModel):
-    action: Literal["none", "request_evidence", "escalate"]
-    reasons: list[str] = Field(default_factory=list)
-    requested_evidence: list[str] = Field(default_factory=list)
+class CritiqueOut(_Strict):
+    downgrades: list[Downgrade] = Field(default_factory=list)
 
 
-class GuardClassifyOut(BaseModel):
+ChallengeCategory = Literal[
+    "uncorroborated_claim", "stale_evidence", "precedent_mismatch", "scope_gap", "other"
+]
+
+
+class ChallengeOut(_Strict):
+    action: Literal["accept", "re_plan", "escalate"]
+    category: ChallengeCategory
+    cited_fact_ids: list[str] = Field(default_factory=list)
+    suggested_query_ids: list[str] = Field(default_factory=list)
+    rationale: str = ""
+
+
+class ReportOut(_Strict):
+    summary: str
+    rationale: list[CitedSentence]
+    recommended_actions: list[str] = Field(default_factory=list)
+    clarification_email: Draft | None = None
+    escalation_note: str | None = None
+    limitations: list[str] = Field(default_factory=list)
+
+
+class GuardClassifyOut(_Strict):
     label: Literal["benign", "suspicious", "injection"]
     reason: str = ""
