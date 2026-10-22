@@ -91,4 +91,3 @@ def register(sub: argparse._SubParsersAction) -> None:
     ev.set_defaults(_handler=cmd_eval)
 
     sub.add_parser("calibrate", help="Calibrate confidence gates").set_defaults(_handler=cmd_calibrate)
-

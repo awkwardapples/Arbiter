@@ -88,9 +88,7 @@ def _macro_f1(rows: list[dict[str, Any]]) -> dict[str, Any]:
         if not support and not predicted:
             continue
         tp = sum(
-            1
-            for row in rows
-            if row["expected_outcome"] == outcome and row["predicted_outcome"] == outcome
+            1 for row in rows if row["expected_outcome"] == outcome and row["predicted_outcome"] == outcome
         )
         precision = tp / len(predicted) if predicted else 0.0
         recall = tp / len(support) if support else 0.0
