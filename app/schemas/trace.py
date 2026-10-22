@@ -36,6 +36,8 @@ class TraceEvent(BaseModel):
     latency_ms: int | None = None
     tokens_in: int | None = None
     tokens_out: int | None = None
+    purpose: str | None = None
+    provider_meta: dict[str, str] | None = None
     source_system: str | None = None
     query_id: str | None = None
     rows: int | None = None

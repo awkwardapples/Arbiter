@@ -103,23 +103,23 @@ def test_p2_t18_meterless_paths(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     caplog: pytest.LogCaptureFixture,
-    meterless_token: str,
-    nvidia_key: str,
+    mtok: str,
+    nkey: str,
 ) -> None:
     caplog.set_level(logging.DEBUG)
     monkeypatch.setenv("LLM_PROVIDER", "meterless")
     monkeypatch.setenv("METERLESS_BASE_URL", METERLESS_BASE)
-    monkeypatch.setenv("METERLESS_RUNTIME_TOKEN", meterless_token)
-    monkeypatch.setenv("NVIDIA_API_KEY", nvidia_key)
+    monkeypatch.setenv("METERLESS_RUNTIME_TOKEN", mtok)
+    monkeypatch.setenv("NVIDIA_API_KEY", nkey)
     with respx.mock(assert_all_called=False) as m:
         m.get(f"{METERLESS_BASE}/models").mock(return_value=httpx.Response(200, json=MODELS_OK))
-        _mock(m.post(f"{METERLESS_BASE}{CHAT}"), SCENARIOS[scenario](meterless_token))
+        _mock(m.post(f"{METERLESS_BASE}{CHAT}"), SCENARIOS[scenario](mtok))
         trace_text, err, result = _run_generate(tmp_path)
         st = status.check()
     assert (err is None) == (scenario == "success")
     if result is not None:
         assert result.provider == "meterless"
-    _assert_clean([meterless_token, nvidia_key], trace_text, caplog.text, str(st), *_exc_texts(err))
+    _assert_clean([mtok, nkey], trace_text, caplog.text, str(st), *_exc_texts(err))
     assert "PROMPT-SENTINEL" not in trace_text
 
 
@@ -129,51 +129,49 @@ def test_p2_t18_nvidia_paths(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     caplog: pytest.LogCaptureFixture,
-    meterless_token: str,
-    nvidia_key: str,
+    mtok: str,
+    nkey: str,
 ) -> None:
     caplog.set_level(logging.DEBUG)
     monkeypatch.setenv("LLM_PROVIDER", "nvidia")
     monkeypatch.setenv("METERLESS_BASE_URL", METERLESS_BASE)
-    monkeypatch.setenv("METERLESS_RUNTIME_TOKEN", meterless_token)
-    monkeypatch.setenv("NVIDIA_API_KEY", nvidia_key)
+    monkeypatch.setenv("METERLESS_RUNTIME_TOKEN", mtok)
+    monkeypatch.setenv("NVIDIA_API_KEY", nkey)
     with respx.mock(assert_all_called=False) as m:
-        m.get(f"{METERLESS_BASE}/models").mock(
-            return_value=httpx.Response(401, json={"error": meterless_token})
-        )
-        _mock(m.post(f"{NVIDIA_BASE}{CHAT}"), SCENARIOS[scenario](nvidia_key))
+        m.get(f"{METERLESS_BASE}/models").mock(return_value=httpx.Response(401, json={"error": mtok}))
+        _mock(m.post(f"{NVIDIA_BASE}{CHAT}"), SCENARIOS[scenario](nkey))
         trace_text, err, result = _run_generate(tmp_path)
         st = status.check()
     assert (err is None) == (scenario == "success")
     if result is not None:
         assert result.provider == "nvidia"
-    _assert_clean([meterless_token, nvidia_key], trace_text, caplog.text, str(st), *_exc_texts(err))
+    _assert_clean([mtok, nkey], trace_text, caplog.text, str(st), *_exc_texts(err))
 
 
 def test_p2_t18_offline_path(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
     caplog: pytest.LogCaptureFixture,
-    meterless_token: str,
-    nvidia_key: str,
+    mtok: str,
+    nkey: str,
 ) -> None:
     caplog.set_level(logging.DEBUG)
     monkeypatch.setenv("LLM_PROVIDER", "offline")
-    monkeypatch.setenv("METERLESS_RUNTIME_TOKEN", meterless_token)
-    monkeypatch.setenv("NVIDIA_API_KEY", nvidia_key)
+    monkeypatch.setenv("METERLESS_RUNTIME_TOKEN", mtok)
+    monkeypatch.setenv("NVIDIA_API_KEY", nkey)
     with respx.mock(assert_all_called=False):
         trace_text, err, _ = _run_generate(tmp_path)
     assert err is not None and err.type == "OfflineProvider"
-    _assert_clean([meterless_token, nvidia_key], trace_text, caplog.text, *_exc_texts(err))
+    _assert_clean([mtok, nkey], trace_text, caplog.text, *_exc_texts(err))
 
 
-def test_p2_t18_discovery_error_detail_is_clean(meterless_token: str) -> None:
+def test_p2_t18_discovery_error_detail_is_clean(mtok: str) -> None:
     from app.llm.providers.meterless import discover
 
     with respx.mock() as m:
         m.get(f"{METERLESS_BASE}/models").mock(
-            return_value=httpx.Response(403, json={"error": f"bad bearer {meterless_token}"})
+            return_value=httpx.Response(403, json={"error": f"bad bearer {mtok}"})
         )
-        result = discover(METERLESS_BASE, meterless_token, "arbiter")
+        result = discover(METERLESS_BASE, mtok, "arbiter")
     assert result.status == "unauthorized"
-    assert meterless_token not in result.model_dump_json()
+    assert mtok not in result.model_dump_json()

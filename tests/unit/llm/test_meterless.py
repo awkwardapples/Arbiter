@@ -34,20 +34,20 @@ def _chat_kw(provider: Any, route: str = "fast") -> dict[str, Any]:
 # ── P2-T12 request shape ────────────────────────────────────────────────
 
 
-def test_p2_t12_headers_on_models_without_scope(meterless_token: str, models_fixture: dict[str, Any]) -> None:
+def test_p2_t12_headers_on_models_without_scope(mtok: str, models_fixture: dict[str, Any]) -> None:
     with respx.mock(assert_all_called=True) as m:
         route = m.get(f"{BASE}/models").mock(return_value=httpx.Response(200, json=models_fixture["body"]))
-        discover(BASE, meterless_token, "arbiter")
+        discover(BASE, mtok, "arbiter")
     req = route.calls.last.request
-    assert req.headers["authorization"] == f"Bearer {meterless_token}"
+    assert req.headers["authorization"] == f"Bearer {mtok}"
     assert req.headers["meterless-app"] == "arbiter"
     assert "meterless-scope" not in req.headers
 
 
-def test_p2_t12_headers_and_model_on_chat(meterless_token: str, chat_fixture: dict[str, Any]) -> None:
+def test_p2_t12_headers_and_model_on_chat(mtok: str, chat_fixture: dict[str, Any]) -> None:
     provider = MeterlessProvider(
         base_url=BASE,
-        token=meterless_token,
+        token=mtok,
         app_id="arbiter-test",
         model_fast="meterless/custom-fast",
         model_deep="meterless/custom-deep",
@@ -59,7 +59,7 @@ def test_p2_t12_headers_and_model_on_chat(meterless_token: str, chat_fixture: di
         )
         result = provider.chat(MSGS, **_chat_kw(provider, "deep"))
     req = route.calls.last.request
-    assert req.headers["authorization"] == f"Bearer {meterless_token}"
+    assert req.headers["authorization"] == f"Bearer {mtok}"
     assert req.headers["meterless-app"] == "arbiter-test"
     assert req.headers["meterless-scope"] == "user"
     body = json.loads(req.content)
@@ -75,9 +75,9 @@ def test_p2_t12_headers_and_model_on_chat(meterless_token: str, chat_fixture: di
     assert result.provider_meta["receipt_id"] == receipt["receipt_id"]
 
 
-def test_p2_t12_model_ids_come_from_config(meterless_token: str) -> None:
+def test_p2_t12_model_ids_come_from_config(mtok: str) -> None:
     s = _settings(
-        METERLESS_RUNTIME_TOKEN=meterless_token,
+        METERLESS_RUNTIME_TOKEN=mtok,
         METERLESS_MODEL_FAST="meterless/text.fast",
         METERLESS_MODEL_DEEP="meterless/text.deep",
     )
@@ -122,31 +122,29 @@ def _discover_with(response: httpx.Response | Exception, token: str) -> Any:
     return result
 
 
-def test_p2_t13_online_with_meterless_ids(meterless_token: str, models_fixture: dict[str, Any]) -> None:
-    result = _discover_with(httpx.Response(200, json=models_fixture["body"]), meterless_token)
+def test_p2_t13_online_with_meterless_ids(mtok: str, models_fixture: dict[str, Any]) -> None:
+    result = _discover_with(httpx.Response(200, json=models_fixture["body"]), mtok)
     assert result.status == "online"
     assert result.base_url == BASE
     assert "meterless/fast" in result.models_seen
     assert "meterless/deep" in result.models_seen
 
 
-def test_p2_t13_minimal_meterless_fast_is_online(meterless_token: str) -> None:
+def test_p2_t13_minimal_meterless_fast_is_online(mtok: str) -> None:
     body = {"object": "list", "data": [{"id": "meterless/fast", "object": "model"}]}
-    assert _discover_with(httpx.Response(200, json=body), meterless_token).status == "online"
+    assert _discover_with(httpx.Response(200, json=body), mtok).status == "online"
 
 
-def test_p2_t13_no_meterless_ids_is_offline(meterless_token: str) -> None:
+def test_p2_t13_no_meterless_ids_is_offline(mtok: str) -> None:
     body = {"object": "list", "data": [{"id": "gpt-x"}, {"id": "nvidia/nemotron-3-nano-30b-a3b"}]}
-    result = _discover_with(httpx.Response(200, json=body), meterless_token)
+    result = _discover_with(httpx.Response(200, json=body), mtok)
     assert result.status == "offline"
     assert result.models_seen == ["gpt-x", "nvidia/nemotron-3-nano-30b-a3b"]
 
 
 @pytest.mark.parametrize("code", [401, 403])
-def test_p2_t13_unauthorized(meterless_token: str, code: int) -> None:
-    assert (
-        _discover_with(httpx.Response(code, json={"error": "nope"}), meterless_token).status == "unauthorized"
-    )
+def test_p2_t13_unauthorized(mtok: str, code: int) -> None:
+    assert _discover_with(httpx.Response(code, json={"error": "nope"}), mtok).status == "unauthorized"
 
 
 @pytest.mark.parametrize(
@@ -160,8 +158,8 @@ def test_p2_t13_unauthorized(meterless_token: str, code: int) -> None:
         httpx.Response(200, json={"unexpected": True}),
     ],
 )
-def test_p2_t13_everything_else_is_offline(meterless_token: str, response: Any) -> None:
-    assert _discover_with(response, meterless_token).status == "offline"
+def test_p2_t13_everything_else_is_offline(mtok: str, response: Any) -> None:
+    assert _discover_with(response, mtok).status == "offline"
 
 
 def test_p2_t13_source_never_mentions_healthz_as_a_request() -> None:
@@ -225,11 +223,11 @@ def _ok_models(_req: httpx.Request) -> httpx.Response:
     return httpx.Response(200, json={"object": "list", "data": [{"id": "meterless/fast"}]})
 
 
-def test_p2_t16_meterless_chat_uses_180s(meterless_token: str, chat_fixture: dict[str, Any]) -> None:
+def test_p2_t16_meterless_chat_uses_180s(mtok: str, chat_fixture: dict[str, Any]) -> None:
     rt = RecordingTransport(lambda _r: httpx.Response(200, json=chat_fixture["fast"]["body"]))
     provider = MeterlessProvider(
         base_url=BASE,
-        token=meterless_token,
+        token=mtok,
         app_id="arbiter",
         model_fast="meterless/fast",
         model_deep="meterless/deep",
@@ -242,14 +240,14 @@ def test_p2_t16_meterless_chat_uses_180s(meterless_token: str, chat_fixture: dic
     )
 
 
-def test_p2_t16_discovery_connect_timeout_2s(meterless_token: str) -> None:
+def test_p2_t16_discovery_connect_timeout_2s(mtok: str) -> None:
     rt = RecordingTransport(_ok_models)
-    discover(BASE, meterless_token, "arbiter", transport=rt)
+    discover(BASE, mtok, "arbiter", transport=rt)
     assert rt.timeouts[0]["connect"] == 2.0
     assert rt.timeouts[0]["read"] == 180.0
 
 
-def test_p2_t16_nvidia_uses_90s(nvidia_key: str) -> None:
+def test_p2_t16_nvidia_uses_90s(nkey: str) -> None:
     body = {
         "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
         "choices": [{"index": 0, "message": {"role": "assistant", "content": "ok"}}],
@@ -258,7 +256,7 @@ def test_p2_t16_nvidia_uses_90s(nvidia_key: str) -> None:
     rt = RecordingTransport(lambda _r: httpx.Response(200, json=body))
     provider = NvidiaProvider(
         base_url="https://integrate.api.nvidia.com/v1",
-        api_key=nvidia_key,
+        api_key=nkey,
         model_fast="nvidia/nemotron-3.5-lightning-30b-a3b",
         model_deep="nvidia/nemotron-3-super-120b-a12b",
         transport=rt,
@@ -266,7 +264,7 @@ def test_p2_t16_nvidia_uses_90s(nvidia_key: str) -> None:
     result = provider.chat(MSGS, **_chat_kw(provider, "deep"))
     assert rt.timeouts[0]["read"] == 90.0
     assert json.loads(rt.requests[0].content)["model"] == "nvidia/nemotron-3-super-120b-a12b"
-    assert rt.requests[0].headers["authorization"] == f"Bearer {nvidia_key}"
+    assert rt.requests[0].headers["authorization"] == f"Bearer {nkey}"
     assert result.text == "ok" and result.tokens_out == 1
 
 
@@ -282,18 +280,18 @@ EXPECTED_PAIRS = [
 ]
 
 
-def test_p2_t16_autodetect_probes_all_twelve(meterless_token: str) -> None:
+def test_p2_t16_autodetect_probes_all_twelve(mtok: str) -> None:
     def refuse(req: httpx.Request) -> httpx.Response:
         raise httpx.ConnectError("Connection refused", request=req)
 
     rt = RecordingTransport(refuse)
-    result = autodetect(meterless_token, "arbiter", transport=rt)
+    result = autodetect(mtok, "arbiter", transport=rt)
     assert result.status == "offline"
     assert rt.urls == EXPECTED_PAIRS
     assert all(t["connect"] == 2.0 for t in rt.timeouts)
 
 
-def test_p2_t16_autodetect_stops_at_first_online(meterless_token: str) -> None:
+def test_p2_t16_autodetect_stops_at_first_online(mtok: str) -> None:
     fifth = EXPECTED_PAIRS[4]
 
     def handler(req: httpx.Request) -> httpx.Response:
@@ -302,15 +300,13 @@ def test_p2_t16_autodetect_stops_at_first_online(meterless_token: str) -> None:
         raise httpx.ConnectError("Connection refused", request=req)
 
     rt = RecordingTransport(handler)
-    result = autodetect(meterless_token, "arbiter", transport=rt)
+    result = autodetect(mtok, "arbiter", transport=rt)
     assert result.status == "online"
     assert rt.urls == EXPECTED_PAIRS[:5]
     assert result.base_url == fifth.removesuffix("/models")
 
 
-def test_p2_t16_autodetect_used_when_base_url_unset(
-    monkeypatch: pytest.MonkeyPatch, meterless_token: str
-) -> None:
+def test_p2_t16_autodetect_used_when_base_url_unset(monkeypatch: pytest.MonkeyPatch, mtok: str) -> None:
     seen: list[str] = []
 
     def fake_autodetect(token: str, app_id: str, **_kw: Any) -> Any:
@@ -318,5 +314,5 @@ def test_p2_t16_autodetect_used_when_base_url_unset(
         return meterless.DiscoveryResult(status="offline", detail="none found")
 
     monkeypatch.setattr(meterless, "autodetect", fake_autodetect)
-    meterless.discover_from_settings(_settings(METERLESS_RUNTIME_TOKEN=meterless_token))
+    meterless.discover_from_settings(_settings(METERLESS_RUNTIME_TOKEN=mtok))
     assert seen == ["arbiter"]

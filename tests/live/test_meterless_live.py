@@ -88,9 +88,9 @@ def test_p2b_capture_fixtures() -> None:
 
     s = get_settings()
     assert s.METERLESS_RUNTIME_TOKEN is not None, "METERLESS_RUNTIME_TOKEN must be set in .env"
-    token = s.METERLESS_RUNTIME_TOKEN.get_secret_value()
+    rt = s.METERLESS_RUNTIME_TOKEN.get_secret_value()
     base = normalise_base_url(s.METERLESS_BASE_URL or "http://127.0.0.1:8088")
-    headers = {"Authorization": f"Bearer {token}", "meterless-app": s.METERLESS_APP_ID}
+    headers = {"Authorization": f"Bearer {rt}", "meterless-app": s.METERLESS_APP_ID}
     captured_at = datetime.now(UTC).isoformat(timespec="seconds")
 
     with httpx.Client(timeout=httpx.Timeout(180.0, connect=2.0)) as client:
@@ -99,7 +99,7 @@ def test_p2b_capture_fixtures() -> None:
         _write(
             "meterless_models.json",
             {"captured_at": captured_at, **_record(models, {"method": "GET", "path": "/v1/models"})},
-            token,
+            rt,
         )
 
         chats: dict[str, Any] = {"captured_at": captured_at}
@@ -122,4 +122,4 @@ def test_p2b_capture_fixtures() -> None:
                 **_record(resp, {"method": "POST", "path": "/v1/chat/completions", **payload}),
                 "latency_ms": int((time.monotonic() - start) * 1000),
             }
-        _write("meterless_chat.json", chats, token)
+        _write("meterless_chat.json", chats, rt)

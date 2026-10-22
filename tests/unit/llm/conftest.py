@@ -53,12 +53,14 @@ def _isolated_llm_env(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Iterat
 
 
 @pytest.fixture
-def meterless_token() -> str:
+def mtok() -> str:
+    """Fake Meterless runtime token."""
     return make_token("mlt")
 
 
 @pytest.fixture
-def nvidia_key() -> str:
+def nkey() -> str:
+    """Fake NVIDIA API key."""
     return make_token("nvk")
 
 

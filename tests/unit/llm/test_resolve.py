@@ -5,11 +5,11 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
-from app.llm.providers.base import DiscoveryResult
 
 from app.config import Settings
 from app.errors import ConfigError, OfflineProvider
 from app.llm import generator, resolve
+from app.llm.providers.base import DiscoveryResult
 
 pytestmark = pytest.mark.p2b
 
@@ -43,23 +43,23 @@ def spy(monkeypatch: pytest.MonkeyPatch) -> Any:
     return install
 
 
-def test_p2_t15_auto_prefers_meterless_online(spy: Any, meterless_token: str, nvidia_key: str) -> None:
+def test_p2_t15_auto_prefers_meterless_online(spy: Any, mtok: str, nkey: str) -> None:
     spy(ONLINE)
-    p = resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=meterless_token, NVIDIA_API_KEY=nvidia_key))
+    p = resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=mtok, NVIDIA_API_KEY=nkey))
     assert p.name == "meterless"
     assert p.model_for("fast") == "meterless/fast"
 
 
-def test_p2_t15_auto_falls_back_to_nvidia(spy: Any, meterless_token: str, nvidia_key: str) -> None:
+def test_p2_t15_auto_falls_back_to_nvidia(spy: Any, mtok: str, nkey: str) -> None:
     spy(OFFLINE)
-    p = resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=meterless_token, NVIDIA_API_KEY=nvidia_key))
+    p = resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=mtok, NVIDIA_API_KEY=nkey))
     assert p.name == "nvidia"
     assert p.model_for("deep") == "nvidia/nemotron-3-super-120b-a12b"
 
 
-def test_p2_t15_auto_unauthorized_falls_back_to_nvidia(spy: Any, nvidia_key: str) -> None:
+def test_p2_t15_auto_unauthorized_falls_back_to_nvidia(spy: Any, nkey: str) -> None:
     spy(DiscoveryResult(status="unauthorized", base_url="http://127.0.0.1:8088/v1", detail="HTTP 401"))
-    assert resolve.resolve(_settings(NVIDIA_API_KEY=nvidia_key)).name == "nvidia"
+    assert resolve.resolve(_settings(NVIDIA_API_KEY=nkey)).name == "nvidia"
 
 
 def test_p2_t15_auto_nothing_gives_offline(spy: Any) -> None:
@@ -70,9 +70,9 @@ def test_p2_t15_auto_nothing_gives_offline(spy: Any) -> None:
         p.chat([{"role": "user", "content": "x"}], model="offline", temperature=0.0, max_tokens=8)
 
 
-def test_p2_t15_explicit_nvidia_overrides_online_meterless(spy: Any, nvidia_key: str) -> None:
+def test_p2_t15_explicit_nvidia_overrides_online_meterless(spy: Any, nkey: str) -> None:
     s = spy(ONLINE)
-    assert resolve.resolve(_settings(LLM_PROVIDER="nvidia", NVIDIA_API_KEY=nvidia_key)).name == "nvidia"
+    assert resolve.resolve(_settings(LLM_PROVIDER="nvidia", NVIDIA_API_KEY=nkey)).name == "nvidia"
     assert s.calls == 0
 
 
@@ -83,23 +83,17 @@ def test_p2_t15_explicit_nvidia_without_key_raises(spy: Any) -> None:
     assert "NVIDIA_API_KEY" in exc_info.value.message
 
 
-def test_p2_t15_explicit_meterless_never_switches_to_nvidia(
-    spy: Any, meterless_token: str, nvidia_key: str
-) -> None:
+def test_p2_t15_explicit_meterless_never_switches_to_nvidia(spy: Any, mtok: str, nkey: str) -> None:
     spy(OFFLINE)
     p = resolve.resolve(
-        _settings(
-            LLM_PROVIDER="meterless", METERLESS_RUNTIME_TOKEN=meterless_token, NVIDIA_API_KEY=nvidia_key
-        )
+        _settings(LLM_PROVIDER="meterless", METERLESS_RUNTIME_TOKEN=mtok, NVIDIA_API_KEY=nkey)
     )
     assert p.name == "offline"
 
 
-def test_p2_t15_explicit_offline(spy: Any, meterless_token: str, nvidia_key: str) -> None:
+def test_p2_t15_explicit_offline(spy: Any, mtok: str, nkey: str) -> None:
     s = spy(ONLINE)
-    p = resolve.resolve(
-        _settings(LLM_PROVIDER="offline", METERLESS_RUNTIME_TOKEN=meterless_token, NVIDIA_API_KEY=nvidia_key)
-    )
+    p = resolve.resolve(_settings(LLM_PROVIDER="offline", METERLESS_RUNTIME_TOKEN=mtok, NVIDIA_API_KEY=nkey))
     assert p.name == "offline"
     assert s.calls == 0
 
@@ -110,11 +104,11 @@ def test_p2_t15_generate_offline_raises(monkeypatch: pytest.MonkeyPatch) -> None
         generator.generate("anything", purpose="extract")
 
 
-def test_p2_t15_cache_60s(spy: Any, monkeypatch: pytest.MonkeyPatch, meterless_token: str) -> None:
+def test_p2_t15_cache_60s(spy: Any, monkeypatch: pytest.MonkeyPatch, mtok: str) -> None:
     s = spy(ONLINE)
     now = [1000.0]
     monkeypatch.setattr(resolve, "_now", lambda: now[0])
-    settings = _settings(METERLESS_RUNTIME_TOKEN=meterless_token)
+    settings = _settings(METERLESS_RUNTIME_TOKEN=mtok)
     resolve.resolve(settings)
     now[0] += 59.0
     resolve.resolve(settings)
@@ -124,8 +118,8 @@ def test_p2_t15_cache_60s(spy: Any, monkeypatch: pytest.MonkeyPatch, meterless_t
     assert s.calls == 2
 
 
-def test_p2_t15_cache_keyed_on_provider_setting(spy: Any, meterless_token: str, nvidia_key: str) -> None:
+def test_p2_t15_cache_keyed_on_provider_setting(spy: Any, mtok: str, nkey: str) -> None:
     spy(ONLINE)
-    assert resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=meterless_token)).name == "meterless"
+    assert resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=mtok)).name == "meterless"
     assert resolve.resolve(_settings(LLM_PROVIDER="offline")).name == "offline"
-    assert resolve.resolve(_settings(LLM_PROVIDER="nvidia", NVIDIA_API_KEY=nvidia_key)).name == "nvidia"
+    assert resolve.resolve(_settings(LLM_PROVIDER="nvidia", NVIDIA_API_KEY=nkey)).name == "nvidia"

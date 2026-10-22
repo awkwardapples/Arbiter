@@ -6,11 +6,11 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from app.llm.providers.base import ChatResult
 from pydantic import BaseModel
 
 from app.errors import OfflineProvider, ParseFailure, UpstreamTimeout
 from app.llm import generator
+from app.llm.providers.base import ChatResult
 from app.tracing import Tracer
 from tests.unit.llm.conftest import read_trace
 
