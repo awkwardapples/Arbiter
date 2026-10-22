@@ -18,6 +18,15 @@ from app.state import CaseState
 
 NAME = "EvaluatorAgent"
 _CONTRACT_CONTROLS = ("C07", "C08", "C09", "C10")
+# Claim key (contradiction key, without `_claimed`) → the SoR fact and the verify query.
+# Used only when that control does not apply, so derive() can still see a disagreement.
+CLAIM_SOR_VERIFY: tuple[dict[str, str], ...] = (
+    {
+        "claim_key": "residency.regions",
+        "verify_query": "Q_VENDOR_CONTRACT",
+        "sor_field": "residency.regions_contract",
+    },
+)
 _REASONS = {
     "C05": "assurance documents not yet read",
     "C06": "the vendor's incident answer is unverified; ITSM is the system of record",
@@ -91,6 +100,68 @@ def _critique(state: CaseState, ctx: AgentContext) -> None:
         )
 
 
+def _claim_verify(claim_key: str) -> dict[str, str] | None:
+    for entry in CLAIM_SOR_VERIFY:
+        if entry["claim_key"] == claim_key:
+            return entry
+    return None
+
+
+def _contradiction_owner(controls: list[Control], claim_key: str, sor_field: str) -> Control | None:
+    for control in controls:
+        for check in control.contradiction_checks:
+            if check.claim.removesuffix("_claimed") == claim_key and check.sor == sor_field:
+                return control
+    return None
+
+
+def _missing_sor_gaps(
+    state: CaseState,
+    ctx: AgentContext,
+    tier: str,
+    index: dict[str, Fact],
+    *,
+    verify: dict[str, tuple[str, ...]],
+    contract_known_none: bool,
+) -> list[Gap]:
+    """Verify queries for a grounded claim whose SoR counterpart was never read.
+
+    Fires only when the control that owns the check does not apply. Applicable
+    controls already request their verify queries in the coverage loop.
+    """
+    applicable = {c.id for c in ctx.policy.controls if _applicable(c, tier, index, ctx)}
+    gaps: list[Gap] = []
+    requested: set[str] = set()
+    for fact in index.values():
+        if fact.state == "UNKNOWN" or not fact.derived_from_claims:
+            continue
+        entry = _claim_verify(fact.key.removesuffix("_claimed"))
+        if entry is None:
+            continue
+        sor = index.get(entry["sor_field"])
+        if sor is not None and sor.state != "UNKNOWN":
+            continue
+        query = entry["verify_query"]
+        if query in requested or query in state.executed_queries:
+            continue
+        owner = _contradiction_owner(ctx.policy.controls, entry["claim_key"], entry["sor_field"])
+        if owner is None or owner.id in applicable:
+            continue
+        if query not in verify.get(owner.id, ()):
+            continue
+        if owner.id in _CONTRACT_CONTROLS and contract_known_none:
+            continue
+        requested.add(query)
+        gaps.append(
+            Gap(
+                control_id=owner.id,
+                reason=f"{entry['claim_key']} claim has no {entry['sor_field']}",
+                suggested_query_ids=[query],
+            )
+        )
+    return gaps
+
+
 def _applicable(control: Control, tier: str, index: dict[str, Fact], ctx: AgentContext) -> bool:
     if tier not in control.required_for:
         return False
@@ -149,6 +220,9 @@ def _gaps(state: CaseState, ctx: AgentContext, tier: str) -> list[Gap]:
                     suggested_query_ids=[query],
                 )
             )
+    gaps.extend(
+        _missing_sor_gaps(state, ctx, tier, index, verify=verify, contract_known_none=contract_known_none)
+    )
     retargeted = {q for plan in state.plans for q in plan.extraction_targets}
     required = {c.id for c in ctx.policy.controls if _applicable(c, tier, index, ctx)}
     for claim in state.claims:

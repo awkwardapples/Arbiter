@@ -27,6 +27,8 @@ _FEW = "output_examples/ exists but has fewer than 3 files; P6 populates this di
 _OUTCOMES = {"APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"}
 _CONTAINER = "arbiter-clean-clone"
 _IMAGE = "arbiter-check"
+_TRACE_POLLS = 20
+_TRACE_POLL_SECONDS = 0.5
 
 
 def classify_output_examples(root: Path) -> tuple[bool, str]:
@@ -139,10 +141,44 @@ def _step_docker(clone: Path) -> tuple[bool, str]:
     return True, f"{len(seen)} examples matched"
 
 
-def _step_traces(clone: Path) -> tuple[bool, str]:
-    del clone
-    dest = Path(tempfile.mkdtemp(prefix="arbiter-logs-"))
+def _jsonl_complete(path: Path) -> bool:
+    """True when every non-empty line is a finished JSON value.
+
+    A truncated last line means the writer is still flushing the trace.
+    """
     try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return False
+    lines = [line for line in text.splitlines() if line.strip()]
+    if not lines:
+        return False
+    for line in lines:
+        try:
+            json.loads(line)
+        except json.JSONDecodeError:
+            return False
+    return True
+
+
+def _clear_directory(dest: Path) -> None:
+    for child in dest.iterdir():
+        if child.is_dir():
+            shutil.rmtree(child)
+        else:
+            child.unlink()
+
+
+def _wait_for_case_traces(dest: Path) -> tuple[list[Path], str | None]:
+    """Copy container logs until one trace-run file is complete JSONL.
+
+    Twenty polls, 0.5 s apart. Returns (trace files, error). A docker cp
+    failure is returned immediately. No complete case trace after the last
+    poll returns the existing absence message.
+    """
+    announced = False
+    for attempt in range(_TRACE_POLLS):
+        _clear_directory(dest)
         copied = subprocess.run(
             ["docker", "cp", f"{_CONTAINER}:/app/logs/.", str(dest)],
             capture_output=True,
@@ -150,14 +186,29 @@ def _step_traces(clone: Path) -> tuple[bool, str]:
             check=False,
         )
         if copied.returncode != 0:
-            return False, copied.stderr.strip()
+            return [], copied.stderr.strip()
+        files = list(dest.glob("trace-*.jsonl"))
+        case_traces = [path for path in files if path.name.startswith("trace-run-")]
+        if any(_jsonl_complete(path) for path in case_traces):
+            return files, None
+        if not announced:
+            print("waiting for traces...", flush=True)
+            announced = True
+        if attempt + 1 < _TRACE_POLLS:
+            time.sleep(_TRACE_POLL_SECONDS)
+    return [], "no case traces in the container logs"
+
+
+def _step_traces(clone: Path) -> tuple[bool, str]:
+    del clone
+    dest = Path(tempfile.mkdtemp(prefix="arbiter-logs-"))
+    try:
+        files, error = _wait_for_case_traces(dest)
+        if error is not None:
+            return False, error
         from scripts.check_trace import validate_file
 
         errors: list[str] = []
-        files = list(dest.glob("trace-*.jsonl"))
-        case_traces = [path for path in files if path.name.startswith("trace-run-")]
-        if not case_traces:
-            return False, "no case traces in the container logs"
         for path in files:
             # Status probes (for example trace-zetaris-status) are not agent runs.
             collaborative = path.name.startswith("trace-run-")
