@@ -1,0 +1,17 @@
+{
+  "status": "ok",
+  "mode": {
+    "data": "duckdb",
+    "llm": "offline"
+  },
+  "data": {
+    "backend": "duckdb",
+    "ok": true
+  },
+  "provider": {
+    "provider": "offline",
+    "models": {}
+  },
+  "hmem_records": 0,
+  "audit_chain_length": 0
+}
