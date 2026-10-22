@@ -69,36 +69,87 @@ The spec-pack import commit only.
 
 ```python
 # app/schemas/facts.py
-FACT_KEYS = frozenset({
-  "vendor.data_categories", "contract.status",
-  "mfa.admin_enforced", "mfa.remote_enforced", "creds.vaulted", "creds.rotation_days",
-  "access.review_interval_days", "crypto.at_rest", "crypto.in_transit_tls12",
-  "assurance.claimed", "assurance.soc2_type2_current", "assurance.iso27001_current", "assurance.bridge_letter_current",
-  "incidents.vendor_reported_24m", "incidents.itsm_vendor_related_24m", "incidents.material_unremediated_24m",
-  "breach.notify_hours", "breach.notify_hours_claimed", "breach.notify_hours_contract",
-  "dpa.signed", "dpa.vendor_commits",
-  "residency.regions", "residency.regions_claimed", "residency.regions_contract",
-  "transfer.mechanism", "transfer.mechanism_claimed",
-  "subprocessors.disclosed", "subprocessors.disclosed_claimed",
-  "sanctions.watchlist_matches", "sanctions.near_matches",
-  "vuln.components_declared", "vuln.kev_matches", "vuln.patch_sla_critical_days", "pentest.interval_months",
-})
+FACT_KEYS = frozenset(
+    {
+        "vendor.data_categories",
+        "contract.status",
+        "mfa.admin_enforced",
+        "mfa.remote_enforced",
+        "creds.vaulted",
+        "creds.rotation_days",
+        "access.review_interval_days",
+        "crypto.at_rest",
+        "crypto.in_transit_tls12",
+        "assurance.claimed",
+        "assurance.soc2_type2_current",
+        "assurance.iso27001_current",
+        "assurance.bridge_letter_current",
+        "incidents.vendor_reported_24m",
+        "incidents.itsm_vendor_related_24m",
+        "incidents.material_unremediated_24m",
+        "breach.notify_hours",
+        "breach.notify_hours_claimed",
+        "breach.notify_hours_contract",
+        "dpa.signed",
+        "dpa.vendor_commits",
+        "residency.regions",
+        "residency.regions_claimed",
+        "residency.regions_contract",
+        "transfer.mechanism",
+        "transfer.mechanism_claimed",
+        "subprocessors.disclosed",
+        "subprocessors.disclosed_claimed",
+        "sanctions.watchlist_matches",
+        "sanctions.near_matches",
+        "vuln.components_declared",
+        "vuln.kev_matches",
+        "vuln.patch_sla_critical_days",
+        "pentest.interval_months",
+    }
+)
+
 
 # app/llm/generator.py (stub; P2-B implements)
 class GenerationResult(BaseModel):
-    text: str; parsed: BaseModel | None; provider: str; route: str; model: str | None
-    latency_ms: int; tokens_in: int | None; tokens_out: int | None; repaired: bool = False
-def generate(prompt: str, *, system: str | None = None, route: Literal["fast","deep"] = "fast",
-             response: Literal["text","json"] = "text", schema: type[BaseModel] | None = None,
-             timeout_s: float | None = None, purpose: str, tracer: Tracer | None = None,
-             agent_name: str = "unknown") -> GenerationResult: ...
+    text: str
+    parsed: BaseModel | None
+    provider: str
+    route: str
+    model: str | None
+    latency_ms: int
+    tokens_in: int | None
+    tokens_out: int | None
+    repaired: bool = False
+
+
+def generate(
+    prompt: str,
+    *,
+    system: str | None = None,
+    route: Literal["fast", "deep"] = "fast",
+    response: Literal["text", "json"] = "text",
+    schema: type[BaseModel] | None = None,
+    timeout_s: float | None = None,
+    purpose: str,
+    tracer: Tracer | None = None,
+    agent_name: str = "unknown",
+) -> GenerationResult: ...
+
 
 # app/data/backend.py (stub; P1-A implements)
 class QueryResult(BaseModel):
-    query_id: str; rows: list[dict]; columns: list[str]; backend: Literal["zetaris","duckdb","inline"]
-    request_id: str | None; latency_ms: int; fallback_from: str | None = None
+    query_id: str
+    rows: list[dict]
+    columns: list[str]
+    backend: Literal["zetaris", "duckdb", "inline"]
+    request_id: str | None
+    latency_ms: int
+    fallback_from: str | None = None
+
+
 class DataBackend(Protocol):
     name: str
+
     def run(self, query_id: str, params: dict) -> QueryResult: ...
 ```
 

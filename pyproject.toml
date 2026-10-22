@@ -1,0 +1,41 @@
+[project]
+name = "arbiter"
+version = "0.1.0"
+description = "Auditable reasoning architecture for third-party vendor onboarding"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+extend-exclude = [".cursor"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "p0: pass 0 bootstrap",
+    "p1a: pass 1a data",
+    "p1b: pass 1b zetaris",
+    "p2a: pass 2a hmem",
+    "p2b: pass 2b llm",
+    "p2c: pass 2c policy",
+    "p2d: pass 2d guard",
+    "p3: pass 3 agent loop",
+    "p4a: pass 4a memory",
+    "p4b: pass 4b api",
+    "p5a: pass 5a ui",
+    "p5b: pass 5b eval",
+    "p6: pass 6 hardening",
+    "p7: pass 7 submission",
+    "live: requires live services",
+    "slow: slow tests",
+]
+addopts = '-m "not live"'
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+"scripts/scan_secrets.py" = ["E402"]
+"scripts/check_trace.py" = ["E402"]
