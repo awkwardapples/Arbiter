@@ -11,6 +11,21 @@
         "answer_text": "Yes, MFA is required for remote staff.",
         "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
         "question_id": "Q02"
+      },
+      {
+        "answer_text": "Yes, customer data is encrypted at rest with AES-256.",
+        "question": "Is customer data encrypted at rest? Which standard?",
+        "question_id": "Q05"
+      },
+      {
+        "answer_text": "Yes, all traffic uses TLS 1.2 or higher.",
+        "question": "Is data encrypted in transit (TLS 1.2+)?",
+        "question_id": "Q06"
+      },
+      {
+        "answer_text": "No security incidents affecting customer data in the last 24 months.",
+        "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+        "question_id": "Q08"
       }
     ],
     "category": "Internal tools",

@@ -10,6 +10,17 @@ questions:
     deny: ["Remote access does not require MFA.", "MFA is not enforced for remote users.", "Remote employees may skip MFA.", "We allow password-only remote VPN.", "Remote MFA is not mandatory."]
     vague: ["Remote access protections follow industry norms.", "We secure remote connectivity appropriately.", "Remote controls meet standard expectations.", "Remote access uses recognized practices.", "Remote security is managed proportionately."]
     hedged_false: ["MFA is required in the office; remote rollout pending.", "Remote MFA planned alongside admin MFA.", "Some remote apps lack MFA today.", "Remote MFA pilot running in one region.", "Legacy remote paths still lack MFA."]
+  Q05:
+    affirm: ["Yes, customer data is encrypted at rest with AES-256.", "All customer data at rest is encrypted using AES-256.", "Databases and backups are encrypted at rest (AES-256).", "Encryption at rest is enforced with AES-256 keys held in our KMS.", "We encrypt stored customer data with AES-256."]
+    deny: ["Customer data at rest is not encrypted.", "We do not encrypt stored data today.", "Encryption at rest is not enabled for our databases.", "Backups are not encrypted at rest.", "Stored data is not encrypted."]
+    vague: ["Data is protected using industry-standard methods.", "Storage protections follow best practice.", "We protect stored data as needed.", "Stored data is secured where appropriate.", "Data protection aligns with common expectations."]
+  Q06:
+    affirm: ["Yes, all traffic uses TLS 1.2 or higher.", "Data in transit is encrypted with TLS 1.2+.", "We require TLS 1.2 or above for every connection.", "TLS 1.2 is the minimum for all external traffic.", "Encryption in transit is enforced with TLS 1.3 and TLS 1.2."]
+    deny: ["Some internal traffic is not encrypted in transit.", "We do not enforce TLS for every connection.", "Legacy endpoints still accept TLS 1.0.", "Encryption in transit is not required internally.", "Not all traffic uses TLS."]
+    vague: ["Connections are secured appropriately.", "Transport security follows industry norms.", "We protect data in motion where appropriate.", "Network traffic is safeguarded per best practice.", "Transit protections meet standard expectations."]
+  Q07:
+    affirm: ["We hold a current SOC 2 Type II report.", "We are ISO 27001 certified and hold a SOC 2 Type II report.", "Our SOC 2 Type II report is available under NDA.", "We hold ISO/IEC 27001 certification.", "SOC2 Type II audited annually."]
+    vague: ["We follow recognised security frameworks.", "Our controls align with industry standards.", "We are working towards common certifications.", "Independent reviews are performed as needed.", "We follow best practice for assurance."]
   Q08:
     affirm: ["No security incidents affecting customer data in the last 24 months.", "We had no customer-data security incidents in 24 months.", "No reportable customer data incidents in the past two years.", "Zero customer-impacting security incidents in 24 months.", "No breaches of customer data in the last 24 months."]
     deny: ["We experienced a customer data incident last year.", "A customer data security incident occurred recently.", "We notified customers of a data incident within 24 months.", "There was a reportable customer data event last year.", "Customer data was affected in a recent incident."]
