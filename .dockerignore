@@ -1,0 +1,9 @@
+.git
+.venv
+var
+logs/*
+.env*
+!.env.example
+.cursor
+tests/live
+eval/results

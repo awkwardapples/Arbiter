@@ -18,3 +18,4 @@ logs/*
 .cursor/ACTIVE_PASS
 .pytest_cache/
 .ruff_cache/
+eval/results/*/cases.jsonl

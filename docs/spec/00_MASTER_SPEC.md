@@ -209,19 +209,25 @@ TriState = Literal["TRUE", "FALSE", "UNKNOWN"]
 Outcome = Literal["APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"]
 Tier = Literal["T1", "T2", "T3"]
 
+
 class Provenance(BaseModel):
-    kind: Literal["system_of_record", "vendor_answer", "vendor_document", "public_feed", "human_review", "derived"]
-    system: str | None            # "procurement" | "clm" | "itsm" | "grc_watchlist" | "trust_portal" | "cisa_kev" | "inline_submission"
-    query_id: str | None          # registry id, e.g. "Q_VENDOR_CONTRACT"
-    record_key: str | None        # e.g. "contract_id=CTR-00031"
+    kind: Literal[
+        "system_of_record", "vendor_answer", "vendor_document", "public_feed", "human_review", "derived"
+    ]
+    system: (
+        str | None
+    )  # "procurement" | "clm" | "itsm" | "grc_watchlist" | "trust_portal" | "cisa_kev" | "inline_submission"
+    query_id: str | None  # registry id, e.g. "Q_VENDOR_CONTRACT"
+    record_key: str | None  # e.g. "contract_id=CTR-00031"
     field: str | None
     backend: Literal["zetaris", "duckdb", "inline"] | None
     zetaris_request_id: str | None
-    quote: str | None             # verbatim substring for vendor_answer/document
-    answer_ref: str | None        # "Q01" or "doc:DOC-0042"
+    quote: str | None  # verbatim substring for vendor_answer/document
+    answer_ref: str | None  # "Q01" or "doc:DOC-0042"
+
 
 # app/schemas/case.py
-class VendorSubmission(BaseModel):   # used for inline submissions (judges' own input)
+class VendorSubmission(BaseModel):  # used for inline submissions (judges' own input)
     legal_name: str
     trading_name: str | None
     category: str
@@ -230,47 +236,59 @@ class VendorSubmission(BaseModel):   # used for inline submissions (judges' own 
     annual_spend_gbp: float
     data_categories: list[Literal["none", "internal", "personal", "payment", "special_category"]]
     processing_countries: list[str]
-    answers: list[Answer]               # question_id, question, answer_text
-    documents: list[Document] = []      # doc_id, doc_type, title, issued_on, expires_on, text
+    answers: list[Answer]  # question_id, question, answer_text
+    documents: list[Document] = []  # doc_id, doc_type, title, issued_on, expires_on, text
     declared_components: list[Component] = []
     patch_sla_critical_days: int | None
 
+
 class CaseInput(BaseModel):
-    vendor_id: str | None = None        # existing vendor in the source systems
+    vendor_id: str | None = None  # existing vendor in the source systems
     submission: VendorSubmission | None = None
     requested_by: str | None = None
     # validator: exactly one of vendor_id / submission
 
+
 # app/schemas/evidence.py
-class Claim(BaseModel):               # what the vendor asserts (untrusted)
-    claim_id: str                     # "CL-<n>"
+class Claim(BaseModel):  # what the vendor asserts (untrusted)
+    claim_id: str  # "CL-<n>"
     control_id: str
-    key: str                          # e.g. "mfa.admin_enforced"
+    key: str  # e.g. "mfa.admin_enforced"
     asserted_value: bool | float | str | list[str] | None
     state: TriState
-    provenance: Provenance            # kind=vendor_answer|vendor_document, with quote
-    extractor: str                    # "meterless/fast:<model>" | "deterministic:v1"
-    grounded: bool | None = None      # set by EvaluatorAgent
+    provenance: Provenance  # kind=vendor_answer|vendor_document, with quote
+    extractor: str  # "meterless/fast:<model>" | "deterministic:v1"
+    grounded: bool | None = None  # set by EvaluatorAgent
 
-class Fact(BaseModel):                # what Arbiter believes, used by the policy
-    fact_id: str                      # "F-<control>-<n>"
+
+class Fact(BaseModel):  # what Arbiter believes, used by the policy
+    fact_id: str  # "F-<control>-<n>"
     control_id: str
     key: str
     value: bool | float | str | list[str] | None
     state: TriState
-    provenance: list[Provenance]      # ≥ 1
+    provenance: list[Provenance]  # ≥ 1
     derived_from_claims: list[str] = []
-    dq_flags: list[str] = []          # Zetaris DQ rule names that flagged the source row
+    dq_flags: list[str] = []  # Zetaris DQ rule names that flagged the source row
+
 
 class Contradiction(BaseModel):
-    key: str; control_id: str
-    claim_id: str; claim_value: Any
-    sor_value: Any; sor_provenance: Provenance
+    key: str
+    control_id: str
+    claim_id: str
+    claim_value: Any
+    sor_value: Any
+    sor_provenance: Provenance
     severity: Literal["material", "minor"]
     resolved: bool = False
 
+
 class Gap(BaseModel):
-    control_id: str; reason: str; suggested_query_ids: list[str] = []; suggested_answer_ids: list[str] = []
+    control_id: str
+    reason: str
+    suggested_query_ids: list[str] = []
+    suggested_answer_ids: list[str] = []
+
 
 class EvaluationReport(BaseModel):
     sufficient: bool
@@ -279,94 +297,187 @@ class EvaluationReport(BaseModel):
     ungrounded_claim_ids: list[str]
     dq_flags: list[DQFlag]
     injection_flags: list[GuardFlag]
-    revision_request: str | None      # natural-language note to the Planner (also traced)
+    revision_request: str | None  # natural-language note to the Planner (also traced)
+
 
 # app/schemas/decision.py
 class ControlResult(BaseModel):
-    control_id: str; title: str; required: bool; state: TriState
-    fact_ids: list[str]; rule_id: str; weight: float; hard_gate: str | None
-    exception_applied: str | None     # precedent id if a policy-permitted exception was applied
+    control_id: str
+    title: str
+    required: bool
+    state: TriState
+    fact_ids: list[str]
+    rule_id: str
+    weight: float
+    hard_gate: str | None
+    exception_applied: str | None  # precedent id if a policy-permitted exception was applied
+
 
 class Counterfactual(BaseModel):
-    control_id: str; from_state: TriState; to_state: TriState
-    evidence_required: list[str]      # from policy: what would satisfy the control
-    question_ids: list[str]           # questionnaire items to ask the vendor about
+    control_id: str
+    from_state: TriState
+    to_state: TriState
+    evidence_required: list[str]  # from policy: what would satisfy the control
+    question_ids: list[str]  # questionnaire items to ask the vendor about
+
 
 class DecisionRecord(BaseModel):
-    case_id: str; run_id: str
-    policy_version: str; policy_sha256: str; calibration_version: str
-    tier: Tier; inherent_risk_score: int
-    facts: list[Fact]; controls: list[ControlResult]; contradictions: list[Contradiction]
-    outcome: Outcome; outcome_reasons: list[str]   # reason codes of EVERY matching outcome rule, in rule order; the first decides the outcome
+    case_id: str
+    run_id: str
+    policy_version: str
+    policy_sha256: str
+    calibration_version: str
+    tier: Tier
+    inherent_risk_score: int
+    facts: list[Fact]
+    controls: list[ControlResult]
+    contradictions: list[Contradiction]
+    outcome: Outcome
+    outcome_reasons: list[
+        str
+    ]  # reason codes of EVERY matching outcome rule, in rule order; the first decides the outcome
     escalation_reasons: list[str] = []
     counterfactuals: list[Counterfactual]
-    precedents_considered: list[PrecedentRef]; exceptions_applied: list[str]
-    residual_risk: int                             # 0-100, for queue ordering
+    precedents_considered: list[PrecedentRef]
+    exceptions_applied: list[str]
+    residual_risk: int  # 0-100, for queue ordering
     confidence: ConfidenceBreakdown
-    conditions: list[str] = []                     # for APPROVE_WITH_CONDITIONS
-    as_of: date                                    # evaluation date (ARBITER_AS_OF); drives currency, windows, precedent age
-    policy_inputs: PolicyInputs                    # everything decide() consumed, so replay can recompute exactly
-    created_at: datetime                           # = as_of at 00:00 UTC (never the wall clock), so replay matches
-    record_sha256: str                             # canonical hash of all fields above (excl. itself)
+    conditions: list[str] = []  # for APPROVE_WITH_CONDITIONS
+    as_of: date  # evaluation date (ARBITER_AS_OF); drives currency, windows, precedent age
+    policy_inputs: PolicyInputs  # everything decide() consumed, so replay can recompute exactly
+    created_at: datetime  # = as_of at 00:00 UTC (never the wall clock), so replay matches
+    record_sha256: str  # canonical hash of all fields above (excl. itself)
+
 
 class PolicyInputs(BaseModel):
-    case_id: str; run_id: str; as_of: date
-    profile: TierProfile                           # data_categories, criticality, annual_spend_gbp, contract_status
-    facts: list[Fact]; contradictions: list[Contradiction]; guard_flags: list[GuardFlag]
+    case_id: str
+    run_id: str
+    as_of: date
+    profile: TierProfile  # data_categories, criticality, annual_spend_gbp, contract_status
+    facts: list[Fact]
+    contradictions: list[Contradiction]
+    guard_flags: list[GuardFlag]
     precedents: list[PrecedentCandidate] = []
-    confidence: ConfidenceBreakdown                # value + signals; the engine fills gate and abstained
+    confidence: ConfidenceBreakdown  # value + signals; the engine fills gate and abstained
+
 
 class PrecedentCandidate(BaseModel):
-    precedent_id: str; hmem_id: str; control_id: str; mitigation: str
-    reviewer_role: str; decision: Outcome; created_as_of: date; tier: Tier
-    hmem_confidence: float; relevance: float
+    precedent_id: str
+    hmem_id: str
+    control_id: str
+    mitigation: str
+    reviewer_role: str
+    decision: Outcome
+    created_as_of: date
+    tier: Tier
+    hmem_confidence: float
+    relevance: float
 
-class PrecedentRef(BaseModel):                     # in DecisionRecord.precedents_considered
-    precedent_id: str; hmem_id: str; control_id: str; relevance: float; hmem_confidence: float
-    applied: bool; failed_criteria: list[str] = []
 
-class DQFlag(BaseModel): rule: str; table: str; record_key: str
-class Draft(BaseModel): to_role: str; subject: str; body: str
+class PrecedentRef(BaseModel):  # in DecisionRecord.precedents_considered
+    precedent_id: str
+    hmem_id: str
+    control_id: str
+    relevance: float
+    hmem_confidence: float
+    applied: bool
+    failed_criteria: list[str] = []
+
+
+class DQFlag(BaseModel):
+    rule: str
+    table: str
+    record_key: str
+
+
+class Draft(BaseModel):
+    to_role: str
+    subject: str
+    body: str
+
 
 class ConfidenceBreakdown(BaseModel):
-    value: float; gate: float; abstained: bool
+    value: float
+    gate: float
+    abstained: bool
     signals: dict[str, float]  # coverage, grounding, source_health, contradiction_free, precedent_alignment
+
 
 # app/schemas/report.py
 class Report(BaseModel):
-    summary: str                    # ≤ 120 words, every sentence cited
+    summary: str  # ≤ 120 words, every sentence cited
     rationale: list[CitedSentence]  # text + citations ["F-C01-1","R-C01","P-0003","E-clm-CTR-00031"]
     recommended_actions: list[str]
     clarification_email: Draft | None
     limitations: list[str]
-    generator: str                  # "meterless/deep:<model>" | "template:v1"
+    generator: str  # "meterless/deep:<model>" | "template:v1"
+
 
 # app/schemas/contract.py  (Meterless Scout execution-contract subset)
 class ExecutionContract(BaseModel):
-    contract_id: str; parent_id: str | None; trace_id: str; case_id: str
-    intent: Literal["vendor.onboarding.approve", "vendor.onboarding.approve_with_conditions",
-                    "vendor.onboarding.request_info", "vendor.onboarding.escalate", "vendor.onboarding.decline"]
-    parameters: dict               # vendor ref, decision_record_sha256, policy_version, outcome
-    risk: ContractRisk             # level low|medium|high, flags, approvals_required[{role}], approvals[{by, role, at, decision, rationale}]
-    tool_plan: list[ToolStep]      # [{capability, args}]
-    scope: ContractScope           # capabilities (exact set), deadline, budget
-    issued_at: datetime; expires_at: datetime
-    policy_pack_version: str; registry_version: int
-    signature: str                 # HMAC-SHA256 over canonical JSON without "signature"
+    contract_id: str
+    parent_id: str | None
+    trace_id: str
+    case_id: str
+    intent: Literal[
+        "vendor.onboarding.approve",
+        "vendor.onboarding.approve_with_conditions",
+        "vendor.onboarding.request_info",
+        "vendor.onboarding.escalate",
+        "vendor.onboarding.decline",
+    ]
+    parameters: dict  # vendor ref, decision_record_sha256, policy_version, outcome
+    risk: ContractRisk  # level low|medium|high, flags, approvals_required[{role}], approvals[{by, role, at, decision, rationale}]
+    tool_plan: list[ToolStep]  # [{capability, args}]
+    scope: ContractScope  # capabilities (exact set), deadline, budget
+    issued_at: datetime
+    expires_at: datetime
+    policy_pack_version: str
+    registry_version: int
+    signature: str  # HMAC-SHA256 over canonical JSON without "signature"
     signed_by: Literal["scout"] = "scout"
     state: Literal["issued", "pending_approval", "approved", "executed", "rejected", "expired"]
 
+
 # app/schemas/trace.py
-class TraceEvent(BaseModel):     # organisers' recommended fields + extras
-    timestamp: datetime; run_id: str; trace_id: str; span_id: str; parent_span_id: str | None
-    agent_name: str; action: str; input_summary: str; output_summary: str
-    target_agent: str | None; confidence: float | None; retry_count: int = 0
-    status: Literal["success", "needs_revision", "retrying", "fallback", "blocked", "escalated", "partial_success", "error", "pending_approval"]
+class TraceEvent(BaseModel):  # organisers' recommended fields + extras
+    timestamp: datetime
+    run_id: str
+    trace_id: str
+    span_id: str
+    parent_span_id: str | None
+    agent_name: str
+    action: str
+    input_summary: str
+    output_summary: str
+    target_agent: str | None
+    confidence: float | None
+    retry_count: int = 0
+    status: Literal[
+        "success",
+        "needs_revision",
+        "retrying",
+        "fallback",
+        "blocked",
+        "escalated",
+        "partial_success",
+        "error",
+        "pending_approval",
+    ]
     # optional extras
-    provider: str | None; route: str | None; model: str | None; latency_ms: int | None
-    tokens_in: int | None; tokens_out: int | None
-    source_system: str | None; query_id: str | None; rows: int | None; backend: str | None
-    loop: str | None; iteration: int | None; mode: dict | None
+    provider: str | None
+    route: str | None
+    model: str | None
+    latency_ms: int | None
+    tokens_in: int | None
+    tokens_out: int | None
+    source_system: str | None
+    query_id: str | None
+    rows: int | None
+    backend: str | None
+    loop: str | None
+    iteration: int | None
+    mode: dict | None
 ```
 
 API run response, matching the organisers' technical guide shape:

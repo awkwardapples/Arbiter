@@ -275,11 +275,19 @@ Precedence rule: system-of-record values beat claims. A disagreement creates a `
 ```python
 def decide(inputs: PolicyInputs, policy: Policy, calibration: Calibration) -> DecisionRecord:
     tier, inherent = tiering(inputs.profile, policy)
-    controls = [evaluate_control(c, inputs.facts, tier, inputs.as_of) for c in policy.controls_applicable(tier, inputs)]
+    controls = [
+        evaluate_control(c, inputs.facts, tier, inputs.as_of)
+        for c in policy.controls_applicable(tier, inputs)
+    ]
     controls = apply_contract_stage_conditions(controls, inputs, policy)
     controls = apply_precedent_exceptions(controls, inputs.precedents, inputs.facts, policy, inputs.as_of)
-    matched = matching_outcome_rules(policy.outcome_rules, controls, inputs, confidence=inputs.confidence, gate=calibration.gate(tier))
-    outcome, outcome_reasons = matched[0].outcome, [r.reason for r in matched]   # all matching reasons, first decides
+    matched = matching_outcome_rules(
+        policy.outcome_rules, controls, inputs, confidence=inputs.confidence, gate=calibration.gate(tier)
+    )
+    outcome, outcome_reasons = (
+        matched[0].outcome,
+        [r.reason for r in matched],
+    )  # all matching reasons, first decides
     counterfactuals = compute_counterfactuals(controls, inputs.contradictions, policy)
     residual = residual_risk(tier, controls, inputs, policy)
     return DecisionRecord(..., record_sha256=canonical_hash(...))

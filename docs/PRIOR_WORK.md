@@ -11,7 +11,7 @@ Open Agent Hackathon 2026 rules: "Work committed before the build window opens (
   - two small development-tooling hook scripts (`.cursor/hooks/verify_loop.py`, `.cursor/hooks/shell_guard.py`), which are editor automation and not part of the application;
   - `docs/DAY0_CHECKS.md` (template).
 - **When:** written 20–21 October 2026, before the build window; committed unchanged in the first commit after the window opened.
-  - Import commit sha: `<filled in by P0: git log --format=%H -1 -- docs/spec>`
+  - Import commit sha: `b3c720deca0140efe6ef53fd88e9f18474ca707c`
 - **How:** by me with an AI assistant (Claude, Anthropic) acting as architect. All application code was written during the build window in Cursor.
 
 ## 2. Concept, research and narrative from an earlier prototype
