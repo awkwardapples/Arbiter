@@ -14,6 +14,6 @@
 
 ## Stop-hook / verify-pass iterations
 
-- Run 1: lint, tests and gate passed; **secret-scan failed** on `_TOKEN = re.compile(...)` (an assignment-name false positive). The agent renamed it rather than allowlisting.
+- Run 1: lint, tests and gate passed; **secret-scan failed** on `set TOKEN to re.compile(...)` (an assignment-name false positive). The agent renamed it rather than allowlisting.
 - Run 2: `verify-pass p2a: ok`.
 - Before that, `ruff format` and two SIM lint fixes were applied (`conflicts.py`, `dreaming.py`; both behaviour-preserving).
