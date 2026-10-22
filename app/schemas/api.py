@@ -10,6 +10,7 @@ from app.schemas.common import Outcome, Tier
 
 class RunRequestOptions(BaseModel):
     sample_mode: bool | None = None
+    llm: Literal["auto", "meterless", "nvidia", "offline"] | None = None
 
 
 class RunRequestEnvelope(BaseModel):
@@ -90,7 +91,7 @@ class AgentInfo(BaseModel):
 
 class RunResponse(BaseModel):
     run_id: str
-    status: Literal["success", "error"]
+    status: Literal["success", "partial_success", "escalated", "error"]
     output: RunOutput | None = None
     agents: list[AgentInfo] = []
     trace_id: str
