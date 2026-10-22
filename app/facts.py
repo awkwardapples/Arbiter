@@ -169,6 +169,7 @@ def tier_profile(state: CaseState, facts: list[Fact]) -> TierProfile:
         contract_status=str(contract.value)
         if contract is not None and contract.value is not None
         else "unknown",
+        vendor_category=str(state.profile.get("category") or "") or None,
     )
 
 
