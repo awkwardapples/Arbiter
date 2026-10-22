@@ -151,7 +151,8 @@ def test_p2_t35_safety_monotonicity() -> None:
         if observed[target] != states[target] or observed_after[target] != degraded[target]:
             raise AssertionError(
                 f"seed={SEED} trial={completed} control {target} "
-                f"wanted {states[target]}->{degraded[target]} got {observed[target]}->{observed_after[target]}"
+                f"wanted {states[target]}->{degraded[target]} "
+                f"got {observed[target]}->{observed_after[target]}"
             )
         if confidence_value >= gate and RANK[after.outcome] < RANK[before.outcome]:
             raise AssertionError(

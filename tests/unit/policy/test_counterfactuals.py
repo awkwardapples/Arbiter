@@ -33,7 +33,13 @@ def test_p2_t34_counterfactuals_match_policy() -> None:
             control_id="C10",
             claim_id="CL-minor",
         ),
-        contradiction("incidents.vendor_reported_24m", severity="material", resolved=True, control_id="C06", claim_id="CL-done"),
+        contradiction(
+            "incidents.vendor_reported_24m",
+            severity="material",
+            resolved=True,
+            control_id="C06",
+            claim_id="CL-done",
+        ),
     ]
     record = decide(
         policy_inputs(
@@ -45,8 +51,11 @@ def test_p2_t34_counterfactuals_match_policy() -> None:
         calibration,
     )
     by_control = {control.id: control for control in policy.controls}
-    control_rows = [row for row in record.counterfactuals if not row.evidence_required[0].startswith("resolve contradiction on ")]
-    contradiction_rows = [row for row in record.counterfactuals if row.evidence_required[0].startswith("resolve contradiction on ")]
+    resolve = "resolve contradiction on "
+    control_rows = [row for row in record.counterfactuals if not row.evidence_required[0].startswith(resolve)]
+    contradiction_rows = [
+        row for row in record.counterfactuals if row.evidence_required[0].startswith(resolve)
+    ]
 
     assert [row.control_id for row in control_rows] == ["C01", "C03"]
     c01 = control_rows[0]

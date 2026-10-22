@@ -28,9 +28,17 @@ CASES: list[tuple[str, dict, str]] = [
     ("C04", {"crypto.in_transit_tls12": (False, "FALSE")}, "FALSE"),
     ("C04", {"crypto.at_rest": None}, "UNKNOWN"),
     ("C05", {}, "TRUE"),
-    ("C05", {"assurance.soc2_type2_current": (False, "FALSE"), "assurance.iso27001_current": (False, "FALSE")}, "FALSE"),
+    (
+        "C05",
+        {"assurance.soc2_type2_current": (False, "FALSE"), "assurance.iso27001_current": (False, "FALSE")},
+        "FALSE",
+    ),
     ("C05", {"assurance.soc2_type2_current": None, "assurance.iso27001_current": None}, "UNKNOWN"),
-    ("C05", {"assurance.soc2_type2_current": (False, "FALSE"), "assurance.iso27001_current": (True, "TRUE")}, "TRUE"),
+    (
+        "C05",
+        {"assurance.soc2_type2_current": (False, "FALSE"), "assurance.iso27001_current": (True, "TRUE")},
+        "TRUE",
+    ),
     ("C06", {}, "TRUE"),
     ("C06", {"incidents.material_unremediated_24m": (1, "TRUE")}, "FALSE"),
     ("C06", {"incidents.material_unremediated_24m": None}, "UNKNOWN"),
@@ -82,10 +90,11 @@ def test_p2_t30_remaining_leaf_ops() -> None:
     """P2-T30: leaf ops outside the control table still return a tri-state."""
     present = make_fact("creds.rotation_days", 10, "TRUE")
     missing_state = make_fact("creds.rotation_days", 10, "UNKNOWN")
-    assert evaluate({"fact": "creds.rotation_days", "op": "gt", "value": 9}, {"creds.rotation_days": present}) == "TRUE"
-    assert evaluate({"fact": "creds.rotation_days", "op": "lt", "value": 10}, {"creds.rotation_days": present}) == "FALSE"
-    assert evaluate({"fact": "creds.rotation_days", "op": "ne", "value": 11}, {"creds.rotation_days": present}) == "TRUE"
-    assert evaluate({"fact": "creds.rotation_days", "op": "gte", "value": 10}, {"creds.rotation_days": present}) == "TRUE"
+    days = {"creds.rotation_days": present}
+    assert evaluate({"fact": "creds.rotation_days", "op": "gt", "value": 9}, days) == "TRUE"
+    assert evaluate({"fact": "creds.rotation_days", "op": "lt", "value": 10}, days) == "FALSE"
+    assert evaluate({"fact": "creds.rotation_days", "op": "ne", "value": 11}, days) == "TRUE"
+    assert evaluate({"fact": "creds.rotation_days", "op": "gte", "value": 10}, days) == "TRUE"
     assert (
         evaluate(
             {"fact": "transfer.mechanism", "op": "not_in", "value": ["SCCs", "IDTA"]},
@@ -93,15 +102,22 @@ def test_p2_t30_remaining_leaf_ops() -> None:
         )
         == "TRUE"
     )
-    assert evaluate({"fact": "creds.rotation_days", "op": "exists"}, {"creds.rotation_days": present}) == "TRUE"
-    assert evaluate({"fact": "creds.rotation_days", "op": "exists"}, {"creds.rotation_days": missing_state}) == "UNKNOWN"
+    assert evaluate({"fact": "creds.rotation_days", "op": "exists"}, days) == "TRUE"
+    missing = {"creds.rotation_days": missing_state}
+    assert evaluate({"fact": "creds.rotation_days", "op": "exists"}, missing) == "UNKNOWN"
     assert evaluate({"fact": "creds.rotation_days", "op": "eq", "value": 10}, {}) == "UNKNOWN"
     regions = make_fact("residency.regions", [], "TRUE")
     assert (
-        evaluate({"fact": "residency.regions", "op": "subset_of", "value": ["UK", "EU"]}, {"residency.regions": regions})
+        evaluate(
+            {"fact": "residency.regions", "op": "subset_of", "value": ["UK", "EU"]},
+            {"residency.regions": regions},
+        )
         == "TRUE"
     )
     assert (
-        evaluate({"fact": "residency.regions", "op": "in_any", "value": ["UK"]}, {"residency.regions": regions})
+        evaluate(
+            {"fact": "residency.regions", "op": "in_any", "value": ["UK"]},
+            {"residency.regions": regions},
+        )
         == "FALSE"
     )

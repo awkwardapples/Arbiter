@@ -34,7 +34,7 @@ def _decide(bundle, facts, **kwargs):
 
 
 def test_p2_t31_outcome_rule_order(bundle) -> None:
-    """P2-T31: decline beats injection, then contradiction, hard escalate, failure, unknown, confidence, conditional, approve."""
+    """P2-T31: outcome rules fire in declared order, first match wins."""
     policy, _calibration = bundle
     expected_order = [rule.reason for rule in policy.outcome_rules]
 

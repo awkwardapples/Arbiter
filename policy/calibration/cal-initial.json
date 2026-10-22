@@ -1,0 +1,1 @@
+{"version": "cal-initial", "gates": {"T1": 0.90, "T2": 0.85, "T3": 0.80}, "weights": {"coverage": 0.30, "grounding": 0.25, "source_health": 0.15, "contradiction_free": 0.15, "precedent_alignment": 0.15}}
