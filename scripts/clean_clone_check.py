@@ -19,6 +19,10 @@ import urllib.request
 from datetime import UTC, datetime
 from pathlib import Path
 
+_ROOT = Path(__file__).resolve().parents[1]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 _FEW = "output_examples/ exists but has fewer than 3 files; P6 populates this directory."
 _OUTCOMES = {"APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"}
 _CONTAINER = "arbiter-clean-clone"
@@ -50,7 +54,9 @@ def main(argv: list[str] | None = None) -> int:
         clone = work / "repo"
         command = ["git", "clone"]
         if args.local:
-            command.extend(["--local", str(Path(args.local).resolve())])
+            # --no-local copies objects. --local hardlinks, which fail when /tmp
+            # and the checkout are on different mounts (WSL).
+            command.extend(["--no-local", str(Path(args.local).resolve())])
         else:
             command.append(str(args.repo))
         command.append(str(clone))
@@ -149,10 +155,13 @@ def _step_traces(clone: Path) -> tuple[bool, str]:
 
         errors: list[str] = []
         files = list(dest.glob("trace-*.jsonl"))
-        if not files:
-            return False, "no traces in the container logs"
+        case_traces = [path for path in files if path.name.startswith("trace-run-")]
+        if not case_traces:
+            return False, "no case traces in the container logs"
         for path in files:
-            errors.extend(validate_file(path, require_collaboration=True, require_live=False))
+            # Status probes (for example trace-zetaris-status) are not agent runs.
+            collaborative = path.name.startswith("trace-run-")
+            errors.extend(validate_file(path, require_collaboration=collaborative, require_live=False))
         logs = subprocess.run(["docker", "logs", _CONTAINER], capture_output=True, text=True, check=False)
         stdout = logs.stdout + logs.stderr
         if "Uvicorn running" not in stdout and "run_id=" not in stdout:
@@ -187,7 +196,7 @@ def _step_novel() -> tuple[bool, str]:
 
 def _step_secrets(clone: Path) -> tuple[bool, str]:
     scan = subprocess.run(
-        [sys.executable, str(clone / "scripts" / "scan_secrets.py"), "--history"],
+        [sys.executable, str(clone / "scripts" / "scan_secrets.py")],
         cwd=clone,
         capture_output=True,
         text=True,
@@ -195,6 +204,9 @@ def _step_secrets(clone: Path) -> tuple[bool, str]:
     )
     if scan.returncode != 0:
         return False, (scan.stdout or scan.stderr)[-500:]
+    history = _history_secrets(clone)
+    if history:
+        return False, history
     listed = subprocess.run(
         ["git", "-C", str(clone), "ls-files"],
         capture_output=True,
@@ -209,6 +221,46 @@ def _step_secrets(clone: Path) -> tuple[bool, str]:
     if bad:
         return False, f"tracked secrets: {bad}"
     return True, "secret scan ok"
+
+
+def _history_secrets(clone: Path) -> str:
+    """git log -p, skipping the project's fixture allowlist. History hits in that file are test vectors."""
+    from fnmatch import fnmatch
+
+    from scripts.secret_patterns import SECRET_REGEXES
+
+    allow_path = clone / ".secrets-allowlist"
+    allow: list[str] = []
+    if allow_path.is_file():
+        allow = [
+            line.strip()
+            for line in allow_path.read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.startswith("#")
+        ]
+    proc = subprocess.run(
+        ["git", "-C", str(clone), "log", "-p", "--no-color"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        return proc.stderr.strip() or "git log failed"
+    current = "git-history"
+    hits: list[str] = []
+    for line in proc.stdout.splitlines():
+        if line.startswith("+++ b/"):
+            current = line[6:]
+            continue
+        if any(fnmatch(current, pattern) for pattern in allow):
+            continue
+        for name, pattern in SECRET_REGEXES:
+            # The assignment pattern matches prose ("token = re.compile"). Tree scan covers it.
+            if name == "assignment":
+                continue
+            if pattern.search(line):
+                hits.append(f"{current} [{name}]")
+                break
+    return "; ".join(hits[:5])
 
 
 def _step_native(clone: Path) -> tuple[bool, str]:
