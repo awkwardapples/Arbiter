@@ -107,6 +107,7 @@ def control_table(controls: list[dict[str, Any]], facts: list[dict[str, Any]]) -
 
 
 def glossary() -> None:
+    st.markdown("<div style='height: 8px'></div>", unsafe_allow_html=True)
     with st.expander("Glossary", expanded=False):
         st.markdown(
             """
