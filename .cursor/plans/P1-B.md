@@ -1,0 +1,216 @@
+# P1-B plan — Zetaris live federation (human-attended)
+
+## Goal
+
+Wire **Zetaris** as the live data backend so Arbiter federates the five synthetic enterprise REST sources plus the public CISA KEV feed through Lightning REST tables, SchemaStore flattening views, and the `vendor_risk` USL (with DQ rules aligned to `zetaris/dq_rules.yaml`). `ZetarisBackend` executes every registry query via the Zetaris REST SQL API with safe rendering, response normalisation, retries, and rich tracing (`zetaris_request_id` on each fact path). Onboarding is scripted (`onboard`), parity against DuckDB is committed evidence (`docs/passes/P1-B_parity.json`), and `FallbackBackend` (from P1-A) pins DuckDB on auth failure or falls back per query on timeout/5xx. This lane is **human-attended**: no create/drop/write SQL runs without dry-run review and your explicit **go**.
+
+## Branch
+
+`p1b-zetaris` (per pass index).
+
+## Ownership check
+
+All paths below are in **P1-B** ownership (`docs/spec/passes/README.md` §3), except:
+
+| Exception | Owner | P1-B action |
+|---|---|---|
+| `app/data/factory.py`, `app/data/status.py` | P1-A (P1-B may ✎ Zetaris branch) | **Verify only** — P1-A already imports `ZetarisBackend` and delegates `status()`; change only if integration gaps appear (e.g. degraded flag surfacing) |
+| `zetaris/dq_rules.yaml` | P1-A | **Read only** — generate `REGISTER DQ` lines in `03_usl.sql` from this file, do not edit YAML |
+| `app/data/registry.py`, `queries.yaml`, `duckdb_backend.py` | P1-A | **Read only** — render layer/table placeholders already support `backend=zetaris` and `layer=usl\|views` |
+| `run.py` | P0 | **No edit** — wire via owned `app/cli/zetaris.py` |
+| `docs/passes/P1-B_REPORT.md`, `docs/cursor-usage/P1-B.md`, `docs/img/zetaris_*.png` | This lane | End of build |
+
+---
+
+## Attended procedure (§B7 — build phase stops at each ⏸)
+
+1. **Preflight** — `python run.py zetaris status` → `SELECT 1` returns 1. Read-only Zetaris checks only. **⏸**
+2. **Simulator reachability** — Start `python run.py sources`; from Zetaris `driver` and `api` containers, curl `SOURCES_PUBLIC_BASE/health`. If blocked >30 min → set `ZETARIS_SOURCE_MODE=github_raw`, ensure `GITHUB_RAW_BASE` points at committed JSON on `main`, continue. **⏸**
+3. **Fixture capture** — Real `/sql-editor/sqls/run` responses (scrubbed) → `tests/fixtures/zetaris_run_response.json`; unit-test normaliser before live onboarding.
+4. **Onboard 01** — `python run.py zetaris onboard --only 01 --dry-run` (show statements) → **⏸** → `--yes`; verify REST/view counts vs simulator `count`.
+5. **Onboard 02** — Same pattern for KEV (`02_kev.sql`).
+6. **Onboard 03** — USL compile, activate, DQ register/run. If USL fails after 90 min → `ZETARIS_QUERY_LAYER=views`, document in report. **⏸ before `--yes` on 03**
+7. **Parity** — `python run.py zetaris parity` → fix mismatches or document in report § Parity exceptions.
+8. **Live assess** (optional here) — `python run.py assess --input input_examples/example_2.json` when P3 exists; otherwise defer to P3 live check.
+
+**Safety (§B5, binding):** never print/log `ZETARIS_API_KEY`; never call port 8889; one statement per REST call, no trailing semicolon; never split `COMPILE USL`; dry-run + human **go** before any create/drop/write; teardown via UI or `onboard.py teardown` with confirmation only.
+
+---
+
+## Files to create or edit
+
+### Zetaris onboarding and SQL (`zetaris/**`)
+
+| File | Action |
+|---|---|
+| `zetaris/sources.yaml` | Create: REST table → `{simulator_path, raw_file}` for 9 system tables |
+| `zetaris/sql/01_sources.sql` | Create: `ARBITER_SRC`, container `arbiter`, 9 `*_raw` REST tables with `{URL:…}`, 9 flattening views `arbiter.<name>_v` (USL column names + casts) |
+| `zetaris/sql/02_kev.sql` | Create: `ARBITER_PUB`, `kev_raw`, `CACHE TABLE`, `arbiter.kev_vuln_v` |
+| `zetaris/sql/03_usl.sql` | Create: namespace, single `COMPILE USL vendor_risk`, 10 `ACTIVATE USL TABLE …`, `REGISTER DQ` generated from `dq_rules.yaml`, `RUN DQ TABLE …` |
+| `zetaris/onboard.py` | Create: split on `-- @@stmt` only; substitute `{URL:…}` from `sources.yaml` + `ZETARIS_SOURCE_MODE`; strip full-line `--` comments; `--dry-run` print; refuse real run without `--yes`; `--skip-exists`; log to `logs/zetaris-onboard-<ts>.jsonl` (no secrets) |
+| `zetaris/parity.py` | Create: counts, per-query row count + canonical row hashes (exclude KEV queries per §8), DQ key sets, KEV subset check; write `docs/passes/P1-B_parity.json` |
+| `zetaris/README.md` | Create: registered objects, onboard commands, fallback B (`github_raw`), views fallback, troubleshooting |
+
+### App adapter and CLI
+
+| File | Action |
+|---|---|
+| `app/data/zetaris.py` | Implement: `ZetarisBackend`, shared REST client, normaliser, `dq_invalid(table)`, module-level `status(settings)` |
+| `app/cli/zetaris.py` | Replace stubs: dispatch `onboard` / `parity` / `status` to `zetaris/` modules |
+
+### Evidence and deck
+
+| File | Action |
+|---|---|
+| `docs/passes/P1-B_parity.json` | Generated by parity (committed) |
+| `docs/img/zetaris_*.png` | Human capture during onboarding (no keys in frame) |
+
+### Tests and fixtures
+
+| File | Action |
+|---|---|
+| `tests/fixtures/zetaris_run_response.json` | Capture from live Zetaris (scrubbed) |
+| `tests/unit/zetaris/test_client.py` | P1-T20, P1-T21, P1-T22, P1-T24 |
+| `tests/unit/zetaris/test_onboard.py` | P1-T23 |
+| `tests/live/test_zetaris_parity.py` | P1-T25, P1-T26, P1-T27, P1-T28 (`@pytest.mark.live`) |
+
+### Gate
+
+| File | Action |
+|---|---|
+| `scripts/gates/p1b.py` | Implement: pass if `docs/passes/P1-B_parity.json` has `all_green: true`, **or** `docs/passes/P1-B_REPORT.md` contains a **Parity exceptions** section listing every mismatch with cause |
+
+---
+
+## Interfaces (signatures)
+
+**`app/data/zetaris.py`**
+
+```python
+class ZetarisBackend:
+    name: str = "zetaris"
+
+    def __init__(
+        self,
+        settings: Settings,
+        registry: dict[str, QueryDef],
+        tracer: Tracer,
+    ) -> None: ...
+
+    def run(self, query_id: str, params: dict[str, object]) -> QueryResult: ...
+    # Renders via registry.render(..., backend="zetaris", layer=settings.ZETARIS_QUERY_LAYER)
+    # POST {ZETARIS_REST_URL}/sql-editor/sqls/run; tenacity 3 attempts on timeout/5xx (1s, 3s backoff);
+    # 401/403 → Unauthorized, no retry; trace action query_zetaris with zetaris_request_id, latency_ms
+
+    def execute_sql(self, sql: str, *, purpose: str = "sql") -> list[dict[str, object]]: ...
+    # Shared by run(), onboard, parity, status; strips trailing semicolon
+
+    def normalise_response(
+        self,
+        payload: object,
+        columns: list[str],
+    ) -> list[dict[str, object]]: ...
+
+    def dq_invalid(self, table: str) -> set[str]: ...
+    # SHOW DQ ALL INVALID TABLE lightning.metastore.arbiter.vendor_risk.<table>; parse records JSON
+
+def status(settings: Settings | None = None) -> dict[str, object]: ...
+# SELECT 1; optional degraded flag (60s after 401)
+```
+
+**`zetaris/onboard.py`**
+
+```python
+def load_statements(
+    only: Literal["01", "02", "03"] | None = None,
+) -> list[tuple[str, str]]: ...  # (label, sql)
+
+def substitute_urls(sql: str, settings: Settings) -> str: ...
+
+def run_onboard(
+    settings: Settings,
+    *,
+    dry_run: bool = False,
+    skip_exists: bool = False,
+    only: Literal["01", "02", "03"] | None = None,
+    yes: bool = False,
+) -> int: ...
+```
+
+**`zetaris/parity.py`**
+
+```python
+def run_parity(settings: Settings, *, out_path: Path = ...) -> dict[str, object]: ...
+# Returns summary dict written to JSON (includes all_green: bool)
+```
+
+**`app/cli/zetaris.py`**
+
+```python
+def register(sub: argparse._SubParsersAction) -> None: ...
+def main(args: argparse.Namespace) -> int: ...
+```
+
+**Integration with existing P1-A types** (no signature change expected):
+
+- `QueryResult`, `FallbackBackend`, `registry.render`, `invalid_keys` / `Q_DQ_INVALID` handler path.
+
+---
+
+## Acceptance tests
+
+| Id | Marker | How we test it |
+|---|---|---|
+| **P1-T20** | `p1b` | `respx` mock: assert POST URL, method, headers (`Authorization`, `X-Org-ID`, UUID4 `X-Request-ID`), JSON body keys/types, SQL has no trailing `;` |
+| **P1-T21** | `p1b` | Feed fixture `tests/fixtures/zetaris_run_response.json` into `normalise_response`; assert dict rows, positional row → registry `columns`, bool/int/date coercion |
+| **P1-T22** | `p1b` | respx: two 5xx then 200 → success + 2 trace events `status=retrying`; three 5xx → raise; `FallbackBackend` returns DuckDB with `fallback_from`; 401 → no retry, `Unauthorized`, pin DuckDB on next query |
+| **P1-T23** | `p1b` | Unit-test statement splitter: only `-- @@stmt`; multi-table `COMPILE USL` stays one statement; placeholder substitution for `simulator` and `github_raw`; run without `--yes` exits non-zero; dry-run output contains no key material |
+| **P1-T24** | `p1b` | caplog + written trace file: no `Authorization` header value or API key substring |
+| **P1-T25** | `p1b`, `live` | Live COUNT(*) on 9 source USL/view tables vs simulator envelope `count`; `kev_vuln` vs live KEV `count` |
+| **P1-T26** | `p1b`, `live` | For each registry query except `Q_COMPONENT_KEV` and `Q_KEV_BY_PRODUCTS`, × each `VND-####` vendor: equal row counts and sha256 of sorted canonical rows (Zetaris vs DuckDB) |
+| **P1-T27** | `p1b`, `live` | DQ invalid primary-key sets equal between Zetaris `SHOW DQ` path and DuckDB `invalid_keys` |
+| **P1-T28** | `p1b`, `live` | Every snapshot CVE that matches a catalogue product appears in live KEV (subset check) |
+
+**Verification commands**
+
+```bash
+python run.py zetaris status
+python run.py zetaris onboard --dry-run
+python run.py zetaris parity
+python scripts/tasks.py verify-pass --pass 1b
+ARBITER_LIVE_TESTS=1 pytest -m "p1b and live"
+```
+
+---
+
+## Risks and questions for Josh
+
+1. **Zetaris preflight** — Is local Zetaris already at 9/9 via `verify.sh`, with `ZETARIS_API_KEY` and `ZETARIS_ORG_ID` in `.env` (not shared in chat)? Without this, live tests and onboarding are blocked at step 1.
+2. **Docker → simulator networking** — Are you on WSL2 with Zetaris compose and `host.docker.internal` (or `extra_hosts: host-gateway`) working? If not, should we plan **fallback B** (`ZETARIS_SOURCE_MODE=github_raw`) from the start and set `GITHUB_RAW_BASE` to this repo’s GitHub raw URL?
+3. **`GITHUB_RAW_BASE` placeholder** — `app/config.py` still has `your-github-user/arbiter`. What is the real `owner/repo` for raw JSON if we need fallback B?
+4. **USL vs views** — Default is `ZETARIS_QUERY_LAYER=usl`. If Day-1 `COMPILE USL` fails on your Zetaris build, is **views-only** acceptable for the hackathon demo (same column names via `arbiter.*_v`)?
+5. **Fixture capture timing** — P1-T21 needs a real response shape before we trust the normaliser. OK to pause build after step 1–2 for you to confirm Zetaris is up so we capture once into `tests/fixtures/`?
+6. **Factory/status edits** — P1-A already wired `get_backend()` and `check()` for Zetaris. Prefer **no edits** to those files unless verify-pass shows a gap; confirm that is acceptable.
+7. **Screenshots** — Will you capture `docs/img/zetaris_*.png` during attended onboarding (spec DoD), or should the plan reserve placeholders and add screenshots in a follow-up commit?
+
+---
+
+## Definition of done (from spec §B10)
+
+- [ ] Live parity green **or** every mismatch in report § Parity exceptions
+- [ ] Scrubbed fixture committed
+- [ ] Query layer (`usl` \| `views`) and source mode (`simulator` \| `github_raw`) recorded in `P1-B_REPORT.md`
+- [ ] Zetaris UI screenshots under `docs/img/` (no keys visible)
+- [ ] `verify-pass --pass 1b` green; live marker tests pass with `ARBITER_LIVE_TESTS=1` when Zetaris is available
+
+## Cut lines (if time runs out — §B11 order)
+
+1. Skip Zetaris DQ (keep DuckDB DQ; document)
+2. Skip USL (use `views` layer only)
+3. Skip `CACHE TABLE` on KEV
+
+Never cut: REST tables, flattening views, KEV join path, `ZetarisBackend`.
+
+---
+
+**Plan phase complete.** Waiting for your approval before setting `.cursor/ACTIVE_PASS` to `1b build` and implementing tests-first.

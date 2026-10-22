@@ -1,0 +1,64 @@
+{
+  "select_one": {
+    "headers": ["one", "s"],
+    "data": [["1", "a"]],
+    "total": 1,
+    "timeUsed": 1521
+  },
+  "vendor_profile_positional": {
+    "headers": [
+      "vendor_id",
+      "legal_name",
+      "trading_name",
+      "category",
+      "requested_service",
+      "business_owner",
+      "annual_spend_gbp",
+      "criticality",
+      "data_categories",
+      "processing_countries",
+      "clm_supplier_ref",
+      "onboarding_status",
+      "requested_at"
+    ],
+    "data": [
+      [
+        "VND-0003",
+        "Pellucid Forms Ltd",
+        "Pellucid Forms",
+        "SaaS",
+        "Managed service",
+        "procurement.owner@example.com",
+        "5000",
+        "low",
+        "internal",
+        "GB",
+        "SUP-7003",
+        "in_review",
+        "2026-09-26"
+      ]
+    ],
+    "total": 1
+  },
+  "vendor_profile_dicts": {
+    "data": [
+      {
+        "vendor_id": "VND-0003",
+        "legal_name": "Pellucid Forms Ltd",
+        "trading_name": "Pellucid Forms",
+        "category": "SaaS",
+        "requested_service": "Managed service",
+        "business_owner": "procurement.owner@example.com",
+        "annual_spend_gbp": 5000,
+        "criticality": "low",
+        "data_categories": "internal",
+        "processing_countries": "GB",
+        "clm_supplier_ref": "SUP-7003",
+        "onboarding_status": "in_review",
+        "requested_at": "2026-09-26",
+        "dpa_signed": "true",
+        "breach_notification_hours": "72"
+      }
+    ]
+  }
+}
