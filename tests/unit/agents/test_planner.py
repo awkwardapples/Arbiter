@@ -6,8 +6,8 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from app.agents.catalogue import SCREEN_QUERIES
 
+from app.agents.catalogue import SCREEN_QUERIES
 from app.agents.llm_schemas import PlannedQuery, PlanOut
 from app.agents.planner import PlannerAgent
 from app.errors import ParseFailure
