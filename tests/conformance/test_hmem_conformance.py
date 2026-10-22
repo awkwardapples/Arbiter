@@ -84,7 +84,9 @@ def _feedback_deltas(hmem_cls: type, t0: int, c: dict, extra: AddExtras) -> None
     )
     if c.get("expectAccessDelta") is not None:
         delta = after.access_count - access_before
-        check(delta == c["expectAccessDelta"], f"accessCount delta {delta}, expected {c['expectAccessDelta']}")
+        check(
+            delta == c["expectAccessDelta"], f"accessCount delta {delta}, expected {c['expectAccessDelta']}"
+        )
     if c.get("expectTag"):
         check(c["expectTag"] in after.tags, f"missing tag {c['expectTag']}")
 
@@ -130,9 +132,7 @@ def _sleep_guardrails(hmem_cls: type, t0: int, c: dict, extra: AddExtras) -> Non
     report = hmem.sleep.execute(preview)
     for k in c["expectProtected"]:
         check(hmem.store.get(by_key[k].id) is not None, f"{k} was deleted despite guardrails")
-    check(
-        isinstance(report.backup_id, str) and len(report.backup_id) > 0, "execute must return a backupId"
-    )
+    check(isinstance(report.backup_id, str) and len(report.backup_id) > 0, "execute must return a backupId")
 
 
 def _conflict_gate(hmem_cls: type, t0: int, c: dict, extra: AddExtras) -> None:
@@ -161,7 +161,10 @@ def _ledger_audit(hmem_cls: type, t0: int, c: dict, extra: AddExtras) -> None:
     hmem.feedback(m.id, c["kind"])
     history = hmem.ledger.history(m.id)
     actions = [h.action for h in history]
-    check(actions == c["expectActions"], f"actions [{','.join(actions)}], expected [{','.join(c['expectActions'])}]")
+    check(
+        actions == c["expectActions"],
+        f"actions [{','.join(actions)}], expected [{','.join(c['expectActions'])}]",
+    )
     fb = history[-1]
     prev = (fb.previous_state or {}).get("confidence")
     new = (fb.new_state or {}).get("confidence")
@@ -247,7 +250,9 @@ def test_vector_counts_match_spec() -> None:
     assert len(ids) == len(set(ids)), "duplicate case id"
 
 
-@pytest.mark.parametrize(("section", "case"), iter_cases(_VECTORS), ids=[c["id"] for _, c in iter_cases(_VECTORS)])
+@pytest.mark.parametrize(
+    ("section", "case"), iter_cases(_VECTORS), ids=[c["id"] for _, c in iter_cases(_VECTORS)]
+)
 def test_conformance(section: str, case: dict) -> None:
     detail = run_case(section, case, _VECTORS["clock"])
     _RESULTS.append((section, case["id"], case["description"], detail))
