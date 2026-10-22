@@ -1,0 +1,4040 @@
+{
+  "as_of": "2026-10-26",
+  "count": 504,
+  "generated_at": "2026-10-26T12:00:00Z",
+  "records": [
+    {
+      "answer_id": "A-VND-0001-Q01",
+      "answer_text": "We enforce MFA on all administrator accounts.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q10",
+      "answer_text": "Our hosting is EU-only for your data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0001-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "answer_id": "A-VND-0002-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0002-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "answer_id": "A-VND-0003-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q02",
+      "answer_text": "Remote access requires MFA for all users.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q15",
+      "answer_text": "Yes, we will sign your Data Processing Agreement.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0003-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0003",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "answer_id": "A-VND-0004-Q01",
+      "answer_text": "Yes, MFA is enforced via Okta for every admin role.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q02",
+      "answer_text": "Every remote login uses MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q15",
+      "answer_text": "We commit to executing a DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0004-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "answer_id": "A-VND-0005-Q01",
+      "answer_text": "All privileged users must use MFA.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q02",
+      "answer_text": "MFA protects all remote sessions.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q08",
+      "answer_text": "No reportable customer data incidents in the past two years.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0005-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "answer_id": "A-VND-0006-Q01",
+      "answer_text": "Yes, MFA is enforced via Okta for every admin role.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q10",
+      "answer_text": "Processing stays within EU regions.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q15",
+      "answer_text": "We commit to executing a DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0006-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "answer_id": "A-VND-0007-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q02",
+      "answer_text": "Remote access requires MFA for all users.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q10",
+      "answer_text": "Processing stays within EU regions.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q13",
+      "answer_text": "Critical patches within 30 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q15",
+      "answer_text": "Yes, we will sign your Data Processing Agreement.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0007-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0007",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "answer_id": "A-VND-0008-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0008-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "answer_id": "A-VND-0009-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0009-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "answer_id": "A-VND-0010-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0010-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "answer_id": "A-VND-0011-Q01",
+      "answer_text": "Yes, MFA is enforced via Okta for every admin role.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q07",
+      "answer_text": "We currently hold a SOC 2 bridge letter only.",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q08",
+      "answer_text": "We had no customer-data security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q10",
+      "answer_text": "Our hosting is EU-only for your data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q15",
+      "answer_text": "Yes, we will sign your Data Processing Agreement.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0011-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0011",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "answer_id": "A-VND-0012-Q01",
+      "answer_text": "We enforce MFA on all administrator accounts.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q07",
+      "answer_text": "We currently hold a SOC 2 bridge letter only.",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0012-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0012",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "answer_id": "A-VND-0013-Q01",
+      "answer_text": "Administrative accounts require MFA through our IdP.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0013-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "answer_id": "A-VND-0014-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q02",
+      "answer_text": "MFA protects all remote sessions.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0014-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "answer_id": "A-VND-0015-Q01",
+      "answer_text": "MFA is mandatory for admin access.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q02",
+      "answer_text": "Every remote login uses MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q08",
+      "answer_text": "We had no customer-data security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q10",
+      "answer_text": "Processing stays within EU regions.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q15",
+      "answer_text": "We commit to executing a DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0015-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0015",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "answer_id": "A-VND-0016-Q01",
+      "answer_text": "Administrative accounts require MFA through our IdP.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0016-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "answer_id": "A-VND-0017-Q01",
+      "answer_text": "All privileged users must use MFA.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q02",
+      "answer_text": "Every remote login uses MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0017-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "answer_id": "A-VND-0018-Q01",
+      "answer_text": "Security measures are proportionate to risk.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q02",
+      "answer_text": "MFA protects all remote sessions.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q05",
+      "answer_text": "vague response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q08",
+      "answer_text": "No reportable customer data incidents in the past two years.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q15",
+      "answer_text": "Yes, we will sign your Data Processing Agreement.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0018-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "answer_id": "A-VND-0019-Q01",
+      "answer_text": "We enforce MFA on all administrator accounts.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q02",
+      "answer_text": "MFA protects all remote sessions.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q10",
+      "answer_text": "Our hosting is EU-only for your data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0019-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0019",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "answer_id": "A-VND-0020-Q01",
+      "answer_text": "Security measures are proportionate to risk.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q02",
+      "answer_text": "Every remote login uses MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q05",
+      "answer_text": "vague response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q08",
+      "answer_text": "No reportable customer data incidents in the past two years.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q10",
+      "answer_text": "Data is hosted and processed in the EU only.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q15",
+      "answer_text": "We accept your DPA template.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0020-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "answer_id": "A-VND-0021-Q01",
+      "answer_text": "We implement recognized admin access practices.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q05",
+      "answer_text": "vague response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0021-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "answer_id": "A-VND-0022-Q01",
+      "answer_text": "We implement recognized admin access practices.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q05",
+      "answer_text": "vague response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q08",
+      "answer_text": "We had no customer-data security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q10",
+      "answer_text": "Our hosting is EU-only for your data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q15",
+      "answer_text": "Yes, we will sign your Data Processing Agreement.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0022-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0022",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "answer_id": "A-VND-0023-Q01",
+      "answer_text": "All privileged users must use MFA.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q02",
+      "answer_text": "MFA protects all remote sessions.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q08",
+      "answer_text": "We had no customer-data security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q15",
+      "answer_text": "We commit to executing a DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0023-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "answer_id": "A-VND-0024-Q01",
+      "answer_text": "Administrative accounts require MFA through our IdP.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q08",
+      "answer_text": "We had no customer-data security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q15",
+      "answer_text": "We will sign the customer DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0024-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "answer_id": "A-VND-0025-Q01",
+      "answer_text": "Admin MFA is scheduled, not yet live.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q10",
+      "answer_text": "Our hosting is EU-only for your data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q15",
+      "answer_text": "We accept your DPA template.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0025-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "answer_id": "A-VND-0026-Q01",
+      "answer_text": "All privileged users must use MFA.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q15",
+      "answer_text": "We accept your DPA template.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0026-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0026",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "answer_id": "A-VND-0027-Q01",
+      "answer_text": "We are rolling out admin MFA next quarter.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q08",
+      "answer_text": "Zero customer-impacting security incidents in 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q10",
+      "answer_text": "Data is hosted and processed in the EU only.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q15",
+      "answer_text": "Yes, we will sign your Data Processing Agreement.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0027-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "answer_id": "A-VND-0028-Q01",
+      "answer_text": "All privileged users must use MFA.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0028-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0028",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "answer_id": "A-VND-0029-Q01",
+      "answer_text": "Admin MFA is scheduled, not yet live.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q02",
+      "answer_text": "MFA protects all remote sessions.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q10",
+      "answer_text": "We host customer data exclusively in the EU.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0029-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "answer_id": "A-VND-0030-Q01",
+      "answer_text": "Administrative accounts require MFA through our IdP.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q02",
+      "answer_text": "Remote workforce authentication includes MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q10",
+      "answer_text": "Our hosting is EU-only for your data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q15",
+      "answer_text": "We will not sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0030-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "answer_id": "A-VND-0031-Q01",
+      "answer_text": "We enforce MFA on all administrator accounts.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q02",
+      "answer_text": "Remote access requires MFA for all users.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q08",
+      "answer_text": "No security incidents affecting customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q10",
+      "answer_text": "EU-only residency for production data.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q13",
+      "answer_text": "Critical patches within 30 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0031-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "answer_id": "A-VND-0032-Q01",
+      "answer_text": "Administrative accounts require MFA through our IdP.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q02",
+      "answer_text": "Yes, remote employees must use MFA.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q03",
+      "answer_text": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+      "question_id": "Q03",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q04",
+      "answer_text": "Access reviews occur every 60 days.",
+      "question": "How often are user access rights reviewed?",
+      "question_id": "Q04",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q05",
+      "answer_text": "affirm response for Q05",
+      "question": "Is customer data encrypted at rest? Which standard?",
+      "question_id": "Q05",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q06",
+      "answer_text": "affirm response for Q06",
+      "question": "Is data encrypted in transit (TLS 1.2+)?",
+      "question_id": "Q06",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q07",
+      "answer_text": "affirm response for Q07",
+      "question": "Which independent certifications or attestations do you hold?",
+      "question_id": "Q07",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q08",
+      "answer_text": "No breaches of customer data in the last 24 months.",
+      "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+      "question_id": "Q08",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q09",
+      "answer_text": "We notify within 72 hours.",
+      "question": "Within how many hours will you notify us of a personal-data breach?",
+      "question_id": "Q09",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q10",
+      "answer_text": "Data is hosted and processed in the EU only.",
+      "question": "Where will our data be hosted and processed?",
+      "question_id": "Q10",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q11",
+      "answer_text": "Standard Contractual Clauses apply.",
+      "question": "What mechanism governs international transfers?",
+      "question_id": "Q11",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q12",
+      "answer_text": "Yes, sub-processors are disclosed in our register.",
+      "question": "Do you disclose all sub-processors?",
+      "question_id": "Q12",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q13",
+      "answer_text": "Critical patches within 14 days.",
+      "question": "What is your patch SLA for critical vulnerabilities?",
+      "question_id": "Q13",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q14",
+      "answer_text": "Pen tests annually.",
+      "question": "How often do you run independent penetration tests?",
+      "question_id": "Q14",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q15",
+      "answer_text": "Happy to sign the proposed DPA.",
+      "question": "Will you sign our Data Processing Agreement?",
+      "question_id": "Q15",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "answer_id": "A-VND-0032-Q16",
+      "answer_text": "We use secure SDLC with code review and CI scanning.",
+      "question": "Describe your secure development lifecycle.",
+      "question_id": "Q16",
+      "submission_id": "SUBM-0032",
+      "vendor_id": "VND-0032"
+    }
+  ],
+  "system": "trust_portal"
+}

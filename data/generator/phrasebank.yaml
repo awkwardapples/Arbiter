@@ -1,0 +1,24 @@
+# Questionnaire phrase variants (≥5 polarities per question where applicable).
+questions:
+  Q01:
+    affirm: ["Yes, MFA is enforced via Okta for every admin role.", "Administrative accounts require MFA through our IdP.", "All privileged users must use MFA.", "MFA is mandatory for admin access.", "We enforce MFA on all administrator accounts."]
+    deny: ["We do not currently require MFA for administrators.", "Admin MFA is not enforced today.", "MFA is optional for privileged users.", "Administrators may use password-only logins.", "We do not enforce MFA for admin roles."]
+    vague: ["Industry-standard security controls are applied where appropriate.", "We follow common security practices for admin access.", "Controls align with typical SaaS expectations.", "Security measures are proportionate to risk.", "We implement recognized admin access practices."]
+    hedged_false: ["MFA is enforced for engineers; admin accounts are on our Q1 roadmap.", "MFA for admins planned for Q1 next year.", "We are rolling out admin MFA next quarter.", "Engineering has MFA; admins will follow in Q1.", "Admin MFA is scheduled, not yet live."]
+  Q02:
+    affirm: ["Yes, remote employees must use MFA.", "Remote access requires MFA for all users.", "MFA protects all remote sessions.", "Every remote login uses MFA.", "Remote workforce authentication includes MFA."]
+    deny: ["Remote access does not require MFA.", "MFA is not enforced for remote users.", "Remote employees may skip MFA.", "We allow password-only remote VPN.", "Remote MFA is not mandatory."]
+    vague: ["Remote access protections follow industry norms.", "We secure remote connectivity appropriately.", "Remote controls meet standard expectations.", "Remote access uses recognized practices.", "Remote security is managed proportionately."]
+    hedged_false: ["MFA is required in the office; remote rollout pending.", "Remote MFA planned alongside admin MFA.", "Some remote apps lack MFA today.", "Remote MFA pilot running in one region.", "Legacy remote paths still lack MFA."]
+  Q08:
+    affirm: ["No security incidents affecting customer data in the last 24 months.", "We had no customer-data security incidents in 24 months.", "No reportable customer data incidents in the past two years.", "Zero customer-impacting security incidents in 24 months.", "No breaches of customer data in the last 24 months."]
+    deny: ["We experienced a customer data incident last year.", "A customer data security incident occurred recently.", "We notified customers of a data incident within 24 months.", "There was a reportable customer data event last year.", "Customer data was affected in a recent incident."]
+    vague: ["We manage incidents according to our policy.", "Incident history is handled per our program.", "We track security events through our process.", "Incidents are governed by our framework.", "We maintain an incident response process."]
+  Q10:
+    affirm: ["Data is hosted and processed in the EU only.", "Our hosting is EU-only for your data.", "Processing stays within EU regions.", "We host customer data exclusively in the EU.", "EU-only residency for production data."]
+    deny: ["Data may be processed in the US.", "Hosting includes US regions.", "We use US data centers for primary workloads.", "Processing occurs in multiple regions including the US.", "US hosting is used for analytics."]
+    vague: ["Hosting follows contractual commitments.", "Residency aligns with agreed locations.", "We host data per customer requirements.", "Locations depend on service configuration.", "Hosting geography is contract-driven."]
+  Q15:
+    affirm: ["Yes, we will sign your Data Processing Agreement.", "We accept your DPA template.", "We commit to executing a DPA.", "Happy to sign the proposed DPA.", "We will sign the customer DPA."]
+    deny: ["We cannot sign your DPA as written.", "We do not accept third-party DPAs.", "Our standard terms exclude custom DPAs.", "We decline to sign customer DPAs.", "We will not sign the proposed DPA."]
+    vague: ["DPA terms are negotiable through legal.", "We review DPAs case by case.", "Contracting will address DPA requirements.", "Legal handles DPA alignment.", "DPA discussions occur during contracting."]

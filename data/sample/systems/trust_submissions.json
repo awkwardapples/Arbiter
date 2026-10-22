@@ -1,0 +1,232 @@
+{
+  "as_of": "2026-10-26",
+  "count": 32,
+  "generated_at": "2026-10-26T12:00:00Z",
+  "records": [
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0001",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0002",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0003",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0004",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0005",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0006",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 30,
+      "submission_id": "SUBM-0007",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0008",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0009",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0010",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0011",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0012",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0013",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0014",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0015",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0016",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0017",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0018",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0019",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0020",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0021",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0022",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0023",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0024",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0025",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0026",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0027",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0028",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0029",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0030",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 30,
+      "submission_id": "SUBM-0031",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "contact_role": "security",
+      "patch_sla_critical_days": 14,
+      "submission_id": "SUBM-0032",
+      "submitted_at": "2026-10-16",
+      "vendor_id": "VND-0032"
+    }
+  ],
+  "system": "trust_portal"
+}

@@ -1,0 +1,22 @@
+{
+  "as_of": "2026-10-26",
+  "count": 2,
+  "generated_at": "2026-10-26T12:00:00Z",
+  "records": [
+    {
+      "component_id": "CMP-0007-0",
+      "product": "FortiOS",
+      "vendor_id": "VND-0007",
+      "vendor_project": "Fortinet",
+      "version": "7.2.4"
+    },
+    {
+      "component_id": "CMP-0031-0",
+      "product": "FortiOS",
+      "vendor_id": "VND-0031",
+      "vendor_project": "Fortinet",
+      "version": "7.2.4"
+    }
+  ],
+  "system": "trust_portal"
+}

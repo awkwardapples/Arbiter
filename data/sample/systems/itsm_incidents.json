@@ -1,0 +1,30 @@
+{
+  "as_of": "2026-10-26",
+  "count": 2,
+  "generated_at": "2026-10-26T12:00:00Z",
+  "records": [
+    {
+      "category": "third_party_breach",
+      "closed_at": null,
+      "incident_number": "INC900002",
+      "opened_at": "2026-06-28",
+      "rca_completed": false,
+      "root_cause_tag": "missing_mfa",
+      "severity": "P1",
+      "status": "open",
+      "vendor_name_raw": "KETTLE RELAY 0024 LTD"
+    },
+    {
+      "category": "third_party_breach",
+      "closed_at": null,
+      "incident_number": "INC900003",
+      "opened_at": "2026-06-28",
+      "rca_completed": false,
+      "root_cause_tag": "missing_mfa",
+      "severity": "P1",
+      "status": "open",
+      "vendor_name_raw": "HALBERD IDENTITY LTD"
+    }
+  ],
+  "system": "itsm"
+}

@@ -1,0 +1,22 @@
+# Shared DQ rules (01 §5.4) — Zetaris REGISTER DQ and DuckDB sample checks.
+rules:
+  - id: dq_contract_dpa_date
+    table: contract
+    expr: "dpa_signed = false OR dpa_signed_date IS NOT NULL"
+    pk: contract_id
+  - id: dq_contract_breach_hours
+    table: contract
+    expr: "breach_notification_hours IS NULL OR (breach_notification_hours >= 1 AND breach_notification_hours <= 720)"
+    pk: contract_id
+  - id: dq_document_dates
+    table: submission_document
+    expr: "expires_on IS NULL OR expires_on >= issued_on"
+    pk: doc_id
+  - id: dq_incident_rca
+    table: incident
+    expr: "status <> 'closed' OR rca_completed IS NOT NULL"
+    pk: incident_number
+  - id: dq_vendor_spend
+    table: vendor
+    expr: "annual_spend_gbp >= 0"
+    pk: vendor_id

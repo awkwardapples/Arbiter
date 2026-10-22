@@ -1,0 +1,35 @@
+{
+  "annual_spend_gbp": 5000,
+  "answers": [
+    {
+      "answer_text": "Yes, MFA is enforced for admins.",
+      "question": "Is MFA enforced for all administrative and privileged accounts?",
+      "question_id": "Q01"
+    },
+    {
+      "answer_text": "Yes, MFA is required for remote staff.",
+      "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+      "question_id": "Q02"
+    }
+  ],
+  "category": "Internal tools",
+  "criticality": "low",
+  "data_categories": [
+    "personal"
+  ],
+  "declared_components": [
+    {
+      "product": "FortiOS",
+      "vendor": "Fortinet",
+      "version": "7.2.4"
+    }
+  ],
+  "documents": [],
+  "legal_name": "Inline KEV Ltd",
+  "patch_sla_critical_days": 45,
+  "processing_countries": [
+    "GB"
+  ],
+  "requested_service": "Team wiki",
+  "trading_name": "Inline Clean"
+}

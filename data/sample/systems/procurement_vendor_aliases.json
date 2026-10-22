@@ -1,0 +1,328 @@
+{
+  "as_of": "2026-10-26",
+  "count": 64,
+  "generated_at": "2026-10-26T12:00:00Z",
+  "records": [
+    {
+      "alias_id": "AL-0001-0",
+      "alias_lower": "cinder mail 0001",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "alias_id": "AL-0001-1",
+      "alias_lower": "cinder mail 0001 ltd",
+      "vendor_id": "VND-0001"
+    },
+    {
+      "alias_id": "AL-0002-0",
+      "alias_lower": "kettle survey 0002",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "alias_id": "AL-0002-1",
+      "alias_lower": "kettle survey 0002 ltd",
+      "vendor_id": "VND-0002"
+    },
+    {
+      "alias_id": "AL-0003-0",
+      "alias_lower": "pellucid forms",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "alias_id": "AL-0003-1",
+      "alias_lower": "pellucid forms ltd",
+      "vendor_id": "VND-0003"
+    },
+    {
+      "alias_id": "AL-0004-0",
+      "alias_lower": "cinder ledger 0004",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "alias_id": "AL-0004-1",
+      "alias_lower": "cinder ledger 0004 ltd",
+      "vendor_id": "VND-0004"
+    },
+    {
+      "alias_id": "AL-0005-0",
+      "alias_lower": "ember payroll 0005",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "alias_id": "AL-0005-1",
+      "alias_lower": "ember payroll 0005 ltd",
+      "vendor_id": "VND-0005"
+    },
+    {
+      "alias_id": "AL-0006-0",
+      "alias_lower": "cinder mail 0006",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "alias_id": "AL-0006-1",
+      "alias_lower": "cinder mail 0006 ltd",
+      "vendor_id": "VND-0006"
+    },
+    {
+      "alias_id": "AL-0007-0",
+      "alias_lower": "quillfeather payroll",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "alias_id": "AL-0007-1",
+      "alias_lower": "quillfeather payroll cloud ltd",
+      "vendor_id": "VND-0007"
+    },
+    {
+      "alias_id": "AL-0008-0",
+      "alias_lower": "glimmer relay 0008",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "alias_id": "AL-0008-1",
+      "alias_lower": "glimmer relay 0008 ltd",
+      "vendor_id": "VND-0008"
+    },
+    {
+      "alias_id": "AL-0009-0",
+      "alias_lower": "ivory cloud 0009",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "alias_id": "AL-0009-1",
+      "alias_lower": "ivory cloud 0009 ltd",
+      "vendor_id": "VND-0009"
+    },
+    {
+      "alias_id": "AL-0010-0",
+      "alias_lower": "juniper ledger 0010",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "alias_id": "AL-0010-1",
+      "alias_lower": "juniper ledger 0010 ltd",
+      "vendor_id": "VND-0010"
+    },
+    {
+      "alias_id": "AL-0011-0",
+      "alias_lower": "marrowgate",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "alias_id": "AL-0011-1",
+      "alias_lower": "marrowgate analytics ltd",
+      "vendor_id": "VND-0011"
+    },
+    {
+      "alias_id": "AL-0012-0",
+      "alias_lower": "tessellate hr",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "alias_id": "AL-0012-1",
+      "alias_lower": "tessellate hr cloud ltd",
+      "vendor_id": "VND-0012"
+    },
+    {
+      "alias_id": "AL-0013-0",
+      "alias_lower": "dapple relay 0013",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "alias_id": "AL-0013-1",
+      "alias_lower": "dapple relay 0013 ltd",
+      "vendor_id": "VND-0013"
+    },
+    {
+      "alias_id": "AL-0014-0",
+      "alias_lower": "fallow survey 0014",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "alias_id": "AL-0014-1",
+      "alias_lower": "fallow survey 0014 ltd",
+      "vendor_id": "VND-0014"
+    },
+    {
+      "alias_id": "AL-0015-0",
+      "alias_lower": "oakhaven mail",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "alias_id": "AL-0015-1",
+      "alias_lower": "oakhaven mail relay ltd",
+      "vendor_id": "VND-0015"
+    },
+    {
+      "alias_id": "AL-0016-0",
+      "alias_lower": "brindle analytics 0016",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "alias_id": "AL-0016-1",
+      "alias_lower": "brindle analytics 0016 ltd",
+      "vendor_id": "VND-0016"
+    },
+    {
+      "alias_id": "AL-0017-0",
+      "alias_lower": "glimmer forms 0017",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "alias_id": "AL-0017-1",
+      "alias_lower": "glimmer forms 0017 ltd",
+      "vendor_id": "VND-0017"
+    },
+    {
+      "alias_id": "AL-0018-0",
+      "alias_lower": "harbor survey 0018",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "alias_id": "AL-0018-1",
+      "alias_lower": "harbor survey 0018 ltd",
+      "vendor_id": "VND-0018"
+    },
+    {
+      "alias_id": "AL-0019-0",
+      "alias_lower": "corvid ledger",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "alias_id": "AL-0019-1",
+      "alias_lower": "corvid ledger services ltd",
+      "vendor_id": "VND-0019"
+    },
+    {
+      "alias_id": "AL-0020-0",
+      "alias_lower": "ivory cloud 0020",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "alias_id": "AL-0020-1",
+      "alias_lower": "ivory cloud 0020 ltd",
+      "vendor_id": "VND-0020"
+    },
+    {
+      "alias_id": "AL-0021-0",
+      "alias_lower": "dapple relay 0021",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "alias_id": "AL-0021-1",
+      "alias_lower": "dapple relay 0021 ltd",
+      "vendor_id": "VND-0021"
+    },
+    {
+      "alias_id": "AL-0022-0",
+      "alias_lower": "fennimore survey",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "alias_id": "AL-0022-1",
+      "alias_lower": "fennimore survey tools ltd",
+      "vendor_id": "VND-0022"
+    },
+    {
+      "alias_id": "AL-0023-0",
+      "alias_lower": "brindle survey 0023",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "alias_id": "AL-0023-1",
+      "alias_lower": "brindle survey 0023 ltd",
+      "vendor_id": "VND-0023"
+    },
+    {
+      "alias_id": "AL-0024-0",
+      "alias_lower": "kettle relay 0024",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "alias_id": "AL-0024-1",
+      "alias_lower": "kettle relay 0024 ltd",
+      "vendor_id": "VND-0024"
+    },
+    {
+      "alias_id": "AL-0025-0",
+      "alias_lower": "kettle survey 0025",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "alias_id": "AL-0025-1",
+      "alias_lower": "kettle survey 0025 ltd",
+      "vendor_id": "VND-0025"
+    },
+    {
+      "alias_id": "AL-0026-0",
+      "alias_lower": "halberd identity",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "alias_id": "AL-0026-1",
+      "alias_lower": "halberd identity ltd",
+      "vendor_id": "VND-0026"
+    },
+    {
+      "alias_id": "AL-0027-0",
+      "alias_lower": "ember payroll 0027",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "alias_id": "AL-0027-1",
+      "alias_lower": "ember payroll 0027 ltd",
+      "vendor_id": "VND-0027"
+    },
+    {
+      "alias_id": "AL-0028-0",
+      "alias_lower": "kestrel docs",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "alias_id": "AL-0028-1",
+      "alias_lower": "kestrel docs ltd",
+      "vendor_id": "VND-0028"
+    },
+    {
+      "alias_id": "AL-0029-0",
+      "alias_lower": "glimmer ledger 0029",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "alias_id": "AL-0029-1",
+      "alias_lower": "glimmer ledger 0029 ltd",
+      "vendor_id": "VND-0029"
+    },
+    {
+      "alias_id": "AL-0030-0",
+      "alias_lower": "kettle docs 0030",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "alias_id": "AL-0030-1",
+      "alias_lower": "kettle docs 0030 ltd",
+      "vendor_id": "VND-0030"
+    },
+    {
+      "alias_id": "AL-0031-0",
+      "alias_lower": "glimmer relay 0031",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "alias_id": "AL-0031-1",
+      "alias_lower": "glimmer relay 0031 ltd",
+      "vendor_id": "VND-0031"
+    },
+    {
+      "alias_id": "AL-0032-0",
+      "alias_lower": "brindle forms 0032",
+      "vendor_id": "VND-0032"
+    },
+    {
+      "alias_id": "AL-0032-1",
+      "alias_lower": "brindle forms 0032 ltd",
+      "vendor_id": "VND-0032"
+    }
+  ],
+  "system": "procurement"
+}

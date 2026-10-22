@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-10-26",
+  "count": 2,
+  "generated_at": "2026-10-26T12:00:00Z",
+  "records": [
+    {
+      "added_on": "2025-09-21",
+      "country": "GB",
+      "entity_name": "corvid ledger services ltd",
+      "entry_id": "WL-0001",
+      "list_name": "SYNTHETIC-SANCTIONS-A",
+      "reason": "Synthetic sanctions test entry"
+    },
+    {
+      "added_on": "2026-09-06",
+      "country": "GB",
+      "entity_name": "Cinder Mail 0001 Lt",
+      "entry_id": "WL-NEAR-001",
+      "list_name": "SYNTHETIC-ADVERSE-MEDIA",
+      "reason": "Synthetic near-match decoy"
+    }
+  ],
+  "system": "grc_watchlist"
+}

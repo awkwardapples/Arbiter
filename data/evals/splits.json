@@ -1,0 +1,55 @@
+{
+  "calibration": [
+    "VND-0002",
+    "VND-0005",
+    "VND-0007",
+    "VND-0009",
+    "VND-0010",
+    "VND-0011",
+    "VND-0014",
+    "VND-0019",
+    "VND-0020",
+    "VND-0022",
+    "VND-0023",
+    "VND-0026",
+    "VND-0028",
+    "VND-0029",
+    "VND-0030",
+    "VND-0031",
+    "VND-0032"
+  ],
+  "inline": [
+    "inline_clean_t3",
+    "inline_injection",
+    "inline_missing",
+    "inline_kev"
+  ],
+  "seed": 2026,
+  "session": [
+    "VND-0011",
+    "VND-0012"
+  ],
+  "sha256": {
+    "calibration": "eb975166ee624fdc1a66a8680932efe614dc924c00305d50e264d0f7022764b5",
+    "inline": "4d2bd583677f23ac37f3a79b5bdec4df15f07056656d278aaf88ba5ee5d46f1e",
+    "session": "01b771edc2daabf69f8b366b8c20835e7cbf99b18f96013c0e1be59c49b1471f",
+    "test": "a0764744e779eb1d6c8ec56bf3d562b61c10d2b63616bdf0769d42db07bbaa6f"
+  },
+  "test": [
+    "VND-0001",
+    "VND-0003",
+    "VND-0004",
+    "VND-0006",
+    "VND-0008",
+    "VND-0012",
+    "VND-0013",
+    "VND-0015",
+    "VND-0016",
+    "VND-0017",
+    "VND-0018",
+    "VND-0021",
+    "VND-0024",
+    "VND-0025",
+    "VND-0027"
+  ]
+}
