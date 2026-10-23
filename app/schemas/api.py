@@ -34,7 +34,10 @@ class RunRequest(BaseModel):
         if "input" in data:
             env = RunRequestEnvelope.model_validate(data)
             return {"case": env.input, "options": env.options}
-        return {"case": data, "options": data.get("options")}
+        if "case" in data:
+            return data
+        return {"case": data, "options": None}
+
 
 
 class RunOutputVendor(BaseModel):

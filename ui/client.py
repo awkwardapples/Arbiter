@@ -9,7 +9,7 @@ import httpx
 from pydantic import BaseModel
 
 DEFAULT_BASE_URL = "http://localhost:8000"
-TIMEOUT = 30.0
+TIMEOUT = 90.0
 
 
 class ArbiterAPIError(Exception):
@@ -19,10 +19,10 @@ class ArbiterAPIError(Exception):
         self.status_code = status_code
 
 
-def _as_json(body: Any) -> Any:
-    if isinstance(body, BaseModel):
-        return body.model_dump(mode="json")
-    return body
+def _as_json(obj: Any) -> Any:
+    if hasattr(obj, "model_dump"):
+        return obj.model_dump(exclude_none=True)
+    return obj
 
 
 class ArbiterClient:
@@ -72,6 +72,7 @@ class ArbiterClient:
         data = self._request("GET", "/vendors")
         return list(data) if isinstance(data, list) else []
 
+# ui/client.py, line 76ish
     def run(self, case: Any, *, options: Any = None) -> dict[str, Any]:
         payload: dict[str, Any] = {"case": _as_json(case)}
         if options is not None:
