@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from typing import Any
 
@@ -41,6 +42,87 @@ STATUS_ICONS: dict[str, str] = {
     "pending_approval": "⏳",
 }
 
+OUTCOME_REASON_TEXT: dict[str, str] = {
+    "CONTRADICTION": "Contradiction on a system-of-record claim",
+    "CONTROL_FAILED": "One or more controls failed",
+    "EVIDENCE_MISSING": "Evidence is missing for a required control",
+    "LOW_CONFIDENCE_ABSTAIN": "Confidence below the gate — abstained",
+    "HARD_GATE_DECLINE": "A hard gate requires decline",
+    "HARD_GATE_ESCALATE": "A hard gate requires escalation",
+    "ALL_REQUIRED_CONTROLS_MET": "All required controls met",
+    "UNTRUSTED_CONTENT_TAMPERING": "Untrusted content tampering detected",
+}
+
+ELIGIBILITY_REASON_TEXT: dict[str, str] = {
+    "mitigation_not_true": "The mitigation fact is not TRUE — this precedent can't apply",
+    "no_exception_control_failing": "No exception-eligible control is failing",
+    "non_exception_control_failing": "A control that can't be excepted is failing",
+    "reviewer_authority": "The reviewer's role is below the required authority",
+    "precedent_age": "The precedent is older than the 365-day window",
+    "retrieval_quality": "H-MEM confidence or relevance is below the threshold",
+    "tier_risk": "This case's risk tier is higher than the precedent's",
+    "reviewer_role_insufficient": "The reviewer's role is below the required authority",
+    "no_failing_controls": "No required control is failing",
+    "decision_not_approving": "The review decision is not an approval",
+}
+
+REPLAY_CHECK_TEXT: dict[str, str] = {
+    "policy_hash": "policy hash",
+    "record_hash": "record hash",
+    "contract_signatures": "contract signatures",
+}
+
+
+def humanise_outcome_reason(code: str) -> str:
+    return OUTCOME_REASON_TEXT.get(code, code)
+
+
+def humanise_eligibility_reason(code: str) -> str:
+    return ELIGIBILITY_REASON_TEXT.get(code, code)
+
+
+def replay_check_line(key: str, ok: bool) -> str:
+    name = REPLAY_CHECK_TEXT.get(key, key.replace("_", " "))
+    if ok:
+        return f"✓ {name} matches"
+    return f"✗ {name} mismatch"
+
+
+def _display_value(value: Any) -> str:
+    if value is None:
+        return "null"
+    return str(value)
+
+
+def evidence_summary_line(fact: dict[str, Any]) -> str:
+    key = fact.get("key")
+    state = fact.get("state")
+    return f"`{key}` = `{_display_value(fact.get('value'))}` → `{state}`"
+
+
+def evidence_from_line(fact: dict[str, Any], provenance: dict[str, Any]) -> str:
+    text = fact.get("evidence_text") or provenance.get("evidence_text") or provenance.get("quote")
+    if not text:
+        text = "No narrative is stored for this fact."
+    return f"From: {text}"
+
+
+def control_rows(controls: list[dict[str, Any]], facts: list[dict[str, Any]]) -> list[dict[str, str]]:
+    """Table rows for the case page. `rule_id` stays on the control and is not a column."""
+    del facts
+    rows: list[dict[str, str]] = []
+    for ctrl in controls:
+        fact_ids = [str(fid) for fid in ctrl.get("fact_ids") or []]
+        rows.append(
+            {
+                "Control id": str(ctrl.get("control_id") or ""),
+                "Name": str(ctrl.get("title") or ""),
+                "Status": str(ctrl.get("state") or ""),
+                "Fact ids": ", ".join(fact_ids) if fact_ids else "—",
+            }
+        )
+    return rows
+
 
 @dataclass
 class TimelineFilters:
@@ -76,27 +158,19 @@ def evidence_chip(provenance: dict[str, Any], *, fact: dict[str, Any] | None = N
     shown = [str(part) for part in parts if part]
     label = " · ".join(shown) if shown else str(provenance.get("kind") or "evidence")
     with st.expander(label, expanded=False):
-        if provenance.get("quote"):
-            st.write(provenance["quote"])
         if fact is not None:
-            st.json({"key": fact.get("key"), "value": fact.get("value"), "state": fact.get("state")})
+            st.markdown(evidence_summary_line(fact))
+            st.markdown(evidence_from_line(fact, provenance))
+            raw = {"key": fact.get("key"), "value": fact.get("value"), "state": fact.get("state")}
+            with st.expander("See raw", expanded=False):
+                st.code(json.dumps(raw, indent=2, sort_keys=True), language="json")
+        elif provenance.get("quote"):
+            st.write(provenance["quote"])
 
 
 def control_table(controls: list[dict[str, Any]], facts: list[dict[str, Any]]) -> None:
     facts_by_id = {str(fact.get("fact_id")): fact for fact in facts}
-    rows = []
-    for ctrl in controls:
-        fact_ids = [str(fid) for fid in ctrl.get("fact_ids") or []]
-        rows.append(
-            {
-                "Control": ctrl.get("control_id"),
-                "Title": ctrl.get("title"),
-                "State": ctrl.get("state"),
-                "Rule": ctrl.get("rule_id"),
-                "Facts": ", ".join(fact_ids) if fact_ids else "—",
-            }
-        )
-    st.dataframe(rows, use_container_width=True, hide_index=True)
+    st.dataframe(control_rows(controls, facts), use_container_width=True, hide_index=True)
     for ctrl in controls:
         for fid in ctrl.get("fact_ids") or []:
             fact = facts_by_id.get(str(fid))
