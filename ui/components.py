@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from datetime import UTC, date, datetime
 from typing import Any
 
 import streamlit as st
@@ -88,10 +89,222 @@ def replay_check_line(key: str, ok: bool) -> str:
     return f"✗ {name} mismatch"
 
 
+def humanised_bullet(code: str, sentence: str) -> str:
+    return f"**{code}** — {sentence}"
+
+
+QUEUE_CAPTION = "Assessed cases. Filter, then open one to see why it was decided."
+AUDIT_CAPTION = "Replay a case to confirm the same decision. Verify checks the hash chain for every case."
+EVAL_CAPTION = "How these numbers were produced: `docs/EVALUATION.md`."
+CAPTION_CONTRADICTIONS = "A vendor claim and the system-of-record value it disagrees with."
+CAPTION_COUNTERFACTUALS = "Evidence that would flip a control if it were verified."
+CAPTION_PRECEDENTS = "Governed exceptions considered before this decision."
+CAPTION_ACTIONS = "Signed contracts for the next step. This page does not run them."
+CAPTION_TIMELINE = "What each agent did on this run, in order."
+EMPTY_PRECEDENTS = "No precedents were considered for this case."
+NO_CONTRADICTIONS = "No contradictions on this case."
+NO_CONTRACTS = "No contracts were issued for this case."
+ELIGIBILITY_NOTE = "You can still record this review. No precedent will be created."
+ELIGIBLE_TITLE = "This case can create a C05 precedent."
+INELIGIBLE_TITLE = "This case cannot create a precedent."
+REVIEW_EMPTY = "No cases awaiting review — run VND-0011 or VND-0012 first."
+MITIGATION_FACT = "assurance.bridge_letter_current"
+
+HOW_TO_READ = (
+    "The badge is the policy engine's outcome. Each bullet under it is a reason code, "
+    "then what that code means. **Why** is the control and the fact behind it. "
+    "**Contradictions** compare a vendor claim with a system of record. "
+    "**What would change this** is evidence that is still missing. "
+    "**Precedents** are exceptions the policy considered. "
+    "**Actions** are signed contracts. **Agent timeline** is the trace of this run."
+)
+
+REVIEW_INTRO = (
+    "**What this page does.** Record a human decision on the machine outcome. "
+    "Tick **Create precedent** when that decision should be stored in H-MEM for a later case.\n\n"
+    "**A C05 precedent.** C05 is current independent assurance. Creating one needs all four: "
+    "the only failing required control is C05, `assurance.bridge_letter_current` is TRUE, "
+    "the decision is APPROVE or APPROVE_WITH_CONDITIONS, and the reviewer role is at least "
+    "`tprm_lead`. This form sends `tprm_lead`.\n\n"
+    "**Try this.** On New assessment, run **VND-0011** (Marrowgate Analytics). It escalates "
+    "with C05 failing and a current bridge letter. Select that case here, choose "
+    "APPROVE_WITH_CONDITIONS, leave mitigations as `assurance.bridge_letter_current`, "
+    "tick **Create precedent**, and submit. Then run **VND-0012** (Tessellate HR Cloud) "
+    "and open the case. The policy can apply that precedent."
+)
+
+MEMORY_INTRO = (
+    "**What this page does.** Precedents stored in H-MEM, and the trust-ledger lines for each one. "
+    "Pick a case to see which of those precedents the policy considered.\n\n"
+    "**Try this.** Create one from **VND-0011** on the Review page, then come back. "
+    "The ledger should show a `create` line. Open **VND-0012** on the Case page to see "
+    "whether that precedent was applied."
+)
+
+ELIGIBILITY_HELD: tuple[tuple[str, str], ...] = (
+    ("C05", "The only failing required control is C05, which allows a precedent"),
+    ("assurance.bridge_letter_current", "That mitigation fact is TRUE"),
+    ("APPROVE", "The decision is APPROVE or APPROVE_WITH_CONDITIONS"),
+    ("tprm_lead", "The reviewer role is high enough"),
+)
+
+
+def see_raw(payload: object) -> None:
+    with st.expander("See raw", expanded=False):
+        st.code(json.dumps(payload, indent=2, sort_keys=True, default=str), language="json")
+
+
+def eligibility_body(hint: dict[str, Any]) -> str:
+    if hint.get("eligible"):
+        lines = [f"- {humanised_bullet(code, text)}" for code, text in ELIGIBILITY_HELD]
+        return f"{ELIGIBLE_TITLE}\n\n" + "\n".join(lines)
+    reasons = [str(code) for code in hint.get("reasons") or []]
+    lines = [f"- {humanised_bullet(code, humanise_eligibility_reason(code))}" for code in reasons]
+    body = INELIGIBLE_TITLE
+    if lines:
+        body += "\n\n" + "\n".join(lines)
+    return f"{body}\n\n{ELIGIBILITY_NOTE}"
+
+
 def _display_value(value: Any) -> str:
     if value is None:
         return "null"
     return str(value)
+
+
+def _missing(value: object) -> str:
+    if value is None or isinstance(value, (dict, list)):
+        return "—"
+    return str(value)
+
+
+def contradiction_rows(rows: list[dict[str, Any]]) -> list[dict[str, str]]:
+    table: list[dict[str, str]] = []
+    for row in rows:
+        key = str(row.get("key") or "")
+        claim = _display_value(row.get("claim_value"))
+        table.append(
+            {
+                "Claim": f"{key}: {claim}" if key else claim,
+                "System of record": _display_value(row.get("sor_value")),
+            }
+        )
+    return table
+
+
+def counterfactual_line(item: dict[str, Any]) -> str:
+    evidence = [str(part) for part in item.get("evidence_required") or []]
+    shown = "; ".join(evidence) if evidence else "—"
+    questions = [str(qid) for qid in item.get("question_ids") or []]
+    qids = ", ".join(questions) if questions else "none"
+    return f"**{item.get('control_id') or ''}** — {shown}. Questions: {qids}"
+
+
+def _age_days(as_of: str, created: object) -> str:
+    if not as_of or created in (None, ""):
+        return "—"
+    try:
+        end = date.fromisoformat(str(as_of)[:10])
+        start = date.fromisoformat(str(created)[:10])
+    except ValueError:
+        return "—"
+    return f"{(end - start).days} days"
+
+
+def precedent_rows(
+    considered: list[dict[str, Any]],
+    *,
+    candidates: list[dict[str, Any]],
+    as_of: str,
+) -> list[dict[str, str]]:
+    by_id = {str(item.get("precedent_id")): item for item in candidates if isinstance(item, dict)}
+    rows: list[dict[str, str]] = []
+    for ref in considered:
+        if not isinstance(ref, dict):
+            continue
+        pid = str(ref.get("precedent_id") or "")
+        conf = ref.get("hmem_confidence")
+        if isinstance(conf, bool) or not isinstance(conf, (int, float)):
+            confidence = "—"
+        else:
+            confidence = f"{float(conf):.2f}"
+        created = (by_id.get(pid) or {}).get("created_as_of")
+        rows.append(
+            {
+                "precedent_id": pid,
+                "confidence": confidence,
+                "age": _age_days(as_of, created),
+                "applied": "true" if ref.get("applied") is True else "false",
+            }
+        )
+    return rows
+
+
+def signature_short(signature: str) -> str:
+    if len(signature) <= 16:
+        return signature
+    return f"{signature[:8]}…{signature[-4:]}"
+
+
+def tool_plan_lines(steps: object) -> list[str]:
+    if not isinstance(steps, list):
+        return []
+    lines: list[str] = []
+    for step in steps:
+        if not isinstance(step, dict):
+            continue
+        capability = str(step.get("capability") or "")
+        args = step.get("args") if isinstance(step.get("args"), dict) else {}
+        parts = [
+            f"{key}={_display_value(args[key])}"
+            for key in sorted(args)
+            if args[key] is None or isinstance(args[key], (str, int, float, bool))
+        ]
+        lines.append(f"{capability} ({', '.join(parts)})" if parts else capability)
+    return lines
+
+
+def contract_card(contract: dict[str, Any]) -> dict[str, str]:
+    params = contract.get("parameters") if isinstance(contract.get("parameters"), dict) else {}
+    signed_by = str(contract.get("signed_by") or "")
+    signature = signature_short(str(contract.get("signature") or ""))
+    plan = tool_plan_lines(contract.get("tool_plan") or [])
+    return {
+        "Contract id": str(contract.get("contract_id") or ""),
+        "Intent": str(contract.get("intent") or ""),
+        "Outcome": _display_value(params.get("outcome")) if "outcome" in params else "—",
+        "State": str(contract.get("state") or ""),
+        "Signature": f"{signature} · {signed_by}" if signed_by else signature,
+        "Tool plan": "; ".join(plan) if plan else "—",
+    }
+
+
+def ledger_line(entry: dict[str, Any]) -> str:
+    action = str(entry.get("action") or "unknown")
+    actor = str(entry.get("actor") or "unknown")
+    memory_id = str(entry.get("memory_id") or "—")
+    stamp = entry.get("timestamp")
+    if isinstance(stamp, bool) or not isinstance(stamp, (int, float)):
+        when = "—"
+    else:
+        when = datetime.fromtimestamp(float(stamp) / 1000, tz=UTC).strftime("%Y-%m-%d %H:%M UTC")
+    return f"{action} · {actor} · {memory_id} · {when}"
+
+
+def memory_table_rows(precedents: list[dict[str, Any]]) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for item in precedents:
+        if not isinstance(item, dict):
+            continue
+        rows.append(
+            {
+                "precedent_id": _missing(item.get("precedent_id")),
+                "hmem_id": _missing(item.get("hmem_id")),
+                "confidence": _missing(item.get("confidence")),
+                "control_id": _missing(item.get("control_id")),
+            }
+        )
+    return rows
 
 
 def evidence_summary_line(fact: dict[str, Any]) -> str:

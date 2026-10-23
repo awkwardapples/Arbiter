@@ -150,11 +150,9 @@ def test_p8_case_header_reasons_and_controls(fake_client: FakeArbiterClient) -> 
     ]
     at = _run_page("Case", "pages/case.py", client=fake_client)
     assert not at.exception
-    assert "Evidence is missing for a required control" in _text(at.markdown)
-    captions = _text(at.caption)
-    assert "EVIDENCE_MISSING" in captions
-    assert "NOT_A_REAL_CODE" in captions
-    assert "NOT_A_REAL_CODE" in _text(at.markdown)
+    blob = _text(at.markdown)
+    assert "**EVIDENCE_MISSING** — Evidence is missing for a required control" in blob
+    assert "**NOT_A_REAL_CODE** — NOT_A_REAL_CODE" in blob
     frames = [frame.value for frame in at.dataframe]
     wanted = ["Control id", "Name", "Status", "Fact ids"]
     control = next(frame for frame in frames if list(frame.columns) == wanted)
@@ -199,14 +197,11 @@ def test_p8_review_eligibility_bullets(fake_client: FakeArbiterClient) -> None:
     _button(at, "Check eligibility").click()
     at.run()
     assert not at.exception
-    blob = _text(at.markdown)
-    assert "The mitigation fact is not TRUE — this precedent can't apply" in blob
-    assert "The reviewer's role is below the required authority" in blob
-    assert "not_in_map" in blob
-    captions = _text(at.caption)
-    assert "mitigation_not_true" in captions
-    assert "reviewer_authority" in captions
-    visible = blob + _text(at.info) + _text(at.success)
+    warn = _text(at.warning)
+    assert "**mitigation_not_true** — The mitigation fact is not TRUE — this precedent can't apply" in warn
+    assert "**reviewer_authority** — The reviewer's role is below the required authority" in warn
+    assert "**not_in_map** — not_in_map" in warn
+    visible = _text(at.markdown) + _text(at.info) + _text(at.success) + warn
     assert '"eligible"' not in visible
 
 
@@ -222,7 +217,7 @@ def test_p8_review_eligibility_when_clear(fake_client: FakeArbiterClient) -> Non
     _button(at, "Check eligibility").click()
     at.run()
     assert not at.exception
-    assert any(item.value == "Eligible to create a precedent" for item in at.success)
+    assert any("This case can create a C05 precedent." in item.value for item in at.success)
 
 
 def test_p8_audit_replay_mismatch(fake_client: FakeArbiterClient) -> None:

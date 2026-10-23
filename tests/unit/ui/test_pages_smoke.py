@@ -52,10 +52,26 @@ def test_p5_t11_case_page_shows_outcome_text(fake_client: FakeArbiterClient) -> 
     assert outcome in blob
 
 
-def test_p5_t14_eval_not_published_on_404(fake_client: FakeArbiterClient) -> None:
-    """P5-T14: Evaluation page shows fallback when /eval/latest is 404."""
+def test_p5_t14_eval_not_published_on_404(
+    fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """P5-T14: a missing summary falls back; the committed summary is rendered."""
+    import ui.screens as screens
+
     fake_client.eval_latest_404 = True
+    missing = tmp_path / "summary.md"
+    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", missing, raising=False)
     at = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not at.exception
     text = " ".join(getattr(m, "value", "") or "" for m in at.info)
     assert "not published yet" in text.lower()
+
+    real = ROOT / "eval/results/20261022T080517661769Z/summary.md"
+    assert real.is_file()
+    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", real, raising=False)
+    shown = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
+    assert not shown.exception
+    blob = " ".join(getattr(m, "value", "") or "" for m in shown.markdown)
+    assert "Synthetic data" in blob
+    info = " ".join(getattr(m, "value", "") or "" for m in shown.info)
+    assert "not published yet" not in info.lower()

@@ -2,19 +2,43 @@
 
 from __future__ import annotations
 
-import json
+from pathlib import Path
 from typing import Any
 
 import streamlit as st
 
 from ui.client import ArbiterAPIError
 from ui.components import (
+    AUDIT_CAPTION,
+    CAPTION_ACTIONS,
+    CAPTION_CONTRADICTIONS,
+    CAPTION_COUNTERFACTUALS,
+    CAPTION_PRECEDENTS,
+    CAPTION_TIMELINE,
+    EMPTY_PRECEDENTS,
+    EVAL_CAPTION,
+    HOW_TO_READ,
+    MEMORY_INTRO,
+    MITIGATION_FACT,
+    NO_CONTRACTS,
+    NO_CONTRADICTIONS,
+    QUEUE_CAPTION,
+    REVIEW_EMPTY,
+    REVIEW_INTRO,
     confidence_gauge,
+    contract_card,
+    contradiction_rows,
     control_table,
+    counterfactual_line,
     decision_badge,
-    humanise_eligibility_reason,
+    eligibility_body,
     humanise_outcome_reason,
+    humanised_bullet,
+    ledger_line,
+    memory_table_rows,
+    precedent_rows,
     replay_check_line,
+    see_raw,
     tier_chip,
     timeline,
 )
@@ -22,19 +46,55 @@ from ui.models import ReviewRequest
 from ui.session import get_client
 from ui.validation import parse_case_input
 
+EVAL_SUMMARY_PATH = Path(__file__).resolve().parents[1] / "eval/results/20261022T080517661769Z/summary.md"
+
 ASSESSMENT_SPINNER = (
     "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
 )
 
 
-def _render_eligibility(hint: dict[str, Any]) -> None:
-    reasons = [str(code) for code in hint.get("reasons") or []]
-    if hint.get("eligible") and not reasons:
-        st.success("Eligible to create a precedent")
-        return
-    for code in reasons:
-        st.markdown(f"- {humanise_eligibility_reason(code)}")
-        st.caption(code)
+def _show_eligibility(hint: dict[str, Any]) -> None:
+    body = eligibility_body(hint)
+    if hint.get("eligible"):
+        st.success(body)
+    else:
+        st.warning(body)
+    see_raw(hint)
+
+
+def _eligibility_hint(client: Any, case_id: str, decision: str, rationale: str) -> dict[str, Any] | None:
+    body = ReviewRequest(
+        reviewer="reviewer@example.com",
+        role="tprm_lead",
+        decision=decision,  # type: ignore[arg-type]
+        rationale=rationale if len(rationale) >= 30 else "x" * 30,
+        mitigations=[],
+        conditions=[],
+        create_precedent=True,
+    )
+    try:
+        hint = client.submit_review(case_id, body, dry_run=True)
+    except ArbiterAPIError as exc:
+        st.warning(exc.message)
+        return None
+    return hint if isinstance(hint, dict) else None
+
+
+def _preferred_case_id(client: Any, items: list[dict[str, Any]]) -> str | None:
+    ranked = sorted(items, key=lambda item: str(item.get("created") or ""), reverse=True)
+    fallback = str(ranked[0].get("case_id")) if ranked else None
+    for item in ranked:
+        case_id = str(item.get("case_id") or "")
+        if not case_id:
+            continue
+        try:
+            detail = client.get_case(case_id)
+        except ArbiterAPIError:
+            continue
+        considered = (detail.get("record") or {}).get("precedents_considered") or []
+        if considered:
+            return case_id
+    return fallback
 
 
 def _chain_intact_text(result: dict[str, Any], client: Any) -> str:
@@ -111,6 +171,7 @@ def page_new_assessment() -> None:
 
 def page_queue() -> None:
     st.header("Queue")
+    st.caption(QUEUE_CAPTION)
     client = get_client()
     try:
         items = client.list_cases()
@@ -152,11 +213,13 @@ def page_case() -> None:
         st.error(exc.message)
         return
     record = detail.get("record", {})
+    with st.expander("How to read this", expanded=True):
+        st.markdown(HOW_TO_READ)
     decision_badge(str(record.get("outcome", "ESCALATE")))
+    st.subheader(str(case_id))
     for code in record.get("outcome_reasons") or []:
         reason = str(code)
-        st.markdown(f"- {humanise_outcome_reason(reason)}")
-        st.caption(reason)
+        st.markdown(f"- {humanised_bullet(reason, humanise_outcome_reason(reason))}")
     report = detail.get("report") or {}
     if report.get("summary"):
         st.write(report["summary"])
@@ -169,74 +232,86 @@ def page_case() -> None:
     st.subheader("Why")
     control_table(list(record.get("controls") or []), list(record.get("facts") or []))
     st.subheader("Contradictions")
-    for row in record.get("contradictions", []):
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown("**Claim**")
-            st.write(row.get("claim_value"))
-        with c2:
-            st.markdown("**System of record**")
-            st.write(row.get("sor_value"))
+    st.caption(CAPTION_CONTRADICTIONS)
+    contradictions = list(record.get("contradictions") or [])
+    if contradictions:
+        st.dataframe(contradiction_rows(contradictions), use_container_width=True, hide_index=True)
+    else:
+        st.markdown(NO_CONTRADICTIONS)
+    see_raw(contradictions)
     st.subheader("What would change this")
-    for cf in record.get("counterfactuals", []):
-        st.checkbox(
-            f"{cf.get('control_id')}: verify {', '.join(cf.get('evidence_required', []))}",
-            value=False,
-            disabled=True,
-        )
+    st.caption(CAPTION_COUNTERFACTUALS)
+    counterfactuals = list(record.get("counterfactuals") or [])
+    st.markdown("**Evidence that would change this decision**")
+    for item in counterfactuals:
+        st.markdown(f"- {counterfactual_line(item)}")
+    see_raw(counterfactuals)
     st.subheader("Precedents")
-    for pref in record.get("precedents_considered", []):
-        st.write(f"{pref.get('precedent_id')} · {pref.get('control_id')} · applied={pref.get('applied')}")
+    st.caption(CAPTION_PRECEDENTS)
+    considered = list(record.get("precedents_considered") or [])
+    if considered:
+        candidates = list((record.get("policy_inputs") or {}).get("precedents") or [])
+        st.dataframe(
+            precedent_rows(considered, candidates=candidates, as_of=str(record.get("as_of") or "")),
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        st.markdown(EMPTY_PRECEDENTS)
+    see_raw(considered)
     st.subheader("Actions")
-    for contract in detail.get("contracts", []):
-        st.json(contract)
+    st.caption(CAPTION_ACTIONS)
+    contracts = list(detail.get("contracts") or [])
+    if not contracts:
+        st.markdown(NO_CONTRACTS)
+    for contract in contracts:
+        with st.container(border=True):
+            for label, value in contract_card(contract).items():
+                st.markdown(f"**{label}:** {value}")
+    see_raw(contracts)
     st.subheader("Agent timeline")
+    st.caption(CAPTION_TIMELINE)
     timeline(trace)
     st.subheader("Report")
     if report.get("rationale"):
         for block in report["rationale"]:
             st.write(block.get("text", ""))
-    with st.expander("Raw JSON"):
-        st.json({"record": record, "report": detail.get("report")})
+    see_raw({"record": record, "report": detail.get("report")})
 
 
 def page_review() -> None:
     st.header("Review")
+    with st.container(border=True):
+        st.markdown(REVIEW_INTRO)
     client = get_client()
     try:
         items = client.list_cases()
     except ArbiterAPIError as exc:
         st.error(exc.message)
         return
-    ids = [str(i.get("case_id")) for i in items]
-    case_id = st.selectbox("Case", ids if ids else ["—"])
-    if case_id == "—":
+    if not items:
+        st.info(REVIEW_EMPTY)
         return
+    ids = [str(i.get("case_id")) for i in items]
+    case_id = st.selectbox("Case", ids)
+    st.subheader(f"Selected case · {case_id}")
     decision = st.selectbox(
         "Decision",
         ["APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"],
     )
     rationale = st.text_area("Rationale (min 30 characters)")
     st.caption(f"{len(rationale)} characters")
-    mitigations = st.text_input("Mitigations (comma-separated)")
+    hint = _eligibility_hint(client, str(case_id), str(decision), rationale)
+    if hint is not None:
+        _show_eligibility(hint)
+    mkey = f"review_mitigations_{case_id}"
+    if hint is not None and hint.get("eligible") and mkey not in st.session_state:
+        st.session_state[mkey] = MITIGATION_FACT
+    mitigations = st.text_input("Mitigations (comma-separated)", key=mkey)
     conditions = st.text_input("Conditions (comma-separated)")
     create_precedent = st.checkbox("Create precedent")
-    if create_precedent and st.button("Check eligibility"):
-        body = ReviewRequest(
-            reviewer="reviewer@example.com",
-            role="tprm_lead",
-            decision=decision,  # type: ignore[arg-type]
-            rationale=rationale if len(rationale) >= 30 else "x" * 30,
-            mitigations=[m.strip() for m in mitigations.split(",") if m.strip()],
-            conditions=[c.strip() for c in conditions.split(",") if c.strip()],
-            create_precedent=True,
-        )
-        try:
-            hint = client.submit_review(case_id, body, dry_run=True)
-        except ArbiterAPIError as exc:
-            st.warning(exc.message)
-        else:
-            _render_eligibility(hint)
+    if create_precedent:
+        st.button("Check eligibility")
     if st.button("Submit review", type="primary"):
         if len(rationale) < 30:
             st.error("Rationale must be at least 30 characters.")
@@ -252,31 +327,72 @@ def page_review() -> None:
         )
         try:
             result = client.submit_review(case_id, body)
-            st.success(json.dumps(result))
         except ArbiterAPIError as exc:
             st.error(exc.message)
+        else:
+            st.success(f"Review recorded for {case_id}.")
+            see_raw(result)
+
+
+def _render_memory_case(client: Any, items: list[dict[str, Any]]) -> None:
+    ids = [str(item.get("case_id")) for item in items]
+    preferred = _preferred_case_id(client, items)
+    index = ids.index(preferred) if preferred in ids else 0
+    case_id = st.selectbox("Precedents considered on case", ids, index=index)
+    st.subheader(f"Selected case · {case_id}")
+    try:
+        detail = client.get_case(str(case_id))
+    except ArbiterAPIError as exc:
+        st.error(exc.message)
+        return
+    record = detail.get("record") or {}
+    considered = list(record.get("precedents_considered") or [])
+    if considered:
+        candidates = list((record.get("policy_inputs") or {}).get("precedents") or [])
+        st.dataframe(
+            precedent_rows(considered, candidates=candidates, as_of=str(record.get("as_of") or "")),
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        st.markdown(EMPTY_PRECEDENTS)
+    see_raw(considered)
 
 
 def page_memory() -> None:
     st.header("Memory")
+    with st.container(border=True):
+        st.markdown(MEMORY_INTRO)
     client = get_client()
     try:
         precedents = client.list_precedents()
     except ArbiterAPIError as exc:
         st.error(exc.message)
         return
-    st.dataframe(precedents, use_container_width=True)
+    rows = memory_table_rows(precedents)
+    if rows:
+        st.dataframe(rows, use_container_width=True, hide_index=True)
+    else:
+        st.markdown("No precedents are stored yet.")
+    for item in precedents:
+        if not isinstance(item, dict):
+            continue
+        st.markdown(f"**{item.get('precedent_id') or 'precedent'}**")
+        entries = item.get("ledger") or []
+        if not entries:
+            st.caption("No ledger entries.")
+        for entry in entries:
+            if isinstance(entry, dict):
+                st.markdown(f"- {ledger_line(entry)}")
+    see_raw(precedents)
     try:
         items = client.list_cases()
     except ArbiterAPIError:
         items = []
-    case_id = st.selectbox(
-        "Precedents considered on case",
-        [str(i.get("case_id")) for i in items] if items else ["—"],
-    )
-    if case_id != "—":
-        detail = client.get_case(case_id)
-        st.json(detail.get("record", {}).get("precedents_considered", []))
+    if not items:
+        st.selectbox("Precedents considered on case", ["—"])
+    else:
+        _render_memory_case(client, items)
     st.caption(
         "Full H-MEM retrieval JSONL is not exposed via the API; this view uses precedents endpoints only."
     )
@@ -284,17 +400,22 @@ def page_memory() -> None:
 
 def page_audit() -> None:
     st.header("Audit")
+    st.caption(AUDIT_CAPTION)
     client = get_client()
-    if st.button("Verify audit chain"):
-        try:
-            result = client.audit_verify()
-        except ArbiterAPIError as exc:
-            st.error(exc.message)
-        else:
-            if result.get("ok"):
-                st.success(_chain_intact_text(result, client))
+    active = st.session_state.get("nav_case_id") or st.session_state.get("last_case_id")
+    with st.container(border=True):
+        st.markdown(f"**Active case · {active}**" if active else "**Active case · —**")
+        if st.button("Verify audit chain"):
+            try:
+                result = client.audit_verify()
+            except ArbiterAPIError as exc:
+                st.error(exc.message)
             else:
-                st.error(f"Chain broken at sequence {result['first_bad_seq']}")
+                if result.get("ok"):
+                    st.success(_chain_intact_text(result, client))
+                else:
+                    st.error(f"Chain broken at sequence {result['first_bad_seq']}")
+                see_raw(result)
     try:
         items = client.list_cases()
     except ArbiterAPIError as exc:
@@ -303,14 +424,24 @@ def page_audit() -> None:
     for item in items:
         cid = str(item.get("case_id"))
         if st.button(f"Replay {cid}", key=f"replay_{cid}"):
-            try:
-                _render_replay(client.replay(cid))
-            except ArbiterAPIError as exc:
-                st.error(exc.message)
+            st.session_state["nav_case_id"] = cid
+            with st.container(border=True):
+                st.markdown(f"**{cid}**")
+                try:
+                    result = client.replay(cid)
+                except ArbiterAPIError as exc:
+                    st.error(exc.message)
+                else:
+                    _render_replay(result)
+                    see_raw(result)
 
 
 def page_evaluation() -> None:
     st.header("Evaluation")
+    st.caption(EVAL_CAPTION)
+    if EVAL_SUMMARY_PATH.is_file():
+        st.markdown(EVAL_SUMMARY_PATH.read_text(encoding="utf-8"))
+        return
     client = get_client()
     try:
         latest = client.eval_latest()
