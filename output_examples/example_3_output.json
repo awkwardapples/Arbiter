@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-22T09:30:17Z",
-    "generated_by": "orchestrator.run offline gate (sample mode, DuckDB)",
-    "git_sha": "a7228be2efe2bca9f004f981db12c1e8dd53704f",
+    "generated_at": "2026-10-23T01:03:18Z",
+    "generated_by": "python run.py examples",
+    "git_sha": "f3415c3c844e9f4a95a3f6a007b5d30f0529ae9c",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
-    "n_runs": 3,
-    "p50_ms": 334.30550399862113,
+    "n_runs": 1,
+    "p50_ms": 386.224835999883,
     "provider": "offline",
-    "run_id": "run-72f010fb10d3",
+    "run_id": "run-ac35d0a215a4",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.32515507100106333,
-    "log_file": "logs/trace-run-72f010fb10d3.jsonl",
+    "execution_time_seconds": 0.386224835999883,
+    "log_file": "logs/trace-run-ac35d0a215a4.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,13 +46,13 @@
       "actions": [
         {
           "capability": "itsm.ticket.create",
-          "contract_id": "ctr-becaaa48c74f",
+          "contract_id": "ctr-b3bf4838caa6",
           "intent": "vendor.onboarding.escalate",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/itsm/ctr-becaaa48c74f.json"
+        "var/outbox/itsm/ctr-b3bf4838caa6.json"
       ],
       "case_id": "CASE-0015",
       "confidence": {
@@ -94,8 +94,8 @@
         "vendor_id": "VND-0015"
       }
     },
-    "run_id": "run-72f010fb10d3",
+    "run_id": "run-ac35d0a215a4",
     "status": "success",
-    "trace_id": "run-72f010fb10d3"
+    "trace_id": "run-ac35d0a215a4"
   }
 }

@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-22T09:30:20Z",
-    "generated_by": "orchestrator.run offline gate (sample mode, DuckDB)",
-    "git_sha": "a7228be2efe2bca9f004f981db12c1e8dd53704f",
+    "generated_at": "2026-10-23T01:03:19Z",
+    "generated_by": "python run.py examples",
+    "git_sha": "f3415c3c844e9f4a95a3f6a007b5d30f0529ae9c",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
-    "n_runs": 3,
-    "p50_ms": 315.1174929989793,
+    "n_runs": 1,
+    "p50_ms": 292.6190339999266,
     "provider": "offline",
-    "run_id": "run-212935772a2d",
+    "run_id": "run-c97e248333c6",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.31747052900027484,
-    "log_file": "logs/trace-run-212935772a2d.jsonl",
+    "execution_time_seconds": 0.2926190339999266,
+    "log_file": "logs/trace-run-c97e248333c6.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,13 +46,13 @@
       "actions": [
         {
           "capability": "procurement.approval.record",
-          "contract_id": "ctr-616822716601",
+          "contract_id": "ctr-d10a4e8e8446",
           "intent": "vendor.onboarding.approve",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/procurement/ctr-616822716601.json"
+        "var/outbox/procurement/ctr-d10a4e8e8446.json"
       ],
       "case_id": "CASE-F0595FCA",
       "confidence": {
@@ -94,8 +94,8 @@
         "vendor_id": null
       }
     },
-    "run_id": "run-212935772a2d",
+    "run_id": "run-c97e248333c6",
     "status": "success",
-    "trace_id": "run-212935772a2d"
+    "trace_id": "run-c97e248333c6"
   }
 }
