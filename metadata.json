@@ -1,7 +1,7 @@
 {
   "schema": "arbiter-metadata/1",
   "project_name": "Arbiter",
-  "description": "Auditable reasoning architecture that helps third-party risk analysts decide whether to approve, query, escalate or decline a new SaaS vendor, producing a replayable, cited decision with the next action under a signed contract.",
+  "description": "Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract.",
   "track": "Reasoning Architecture",
   "team": {
     "name": "Arbiter",
