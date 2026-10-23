@@ -119,12 +119,31 @@ def test_p12_readme_logo() -> None:
     assert h1 < badge < logo < paragraph
 
 
+def _run_entrypoint(title: str, page_file: str, client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch):
+    """Run a page through ui/app.py, which is what st.navigation does in production.
+
+    AppTest resets multipage mode on every run. ui/pages/ then selects the v1
+    runner, and that runner executes the page file alone. Production calls
+    st.navigation once and reruns the entrypoint around every page after that.
+    """
+    pages_dir = (ROOT / "ui" / "pages").resolve()
+    real_exists = Path.exists
+
+    def exists(path: Path) -> bool:
+        if path.resolve() == pages_dir:
+            return False
+        return real_exists(path)
+
+    monkeypatch.setattr(Path, "exists", exists)
+    return _run_page(title, page_file, client=client)
+
+
 @pytest.mark.parametrize(("title", "page_file"), PAGES)
 def test_p12_hero_logo_before_title(
-    title: str, page_file: str, fake_client: FakeArbiterClient
+    title: str, page_file: str, fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     """P12-T8: the main-area wordmark is rendered before the page title."""
-    at = _run_page(title, page_file, client=fake_client)
+    at = _run_entrypoint(title, page_file, fake_client, monkeypatch)
     assert not at.exception
     kinds = [node.type for node in at.main]
     assert kinds.index("image") < kinds.index("title")

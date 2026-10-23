@@ -36,8 +36,15 @@ def _streamlit_supports_logo() -> bool:
 
 def _install_logo() -> None:
     # st.logo size="large" is a 32px max height. This wordmark is 800x300, so that
-    # cap leaves the name illegible. The sidebar image is the legible placement.
+    # cap leaves the name illegible. The sidebar image is the persistent small mark.
     st.sidebar.image(str(_LOGO), width=200)
+
+
+def _hero_wordmark() -> None:
+    """Centered wordmark at the top of the main area, above the page title."""
+    _left, center, _right = st.columns([1, 1, 1])
+    with center:
+        st.image(str(_LOGO), width=300)
 
 
 def _sidebar_status() -> None:
@@ -69,6 +76,7 @@ def main() -> None:
         st.Page(str(_ROOT / "pages" / "audit.py"), title="Audit"),
         st.Page(str(_ROOT / "pages" / "evaluation.py"), title="Evaluation"),
     ]
+    _hero_wordmark()
     st.navigation(pages).run()
 
 
