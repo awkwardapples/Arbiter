@@ -1,4 +1,4 @@
-"""P4-T18: output_examples waiver, and the opt-in local clean-clone run."""
+"""P4-T18: output_examples is required, and the opt-in local clean-clone run."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import pytest
 pytestmark = pytest.mark.p4b
 
 ROOT = Path(__file__).resolve().parents[3]
-_WAIVER = "output_examples/ exists but has fewer than 3 files; P6 populates this directory."
+_NEED = "output_examples/ needs at least 3 files"
 
 
 def _classify():
@@ -25,18 +25,18 @@ def _classify():
 
 
 def test_p4_t18_output_examples_rule(tmp_path: Path) -> None:
-    """P4-T18: a missing output_examples directory is a waiver; a short one fails with the P6 message."""
+    """P4-T18: output_examples is required. Absent or short directories fail."""
     classify_output_examples = _classify()
     ok, message = classify_output_examples(tmp_path)
-    assert ok is True
-    assert "waiver" in message
+    assert ok is False
+    assert message == _NEED
 
     present = tmp_path / "output_examples"
     present.mkdir()
     (present / "a.json").write_text("{}", encoding="utf-8")
     ok, message = classify_output_examples(tmp_path)
     assert ok is False
-    assert message == _WAIVER
+    assert message == _NEED
 
     (present / "b.json").write_text("{}", encoding="utf-8")
     (present / "c.json").write_text("{}", encoding="utf-8")

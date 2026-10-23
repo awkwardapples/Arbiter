@@ -1,0 +1,71 @@
+{
+  "schema": "arbiter-metadata/1",
+  "project_name": "Arbiter",
+  "description": "Auditable reasoning architecture that helps third-party risk analysts decide whether to approve, query, escalate or decline a new SaaS vendor, producing a replayable, cited decision with the next action under a signed contract.",
+  "track": "Reasoning Architecture",
+  "team": {
+    "name": "Arbiter",
+    "members": [
+      {
+        "name": "Josh Lennon",
+        "github": "awkwardapples",
+        "role": "Solo builder",
+        "primary_contact": true
+      }
+    ]
+  },
+  "repository": "https://github.com/awkwardapples/Arbiter",
+  "demo_video": "",
+  "slide_deck": "",
+  "entry_points": {
+    "api": "POST http://localhost:8000/run",
+    "cli": "python run.py assess --input input_examples/example_1.json",
+    "docker_sample_mode": "docker run --rm -p 8000:8000 -e SAMPLE_MODE=true arbiter"
+  },
+  "agents": [
+    {"name": "PlannerAgent", "role": "Plans registry queries; revises on Evaluator/Challenger feedback", "route": "meterless/deep"},
+    {"name": "EvidenceAgent", "role": "Runs registry queries; guards and extracts quoted vendor claims", "route": "meterless/fast"},
+    {"name": "EvaluatorAgent", "role": "Grounds quotes, cross-checks claims against systems of record, sends work back", "route": "meterless/fast"},
+    {"name": "ChallengerAgent", "role": "Attacks the candidate decision; can force re-plan or escalation only", "route": "meterless/deep"},
+    {"name": "ReporterAgent", "role": "Writes the cited dossier and drafts actions", "route": "meterless/deep"},
+    {"name": "PolicyEngine", "role": "Deterministic, versioned decision (no LLM)", "route": null},
+    {"name": "MemoryKeeper", "role": "Meterless H-MEM precedents and trust ledger", "route": null},
+    {"name": "ScoutGuard", "role": "Meterless Scout injection/PII guard", "route": "meterless/fast (ambiguous band)"},
+    {"name": "ActionExecutor", "role": "Meterless Scout execution contracts; approval-gated actions", "route": null}
+  ],
+  "sponsor_technologies": {
+    "zetaris": {
+      "role": "Single SQL access point federating five enterprise systems and CISA KEV",
+      "features": ["Lightning REST tables", "SchemaStore views", "USL model vendor_risk", "DQ rules", "Federated public and private join", "REST SQL API"],
+      "files": ["zetaris/sql/01_sources.sql", "zetaris/sql/02_kev.sql", "zetaris/sql/03_usl.sql", "zetaris/dq_rules.yaml", "app/data/zetaris.py", "app/data/queries.yaml"]
+    },
+    "meterless": {
+      "engines": ["Nightshift Runtime (POWER contract)", "H-MEM", "Scout Intent (guard and execution contracts subset)"],
+      "files": ["app/llm/providers/meterless.py", "app/llm/generator.py", "app/memory/hmem", "app/memory/precedents.py", "app/guard/scout_guard.py", "app/actions/contracts.py"],
+      "evidence": ["tests/conformance/test_hmem_conformance.py", "tests/conformance/test_scout_adversarial.py"]
+    },
+    "nvidia": {
+      "models": ["nvidia/nemotron-3.5-lightning-30b-a3b", "nvidia/nemotron-3-super-120b-a12b"],
+      "access": "Via Meterless Nightshift lanes (primary) or build.nvidia.com (fallback)",
+      "files": ["app/llm/providers/meterless.py", "app/llm/providers/nvidia.py"]
+    },
+    "cursor": {
+      "usage": ["AGENTS.md and project rules", "Plan Mode per pass", "Tests-first acceptance suites", "Stop-hook verify loop", "Custom commands", "Parallel worktree agents"],
+      "files": ["AGENTS.md", ".cursor/rules", ".cursor/commands", ".cursor/hooks.json", ".cursor/plans", "docs/CURSOR_USAGE.md"]
+    }
+  },
+  "models": [],
+  "data": {
+    "synthetic": true,
+    "public": [
+      {
+        "name": "CISA Known Exploited Vulnerabilities",
+        "licence": "CC0 1.0",
+        "source": "https://github.com/cisagov/kev-data"
+      }
+    ]
+  },
+  "sample_mode": "SAMPLE_MODE=true runs the full agent loop on a DuckDB mirror of the Zetaris model. LLM_PROVIDER=offline, or an unreachable provider under auto, uses the deterministic fallback and labels traces provider offline.",
+  "pre_existing_components": ["See README section Pre-existing components and docs/PRIOR_WORK.md"],
+  "licence": "MIT"
+}
