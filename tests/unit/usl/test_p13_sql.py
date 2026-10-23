@@ -34,14 +34,10 @@ def test_p13_t1_compile_is_one_statement_and_names_are_qualified() -> None:
     assert len(compile_stmts) == 1
     assert len(CREATE_TABLE.findall(compile_stmts[0])) >= 10
     for stmt in stmts:
-        head = stmt.split(None, 2)
-        kind = " ".join(head[:2]) if head[:1] == ["UPDATE"] or head[:2] == ["RUN", "DQ"] else " ".join(head[:2])
-        if stmt.startswith("ACTIVATE USL") or stmt.startswith("REGISTER DQ") or stmt.startswith("RUN DQ"):
+        if stmt.startswith(("ACTIVATE USL", "REGISTER DQ", "RUN DQ")):
             assert re.search(rf"{re.escape(FQN)}\.[A-Za-z_][A-Za-z0-9_]*", stmt), stmt
         elif stmt.startswith("UPDATE USL"):
             assert FQN in stmt, stmt
-        else:
-            assert kind  # namespace and COMPILE statements are the rest
 
 
 @pytest.mark.p13
@@ -49,8 +45,7 @@ def test_p13_t2_register_dq_matches_yaml() -> None:
     """P13-T2: REGISTER DQ names and expressions come from dq_rules.yaml, fully qualified."""
     raw = yaml.safe_load(RULES_PATH.read_text(encoding="utf-8")) or {}
     expected = [
-        f"REGISTER DQ {rule['id']} TABLE {FQN}.{rule['table']} AS {rule['expr']}"
-        for rule in raw["rules"]
+        f"REGISTER DQ {rule['id']} TABLE {FQN}.{rule['table']} AS {rule['expr']}" for rule in raw["rules"]
     ]
     actual = [s for s in _statements(SQL_PATH.read_text(encoding="utf-8")) if s.startswith("REGISTER DQ")]
     assert actual == expected

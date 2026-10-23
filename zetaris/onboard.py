@@ -36,12 +36,7 @@ def rest_url(table_key: str, settings: Settings) -> str:
 
 
 def kev_rest_url(settings: Settings) -> str:
-    """KEV REST endpoint: committed snapshot in github_raw mode (deterministic, same egress as systems)."""
-    if settings.ZETARIS_SOURCE_MODE == "github_raw":
-        base = settings.GITHUB_RAW_BASE.rstrip("/")
-        if base.endswith("/data/sample/systems"):
-            return base[: -len("/data/sample/systems")] + "/data/kev/kev_snapshot.json"
-        return "https://raw.githubusercontent.com/awkwardapples/Arbiter/main/data/kev/kev_snapshot.json"
+    """KEV REST endpoint. Zetaris always reads the configured CISA catalogue URL."""
     return settings.KEV_URL
 
 

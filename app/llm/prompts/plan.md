@@ -1,5 +1,5 @@
 ---
-vars: [case_summary, registry, gaps]
+vars: [case_summary, registry, gaps, usl_catalogue, query_tables]
 untrusted: []
 schema: PlanOut
 response: json
@@ -16,6 +16,12 @@ Registered queries you may choose from (id, description, controls they evidence)
 Open gaps from the Evaluator's last pass (empty on the first pass). Each gap names a control and the
 system-of-record queries that could verify or contradict what the vendor claimed:
 {gaps}
+
+Semantic catalogue from the USL model vendor_risk (table, keys, description):
+{usl_catalogue}
+
+Registered query ids and the tables they read:
+{query_tables}
 
 How to plan:
 - First pass ("screen"): read what the vendor claims (answers, documents, components) and run the watchlist screen.
