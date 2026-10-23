@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import time
 import uuid
 from collections.abc import Callable
@@ -24,14 +25,16 @@ from app.agents.response import build_output
 from app.confidence import compute
 from app.config import Settings
 from app.data.factory import get_backend
+from app.data.registry import load_registry
 from app.errors import BudgetExceeded
 from app.facts import tier_profile
+from app.labels import system_label
 from app.llm.generator import generate
 from app.memory.keeper import HMemMemory, build_memory
 from app.policy.engine import decide, force_escalate
 from app.policy.loader import load_default, policy_sha256
 from app.policy.tiering import tier as assign_tier
-from app.schemas.api import AgentInfo, RunResponse
+from app.schemas.api import AgentInfo, RunResponse, Workload
 from app.schemas.case import CaseInput
 from app.schemas.decision import DecisionRecord, PolicyInputs
 from app.state import CaseState, PlanStep, new_state
@@ -282,19 +285,22 @@ def run(case_input: CaseInput, *, options: RunOptions, deps: Deps | None = None)
         phase = nxt
     sink = deps.sink or Store(deps.var_dir)
     record = state.decision or _safe_record(state, ctx, "SYSTEM_NoDecision")
-    report = state.report or template_report(record)
+    report = state.report or template_report(record, state)
     state.decision = record
     state.report = report
     _finish(state, ctx, sink, tracer, run_status, started)
+    log_file = f"logs/trace-{run_id}.jsonl"
+    elapsed = max(time.perf_counter() - started, 1e-6)
     output = build_output(state, record, report)
+    output = output.model_copy(update={"workload": _workload(state, log_file, elapsed)})
     return RunResponse(
         run_id=run_id,
         status=run_status,  # type: ignore[arg-type]
         output=output,
         agents=[AgentInfo(name=agent.name, role=agent.role) for agent in agents.values()],
         trace_id=tracer.trace_id,
-        log_file=f"logs/trace-{run_id}.jsonl",
-        execution_time_seconds=max(time.perf_counter() - started, 1e-6),
+        log_file=log_file,
+        execution_time_seconds=elapsed,
         mode=mode,
     )
 
@@ -534,4 +540,44 @@ def _finish(
         input_summary=f"case_id={state.case_id}",
         output_summary=f"{record.outcome} in {time.perf_counter() - started:.3f}s",
         status=run_status,
+    )
+
+
+def _workload(state: CaseState, log_file: str, elapsed: float) -> Workload:
+    """Counts from the trace and the executed case. Nothing here is estimated."""
+    events: list[dict[str, Any]] = []
+    path = Path(log_file)
+    if path.is_file():
+        events = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    model_ids = sorted(
+        {
+            str(event["model"])
+            for event in events
+            if event.get("action") == "model_call" and event.get("model")
+        }
+    )
+    registry = load_registry()
+    labels: list[str] = []
+    for query_id in sorted(state.executed_queries):
+        spec = registry.get(query_id)
+        if spec is None:
+            continue
+        for system in spec.systems:
+            label = system_label(system)
+            if label not in labels:
+                labels.append(label)
+    return Workload(
+        systems_queried=labels,
+        queries=sum(1 for event in events if event.get("action") == "query_run"),
+        rows_read=sum(len(result.rows) for result in state.executed_queries.values()),
+        documents_read=sum(1 for segment in state.segments if segment.kind == "document"),
+        answers_read=sum(1 for segment in state.segments if segment.kind == "answer"),
+        claims_extracted=len(state.claims),
+        claims_grounded=sum(1 for claim in state.claims if claim.grounded),
+        contradictions=len(state.contradictions),
+        dq_flags=len(state.dq_flags),
+        guard_blocks=sum(1 for flag in state.guard_flags if flag.level == "block"),
+        model_calls=sum(1 for event in events if event.get("action") == "model_call"),
+        models=model_ids,
+        elapsed_seconds=elapsed,
     )

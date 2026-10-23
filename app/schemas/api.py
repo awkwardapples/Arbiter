@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, model_validator
 
 from app.schemas.case import CaseInput
 from app.schemas.common import Outcome, Tier
+from app.schemas.report import AnalystBrief, Draft
 
 
 class RunRequestOptions(BaseModel):
@@ -68,6 +69,22 @@ class RunOutputAction(BaseModel):
     capability: str | None = None
 
 
+class Workload(BaseModel):
+    systems_queried: list[str]
+    queries: int
+    rows_read: int
+    documents_read: int
+    answers_read: int
+    claims_extracted: int
+    claims_grounded: int
+    contradictions: int
+    dq_flags: int
+    guard_blocks: int
+    model_calls: int
+    models: list[str]
+    elapsed_seconds: float
+
+
 class RunOutput(BaseModel):
     case_id: str
     vendor: RunOutputVendor
@@ -76,6 +93,9 @@ class RunOutput(BaseModel):
     residual_risk: int
     confidence: dict[str, Any]
     summary: str
+    brief: AnalystBrief | None = None
+    drafts: list[Draft] = []
+    workload: Workload | None = None
     findings: list[RunOutputFinding]
     contradictions: list[RunOutputContradiction]
     counterfactuals: list[RunOutputCounterfactual]

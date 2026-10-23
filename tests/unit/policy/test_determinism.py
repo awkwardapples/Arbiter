@@ -62,7 +62,6 @@ def test_p2_t36_determinism_and_force_escalate() -> None:
         "EVIDENCE_MISSING",
         "LOW_CONFIDENCE_ABSTAIN",
         "CONDITIONS",
-        "ALL_REQUIRED_CONTROLS_MET",
     ]
     assert first.outcome == "DECLINE"
     escalated = force_escalate(first, "challenger")

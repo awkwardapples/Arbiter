@@ -44,6 +44,7 @@ class ConfidenceBreakdown(BaseModel):
     gate: float
     abstained: bool
     signals: dict[str, float]
+    unknown_controls: list[str] = []
 
 
 class PrecedentCandidate(BaseModel):
@@ -87,6 +88,7 @@ class DecisionRecord(BaseModel):
     policy_version: str
     policy_sha256: str
     calibration_version: str
+    policy_engine_version: str = "1.1"
     tier: Tier
     inherent_risk_score: int
     facts: list[Fact]

@@ -17,6 +17,7 @@ Citation ids you may use (fact ids `F-…`, rule ids `R-<control>`, precedent id
 
 Rules:
 - The summary states the outcome exactly as given (for example "Outcome ESCALATE"), in at most 120 words. Do not soften, upgrade or second-guess it.
+- Do not introduce a number, name, or identifier that is not present in the decision record.
 - Each rationale sentence carries one or more citation ids from the list above. Sentences without valid citations are discarded.
 - Explain what evidence would change the outcome, using the counterfactuals.
 - For REQUEST_INFO, draft `clarification_email` to the vendor asking exactly the listed questions. For ESCALATE or DECLINE, write `escalation_note` for the TPRM lead.

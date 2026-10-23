@@ -8,15 +8,22 @@ from app.agents.base import AgentContext, llm_or_fallback
 from app.agents.catalogue import QUESTION_TEXTS
 from app.agents.llm_schemas import ReportOut
 from app.errors import ParseFailure
+from app.labels import accept_brief_wording, build_brief, build_drafts
 from app.llm import prompts
 from app.schemas.decision import DecisionRecord
-from app.schemas.report import CitedSentence, Draft, Report
+from app.schemas.report import AnalystBrief, BriefWording, CitedSentence, Draft, Report
 from app.state import CaseState
 
 NAME = "ReporterAgent"
 _OUTCOMES = ("APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE", "APPROVE")
 
-__all__ = ["QUESTION_TEXTS", "template_report", "validate_report", "ReporterAgent"]
+__all__ = [
+    "QUESTION_TEXTS",
+    "build_drafts",
+    "template_report",
+    "validate_report",
+    "ReporterAgent",
+]
 
 
 def _stated_outcome(summary: str) -> str | None:
@@ -50,7 +57,7 @@ def validate_report(
     )
 
 
-def template_report(record: DecisionRecord) -> Report:
+def template_report(record: DecisionRecord, state: CaseState | None = None) -> Report:
     """Deterministic report labelled template:v1, built only from the decision record."""
     failing = [control for control in record.controls if control.state != "TRUE"]
     rationale: list[CitedSentence] = []
@@ -112,6 +119,8 @@ def template_report(record: DecisionRecord) -> Report:
         clarification_email=email,
         limitations=["template:v1 deterministic report from the decision record."],
         generator="template:v1",
+        brief=build_brief(record, state),
+        drafts=build_drafts(record, state),
     )
 
 
@@ -154,6 +163,39 @@ def _prompt(record: DecisionRecord, known: set[str]) -> str:
     )
 
 
+def _rewrite_brief(
+    brief: AnalystBrief, record: DecisionRecord, state: CaseState, ctx: AgentContext
+) -> AnalystBrief:
+    """Deep route may rephrase headline and why text. Anything else keeps template:v2."""
+
+    def from_model() -> AnalystBrief:
+        result = ctx.generator(
+            prompts.render(
+                "brief",
+                brief=brief.model_dump_json(),
+                corpus=record.model_dump_json(),
+            ),
+            system=prompts.UNTRUSTED_SENTENCE,
+            route="deep",
+            response="json",
+            schema=BriefWording,
+            purpose="brief",
+            tracer=ctx.tracer,
+            agent_name=NAME,
+        )
+        parsed = result.parsed
+        if not isinstance(parsed, BriefWording) or not accept_brief_wording(brief, parsed, record, state):
+            raise ParseFailure("brief wording is not in the record")
+        why = [
+            point.model_copy(update={"text": text}) for point, text in zip(brief.why, parsed.why, strict=True)
+        ]
+        label = f"{result.provider}/{result.route}:{result.model or result.route}"
+        return brief.model_copy(update={"headline": parsed.headline, "why": why, "generator": label})
+
+    rewritten, _source = llm_or_fallback(ctx, from_model, lambda: brief, purpose="brief", agent=NAME)
+    return rewritten
+
+
 class ReporterAgent:
     name = NAME
     role = "Writes a cited report of the policy decision, or the deterministic template"
@@ -167,7 +209,7 @@ class ReporterAgent:
         known = _known_ids(state, record)
 
         def deterministic() -> Report:
-            return template_report(record)
+            return template_report(record, state)
 
         def from_model() -> Report:
             result = ctx.generator(
@@ -192,6 +234,12 @@ class ReporterAgent:
             report, source = llm_or_fallback(ctx, from_model, deterministic, purpose="report", agent=NAME)
         else:
             report, source = deterministic(), "deterministic"
+        brief = report.brief or build_brief(record, state)
+        if ctx.use_model:
+            brief = _rewrite_brief(brief, record, state, ctx)
+        report = report.model_copy(
+            update={"brief": brief, "drafts": report.drafts or build_drafts(record, state)}
+        )
         state.report = report
         ctx.tracer.event(
             NAME,

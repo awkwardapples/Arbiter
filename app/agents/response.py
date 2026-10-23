@@ -28,6 +28,7 @@ def build_output(state: CaseState, record: DecisionRecord, report: Report) -> Ru
     if state.mode.get("llm") == "offline":
         limitations.append("LLM offline: deterministic extraction and reporting used.")
     limitations.extend(state.limitations)
+    summary = report.brief.headline if report.brief is not None else report.summary
     return RunOutput(
         case_id=state.case_id,
         vendor=RunOutputVendor(vendor_id=state.input.vendor_id, legal_name=str(legal)),
@@ -35,7 +36,9 @@ def build_output(state: CaseState, record: DecisionRecord, report: Report) -> Ru
         risk_tier=record.tier,
         residual_risk=record.residual_risk,
         confidence=record.confidence.model_dump(mode="json"),
-        summary=report.summary,
+        summary=summary,
+        brief=report.brief,
+        drafts=list(report.drafts),
         findings=[RunOutputFinding(text=s.text, citations=list(s.citations)) for s in report.rationale],
         contradictions=[
             RunOutputContradiction(

@@ -9,7 +9,7 @@ from app.canon import sha256_hex
 from app.errors import PolicyError
 from app.policy.counterfactuals import compute_counterfactuals
 from app.policy.dsl import evaluate, referenced_keys
-from app.policy.loader import Calibration, Control, Policy
+from app.policy.loader import Calibration, Control, OutcomeRule, Policy
 from app.policy.residual import residual_risk
 from app.policy.tiering import tier
 from app.schemas.common import Outcome, Tier
@@ -65,13 +65,14 @@ def decide(inputs: PolicyInputs, policy: Policy, calibration: Calibration) -> De
         policy_version=policy.version,
         policy_sha256=sha256_hex(policy),
         calibration_version=calibration.version,
+        policy_engine_version="1.1",
         tier=case_tier,
         inherent_risk_score=inherent,
         facts=list(normalized.facts),
         controls=controls,
         contradictions=list(normalized.contradictions),
         outcome=outcome,
-        outcome_reasons=[rule.reason for rule in matched],
+        outcome_reasons=_matching_reasons(matched),
         counterfactuals=compute_counterfactuals(controls, list(normalized.contradictions), policy),
         precedents_considered=considered,
         exceptions_applied=[item.exception_applied for item in controls if item.exception_applied],
@@ -158,6 +159,13 @@ def _any_conditional(view: _View) -> bool:
 
 def _always(_view: _View) -> bool:
     return True
+
+
+def _matching_reasons(matched: list[OutcomeRule]) -> list[str]:
+    """Every matching reason, except `always`, which is kept only when it decided."""
+    if len(matched) == 1:
+        return [matched[0].reason]
+    return [rule.reason for rule in matched if rule.when != "always"]
 
 
 _PREDICATES: dict[str, Callable[[_View], bool]] = {
