@@ -242,9 +242,14 @@ def test_p9_review_intro_and_empty_queue(fake_client: FakeArbiterClient) -> None
     at = _run_page("Review", "pages/review.py", client=fake_client)
     assert not at.exception
     blob = _text(at.markdown)
-    assert "VND-0011" in blob
+    assert "Every assessment reaches a deterministic outcome through the policy engine." in blob
     assert "C05" in blob
-    assert "No cases awaiting review — run VND-0011 or VND-0012 first." in _text(at.info)
+    assert "VND-" not in blob
+    assert (
+        "No cases are currently awaiting review. Cases that reach DECLINE will appear here "
+        "as pending approvals — the policy engine gates those actions on a human sign-off."
+        in _text(at.info)
+    )
 
 
 def test_p9_review_amber_when_ineligible(fake_client: FakeArbiterClient) -> None:
@@ -277,7 +282,7 @@ def test_p9_review_green_when_eligible(fake_client: FakeArbiterClient) -> None:
     assert not at.exception
     assert calls and all(calls)
     ok = _text(at.success)
-    assert "This case can create a C05 precedent." in ok
+    assert "This case is eligible for a C05 precedent." in ok
     assert f"**C05** {_DASH}" in ok
     assert f"**assurance.bridge_letter_current** {_DASH}" in ok
     assert f"**APPROVE** {_DASH}" in ok

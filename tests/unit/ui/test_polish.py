@@ -217,7 +217,7 @@ def test_p8_review_eligibility_when_clear(fake_client: FakeArbiterClient) -> Non
     _button(at, "Check eligibility").click()
     at.run()
     assert not at.exception
-    assert any("This case can create a C05 precedent." in item.value for item in at.success)
+    assert any("This case is eligible for a C05 precedent." in item.value for item in at.success)
 
 
 def test_p8_audit_replay_mismatch(fake_client: FakeArbiterClient) -> None:
