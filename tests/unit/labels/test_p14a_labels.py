@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import pytest
+
 from app.data.registry import load_registry
-from app.labels import control_title, ...
+from app.labels import control_title, outcome_label, outcome_meaning, question_text, reason_text, system_label
 from app.policy.loader import load_default
 
 pytestmark = pytest.mark.p14a
