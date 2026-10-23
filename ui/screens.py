@@ -68,6 +68,7 @@ from ui.components import (
     review_conditions,
     see_raw,
     split_eval_summary,
+    strip_leading_h1,
     tier_chip,
     timeline,
 )
@@ -76,7 +77,6 @@ from ui.session import get_client
 from ui.validation import parse_case_input
 
 EVAL_SUMMARY_PATH = Path(__file__).resolve().parents[1] / "eval/results/20261022T080517661769Z/summary.md"
-_QUEUE_PAGE = Path(__file__).resolve().parent / "pages" / "queue.py"
 
 ASSESSMENT_SPINNER = (
     "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
@@ -153,7 +153,7 @@ def _chain_intact_text(result: dict[str, Any], client: Any) -> str:
 
 
 def _render_eval_markdown(text: str) -> None:
-    head, tail = split_eval_summary(text)
+    head, tail = split_eval_summary(strip_leading_h1(text))
     st.markdown(head)
     if tail:
         st.markdown(tail)
@@ -668,9 +668,8 @@ def page_evaluation() -> None:
         st.error(exc.message)
         return
     summary = live_run_summary(cases if isinstance(cases, list) else [], health)
-    cases_col, recent_col, data_col, llm_col = st.columns(4)
+    cases_col, data_col, llm_col, recent_col = st.columns(4)
     cases_col.metric("Cases", summary["n"])
-    recent_col.metric("Most recent", summary["latest"])
     data_col.metric("Data backend", summary["data_backend"])
     llm_col.metric("LLM provider", summary["llm_provider"])
-    st.page_link(str(_QUEUE_PAGE), label="Cases")
+    recent_col.metric("Most recent", summary["latest"])

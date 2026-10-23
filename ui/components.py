@@ -96,8 +96,8 @@ def humanised_bullet(code: str, sentence: str) -> str:
 QUEUE_CAPTION = "All cases sorted by residual risk. Click a row to open its decision record."
 AUDIT_CAPTION = "Append-only hash chain of every case, decision, contract, and action."
 EVAL_CAPTION = (
-    "Two views. The offline benchmark measures the decision pipeline on a fixed labelled set. "
-    "The live section shows activity on this instance."
+    "Two views: the offline benchmark measures the decision pipeline on a fixed labelled set. "
+    "The live section shows this instance's activity."
 )
 CAPTION_CONTROLS = "Required controls and the facts behind them."
 CAPTION_CONTRADICTIONS = "A vendor claim and the system-of-record value it disagrees with."
@@ -138,9 +138,7 @@ PRECEDENT_HELP = (
     "Save this exception to H-MEM. A later case with the same mitigation and conditions "
     "can reuse this decision."
 )
-EVAL_OFFLINE_CAPTION = (
-    "Fixed labelled set. Same decision pipeline, no live services. Method: docs/EVALUATION.md."
-)
+EVAL_OFFLINE_CAPTION = "Fixed labelled set, no live services. Method: docs/EVALUATION.md."
 LIVE_CAPTION = "Cases, backend, and provider on this API."
 REPLAY_MATCH_CAPTION = "The decision reproduces identically from its inputs."
 REPLAY_MISMATCH_CAPTION = (
@@ -161,6 +159,15 @@ RESULT_CAPTION = "Decision record from this run."
 DRY_RUN_NOTE = "Dry-run only. Nothing was recorded."
 AUDIT_EVENTS_CAPTION = "Latest rows on the hash chain."
 AUDIT_EVENTS_EMPTY = "No audit events yet."
+
+
+def strip_leading_h1(text: str) -> str:
+    """Drop a leading run of lines that start with '# '. Leave later headings."""
+    lines = text.splitlines(keepends=True)
+    index = 0
+    while index < len(lines) and lines[index].startswith("# "):
+        index += 1
+    return "".join(lines[index:])
 
 
 def split_eval_summary(text: str, mark: str = "Synthetic data. Small n.") -> tuple[str, str]:

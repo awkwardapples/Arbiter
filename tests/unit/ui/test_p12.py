@@ -103,9 +103,10 @@ def test_p12_logo_call_site() -> None:
     nav_at = source.index("st.navigation")
     assert logo_at < nav_at
     assert _streamlit_supports_logo() is True
-    uses_logo = 'st.logo' in source and 'size="large"' in source
-    uses_image = "st.sidebar.image" in source and "width=200" in source
-    assert uses_logo or uses_image
+    # Streamlit 1.66 size="large" is a 32px cap. The wordmark is the sidebar image.
+    assert "st.sidebar.image" in source
+    assert "width=200" in source
+    assert "st.logo(" not in source
 
 
 def test_p12_readme_logo() -> None:
