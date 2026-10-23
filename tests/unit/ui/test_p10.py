@@ -48,6 +48,18 @@ def _text(elements) -> str:
     return " ".join(getattr(item, "value", "") or "" for item in elements)
 
 
+def test_p10_new_assessment_how_to_use(fake_client: FakeArbiterClient) -> None:
+    at = _run_page("New assessment", "pages/new_assessment.py", client=fake_client)
+    assert not at.exception
+    guide = next(item for item in at.expander if item.label == "How to use this app")
+    assert guide.proto.expanded is False
+    assert "Start a new assessment — the full review flow is in How to use this app." in _text(at.caption)
+    blob = _text(at.markdown)
+    assert "The pipeline runs the five-agent loop" in blob
+    assert "Every decision is reproducible, every fact is cited" in blob
+    assert "VND-" not in blob
+
+
 def test_p10_ui_sources_name_no_sample_vendor() -> None:
     root = Path(__file__).resolve().parents[3]
     for rel in ("ui/screens.py", "ui/components.py"):

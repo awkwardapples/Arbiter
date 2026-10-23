@@ -22,11 +22,13 @@ from ui.components import (
     EVAL_CAPTION,
     EVAL_OFFLINE_CAPTION,
     HOW_TO_READ,
+    HOW_TO_USE,
     LEDGER_CAPTION,
     MEMORY_CASE_CAPTION,
     MEMORY_INTRO,
     MITIGATION_FACT,
     MITIGATION_HELP,
+    NEW_ASSESSMENT_CAPTION,
     NO_CONTRACTS,
     NO_CONTRADICTIONS,
     PRECEDENT_HELP,
@@ -147,6 +149,9 @@ def _render_replay(result: dict[str, Any]) -> None:
 
 def page_new_assessment() -> None:
     st.header("New assessment")
+    st.caption(NEW_ASSESSMENT_CAPTION)
+    with st.expander("How to use this app", expanded=False):
+        st.markdown(HOW_TO_USE)
     client = get_client()
     mode = st.radio("Intake", ["Pick vendor", "Paste / upload JSON"], horizontal=True)
     case_input = None

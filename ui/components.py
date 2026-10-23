@@ -157,6 +157,21 @@ LEDGER_CAPTION = (
     "this precedent helpful or wrong."
 )
 
+HOW_TO_USE = (
+    "Pick a vendor from the sample set or paste a vendor JSON to start an assessment. "
+    "The pipeline runs the five-agent loop and produces a decision record — outcome, controls, "
+    "evidence, and a signed next action. From the decision you can:\n"
+    "- Open the case to see the full record — the outcome, each control's status and evidence, "
+    "the timeline of the agent loop, and the audit chain.\n"
+    "- Record a human review if the policy gated the decision, and optionally save an exception "
+    "to memory as a precedent.\n"
+    "- Replay the decision to prove it reproduces identically from its inputs.\n"
+    "- Inspect the trace to see every fact and query behind it.\n\n"
+    "Every decision is reproducible, every fact is cited, and every action is a signed contract "
+    "in the audit chain."
+)
+NEW_ASSESSMENT_CAPTION = "Start a new assessment — the full review flow is in How to use this app."
+
 HOW_TO_READ = (
     "The badge is the policy engine's outcome. Each bullet under it is a reason code, "
     "then what that code means. **Why** is the control and the fact behind it. "
