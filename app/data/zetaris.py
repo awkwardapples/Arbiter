@@ -189,6 +189,8 @@ class ZetarisBackend:
             if records_raw is None:
                 continue
             parsed = json.loads(records_raw) if isinstance(records_raw, str) else records_raw
+            if isinstance(parsed, dict):
+                parsed = [parsed]
             if not isinstance(parsed, list):
                 continue
             for rec in parsed:
@@ -226,11 +228,11 @@ class ZetarisBackend:
         ]
         for table in tables:
             if layer == "views":
-                view = f"arbiter.{table}_v"
-                sql = re.sub(rf"\b{table}\b", view, sql)
+                replacement = f"arbiter.{table}_v"
             else:
-                qualified = f"lightning.metastore.arbiter.vendor_risk.{table}"
-                sql = re.sub(rf"\b{table}\b", qualified, sql)
+                replacement = f"lightning.metastore.arbiter.vendor_risk.{table}"
+            # A name already behind a dot is a qualified USL or view reference.
+            sql = re.sub(rf"(?<!\.)\b{re.escape(table)}\b", replacement, sql)
         return sql
 
     def execute_sql(self, sql: str, *, purpose: str = "sql") -> list[dict[str, object]]:
