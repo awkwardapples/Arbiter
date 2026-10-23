@@ -13,9 +13,7 @@ from ui.client import ArbiterAPIError
 
 pytestmark = pytest.mark.p5a
 
-SPINNER_TEXT = (
-    "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
-)
+SPINNER_TEXT = "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
 
 OUTCOME_SENTENCES = {
     "CONTRADICTION": "Contradiction on a system-of-record claim",
@@ -107,19 +105,10 @@ def test_p8_evidence_lines() -> None:
 
     fact = {"key": "mfa.admin_enforced", "value": None, "state": "UNKNOWN"}
     assert evidence_summary_line(fact) == "`mfa.admin_enforced` = `null` → `UNKNOWN`"
-    assert (
-        evidence_from_line(fact, {"quote": None})
-        == "From: No narrative is stored for this fact."
-    )
-    assert (
-        evidence_from_line(fact, {"quote": "Quoted sentence."})
-        == "From: Quoted sentence."
-    )
+    assert evidence_from_line(fact, {"quote": None}) == "From: No narrative is stored for this fact."
+    assert evidence_from_line(fact, {"quote": "Quoted sentence."}) == "From: Quoted sentence."
     with_text = {**fact, "evidence_text": "Human sentence."}
-    assert (
-        evidence_from_line(with_text, {"quote": "Quoted sentence."})
-        == "From: Human sentence."
-    )
+    assert evidence_from_line(with_text, {"quote": "Quoted sentence."}) == "From: Human sentence."
 
 
 def test_p8_queue_row_names_the_case(fake_client: FakeArbiterClient) -> None:
@@ -167,7 +156,8 @@ def test_p8_case_header_reasons_and_controls(fake_client: FakeArbiterClient) -> 
     assert "NOT_A_REAL_CODE" in captions
     assert "NOT_A_REAL_CODE" in _text(at.markdown)
     frames = [frame.value for frame in at.dataframe]
-    control = next(frame for frame in frames if list(frame.columns) == ["Control id", "Name", "Status", "Fact ids"])
+    wanted = ["Control id", "Name", "Status", "Fact ids"]
+    control = next(frame for frame in frames if list(frame.columns) == wanted)
     assert "Rule" not in control.columns
     assert "C01" in set(control["Control id"])
     assert control["Fact ids"].str.contains("F-C01").any()
@@ -298,9 +288,7 @@ def test_p8_audit_verify_count_from_result(fake_client: FakeArbiterClient) -> No
     _button(at, "Verify audit chain").click()
     at.run()
     assert not at.exception
-    assert any(
-        item.value == "Chain intact — 12 entries across all cases" for item in at.success
-    )
+    assert any(item.value == "Chain intact — 12 entries across all cases" for item in at.success)
 
 
 def test_p8_audit_verify_count_from_health(fake_client: FakeArbiterClient) -> None:
@@ -310,9 +298,7 @@ def test_p8_audit_verify_count_from_health(fake_client: FakeArbiterClient) -> No
     _button(at, "Verify audit chain").click()
     at.run()
     assert not at.exception
-    assert any(
-        item.value == "Chain intact — 7 entries across all cases" for item in at.success
-    )
+    assert any(item.value == "Chain intact — 7 entries across all cases" for item in at.success)
 
 
 def test_p8_audit_verify_degrades_when_health_fails(fake_client: FakeArbiterClient) -> None:

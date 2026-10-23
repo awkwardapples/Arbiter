@@ -12,12 +12,55 @@ from ui.components import (
     confidence_gauge,
     control_table,
     decision_badge,
+    humanise_eligibility_reason,
+    humanise_outcome_reason,
+    replay_check_line,
     tier_chip,
     timeline,
 )
 from ui.models import ReviewRequest
 from ui.session import get_client
 from ui.validation import parse_case_input
+
+ASSESSMENT_SPINNER = (
+    "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
+)
+
+
+def _render_eligibility(hint: dict[str, Any]) -> None:
+    reasons = [str(code) for code in hint.get("reasons") or []]
+    if hint.get("eligible") and not reasons:
+        st.success("Eligible to create a precedent")
+        return
+    for code in reasons:
+        st.markdown(f"- {humanise_eligibility_reason(code)}")
+        st.caption(code)
+
+
+def _chain_intact_text(result: dict[str, Any], client: Any) -> str:
+    count = result.get("entries")
+    if isinstance(count, bool) or not isinstance(count, int):
+        try:
+            health = client.health()
+        except ArbiterAPIError:
+            return "Chain intact"
+        count = health.get("audit_chain_length") if isinstance(health, dict) else None
+    if isinstance(count, bool) or not isinstance(count, int):
+        return "Chain intact"
+    return f"Chain intact — {count} entries across all cases"
+
+
+def _render_replay(result: dict[str, Any]) -> None:
+    if result.get("match"):
+        st.success("Match — the decision replays identically")
+    else:
+        st.error("Mismatch — see diff")
+        for item in result.get("diff") or []:
+            st.markdown(f"- {item}")
+    checks = result.get("checks") or {}
+    if isinstance(checks, dict):
+        for key, ok in checks.items():
+            st.markdown(replay_check_line(str(key), bool(ok)))
 
 
 def page_new_assessment() -> None:
@@ -52,7 +95,7 @@ def page_new_assessment() -> None:
     if st.button("Run assessment", type="primary", disabled=case_input is None):
         if case_input is None:
             return
-        with st.spinner("Running assessment…"):
+        with st.spinner(ASSESSMENT_SPINNER):
             try:
                 resp = client.run(case_input)
             except ArbiterAPIError as exc:
@@ -83,10 +126,16 @@ def page_queue() -> None:
             continue
         with st.container(border=True):
             decision_badge(str(item.get("outcome")))
-            st.write(f"{item.get('vendor')} · risk {item.get('residual_risk')} · {item.get('status')}")
+            st.write(
+                f"{item.get('case_id')} · {item.get('vendor')} · "
+                f"risk {item.get('residual_risk')} · {item.get('status')}"
+            )
             tier_chip(str(item.get("tier")))
             if st.button("Open case", key=f"open_{item.get('case_id')}"):
-                st.session_state["nav_case_id"] = item.get("case_id")
+                case_id = item.get("case_id")
+                st.session_state["last_case_id"] = case_id
+                st.session_state["nav_case_id"] = case_id
+                st.switch_page("pages/case.py")
 
 
 def page_case() -> None:
@@ -104,9 +153,13 @@ def page_case() -> None:
         return
     record = detail.get("record", {})
     decision_badge(str(record.get("outcome", "ESCALATE")))
+    for code in record.get("outcome_reasons") or []:
+        reason = str(code)
+        st.markdown(f"- {humanise_outcome_reason(reason)}")
+        st.caption(reason)
     report = detail.get("report") or {}
-    summary = report.get("summary") or " ".join(record.get("outcome_reasons") or [])
-    st.write(summary)
+    if report.get("summary"):
+        st.write(report["summary"])
     conf = record.get("confidence", {})
     confidence_gauge(
         float(conf.get("value", 0)),
@@ -180,9 +233,10 @@ def page_review() -> None:
         )
         try:
             hint = client.submit_review(case_id, body, dry_run=True)
-            st.info(json.dumps(hint))
         except ArbiterAPIError as exc:
             st.warning(exc.message)
+        else:
+            _render_eligibility(hint)
     if st.button("Submit review", type="primary"):
         if len(rationale) < 30:
             st.error("Rationale must be at least 30 characters.")
@@ -234,9 +288,13 @@ def page_audit() -> None:
     if st.button("Verify audit chain"):
         try:
             result = client.audit_verify()
-            st.write(result)
         except ArbiterAPIError as exc:
             st.error(exc.message)
+        else:
+            if result.get("ok"):
+                st.success(_chain_intact_text(result, client))
+            else:
+                st.error(f"Chain broken at sequence {result['first_bad_seq']}")
     try:
         items = client.list_cases()
     except ArbiterAPIError as exc:
@@ -246,7 +304,7 @@ def page_audit() -> None:
         cid = str(item.get("case_id"))
         if st.button(f"Replay {cid}", key=f"replay_{cid}"):
             try:
-                st.json(client.replay(cid))
+                _render_replay(client.replay(cid))
             except ArbiterAPIError as exc:
                 st.error(exc.message)
 
