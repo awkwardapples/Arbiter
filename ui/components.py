@@ -105,10 +105,72 @@ EMPTY_PRECEDENTS = "No precedents were considered for this case."
 NO_CONTRADICTIONS = "No contradictions on this case."
 NO_CONTRACTS = "No contracts were issued for this case."
 ELIGIBILITY_NOTE = "You can still record this review. No precedent will be created."
-ELIGIBLE_TITLE = "This case can create a C05 precedent."
-INELIGIBLE_TITLE = "This case cannot create a precedent."
-REVIEW_EMPTY = "No cases awaiting review — run VND-0011 or VND-0012 first."
+ELIGIBLE_TITLE = (
+    "This case is eligible for a C05 precedent. "
+    "The criteria that the policy requires for an exception are met."
+)
+INELIGIBLE_TITLE = (
+    "This case cannot create a precedent. You can still record a review — "
+    "the human decision is stored on the case — but no exception will be saved to memory. "
+    "The reasons are below."
+)
+REVIEW_EMPTY = (
+    "No cases are currently awaiting review. Cases that reach DECLINE will appear here "
+    "as pending approvals — the policy engine gates those actions on a human sign-off."
+)
 MITIGATION_FACT = "assurance.bridge_letter_current"
+MITIGATION_HELP = (
+    "The fact that the policy checks when applying the precedent. Pre-filled when the case is eligible."
+)
+CONDITIONS_HELP = (
+    "Freeform notes for future reviewers — the renewal deadline, the specific report, "
+    "any commitments the vendor has made. Not evaluated by the policy."
+)
+PRECEDENT_HELP = (
+    "Save this exception to H-MEM. A later case with the same mitigation and conditions "
+    "can reuse this decision."
+)
+C05_HEADING = "About C05 (current independent assurance)"
+EVAL_OFFLINE_CAPTION = (
+    "This is the offline evaluation — the same decision pipeline run without live Nightshift or Zetaris. "
+    "The accuracy is measured against the policy engine's expected outcomes on a labelled set. "
+    "For the live run, see the demo video or the trace logs."
+)
+REPLAY_MATCH_CAPTION = (
+    "A match means the decision replays identically. The policy hash, the record hash, and every "
+    "contract signature all match — nothing has changed since the decision was recorded."
+)
+REPLAY_MISMATCH_CAPTION = (
+    "A mismatch means the decision as stored does not replay identically from its inputs. "
+    "This can happen if the policy engine changed after the decision was recorded, or if the record "
+    "was edited. Check the per-item lines — a policy_hash mismatch is the most common: it means the "
+    "policy file has been updated since this decision. Record_hash and contract_signatures mismatches "
+    "are more serious."
+)
+MEMORY_CASE_CAPTION = (
+    "Pick a case. The policy retrieves precedents that could apply to it, and records the result "
+    "of applying each one. Empty list means the policy considered no precedent for this case."
+)
+LEDGER_CAPTION = (
+    "Ledger — the audit trail for this precedent. create is when the precedent was stored; "
+    "read is when it was retrieved for a case; feedback is when a later case's outcome rated "
+    "this precedent helpful or wrong."
+)
+
+HOW_TO_USE = (
+    "Pick a vendor from the sample set or paste a vendor JSON to start an assessment. "
+    "The pipeline runs the five-agent loop and produces a decision record — outcome, controls, "
+    "evidence, and a signed next action. From the decision you can:\n"
+    "- Open the case to see the full record — the outcome, each control's status and evidence, "
+    "the timeline of the agent loop, and the audit chain.\n"
+    "- Record a human review if the policy gated the decision, and optionally save an exception "
+    "to memory as a precedent.\n"
+    "- Replay the decision to prove it reproduces identically from its inputs.\n"
+    "- Inspect the trace to see every fact and query behind it.\n\n"
+    "Every decision is reproducible, every fact is cited, and every action is a signed contract "
+    "in the audit chain."
+)
+NEW_ASSESSMENT_CAPTION = "Start a new assessment — the full review flow is in How to use this app."
 
 HOW_TO_READ = (
     "The badge is the policy engine's outcome. Each bullet under it is a reason code, "
@@ -120,25 +182,50 @@ HOW_TO_READ = (
 )
 
 REVIEW_INTRO = (
-    "**What this page does.** Record a human decision on the machine outcome. "
-    "Tick **Create precedent** when that decision should be stored in H-MEM for a later case.\n\n"
-    "**A C05 precedent.** C05 is current independent assurance. Creating one needs all four: "
-    "the only failing required control is C05, `assurance.bridge_letter_current` is TRUE, "
-    "the decision is APPROVE or APPROVE_WITH_CONDITIONS, and the reviewer role is at least "
-    "`tprm_lead`. This form sends `tprm_lead`.\n\n"
-    "**Try this.** On New assessment, run **VND-0011** (Marrowgate Analytics). It escalates "
-    "with C05 failing and a current bridge letter. Select that case here, choose "
-    "APPROVE_WITH_CONDITIONS, leave mitigations as `assurance.bridge_letter_current`, "
-    "tick **Create precedent**, and submit. Then run **VND-0012** (Tessellate HR Cloud) "
-    "and open the case. The policy can apply that precedent."
+    "Use this page to record a human decision on a case the policy has flagged. Every assessment "
+    "reaches a deterministic outcome through the policy engine. Review is where a qualified reviewer "
+    "can override that outcome — with a rationale, and optionally an exception saved to memory for "
+    "consistency with later cases.\n\n"
+    "The human decision is stored and becomes part of the case record. If you tick Create precedent, "
+    "the decision is also saved to H-MEM so that a later case with the same mitigations and conditions "
+    "can reuse this reasoning rather than re-deciding from scratch. Tick it when you want this specific "
+    "exception to be applied consistently to future cases.\n\n"
+    "Only certain cases qualify for a precedent. The four requirements are checked when you click "
+    "Check eligibility:\n"
+    "- The mitigation fact must be TRUE in this case's data.\n"
+    "- The failing control must be the one the precedent addresses (C05, current independent assurance).\n"
+    "- No other control that cannot be excepted may also be failing.\n"
+    "- The reviewer's role must meet the policy's authority requirement (tprm_lead for C05).\n\n"
+    "Any case that satisfies the criteria above will be eligible. The Check eligibility button tells "
+    "you whether a selected case is."
+)
+
+C05_EXPLANATION = (
+    "C05 is the control that checks whether the vendor has a current SOC 2 Type II report or "
+    "ISO 27001 certificate — an independent auditor's assessment of their security controls. "
+    "It is the only control where an exception is defensible, because a vendor that is mid-renewal "
+    "can legitimately have a gap covered by a bridge letter. Other controls (encryption, MFA, "
+    "residency, known-vulnerabilities) cannot be excepted, because they either hold or they don't.\n\n"
+    "An exception (precedent) is only allowed when:\n"
+    "- C05 is the specific control that is failing.\n"
+    "- The vendor has a bridge letter confirming renewal within a defined window — recorded as "
+    "fact assurance.bridge_letter_current = TRUE.\n"
+    "- No other non-exception control is failing.\n"
+    "- The reviewer has authority to grant the exception.\n"
+    "The page pre-fills the mitigation key when these are satisfied."
 )
 
 MEMORY_INTRO = (
-    "**What this page does.** Precedents stored in H-MEM, and the trust-ledger lines for each one. "
-    "Pick a case to see which of those precedents the policy considered.\n\n"
-    "**Try this.** Create one from **VND-0011** on the Review page, then come back. "
-    "The ledger should show a `create` line. Open **VND-0012** on the Case page to see "
-    "whether that precedent was applied."
+    "This page shows where Precedents are stored in H-MEM memory, and the trust-ledger lines for "
+    "each one. A precedent is a human exception the system has decided to remember. A case is one "
+    "assessment of one vendor. The policy is the deterministic rulebook that decides outcomes. "
+    "H-MEM is the memory that lets a human reviewer's past decision influence future cases — but "
+    "only when the policy's exception criteria are met.\n\n"
+    "Each row is one precedent: its id, the confidence the system assigns to it, the control it "
+    "addresses (C05), and the ledger of every time it was created, read, or given feedback. "
+    "Confidence starts at 0.70, rises with helpful feedback, and drops with wrong feedback "
+    "(a wrong determination costs 0.20). Select a case below to see which of those precedents "
+    "the policy considered for that case."
 )
 
 ELIGIBILITY_HELD: tuple[tuple[str, str], ...] = (
@@ -147,6 +234,18 @@ ELIGIBILITY_HELD: tuple[tuple[str, str], ...] = (
     ("APPROVE", "The decision is APPROVE or APPROVE_WITH_CONDITIONS"),
     ("tprm_lead", "The reviewer role is high enough"),
 )
+
+
+def split_eval_summary(text: str, mark: str = "Synthetic data. Small n.") -> tuple[str, str]:
+    """Return text through the line containing mark, then the remainder.
+
+    When mark is absent, return the original text and an empty remainder.
+    """
+    lines = text.splitlines(keepends=True)
+    for index, line in enumerate(lines):
+        if mark in line:
+            return "".join(lines[: index + 1]), "".join(lines[index + 1 :])
+    return text, ""
 
 
 def see_raw(payload: object) -> None:

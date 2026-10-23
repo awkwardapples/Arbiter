@@ -10,19 +10,31 @@ import streamlit as st
 from ui.client import ArbiterAPIError
 from ui.components import (
     AUDIT_CAPTION,
+    C05_EXPLANATION,
+    C05_HEADING,
     CAPTION_ACTIONS,
     CAPTION_CONTRADICTIONS,
     CAPTION_COUNTERFACTUALS,
     CAPTION_PRECEDENTS,
     CAPTION_TIMELINE,
+    CONDITIONS_HELP,
     EMPTY_PRECEDENTS,
     EVAL_CAPTION,
+    EVAL_OFFLINE_CAPTION,
     HOW_TO_READ,
+    HOW_TO_USE,
+    LEDGER_CAPTION,
+    MEMORY_CASE_CAPTION,
     MEMORY_INTRO,
     MITIGATION_FACT,
+    MITIGATION_HELP,
+    NEW_ASSESSMENT_CAPTION,
     NO_CONTRACTS,
     NO_CONTRADICTIONS,
+    PRECEDENT_HELP,
     QUEUE_CAPTION,
+    REPLAY_MATCH_CAPTION,
+    REPLAY_MISMATCH_CAPTION,
     REVIEW_EMPTY,
     REVIEW_INTRO,
     confidence_gauge,
@@ -39,6 +51,7 @@ from ui.components import (
     precedent_rows,
     replay_check_line,
     see_raw,
+    split_eval_summary,
     tier_chip,
     timeline,
 )
@@ -110,11 +123,22 @@ def _chain_intact_text(result: dict[str, Any], client: Any) -> str:
     return f"Chain intact — {count} entries across all cases"
 
 
+def _render_eval_markdown(text: str) -> None:
+    head, tail = split_eval_summary(text)
+    st.markdown(head)
+    if "Synthetic data. Small n." in head:
+        st.caption(EVAL_OFFLINE_CAPTION)
+    if tail:
+        st.markdown(tail)
+
+
 def _render_replay(result: dict[str, Any]) -> None:
     if result.get("match"):
         st.success("Match — the decision replays identically")
+        st.caption(REPLAY_MATCH_CAPTION)
     else:
         st.error("Mismatch — see diff")
+        st.caption(REPLAY_MISMATCH_CAPTION)
         for item in result.get("diff") or []:
             st.markdown(f"- {item}")
     checks = result.get("checks") or {}
@@ -125,6 +149,9 @@ def _render_replay(result: dict[str, Any]) -> None:
 
 def page_new_assessment() -> None:
     st.header("New assessment")
+    st.caption(NEW_ASSESSMENT_CAPTION)
+    with st.expander("How to use this app", expanded=False):
+        st.markdown(HOW_TO_USE)
     client = get_client()
     mode = st.radio("Intake", ["Pick vendor", "Paste / upload JSON"], horizontal=True)
     case_input = None
@@ -283,6 +310,8 @@ def page_review() -> None:
     st.header("Review")
     with st.container(border=True):
         st.markdown(REVIEW_INTRO)
+    st.subheader(C05_HEADING)
+    st.markdown(C05_EXPLANATION)
     client = get_client()
     try:
         items = client.list_cases()
@@ -295,23 +324,28 @@ def page_review() -> None:
     ids = [str(i.get("case_id")) for i in items]
     case_id = st.selectbox("Case", ids)
     st.subheader(f"Selected case · {case_id}")
+    check_slot = st.empty()
     decision = st.selectbox(
         "Decision",
         ["APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"],
     )
     rationale = st.text_area("Rationale (min 30 characters)")
     st.caption(f"{len(rationale)} characters")
+    clicked = check_slot.button("Check eligibility")
+    st.markdown("**Eligibility status**")
     hint = _eligibility_hint(client, str(case_id), str(decision), rationale)
+    if clicked:
+        retried = _eligibility_hint(client, str(case_id), str(decision), rationale)
+        if retried is not None:
+            hint = retried
     if hint is not None:
         _show_eligibility(hint)
     mkey = f"review_mitigations_{case_id}"
     if hint is not None and hint.get("eligible") and mkey not in st.session_state:
         st.session_state[mkey] = MITIGATION_FACT
-    mitigations = st.text_input("Mitigations (comma-separated)", key=mkey)
-    conditions = st.text_input("Conditions (comma-separated)")
-    create_precedent = st.checkbox("Create precedent")
-    if create_precedent:
-        st.button("Check eligibility")
+    mitigations = st.text_input("Mitigations (comma-separated)", key=mkey, help=MITIGATION_HELP)
+    conditions = st.text_input("Conditions (comma-separated)", help=CONDITIONS_HELP)
+    create_precedent = st.checkbox("Create precedent", help=PRECEDENT_HELP)
     if st.button("Submit review", type="primary"):
         if len(rationale) < 30:
             st.error("Rationale must be at least 30 characters.")
@@ -334,7 +368,13 @@ def page_review() -> None:
             see_raw(result)
 
 
+def _memory_case_heading() -> None:
+    st.subheader("Precedents considered on a specific case")
+    st.caption(MEMORY_CASE_CAPTION)
+
+
 def _render_memory_case(client: Any, items: list[dict[str, Any]]) -> None:
+    _memory_case_heading()
     ids = [str(item.get("case_id")) for item in items]
     preferred = _preferred_case_id(client, items)
     index = ids.index(preferred) if preferred in ids else 0
@@ -374,6 +414,8 @@ def page_memory() -> None:
         st.dataframe(rows, use_container_width=True, hide_index=True)
     else:
         st.markdown("No precedents are stored yet.")
+    if precedents:
+        st.caption(LEDGER_CAPTION)
     for item in precedents:
         if not isinstance(item, dict):
             continue
@@ -390,6 +432,7 @@ def page_memory() -> None:
     except ArbiterAPIError:
         items = []
     if not items:
+        _memory_case_heading()
         st.selectbox("Precedents considered on case", ["—"])
     else:
         _render_memory_case(client, items)
@@ -440,12 +483,12 @@ def page_evaluation() -> None:
     st.header("Evaluation")
     st.caption(EVAL_CAPTION)
     if EVAL_SUMMARY_PATH.is_file():
-        st.markdown(EVAL_SUMMARY_PATH.read_text(encoding="utf-8"))
+        _render_eval_markdown(EVAL_SUMMARY_PATH.read_text(encoding="utf-8"))
         return
     client = get_client()
     try:
         latest = client.eval_latest()
-        st.markdown(str(latest.get("markdown", latest)))
+        _render_eval_markdown(str(latest.get("markdown", latest)))
     except ArbiterAPIError as exc:
         if exc.status_code == 404:
             st.info("Evaluation results are not published yet.")
