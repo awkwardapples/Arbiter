@@ -247,8 +247,7 @@ def test_p9_review_intro_and_empty_queue(fake_client: FakeArbiterClient) -> None
     assert "VND-" not in blob
     assert (
         "No cases are currently awaiting review. Cases that reach DECLINE will appear here "
-        "as pending approvals — the policy engine gates those actions on a human sign-off."
-        in _text(at.info)
+        "as pending approvals — the policy engine gates those actions on a human sign-off." in _text(at.info)
     )
 
 
