@@ -12,7 +12,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-PASS_IDS = ["0", "1a", "1b", "2a", "2b", "2c", "2d", "3", "4a", "4b", "5a", "5b", "6", "7"]
+PASS_IDS = [
+    *["0", "1a", "1b", "2a", "2b", "2c", "2d", "3", "4a", "4b", "5a", "5b", "6", "7"],
+    *["13", "14a", "14b", "15", "16", "17"],  # Release 2 (docs/spec/release2)
+]
 
 
 def _python() -> str:

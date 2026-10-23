@@ -30,6 +30,12 @@ markers = [
     "p5b: pass 5b eval",
     "p6: pass 6 hardening",
     "p7: pass 7 submission",
+    "p13: release 2 pass 13 zetaris usl",
+    "p14a: release 2 pass 14a decision quality",
+    "p14b: release 2 pass 14b analyst console",
+    "p15: release 2 pass 15 live evidence",
+    "p16: release 2 pass 16 monitoring",
+    "p17: release 2 pass 17 impact and submission",
     "live: requires live services",
     "slow: slow tests",
 ]

@@ -52,6 +52,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Clone Arbiter and run the day-four checks")
     parser.add_argument("repo", nargs="?", help="Git URL to clone")
     parser.add_argument("--local", metavar="PATH", help="Clone this local checkout with git clone --local")
+    parser.add_argument(
+        "--evidence",
+        action="store_true",
+        help="Also write the dated report to docs/passes/ (commit it only when every step passes)",
+    )
     args = parser.parse_args(argv)
     if bool(args.repo) == bool(args.local):
         parser.error("pass a repo URL or --local PATH")
@@ -77,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
     finally:
         subprocess.run(["docker", "rm", "-f", _CONTAINER], capture_output=True, check=False)
         shutil.rmtree(work, ignore_errors=True)
-        _write_report(launch, results)
+        _write_report(launch, results, evidence=args.evidence)
     return 0 if results and all(ok for _n, ok, _detail in results) and len(results) == 8 else 1
 
 
@@ -442,7 +447,7 @@ def _post_json(url: str, payload: bytes) -> dict:
     return body
 
 
-def _write_report(launch: Path, results: list[tuple[int, bool, str]]) -> None:
+def _write_report(launch: Path, results: list[tuple[int, bool, str]], *, evidence: bool = False) -> None:
     by_step = {number: (ok, detail) for number, ok, detail in results}
     lines = ["# Clean clone report", ""]
     for number in range(1, 9):
@@ -452,9 +457,10 @@ def _write_report(launch: Path, results: list[tuple[int, bool, str]]) -> None:
     log = launch / "logs" / "clean-clone-report.md"
     log.parent.mkdir(parents=True, exist_ok=True)
     log.write_text(text, encoding="utf-8")
-    dated = launch / "docs" / "passes" / f"clean-clone-{datetime.now(UTC).strftime('%Y-%m-%d')}.md"
-    dated.parent.mkdir(parents=True, exist_ok=True)
-    dated.write_text(text, encoding="utf-8")
+    if evidence:
+        dated = launch / "docs" / "passes" / f"clean-clone-{datetime.now(UTC).strftime('%Y-%m-%d')}.md"
+        dated.parent.mkdir(parents=True, exist_ok=True)
+        dated.write_text(text, encoding="utf-8")
     print(text)
 
 

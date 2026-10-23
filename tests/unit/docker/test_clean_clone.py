@@ -47,8 +47,8 @@ def test_p4_t18_output_examples_rule(tmp_path: Path) -> None:
 
 def test_p4_t18_clean_clone_local() -> None:
     """P4-T18: clean_clone_check.py --local . passes steps 1-8 when docker is available."""
-    if os.environ.get("DOCKER") == "0" or shutil.which("docker") is None:
-        pytest.skip("clean-clone is opt-in; skip when DOCKER=0 or docker is not on PATH")
+    if os.environ.get("ARBITER_DOCKER_TESTS") != "1" or shutil.which("docker") is None:
+        pytest.skip("clean-clone is opt-in: set ARBITER_DOCKER_TESTS=1 with a running Docker daemon")
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "clean_clone_check.py"), "--local", str(ROOT)],
         cwd=ROOT,

@@ -18,7 +18,7 @@ The output is a replayable, cited decision (APPROVE, APPROVE_WITH_CONDITIONS, RE
 
 1. This file.
 2. `docs/spec/00_MASTER_SPEC.md`: architecture, contracts and invariants.
-3. The pass file you were given: `docs/spec/passes/P<n>_*.md`.
+3. The pass file you were given: `docs/spec/passes/P<n>_*.md` (Release 1) or `docs/spec/release2/P<n>_*.md` (Release 2, passes 13–17; start with `docs/spec/release2/README.md` and `R2_00_ASSESSMENT.md`).
 4. Only the spec sections that pass references: `01_DATA_AND_ZETARIS.md`, `02_POLICY.md`, `03_EVALUATION.md`.
 
 Do not read other pass files. Do not implement anything outside your pass.
