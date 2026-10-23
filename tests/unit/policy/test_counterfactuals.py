@@ -1,4 +1,4 @@
-"""P2-T34: counterfactuals are the failing required controls plus unresolved contradictions."""
+"""P2-T34: one counterfactual per control, with unresolved contradictions merged in."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ pytestmark = pytest.mark.p2c
 
 
 def test_p2_t34_counterfactuals_match_policy() -> None:
-    """P2-T34: non-TRUE required controls and unresolved contradictions, with policy evidence."""
+    """P2-T34: failing controls and unresolved contradictions share one row per control."""
     policy, calibration = load_default()
     facts = facts_from(
         {
@@ -51,32 +51,35 @@ def test_p2_t34_counterfactuals_match_policy() -> None:
         calibration,
     )
     by_control = {control.id: control for control in policy.controls}
-    resolve = "resolve contradiction on "
-    control_rows = [row for row in record.counterfactuals if not row.evidence_required[0].startswith(resolve)]
-    contradiction_rows = [
-        row for row in record.counterfactuals if row.evidence_required[0].startswith(resolve)
-    ]
+    ids = [row.control_id for row in record.counterfactuals]
+    assert len(ids) == len(set(ids))
+    by_id = {row.control_id: row for row in record.counterfactuals}
 
-    assert [row.control_id for row in control_rows] == ["C01", "C03"]
-    c01 = control_rows[0]
+    c01 = by_id["C01"]
     assert c01.from_state == "FALSE"
     assert c01.to_state == "TRUE"
     assert c01.evidence_required == by_control["C01"].evidence_required
     assert c01.question_ids == by_control["C01"].question_ids
-    c03 = control_rows[1]
+    c03 = by_id["C03"]
     assert c03.from_state == "UNKNOWN"
     assert c03.evidence_required == by_control["C03"].evidence_required
     assert c03.question_ids == ["Q04"]
-    assert all(row.control_id != "C07" for row in control_rows)
+    assert "C07" not in by_id
 
-    assert [row.evidence_required for row in contradiction_rows] == [
-        ["resolve contradiction on residency.regions"],
-        ["resolve contradiction on subprocessors.disclosed"],
+    c09 = by_id["C09"]
+    assert c09.evidence_required == [
+        *by_control["C09"].evidence_required,
+        "resolve contradiction on residency.regions",
     ]
-    assert contradiction_rows[0].question_ids == by_control["C09"].question_ids
-    assert contradiction_rows[1].question_ids == by_control["C10"].question_ids
+    assert c09.question_ids == by_control["C09"].question_ids
+    c10 = by_id["C10"]
+    assert c10.evidence_required == [
+        *by_control["C10"].evidence_required,
+        "resolve contradiction on subprocessors.disclosed",
+    ]
+    assert c10.question_ids == by_control["C10"].question_ids
     assert "resolve contradiction on incidents.vendor_reported_24m" not in {
-        row.evidence_required[0] for row in record.counterfactuals
+        item for row in record.counterfactuals for item in row.evidence_required
     }
 
 

@@ -11,7 +11,19 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.cli import audit, data, eval, examples, guard, llm, meta, review, run_case, zetaris  # noqa: E402
+from app.cli import (  # noqa: E402
+    audit,
+    data,
+    dossier,
+    eval,
+    examples,
+    guard,
+    llm,
+    meta,
+    review,
+    run_case,
+    zetaris,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -30,6 +42,7 @@ def main(argv: list[str] | None = None) -> int:
     run_case.register(sub)
     review.register(sub)
     audit.register(sub)
+    dossier.register(sub)
     eval.register(sub)
     examples.register(sub)
 

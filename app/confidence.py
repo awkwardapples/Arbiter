@@ -40,11 +40,15 @@ def compute(
         if tier in c.required_for
         and (c.applies_when is None or evaluate(policy.conditions[c.applies_when], index) != "FALSE")
     ]
-    covered = sum(
-        1
-        for c in required
-        if any(key in index and _verified(index[key], warned) for key in referenced_keys(c.rule))
-    )
+    unknown: list[str] = []
+    covered = 0
+    for control in required:
+        control_state = evaluate(control.rule, index)
+        cited = [index[key] for key in referenced_keys(control.rule) if key in index]
+        if control_state == "UNKNOWN":
+            unknown.append(control.id)
+        if control_state in {"TRUE", "FALSE"} and all(_verified(fact, warned) for fact in cited):
+            covered += 1
     coverage = covered / len(required) if required else 1.0
     grounded = [c for c in state.claims if c.grounded]
     grounding = len(grounded) / len(state.claims) if state.claims else 1.0
@@ -66,5 +70,9 @@ def compute(
     }
     value = sum(calibration.weights.get(name, 0.0) * score for name, score in signals.items())
     return ConfidenceBreakdown(
-        value=round(value, 4), gate=calibration.gate(tier), abstained=False, signals=signals
+        value=round(value, 4),
+        gate=calibration.gate(tier),
+        abstained=False,
+        signals=signals,
+        unknown_controls=unknown,
     )

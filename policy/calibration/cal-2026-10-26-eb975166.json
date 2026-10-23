@@ -1,0 +1,39 @@
+{
+  "calibration_results": {
+    "correct": 17,
+    "n": 17,
+    "per_tier": {
+      "T1": {
+        "correct": 3,
+        "gate": 0.95,
+        "n": 3
+      },
+      "T2": {
+        "correct": 5,
+        "gate": 0.95,
+        "n": 5
+      },
+      "T3": {
+        "correct": 9,
+        "gate": 0.95,
+        "n": 9
+      }
+    },
+    "unsafe_approvals": 0
+  },
+  "gates": {
+    "T1": 0.95,
+    "T2": 0.95,
+    "T3": 0.95
+  },
+  "objective": "maximise accuracy subject to zero unsafe approvals; ties take the higher gate; weights are fixed a priori",
+  "split_sha256": "eb975166ee624fdc1a66a8680932efe614dc924c00305d50e264d0f7022764b5",
+  "version": "cal-2026-10-26-eb975166",
+  "weights": {
+    "contradiction_free": 0.15,
+    "coverage": 0.3,
+    "grounding": 0.25,
+    "precedent_alignment": 0.15,
+    "source_health": 0.15
+  }
+}

@@ -9,9 +9,9 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
-from app.labels import question_text
 from fastapi.testclient import TestClient
 
+from app.labels import question_text
 from app.orchestrator import RunOptions, run
 from app.store import Store
 from tests.e2e.support import EXAMPLE_FILES, expected, load_example, trace
@@ -93,7 +93,8 @@ def test_p14a_t5_example_2_brief_is_plain_english(example_runs: dict) -> None:
     assert "CTR-30007" in prose
     assert "FortiOS" in prose
     kev = next(fact.value for fact in bundle.decision.facts if fact.key == "vuln.kev_matches")
-    assert str(kev) in prose
+    shown = str(int(kev)) if isinstance(kev, float) and kev.is_integer() else str(kev)
+    assert shown in prose
     assert _CODE.search(brief.headline) is None
     for point in brief.why:
         assert _CODE.search(point.text) is None

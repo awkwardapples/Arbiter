@@ -14,38 +14,60 @@ def compute_counterfactuals(
     contradictions: list[Contradiction],
     policy: Policy,
 ) -> list[Counterfactual]:
+    """One counterfactual per control. Contradiction text is merged into that control."""
     by_id = {control.id: control for control in policy.controls}
     state_by_id = {control.control_id: control.state for control in controls}
-    rows: list[Counterfactual] = []
+    rows: dict[str, Counterfactual] = {}
+    order: list[str] = []
+
+    def ensure(control_id: str) -> Counterfactual:
+        existing = rows.get(control_id)
+        if existing is not None:
+            return existing
+        spec = by_id.get(control_id)
+        row = Counterfactual(
+            control_id=control_id,
+            from_state=state_by_id.get(control_id, "FALSE"),
+            to_state="TRUE",
+            evidence_required=list(spec.evidence_required) if spec is not None else [],
+            question_ids=list(spec.question_ids) if spec is not None else [],
+        )
+        rows[control_id] = row
+        order.append(control_id)
+        return row
+
     for control in controls:
         if control.state == "TRUE" or not control.required:
             continue
-        spec = by_id[control.control_id]
-        rows.append(
-            Counterfactual(
-                control_id=control.control_id,
-                from_state=control.state,
-                to_state="TRUE",
-                evidence_required=list(spec.evidence_required),
-                question_ids=list(spec.question_ids),
-            )
-        )
+        ensure(control.control_id)
     unresolved = sorted(
         (item for item in contradictions if not item.resolved),
         key=lambda item: (item.key, item.claim_id),
     )
     for item in unresolved:
+        row = ensure(item.control_id)
         spec = by_id.get(item.control_id)
-        rows.append(
-            Counterfactual(
-                control_id=item.control_id,
-                from_state=state_by_id.get(item.control_id, "FALSE"),
-                to_state="TRUE",
-                evidence_required=[f"resolve contradiction on {item.key}"],
-                question_ids=list(spec.question_ids) if spec is not None else [],
-            )
+        question_ids = list(spec.question_ids) if spec is not None else []
+        rows[item.control_id] = row.model_copy(
+            update={
+                "evidence_required": _dedupe(
+                    [*row.evidence_required, f"resolve contradiction on {item.key}"]
+                ),
+                "question_ids": _dedupe([*row.question_ids, *question_ids]),
+            }
         )
-    return rows
+    return [rows[control_id] for control_id in order]
+
+
+def _dedupe(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for item in items:
+        if item in seen:
+            continue
+        seen.add(item)
+        ordered.append(item)
+    return ordered
 
 
 def fragile_controls(controls: list[ControlResult], facts: list[Fact]) -> list[str]:

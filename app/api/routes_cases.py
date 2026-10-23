@@ -5,11 +5,14 @@ from __future__ import annotations
 import json
 from datetime import datetime
 from pathlib import Path
+from typing import Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
+from fastapi.responses import Response
 from pydantic import BaseModel
 
 from app.audit.replay import ReplayResult, replay
+from app.dossier import render
 from app.errors import NotFound, ParseFailure
 from app.schemas.contract import ExecutionContract
 from app.schemas.decision import DecisionRecord
@@ -100,3 +103,13 @@ def get_trace(case_id: str) -> list[dict]:
 @router.post("/{case_id}/replay")
 def replay_case(case_id: str) -> ReplayResult:
     return replay(case_id, store=_store())
+
+
+@router.get("/{case_id}/dossier")
+def get_dossier(
+    case_id: str,
+    dossier_format: Literal["md", "html"] = Query(default="md", alias="format"),
+) -> Response:
+    body = render(_store().get(case_id), dossier_format)
+    media = "text/markdown" if dossier_format == "md" else "text/html"
+    return Response(content=body, media_type=media)
