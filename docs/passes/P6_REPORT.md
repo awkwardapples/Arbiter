@@ -6,7 +6,7 @@ Built on `p6-harden`. `python scripts/tasks.py verify-pass --pass 6` is green (1
 
 - `python run.py examples` runs each `input_examples/example_*.json` through `orchestrator.run` with `ARBITER_MEMORY=off`, a fresh temporary `var/`, `SAMPLE_MODE=true`, and `LLM_PROVIDER=offline`. It writes `output_examples/<name>_output.json` and adds `logs/examples/trace-<run_id>.jsonl`. It does not delete older traces. `--live` is implemented and was not used for the committed files.
 - `python run.py assess` calls `orchestrator.run` and prints the `RunResponse` JSON that `POST /run` returns. `--llm` is optional, so `LLM_PROVIDER` in the environment is kept. Clean-clone step 7 now passes as `run.py assess`.
-- `scripts/check_metadata.py` checks the playbook shape, that every cited sponsor path exists, that `track` is `Reasoning Architecture` and appears in the README, and that each top-level `models` id appears in `logs/examples`. NVIDIA catalog ids are not required to appear in traces.
+- `scripts/check_metadata.py` checks the playbook shape, that every cited sponsor path exists, that `track` is `Reasoning Architecture` and appears in the README, and that `models` is a non-empty list. When an example trace attributes a model (`provider` other than `offline`, or a non-null `model`), each `models` id must appear in `logs/examples`. NVIDIA catalog ids under `sponsor_technologies.nvidia.models` are not required to appear in traces.
 - README in the pass §5 order, `docs/ARCHITECTURE.md` (six mermaid diagrams), `docs/SPONSORS.md` (file paths and verbatim trace lines), `docs/DEMO_SCRIPT.md`, `docs/trace_schema.json` from `TraceEvent.model_json_schema()`, `metadata.json`, and `docs/CURSOR_USAGE.md`.
 - Clean-clone step 1 requires at least three files in `output_examples/` and fails if the directory is missing. Step 3 publishes the container on a free host port and checks that each response `run_id` has a trace under `/app/logs` in the container.
 - `scripts/scan_secrets.py --history` now applies `.secrets-allowlist`, which the tree scan already did. Fixture files that the assignment pattern flags were added to that list.
@@ -53,7 +53,12 @@ Step 3 did not use host port 8000. The public URL `https://github.com/awkwardapp
 - `scripts/tasks.py` `e2e-sample` is still the P0 stub. Out of scope for P6.
 - `.env.example` was reviewed against master spec §10. Every variable already has a comment. No edit.
 - `data/README.md`, `vendor/meterless/NOTICE.md`, and `NOTICE-scout.md` were reviewed. They already label synthetic data, CC0 KEV, and Apache-2.0. No edit.
-- `metadata.models` is `[]`, copied from `eval/results/20261022T080517661769Z/env.json`. The DBIR 48% figure is in the README with the Verizon PDF and news URL. It matches those pages (48%, up from 30%).
+- `metadata.models` records this checkout's `METERLESS_MODEL_FAST` (`meterless/fast`) and `METERLESS_MODEL_DEEP` (`nvidia/nemotron-3-super-120b-a12b` from `.env`). The code default for deep is `meterless/deep`. A clone without the override follows Nightshift's `meterless/auto` routing to `nvidia/nemotron-3.5-lightning-30b-a3b` (Day-0 capture). The DBIR 48% figure is in the README with the Verizon PDF and news URL. It matches those pages (48%, up from 30%).
+- metadata.models test now permits empty model ids in offline traces because provider=offline records no model attribution. It still asserts the configured ids when a run is live.
+
+## Known gaps
+
+metadata.models records the METERLESS_MODEL_FAST and METERLESS_MODEL_DEEP values from the running configuration (.env). The code default for METERLESS_MODEL_DEEP is meterless/deep; this project overrides it to nvidia/nemotron-3-super-120b-a12b via .env. A clone without that override will route deep via meterless/auto (Nightshift's default routing), which lands on nvidia/nemotron-3.5-lightning-30b-a3b. The offline eval uses provider=offline and records no model ids in env.json by design; model attribution in metadata.json is config-derived, not run-derived.
 
 ## Commands
 

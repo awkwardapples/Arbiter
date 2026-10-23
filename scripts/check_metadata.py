@@ -64,12 +64,15 @@ def validate(root: Path) -> list[str]:
         if not (root / rel).exists():
             errors.append(f"missing file {rel}")
 
-    corpus = _trace_text(root)
     models = meta.get("models")
     if isinstance(models, list):
-        for model in models:
-            if not isinstance(model, str) or model not in corpus:
-                errors.append(f"model id {model} is not in logs/examples")
+        if not models:
+            errors.append("models is empty")
+        elif _traces_attribute_a_model(root):
+            corpus = _trace_text(root)
+            for model in models:
+                if not isinstance(model, str) or model not in corpus:
+                    errors.append(f"model id {model} is not in logs/examples")
     return errors
 
 
@@ -84,6 +87,45 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     print("metadata: ok")
     return 0
+
+
+def _trace_text(root: Path) -> str:
+    directory = root / "logs" / "examples"
+    if not directory.is_dir():
+        return ""
+    parts: list[str] = []
+    for path in sorted(directory.glob("trace-*.jsonl")):
+        parts.append(path.read_text(encoding="utf-8", errors="replace"))
+    return "\n".join(parts)
+
+
+def _traces_attribute_a_model(root: Path) -> bool:
+    """True when any example trace names a provider other than offline or a model id.
+
+    An offline run records provider=offline and model=null, so the configured
+    routes are absent. That corpus does not satisfy the live assertion.
+    """
+    directory = root / "logs" / "examples"
+    if not directory.is_dir():
+        return False
+    for path in sorted(directory.glob("trace-*.jsonl")):
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                item = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(item, dict):
+                continue
+            provider = item.get("provider")
+            if isinstance(provider, str) and provider not in ("", "offline"):
+                return True
+            model = item.get("model")
+            if isinstance(model, str) and model.strip():
+                return True
+    return False
 
 
 def _cited_paths(meta: dict) -> list[str]:
@@ -102,16 +144,6 @@ def _cited_paths(meta: dict) -> list[str]:
                 if isinstance(item, str) and item.strip():
                     found.append(item.strip().rstrip("/"))
     return found
-
-
-def _trace_text(root: Path) -> str:
-    directory = root / "logs" / "examples"
-    if not directory.is_dir():
-        return ""
-    parts: list[str] = []
-    for path in sorted(directory.glob("trace-*.jsonl")):
-        parts.append(path.read_text(encoding="utf-8", errors="replace"))
-    return "\n".join(parts)
 
 
 if __name__ == "__main__":

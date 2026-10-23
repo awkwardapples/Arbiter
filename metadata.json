@@ -54,7 +54,7 @@
       "files": ["AGENTS.md", ".cursor/rules", ".cursor/commands", ".cursor/hooks.json", ".cursor/plans", "docs/CURSOR_USAGE.md"]
     }
   },
-  "models": [],
+  "models": ["meterless/fast", "nvidia/nemotron-3-super-120b-a12b"],
   "data": {
     "synthetic": true,
     "public": [

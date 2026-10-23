@@ -252,13 +252,15 @@ These numbers are offline. They are not a live Nightshift run.
 
 ## Sponsor technology
 
-Zetaris is the SQL access point for the five synthetic enterprise systems and the public KEV feed. Meterless Nightshift is the model runtime, H-MEM holds governed precedents, and the Scout subset screens untrusted text and signs actions. NVIDIA Nemotron is the model family configured for the Nightshift lanes and the direct fallback. The project was built in Cursor. File paths and trace lines are in [docs/SPONSORS.md](docs/SPONSORS.md).
+Zetaris is the SQL access point for the five synthetic enterprise systems and the public KEV feed. Meterless Nightshift is the model runtime, H-MEM holds governed precedents, and the Scout subset screens untrusted text and signs actions. NVIDIA Nemotron is the model family Nightshift serves and the direct fallback. Which id the deep lane returns depends on `METERLESS_MODEL_DEEP` and on Nightshift's routing, described below. The project was built in Cursor. File paths and trace lines are in [docs/SPONSORS.md](docs/SPONSORS.md).
 
 What is specific to this design: the policy decides and models do not; the Evaluator re-checks the vendor against systems of record; a precedent can change an outcome only through a policy exception and a human approval; every outbox action carries a signed contract and a decision can be replayed from the audit log.
 
 ## AI and model usage
 
-The committed examples and the published eval ran with the offline deterministic fallback. No model id was returned on those traces (`model` is null, `provider` is `offline`). Live runs are configured to call Meterless Nightshift (`meterless/fast`, `meterless/deep`), which routes to NVIDIA Nemotron. The direct fallback uses `nvidia/nemotron-3.5-lightning-30b-a3b` and `nvidia/nemotron-3-super-120b-a12b` as configured in `.env.example`. Those catalog ids are not claimed as ids observed in the committed traces.
+The committed examples and the published eval ran with the offline deterministic fallback. No model id was returned on those traces (`model` is null, `provider` is `offline`).
+
+`metadata.json` `models` records `METERLESS_MODEL_FAST` and `METERLESS_MODEL_DEEP` from this checkout's running configuration: `meterless/fast` and `nvidia/nemotron-3-super-120b-a12b`. The code default for `METERLESS_MODEL_DEEP` is `meterless/deep` (`app/config.py`, `.env.example`). This project overrides that default in `.env` to `nvidia/nemotron-3-super-120b-a12b`. A clone without that override sends `meterless/deep`. Nightshift's default routing for that disposition is `meterless/auto`, which lands on `nvidia/nemotron-3.5-lightning-30b-a3b`. That mapping is the Day-0 capture in `docs/DAY0_CHECKS.md` and `docs/passes/P2-B_REPORT.md`. The direct-fallback names in `.env.example` (`NVIDIA_MODEL_FAST`, `NVIDIA_MODEL_DEEP`) are `nvidia/nemotron-3.5-lightning-30b-a3b` and `nvidia/nemotron-3-super-120b-a12b`. None of these ids were observed in the committed traces. Agent `route` fields name the fast or deep lane. The string sent to Nightshift is the settings value, not the lane name.
 
 No agent framework. Coordination is the state machine in `app/orchestrator.py`.
 

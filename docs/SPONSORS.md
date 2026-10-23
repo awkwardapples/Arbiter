@@ -18,7 +18,7 @@ A DQ failure is query `Q_DQ_INVALID` in `app/data/queries.yaml`. The Quillfeathe
 
 ## Meterless Nightshift
 
-Every model call goes through `app/llm/generator.py`. The Nightshift provider is `app/llm/providers/meterless.py` (discovery on `/v1/models`, routes `meterless/fast` and `meterless/deep`). If Nightshift is down, resolution tries NVIDIA direct (`app/llm/providers/nvidia.py`) and then `app/llm/providers/offline.py`.
+Every model call goes through `app/llm/generator.py`. The Nightshift provider is `app/llm/providers/meterless.py` (discovery on `/v1/models`). It sends `METERLESS_MODEL_FAST` and `METERLESS_MODEL_DEEP` from settings. The code defaults are `meterless/fast` and `meterless/deep`. This checkout's `.env` sets the deep value to `nvidia/nemotron-3-super-120b-a12b`. A clone without that override sends `meterless/deep`, which Nightshift routes through `meterless/auto` to `nvidia/nemotron-3.5-lightning-30b-a3b` (`docs/DAY0_CHECKS.md`). If Nightshift is down, resolution tries NVIDIA direct (`app/llm/providers/nvidia.py`) and then `app/llm/providers/offline.py`.
 
 The committed examples forced the offline provider. The planner line records that. It is not a Nightshift call:
 
@@ -26,7 +26,7 @@ The committed examples forced the offline provider. The planner line records tha
 {"timestamp":"2026-10-23T01:03:17.355806Z","run_id":"run-3d6b7460d393","trace_id":"run-3d6b7460d393","span_id":"6b883f43db174676","parent_span_id":null,"agent_name":"PlannerAgent","action":"plan","input_summary":"iteration=1 required=7","output_summary":"7 queries: Q_VENDOR_ALIASES,Q_WATCHLIST_SCREEN,Q_WATCHLIST_ALL,Q_SUBMISSION,Q_SUBMISSION_ANSWERS,Q_SUBMISSION_DOCUMENTS,Q_VENDOR_COMPONENTS","target_agent":"EvidenceAgent","confidence":null,"retry_count":0,"status":"success","provider":"offline","route":null,"model":null,"latency_ms":null,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":1,"mode":{"data":"duckdb","llm":"offline"}}
 ```
 
-`model` is null. `metadata.json` therefore lists no runtime model ids. The NVIDIA catalog ids in that file are the configured fallback names, not ids returned by a runtime on these traces.
+`model` is null on this trace. `metadata.json` `models` records this checkout's `METERLESS_MODEL_FAST` and `METERLESS_MODEL_DEEP`: `meterless/fast` and `nvidia/nemotron-3-super-120b-a12b`. Those values come from `.env`, not from this run, and not from the code default `meterless/deep`. The NVIDIA catalog ids under `sponsor_technologies.nvidia.models` are the direct-fallback names in `.env.example`.
 
 ## Meterless H-MEM
 
@@ -60,7 +60,7 @@ The Challenger cannot approve. On the same run it escalates:
 
 ## NVIDIA
 
-Configured model ids, in `.env.example`, are `nvidia/nemotron-3.5-lightning-30b-a3b` (fast) and `nvidia/nemotron-3-super-120b-a12b` (deep). Live traffic is meant to reach them through Nightshift. The direct client is `app/llm/providers/nvidia.py`. No committed example trace contains those ids. The offline planner line quoted above is the evidence for how this sample run was labelled.
+`.env.example` sets the direct-fallback ids to `nvidia/nemotron-3.5-lightning-30b-a3b` (`NVIDIA_MODEL_FAST`) and `nvidia/nemotron-3-super-120b-a12b` (`NVIDIA_MODEL_DEEP`). The direct client is `app/llm/providers/nvidia.py`. Nightshift is separate. With the code default `meterless/deep`, the Day-0 capture routed through `meterless/auto` and returned `nvidia/nemotron-3.5-lightning-30b-a3b`, not the Super id. This checkout overrides `METERLESS_MODEL_DEEP` in `.env` to `nvidia/nemotron-3-super-120b-a12b`. No committed example trace contains those ids. The offline planner line quoted above is the evidence for how this sample run was labelled.
 
 ## Cursor
 
