@@ -83,7 +83,8 @@ def scan_tree(paths: list[Path], allow_globs: list[str]) -> list[str]:
     return messages
 
 
-def scan_history() -> list[str]:
+def scan_history(allow_globs: list[str] | None = None) -> list[str]:
+    allow = allow_globs or []
     proc = subprocess.run(
         ["git", "log", "-p", "--no-color"],
         cwd=ROOT,
@@ -98,6 +99,8 @@ def scan_history() -> list[str]:
     for line in proc.stdout.splitlines():
         if line.startswith("+++ b/"):
             current_file = line[6:]
+            continue
+        if _allowed(current_file, allow):
             continue
         for name, pattern in SECRET_REGEXES:
             m = pattern.search(line)
@@ -119,7 +122,7 @@ def main(argv: list[str] | None = None) -> int:
     paths = [Path(p).resolve() for p in args.paths]
     messages = scan_tree(paths, allow)
     if args.history:
-        messages.extend(scan_history())
+        messages.extend(scan_history(allow))
 
     if messages:
         for msg in messages:

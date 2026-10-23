@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Clean-clone check from the submission playbook §6.
 
-`output_examples/` is a labelled waiver until P6: a missing directory passes, a
-directory with fewer than three files fails.
+`output_examples/` must contain at least three files. The container is published
+on a free host port so a dev server on 8000 cannot answer the sample posts.
 """
 
 from __future__ import annotations
@@ -11,6 +11,7 @@ import argparse
 import json
 import os
 import shutil
+import socket
 import subprocess
 import sys
 import tempfile
@@ -23,21 +24,27 @@ _ROOT = Path(__file__).resolve().parents[1]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-_FEW = "output_examples/ exists but has fewer than 3 files; P6 populates this directory."
+_NEED = "output_examples/ needs at least 3 files"
 _OUTCOMES = {"APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"}
 _CONTAINER = "arbiter-clean-clone"
 _IMAGE = "arbiter-check"
 _TRACE_POLLS = 20
 _TRACE_POLL_SECONDS = 0.5
+_host_port: int | None = None
+
+
+def choose_host_port() -> int:
+    """Bind port 0 and release it. The next docker publish uses that host port."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.bind(("127.0.0.1", 0))
+        return int(sock.getsockname()[1])
 
 
 def classify_output_examples(root: Path) -> tuple[bool, str]:
     directory = root / "output_examples"
-    if not directory.exists():
-        return True, "waiver: output_examples/ absent until P6"
     files = [path for path in directory.iterdir() if path.is_file()] if directory.is_dir() else []
     if len(files) < 3:
-        return False, _FEW
+        return False, _NEED
     return True, "ok"
 
 
@@ -117,9 +124,22 @@ def _step_build(clone: Path) -> tuple[bool, str]:
 
 
 def _step_docker(clone: Path) -> tuple[bool, str]:
+    global _host_port
+    _host_port = choose_host_port()
     subprocess.run(["docker", "rm", "-f", _CONTAINER], capture_output=True, check=False)
     proc = subprocess.run(
-        ["docker", "run", "-d", "--name", _CONTAINER, "-p", "8000:8000", "-e", "SAMPLE_MODE=true", _IMAGE],
+        [
+            "docker",
+            "run",
+            "-d",
+            "--name",
+            _CONTAINER,
+            "-p",
+            f"{_host_port}:8000",
+            "-e",
+            "SAMPLE_MODE=true",
+            _IMAGE,
+        ],
         capture_output=True,
         text=True,
         check=False,
@@ -130,15 +150,23 @@ def _step_docker(clone: Path) -> tuple[bool, str]:
         return False, "health check timed out"
     expected = json.loads((clone / "input_examples" / "expected.json").read_text(encoding="utf-8"))
     seen: list[str] = []
+    run_ids: list[str] = []
     for name, spec in sorted(expected.items()):
-        body = _post_json("http://127.0.0.1:8000/run", (clone / "input_examples" / name).read_bytes())
+        body = _post_json(f"{_base()}/run", (clone / "input_examples" / name).read_bytes())
         decision = body.get("output", {}).get("decision")
         if decision != spec["outcome"]:
             return False, f"{name}: {decision} != {spec['outcome']}"
+        run_id = body.get("run_id")
+        if not isinstance(run_id, str) or not run_id:
+            return False, f"{name}: response had no run_id"
+        run_ids.append(run_id)
         seen.append(json.dumps(body.get("output"), sort_keys=True))
     if len(set(seen)) != len(seen):
         return False, "outputs were not distinct"
-    return True, f"{len(seen)} examples matched"
+    missing = [run_id for run_id in run_ids if not _trace_in_container(run_id)]
+    if missing:
+        return False, f"trace-{missing[0]}.jsonl was not in the container /app/logs"
+    return True, f"{len(seen)} examples matched on host port {_host_port}"
 
 
 def _jsonl_complete(path: Path) -> bool:
@@ -236,7 +264,7 @@ def _step_novel() -> tuple[bool, str]:
             "answers": [{"question_id": "Q01", "question": "Is MFA enforced?", "answer_text": "Yes."}],
         }
     }
-    body = _post_json("http://127.0.0.1:8000/run", json.dumps(payload).encode("utf-8"))
+    body = _post_json(f"{_base()}/run", json.dumps(payload).encode("utf-8"))
     decision = body.get("output", {}).get("decision")
     if body.get("status") not in {"success", "partial_success", "escalated", "error"}:
         return False, f"status {body.get('status')}"
@@ -366,11 +394,33 @@ print(resp.output.decision)
 """
 
 
+def _base() -> str:
+    if _host_port is None:
+        raise RuntimeError("host port was not chosen")
+    return f"http://127.0.0.1:{_host_port}"
+
+
+def _trace_in_container(run_id: str) -> bool:
+    path = f"/app/logs/trace-{run_id}.jsonl"
+    for attempt in range(_TRACE_POLLS):
+        probe = subprocess.run(
+            ["docker", "exec", _CONTAINER, "test", "-s", path],
+            capture_output=True,
+            check=False,
+        )
+        if probe.returncode == 0:
+            return True
+        if attempt + 1 < _TRACE_POLLS:
+            time.sleep(_TRACE_POLL_SECONDS)
+    return False
+
+
 def _wait_health() -> bool:
     deadline = time.monotonic() + 90
+    health = f"{_base()}/health"
     while time.monotonic() < deadline:
         try:
-            with urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=3) as resp:
+            with urllib.request.urlopen(health, timeout=3) as resp:
                 if resp.status == 200:
                     return True
         except Exception:
