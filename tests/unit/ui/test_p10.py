@@ -13,10 +13,7 @@ from tests.unit.ui.test_pages_smoke import ROOT, _run_page
 pytestmark = pytest.mark.p5a
 
 _BANNED = ("VND-", "CASE-", "Marrowgate", "Tessellate", "Try this")
-_REVIEW_EMPTY = (
-    "No cases are currently awaiting review. Cases that reach DECLINE will appear here "
-    "as pending approvals — the policy engine gates those actions on a human sign-off."
-)
+_REVIEW_EMPTY = "No cases awaiting review."
 _MITIGATION_HELP = (
     "The fact that the policy checks when applying the precedent. Pre-filled when the case is eligible."
 )
@@ -28,20 +25,8 @@ _PRECEDENT_HELP = (
     "Save this exception to H-MEM. A later case with the same mitigation and conditions "
     "can reuse this decision."
 )
-_ELIGIBLE = (
-    "This case is eligible for a C05 precedent. "
-    "The criteria that the policy requires for an exception are met."
-)
-_INELIGIBLE = (
-    "This case cannot create a precedent. You can still record a review — "
-    "the human decision is stored on the case — but no exception will be saved to memory. "
-    "The reasons are below."
-)
-_OFFLINE_CAPTION = (
-    "This is the offline evaluation — the same decision pipeline run without live Nightshift or Zetaris. "
-    "The accuracy is measured against the policy engine's expected outcomes on a labelled set. "
-    "For the live run, see the demo video or the trace logs."
-)
+_ELIGIBLE = "Eligible for C05 precedent."
+_INELIGIBLE = "Not eligible for precedent."
 
 
 def _text(elements) -> str:
@@ -51,13 +36,12 @@ def _text(elements) -> str:
 def test_p10_new_assessment_how_to_use(fake_client: FakeArbiterClient) -> None:
     at = _run_page("New assessment", "pages/new_assessment.py", client=fake_client)
     assert not at.exception
-    guide = next(item for item in at.expander if item.label == "How to use this app")
-    assert guide.proto.expanded is False
-    assert "Start a new assessment — the full review flow is in How to use this app." in _text(at.caption)
-    blob = _text(at.markdown)
-    assert "The pipeline runs the five-agent loop" in blob
-    assert "Every decision is reproducible, every fact is cited" in blob
-    assert "VND-" not in blob
+    assert not any("How to" in item.label for item in at.expander)
+    assert (
+        "Start an assessment on a vendor. The pipeline runs the agent loop and produces a decision record."
+        in _text(at.caption)
+    )
+    assert "VND-" not in _text(at.caption)
 
 
 def test_p10_ui_sources_name_no_sample_vendor() -> None:
@@ -82,15 +66,13 @@ def test_p10_split_eval_summary() -> None:
 def test_p10_review_copy_and_tooltips(fake_client: FakeArbiterClient) -> None:
     at = _run_page("Review", "pages/review.py", client=fake_client)
     assert not at.exception
-    blob = _text(at.markdown)
-    assert "Every assessment reaches a deterministic outcome through the policy engine." in blob
-    assert "Any case that satisfies the criteria above will be eligible." in blob
-    assert "Eligibility status" in blob
-    assert "VND-" not in blob
-    assert any(item.value == "About C05 (current independent assurance)" for item in at.subheader)
-    assert any(item.label == "Check eligibility" for item in at.button)
-    mitigations = next(item for item in at.text_input if item.label.startswith("Mitigations"))
-    conditions = next(item for item in at.text_input if item.label.startswith("Conditions"))
+    captions = _text(at.caption)
+    assert "Record a reviewer decision on a pending case." in captions
+    assert "VND-" not in captions
+    assert not any(item.value == "About C05 (current independent assurance)" for item in at.subheader)
+    assert not any(item.label == "Check eligibility" for item in at.button)
+    mitigations = next(item for item in at.multiselect if item.label.startswith("Mitigations"))
+    conditions = next(item for item in at.multiselect if item.label.startswith("Conditions"))
     precedent = next(item for item in at.checkbox if item.label == "Create precedent")
     assert mitigations.help == _MITIGATION_HELP
     assert conditions.help == _CONDITIONS_HELP
@@ -109,11 +91,11 @@ def test_p10_check_eligibility_requests_a_fresh_dry_run(fake_client: FakeArbiter
     at = _run_page("Review", "pages/review.py", client=fake_client)
     assert not at.exception
     assert calls and all(calls)
+    assert not any(button.label == "Check eligibility" for button in at.button)
     before = len(calls)
-    next(button for button in at.button if button.label == "Check eligibility").click()
     at.run()
     assert not at.exception
-    assert len(calls) >= before + 2
+    assert len(calls) >= before + 1
     assert all(calls)
 
 
@@ -136,9 +118,8 @@ def test_p10_review_eligibility_titles(fake_client: FakeArbiterClient) -> None:
     fake_client.submit_review = ineligible  # type: ignore[method-assign]
     amber = _run_page("Review", "pages/review.py", client=fake_client)
     assert not amber.exception
-    warn = _text(amber.warning)
-    assert _INELIGIBLE in warn
-    assert "mitigation_not_true" in warn
+    assert _INELIGIBLE in _text(amber.warning)
+    assert "mitigation_not_true" in _text(amber.markdown)
 
 
 def test_p10_review_empty_names_no_vendor(fake_client: FakeArbiterClient) -> None:
@@ -173,14 +154,13 @@ def test_p10_memory_copy(fake_client: FakeArbiterClient) -> None:
     blob = _text(at.markdown)
     captions = _text(at.caption)
     visible = blob + captions
-    assert "A precedent is a human exception the system has decided to remember." in blob
-    assert "Confidence starts at 0.70" in blob
+    assert any(item.value == "Precedents" for item in at.title)
+    assert "Human exceptions saved to H-MEM." in captions
     assert "Try this" not in visible
     assert "VND-" not in visible
     assert "[object Object]" not in visible
-    assert any(item.value == "Precedents considered on a specific case" for item in at.subheader)
-    assert "Empty list means the policy considered no precedent for this case." in captions
-    assert "create is when the precedent was stored" in captions
+    assert any(item.value == "Precedents considered on a case" for item in at.subheader)
+    assert "Select a case to see which precedents the policy retrieved for it." in captions
     assert f"create · MemoryKeeper · mem-1 · {when}" in blob
 
 
@@ -192,11 +172,11 @@ def test_p10_audit_replay_captions(fake_client: FakeArbiterClient) -> None:
         return {"match": False, "diff": ["policy drifted"], "checks": {"policy_hash": False}}
 
     fake_client.replay = replay_mismatch  # type: ignore[method-assign]
-    next(button for button in mismatch.button if button.label == "Replay CASE-0007").click()
+    next(button for button in mismatch.button if button.label == "Replay").click()
     mismatch.run()
     assert not mismatch.exception
     assert any(item.value == "Mismatch — see diff" for item in mismatch.error)
-    assert "A mismatch means the decision as stored does not replay identically" in _text(mismatch.caption)
+    assert "The decision does not reproduce." in _text(mismatch.caption)
 
     matched = _run_page("Audit", "pages/audit.py", client=fake_client)
 
@@ -209,11 +189,11 @@ def test_p10_audit_replay_captions(fake_client: FakeArbiterClient) -> None:
         }
 
     fake_client.replay = replay_match  # type: ignore[method-assign]
-    next(button for button in matched.button if button.label == "Replay CASE-0007").click()
+    next(button for button in matched.button if button.label == "Replay").click()
     matched.run()
     assert not matched.exception
     assert any(item.value == "Match — the decision replays identically" for item in matched.success)
-    assert "A match means the decision replays identically." in _text(matched.caption)
+    assert "The decision reproduces identically from its inputs." in _text(matched.caption)
 
 
 def test_p10_eval_offline_caption(fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -228,4 +208,5 @@ def test_p10_eval_offline_caption(fake_client: FakeArbiterClient, monkeypatch: p
     blob = _text(at.markdown)
     assert "Synthetic data" in blob
     assert "System" in blob
-    assert _OFFLINE_CAPTION in _text(at.caption)
+    assert any(item.value == "Offline benchmark" for item in at.subheader)
+    assert "docs/EVALUATION.md" in _text(at.caption)

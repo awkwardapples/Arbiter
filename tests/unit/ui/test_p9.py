@@ -170,7 +170,6 @@ def test_p9_case_sections_and_see_raw(fake_client: FakeArbiterClient) -> None:
     assert not list(at.json)
     assert not list(at.checkbox)
     blob = _text(at.markdown)
-    assert "Evidence that would change this decision" in blob
     assert f"**C01** {_DASH}" in blob
     assert "ctr-p9" in blob
     assert "vendor.onboarding.escalate" in blob
@@ -188,17 +187,15 @@ def test_p9_case_sections_and_see_raw(fake_client: FakeArbiterClient) -> None:
     assert _list_has(payloads, "contract_id", "ctr-p9")
     assert _list_has(payloads, "precedent_id", "P-9TEST")
     assert _list_has(payloads, "control_id", "C01")
-    how = next(item for item in at.expander if item.label == "How to read this")
-    assert how.proto.expanded is True
+    assert not any(item.label == "How to read this" for item in at.expander)
     captions = _text(at.caption)
     assert "A vendor claim and the system-of-record value" in captions
-    assert any(item.value == "CASE-0007" for item in at.subheader)
 
 
 def test_p9_case_precedents_empty_sentence(fake_client: FakeArbiterClient) -> None:
     at = _run_page("Case", "pages/case.py", client=fake_client)
     assert not at.exception
-    assert "No precedents were considered for this case." in _text(at.markdown)
+    assert "No precedents were considered for this case." in _text(at.info)
 
 
 def test_p9_audit_replay_and_verify_see_raw(fake_client: FakeArbiterClient) -> None:
@@ -209,46 +206,42 @@ def test_p9_audit_replay_and_verify_see_raw(fake_client: FakeArbiterClient) -> N
     }
     fake_client.audit_verify = lambda: {"ok": True, "first_bad_seq": None, "entries": 12}  # type: ignore[method-assign]
     at = _run_page("Audit", "pages/audit.py", client=fake_client)
-    at.session_state["nav_case_id"] = "CASE-0007"
-    at.run()
-    assert "Active case · CASE-0007" in _text(at.markdown)
     next(button for button in at.button if button.label == "Verify audit chain").click()
     at.run()
     assert not at.exception
     _see_raw_collapsed(at)
     assert any(json.loads(block.value).get("entries") == 12 for block in at.code)
     replay = _run_page("Audit", "pages/audit.py", client=fake_client)
-    next(button for button in replay.button if button.label == "Replay CASE-0007").click()
+    next(button for button in replay.button if button.label == "Replay").click()
     replay.run()
     assert not replay.exception
     _see_raw_collapsed(replay)
     diffs = [payload.get("diff") for payload in _payloads(replay) if isinstance(payload, dict)]
     assert ["replay-sentinel"] in diffs
-    assert "CASE-0007" in _text(replay.markdown)
+    assert any(item.value == "CASE-0007" for item in replay.selectbox)
     assert not list(replay.json)
 
 
 def test_p9_case_id_on_review_and_memory(fake_client: FakeArbiterClient) -> None:
     review = _run_page("Review", "pages/review.py", client=fake_client)
     assert not review.exception
-    assert any(item.value == "Selected case · CASE-0007" for item in review.subheader)
+    picked = next(item for item in review.selectbox if item.label == "Case")
+    assert picked.value == "CASE-0007"
+    assert not any(str(item.value).startswith("Selected case") for item in review.subheader)
     memory = _run_page("Memory", "pages/memory.py", client=fake_client)
     assert not memory.exception
-    assert any(item.value == "Selected case · CASE-0007" for item in memory.subheader)
+    picked = next(item for item in memory.selectbox if item.label.startswith("Precedents"))
+    assert picked.value == "CASE-0007"
+    assert not any(str(item.value).startswith("Selected case") for item in memory.subheader)
 
 
 def test_p9_review_intro_and_empty_queue(fake_client: FakeArbiterClient) -> None:
     fake_client.list_cases = lambda: []  # type: ignore[method-assign]
     at = _run_page("Review", "pages/review.py", client=fake_client)
     assert not at.exception
-    blob = _text(at.markdown)
-    assert "Every assessment reaches a deterministic outcome through the policy engine." in blob
-    assert "C05" in blob
-    assert "VND-" not in blob
-    assert (
-        "No cases are currently awaiting review. Cases that reach DECLINE will appear here "
-        "as pending approvals — the policy engine gates those actions on a human sign-off." in _text(at.info)
-    )
+    assert "Record a reviewer decision on a pending case." in _text(at.caption)
+    assert "VND-" not in _text(at.caption) + _text(at.info)
+    assert "No cases awaiting review." in _text(at.info)
 
 
 def test_p9_review_amber_when_ineligible(fake_client: FakeArbiterClient) -> None:
@@ -261,9 +254,9 @@ def test_p9_review_amber_when_ineligible(fake_client: FakeArbiterClient) -> None
     at = _run_page("Review", "pages/review.py", client=fake_client)
     assert not at.exception
     warn = _text(at.warning)
-    assert "This case cannot create a precedent." in warn
-    assert f"**mitigation_not_true** {_DASH} The mitigation fact is not TRUE" in warn
-    assert "No precedent will be created." in warn
+    assert "Not eligible for precedent." in warn
+    assert f"**mitigation_not_true** {_DASH} The mitigation fact is not TRUE" in _text(at.markdown)
+    assert "no precedent will be created." in _text(at.caption)
     _see_raw_collapsed(at)
     assert any(json.loads(block.value).get("reasons") == ["mitigation_not_true"] for block in at.code)
 
@@ -281,13 +274,9 @@ def test_p9_review_green_when_eligible(fake_client: FakeArbiterClient) -> None:
     assert not at.exception
     assert calls and all(calls)
     ok = _text(at.success)
-    assert "This case is eligible for a C05 precedent." in ok
-    assert f"**C05** {_DASH}" in ok
-    assert f"**assurance.bridge_letter_current** {_DASH}" in ok
-    assert f"**APPROVE** {_DASH}" in ok
-    assert f"**tprm_lead** {_DASH}" in ok
-    mitigations = next(item for item in at.text_input if item.label.startswith("Mitigations"))
-    assert mitigations.value == "assurance.bridge_letter_current"
+    assert "Eligible for C05 precedent." in ok
+    mitigations = next(item for item in at.multiselect if item.label.startswith("Mitigations"))
+    assert "assurance.bridge_letter_current" in mitigations.value
     _see_raw_collapsed(at)
     assert any(json.loads(block.value).get("eligible") is True for block in at.code)
 
@@ -343,16 +332,13 @@ def test_p9_memory_autoselects_newest_case_with_precedents(fake_client: FakeArbi
     assert not at.exception
     picked = next(item for item in at.selectbox if item.label.startswith("Precedents"))
     assert picked.value == "CASE-MID"
-    assert any(item.value == "Selected case · CASE-MID" for item in at.subheader)
+    assert not any(str(item.value).startswith("Selected case") for item in at.subheader)
 
 
 def test_p9_queue_and_audit_captions(fake_client: FakeArbiterClient) -> None:
     queue = _run_page("Queue", "pages/queue.py", client=fake_client)
     assert not queue.exception
-    assert "Assessed cases. Filter, then open one to see why it was decided." in _text(queue.caption)
+    assert "All cases sorted by residual risk." in _text(queue.caption)
     audit = _run_page("Audit", "pages/audit.py", client=fake_client)
     assert not audit.exception
-    assert (
-        "Replay a case to confirm the same decision. Verify checks the hash chain for every case."
-        in _text(audit.caption)
-    )
+    assert "Append-only hash chain of every case, decision, contract, and action." in _text(audit.caption)

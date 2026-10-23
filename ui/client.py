@@ -112,6 +112,10 @@ class ArbiterClient:
         data = self._request("GET", "/audit/verify")
         return dict(data) if isinstance(data, dict) else {}
 
+    def audit_recent(self, limit: int = 20) -> list[dict[str, Any]]:
+        data = self._request("GET", "/audit/recent", params={"limit": limit})
+        return list(data) if isinstance(data, list) else []
+
     def approve_contract(self, contract_id: str, body: Any) -> dict[str, Any]:
         data = self._request(
             "POST",

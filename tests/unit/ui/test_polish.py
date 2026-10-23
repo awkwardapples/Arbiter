@@ -114,7 +114,8 @@ def test_p8_evidence_lines() -> None:
 def test_p8_queue_row_names_the_case(fake_client: FakeArbiterClient) -> None:
     at = _run_page("Queue", "pages/queue.py", client=fake_client)
     assert not at.exception
-    assert "CASE-0007" in _text(at.markdown)
+    exported = " ".join(frame.value.to_csv(index=False) for frame in at.dataframe)
+    assert "CASE-0007" in exported
 
 
 def test_p8_open_case_sets_state_and_switches(
@@ -135,7 +136,7 @@ def test_p8_open_case_sets_state_and_switches(
 
     monkeypatch.setattr(st, "switch_page", _switch)
     at = _run_page("Queue", "pages/queue.py", client=fake_client)
-    _button(at, "Open case").click()
+    at.session_state["cases_table"] = {"selection": {"rows": [0]}}
     at.run()
     assert not at.exception
     assert at.session_state["last_case_id"] == "CASE-0007"
@@ -192,16 +193,16 @@ def test_p8_review_eligibility_bullets(fake_client: FakeArbiterClient) -> None:
 
     fake_client.submit_review = submit_review  # type: ignore[method-assign]
     at = _run_page("Review", "pages/review.py", client=fake_client)
-    at.checkbox[0].check()
-    at.run()
-    _button(at, "Check eligibility").click()
-    at.run()
     assert not at.exception
+    visible_reasons = _text(at.markdown)
+    assert (
+        "**mitigation_not_true** — The mitigation fact is not TRUE — this precedent can't apply"
+        in visible_reasons
+    )
+    assert "**reviewer_authority** — The reviewer's role is below the required authority" in visible_reasons
+    assert "**not_in_map** — not_in_map" in visible_reasons
     warn = _text(at.warning)
-    assert "**mitigation_not_true** — The mitigation fact is not TRUE — this precedent can't apply" in warn
-    assert "**reviewer_authority** — The reviewer's role is below the required authority" in warn
-    assert "**not_in_map** — not_in_map" in warn
-    visible = _text(at.markdown) + _text(at.info) + _text(at.success) + warn
+    visible = visible_reasons + _text(at.info) + _text(at.success) + warn
     assert '"eligible"' not in visible
 
 
@@ -212,12 +213,8 @@ def test_p8_review_eligibility_when_clear(fake_client: FakeArbiterClient) -> Non
 
     fake_client.submit_review = submit_review  # type: ignore[method-assign]
     at = _run_page("Review", "pages/review.py", client=fake_client)
-    at.checkbox[0].check()
-    at.run()
-    _button(at, "Check eligibility").click()
-    at.run()
     assert not at.exception
-    assert any("This case is eligible for a C05 precedent." in item.value for item in at.success)
+    assert any("Eligible for C05 precedent." in item.value for item in at.success)
 
 
 def test_p8_audit_replay_mismatch(fake_client: FakeArbiterClient) -> None:
@@ -235,7 +232,7 @@ def test_p8_audit_replay_mismatch(fake_client: FakeArbiterClient) -> None:
 
     fake_client.replay = replay  # type: ignore[method-assign]
     at = _run_page("Audit", "pages/audit.py", client=fake_client)
-    _button(at, "Replay CASE-0007").click()
+    _button(at, "Replay").click()
     at.run()
     assert not at.exception
     assert any(item.value == "Mismatch — see diff" for item in at.error)
@@ -258,7 +255,7 @@ def test_p8_audit_replay_match(fake_client: FakeArbiterClient) -> None:
 
     fake_client.replay = replay  # type: ignore[method-assign]
     at = _run_page("Audit", "pages/audit.py", client=fake_client)
-    _button(at, "Replay CASE-0007").click()
+    _button(at, "Replay").click()
     at.run()
     assert not at.exception
     assert any(item.value == "Match — the decision replays identically" for item in at.success)
