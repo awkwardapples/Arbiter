@@ -71,7 +71,6 @@ class ArbiterClient:
         data = self._request("GET", "/vendors")
         return list(data) if isinstance(data, list) else []
 
-# ui/client.py, line 76ish
     def run(self, case: Any, *, options: Any = None) -> dict[str, Any]:
         payload: dict[str, Any] = {"case": _as_json(case)}
         if options is not None:

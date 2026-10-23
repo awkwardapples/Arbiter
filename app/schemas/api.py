@@ -39,7 +39,6 @@ class RunRequest(BaseModel):
         return {"case": data, "options": None}
 
 
-
 class RunOutputVendor(BaseModel):
     vendor_id: str | None = None
     legal_name: str
