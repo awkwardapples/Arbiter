@@ -195,7 +195,10 @@ def test_p8_review_eligibility_bullets(fake_client: FakeArbiterClient) -> None:
     at = _run_page("Review", "pages/review.py", client=fake_client)
     assert not at.exception
     visible_reasons = _text(at.markdown)
-    assert "**mitigation_not_true** — The mitigation fact is not TRUE — this precedent can't apply" in visible_reasons
+    assert (
+        "**mitigation_not_true** — The mitigation fact is not TRUE — this precedent can't apply"
+        in visible_reasons
+    )
     assert "**reviewer_authority** — The reviewer's role is below the required authority" in visible_reasons
     assert "**not_in_map** — not_in_map" in visible_reasons
     warn = _text(at.warning)

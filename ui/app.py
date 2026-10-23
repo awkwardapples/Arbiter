@@ -5,7 +5,6 @@ from __future__ import annotations
 import streamlit as st
 
 from ui.client import ArbiterAPIError
-from ui.components import glossary
 from ui.session import get_client
 
 _CSS = """
@@ -35,13 +34,12 @@ def main() -> None:
     st.set_page_config(page_title="Arbiter Reviewer", layout="wide")
     st.markdown(_CSS, unsafe_allow_html=True)
     _sidebar_status()
-    glossary()
     pages = [
         st.Page(str(_ROOT / "pages" / "new_assessment.py"), title="New assessment", default=True),
-        st.Page(str(_ROOT / "pages" / "queue.py"), title="Queue"),
+        st.Page(str(_ROOT / "pages" / "queue.py"), title="Cases"),
         st.Page(str(_ROOT / "pages" / "case.py"), title="Case"),
         st.Page(str(_ROOT / "pages" / "review.py"), title="Review"),
-        st.Page(str(_ROOT / "pages" / "memory.py"), title="Memory"),
+        st.Page(str(_ROOT / "pages" / "memory.py"), title="Precedents"),
         st.Page(str(_ROOT / "pages" / "audit.py"), title="Audit"),
         st.Page(str(_ROOT / "pages" / "evaluation.py"), title="Evaluation"),
     ]

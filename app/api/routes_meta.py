@@ -27,6 +27,13 @@ class AuditVerifyResponse(BaseModel):
     first_bad_seq: int | None
 
 
+class AuditEvent(BaseModel):
+    seq: int
+    timestamp: str
+    case_id: str
+    event_type: str
+
+
 def _audit_length() -> int:
     if not _AUDIT_DB.is_file():
         return 0
@@ -70,6 +77,31 @@ def vendors() -> list[dict[str, object]]:
         finally:
             tracer.close()
     return result.rows
+
+
+@router.get("/audit/recent", response_model=list[AuditEvent])
+def audit_recent(limit: int = 20) -> list[AuditEvent]:
+    """Additive read-only route. File owner is P4-B; approved under P11.
+
+    Rows are sequence, timestamp, case id, and event type. Payload stays in the database.
+    """
+    size = min(max(limit, 1), 100)
+    if not _AUDIT_DB.is_file():
+        return []
+    with sqlite3.connect(_AUDIT_DB) as conn:
+        rows = conn.execute(
+            """
+            SELECT seq, ts, case_id, event_type
+            FROM audit_log
+            ORDER BY seq DESC
+            LIMIT ?
+            """,
+            (size,),
+        ).fetchall()
+    return [
+        AuditEvent(seq=int(seq), timestamp=str(ts), case_id=str(case_id), event_type=str(event_type))
+        for seq, ts, case_id, event_type in rows
+    ]
 
 
 @router.get("/audit/verify")

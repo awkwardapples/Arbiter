@@ -256,7 +256,7 @@ def test_p9_review_amber_when_ineligible(fake_client: FakeArbiterClient) -> None
     warn = _text(at.warning)
     assert "Not eligible for precedent." in warn
     assert f"**mitigation_not_true** {_DASH} The mitigation fact is not TRUE" in _text(at.markdown)
-    assert "No precedent will be created." in _text(at.caption)
+    assert "no precedent will be created." in _text(at.caption)
     _see_raw_collapsed(at)
     assert any(json.loads(block.value).get("reasons") == ["mitigation_not_true"] for block in at.code)
 

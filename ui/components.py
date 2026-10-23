@@ -93,32 +93,40 @@ def humanised_bullet(code: str, sentence: str) -> str:
     return f"**{code}** — {sentence}"
 
 
-QUEUE_CAPTION = "Assessed cases. Filter, then open one to see why it was decided."
-AUDIT_CAPTION = "Replay a case to confirm the same decision. Verify checks the hash chain for every case."
-EVAL_CAPTION = "How these numbers were produced: `docs/EVALUATION.md`."
+QUEUE_CAPTION = "All cases sorted by residual risk. Click a row to open its decision record."
+AUDIT_CAPTION = "Append-only hash chain of every case, decision, contract, and action."
+EVAL_CAPTION = (
+    "Two views. The offline benchmark measures the decision pipeline on a fixed labelled set. "
+    "The live section shows activity on this instance."
+)
+CAPTION_CONTROLS = "Required controls and the facts behind them."
 CAPTION_CONTRADICTIONS = "A vendor claim and the system-of-record value it disagrees with."
 CAPTION_COUNTERFACTUALS = "Evidence that would flip a control if it were verified."
 CAPTION_PRECEDENTS = "Governed exceptions considered before this decision."
-CAPTION_ACTIONS = "Signed contracts for the next step. This page does not run them."
-CAPTION_TIMELINE = "What each agent did on this run, in order."
+CAPTION_ACTIONS = "Signed contracts for the next step."
+CAPTION_TIMELINE = "Agents on this run, in order."
+CAPTION_TRACE = "Stored record, report, and trace."
 EMPTY_PRECEDENTS = "No precedents were considered for this case."
 NO_CONTRADICTIONS = "No contradictions on this case."
 NO_CONTRACTS = "No contracts were issued for this case."
-ELIGIBILITY_NOTE = "You can still record this review. No precedent will be created."
-ELIGIBLE_TITLE = (
-    "This case is eligible for a C05 precedent. "
-    "The criteria that the policy requires for an exception are met."
+CASE_EMPTY = "Select a case from Cases, or run an assessment."
+MEMORY_EMPTY = "No precedents stored."
+ELIGIBLE_TITLE = "Eligible for C05 precedent."
+ELIGIBLE_CAPTION = "Criteria met: bridge letter TRUE, C05 only failing control, reviewer role ≥ tprm_lead."
+INELIGIBLE_TITLE = "Not eligible for precedent."
+INELIGIBLE_CAPTION = "A review can still be recorded — no precedent will be created."
+ELIGIBILITY_DISABLED = "Available when the case is eligible."
+REVIEW_CAPTION = (
+    "Record a reviewer decision on a pending case. An exception can be saved as a precedent "
+    "so it applies consistently to later cases."
 )
-INELIGIBLE_TITLE = (
-    "This case cannot create a precedent. You can still record a review — "
-    "the human decision is stored on the case — but no exception will be saved to memory. "
-    "The reasons are below."
-)
-REVIEW_EMPTY = (
-    "No cases are currently awaiting review. Cases that reach DECLINE will appear here "
-    "as pending approvals — the policy engine gates those actions on a human sign-off."
-)
+REVIEW_EMPTY = "No cases awaiting review."
 MITIGATION_FACT = "assurance.bridge_letter_current"
+MITIGATION_OPTIONS: tuple[str, ...] = (MITIGATION_FACT,)
+CONDITION_OPTIONS: tuple[str, ...] = (
+    "SOC 2 Type II report within 60 days",
+    "ISO 27001 certificate within 90 days",
+)
 MITIGATION_HELP = (
     "The fact that the policy checks when applying the precedent. Pre-filled when the case is eligible."
 )
@@ -130,110 +138,29 @@ PRECEDENT_HELP = (
     "Save this exception to H-MEM. A later case with the same mitigation and conditions "
     "can reuse this decision."
 )
-C05_HEADING = "About C05 (current independent assurance)"
 EVAL_OFFLINE_CAPTION = (
-    "This is the offline evaluation — the same decision pipeline run without live Nightshift or Zetaris. "
-    "The accuracy is measured against the policy engine's expected outcomes on a labelled set. "
-    "For the live run, see the demo video or the trace logs."
+    "Fixed labelled set. Same decision pipeline, no live services. Method: docs/EVALUATION.md."
 )
-REPLAY_MATCH_CAPTION = (
-    "A match means the decision replays identically. The policy hash, the record hash, and every "
-    "contract signature all match — nothing has changed since the decision was recorded."
-)
+LIVE_CAPTION = "Cases, backend, and provider on this API."
+REPLAY_MATCH_CAPTION = "The decision reproduces identically from its inputs."
 REPLAY_MISMATCH_CAPTION = (
-    "A mismatch means the decision as stored does not replay identically from its inputs. "
-    "This can happen if the policy engine changed after the decision was recorded, or if the record "
-    "was edited. Check the per-item lines — a policy_hash mismatch is the most common: it means the "
-    "policy file has been updated since this decision. Record_hash and contract_signatures mismatches "
-    "are more serious."
+    "The decision does not reproduce. Policy hash mismatch = policy file changed after the decision. "
+    "Record hash or signature mismatch = the record differs from what was stored."
 )
-MEMORY_CASE_CAPTION = (
-    "Pick a case. The policy retrieves precedents that could apply to it, and records the result "
-    "of applying each one. Empty list means the policy considered no precedent for this case."
+REPLAY_SECTION_CAPTION = "Reproduce the stored decision from its inputs."
+MEMORY_CAPTION = (
+    "Human exceptions saved to H-MEM. Each row shows a precedent, the control it addresses, and its ledger."
 )
-LEDGER_CAPTION = (
-    "Ledger — the audit trail for this precedent. create is when the precedent was stored; "
-    "read is when it was retrieved for a case; feedback is when a later case's outcome rated "
-    "this precedent helpful or wrong."
+MEMORY_CASE_HEADING = "Precedents considered on a case"
+MEMORY_CASE_CAPTION = "Select a case to see which precedents the policy retrieved for it."
+LEDGER_CAPTION = "create, read, and feedback on this precedent."
+NEW_ASSESSMENT_CAPTION = (
+    "Start an assessment on a vendor. The pipeline runs the agent loop and produces a decision record."
 )
-
-HOW_TO_USE = (
-    "Pick a vendor from the sample set or paste a vendor JSON to start an assessment. "
-    "The pipeline runs the five-agent loop and produces a decision record — outcome, controls, "
-    "evidence, and a signed next action. From the decision you can:\n"
-    "- Open the case to see the full record — the outcome, each control's status and evidence, "
-    "the timeline of the agent loop, and the audit chain.\n"
-    "- Record a human review if the policy gated the decision, and optionally save an exception "
-    "to memory as a precedent.\n"
-    "- Replay the decision to prove it reproduces identically from its inputs.\n"
-    "- Inspect the trace to see every fact and query behind it.\n\n"
-    "Every decision is reproducible, every fact is cited, and every action is a signed contract "
-    "in the audit chain."
-)
-NEW_ASSESSMENT_CAPTION = "Start a new assessment — the full review flow is in How to use this app."
-
-HOW_TO_READ = (
-    "The badge is the policy engine's outcome. Each bullet under it is a reason code, "
-    "then what that code means. **Why** is the control and the fact behind it. "
-    "**Contradictions** compare a vendor claim with a system of record. "
-    "**What would change this** is evidence that is still missing. "
-    "**Precedents** are exceptions the policy considered. "
-    "**Actions** are signed contracts. **Agent timeline** is the trace of this run."
-)
-
-REVIEW_INTRO = (
-    "Use this page to record a human decision on a case the policy has flagged. Every assessment "
-    "reaches a deterministic outcome through the policy engine. Review is where a qualified reviewer "
-    "can override that outcome — with a rationale, and optionally an exception saved to memory for "
-    "consistency with later cases.\n\n"
-    "The human decision is stored and becomes part of the case record. If you tick Create precedent, "
-    "the decision is also saved to H-MEM so that a later case with the same mitigations and conditions "
-    "can reuse this reasoning rather than re-deciding from scratch. Tick it when you want this specific "
-    "exception to be applied consistently to future cases.\n\n"
-    "Only certain cases qualify for a precedent. The four requirements are checked when you click "
-    "Check eligibility:\n"
-    "- The mitigation fact must be TRUE in this case's data.\n"
-    "- The failing control must be the one the precedent addresses (C05, current independent assurance).\n"
-    "- No other control that cannot be excepted may also be failing.\n"
-    "- The reviewer's role must meet the policy's authority requirement (tprm_lead for C05).\n\n"
-    "Any case that satisfies the criteria above will be eligible. The Check eligibility button tells "
-    "you whether a selected case is."
-)
-
-C05_EXPLANATION = (
-    "C05 is the control that checks whether the vendor has a current SOC 2 Type II report or "
-    "ISO 27001 certificate — an independent auditor's assessment of their security controls. "
-    "It is the only control where an exception is defensible, because a vendor that is mid-renewal "
-    "can legitimately have a gap covered by a bridge letter. Other controls (encryption, MFA, "
-    "residency, known-vulnerabilities) cannot be excepted, because they either hold or they don't.\n\n"
-    "An exception (precedent) is only allowed when:\n"
-    "- C05 is the specific control that is failing.\n"
-    "- The vendor has a bridge letter confirming renewal within a defined window — recorded as "
-    "fact assurance.bridge_letter_current = TRUE.\n"
-    "- No other non-exception control is failing.\n"
-    "- The reviewer has authority to grant the exception.\n"
-    "The page pre-fills the mitigation key when these are satisfied."
-)
-
-MEMORY_INTRO = (
-    "This page shows where Precedents are stored in H-MEM memory, and the trust-ledger lines for "
-    "each one. A precedent is a human exception the system has decided to remember. A case is one "
-    "assessment of one vendor. The policy is the deterministic rulebook that decides outcomes. "
-    "H-MEM is the memory that lets a human reviewer's past decision influence future cases — but "
-    "only when the policy's exception criteria are met.\n\n"
-    "Each row is one precedent: its id, the confidence the system assigns to it, the control it "
-    "addresses (C05), and the ledger of every time it was created, read, or given feedback. "
-    "Confidence starts at 0.70, rises with helpful feedback, and drops with wrong feedback "
-    "(a wrong determination costs 0.20). Select a case below to see which of those precedents "
-    "the policy considered for that case."
-)
-
-ELIGIBILITY_HELD: tuple[tuple[str, str], ...] = (
-    ("C05", "The only failing required control is C05, which allows a precedent"),
-    ("assurance.bridge_letter_current", "That mitigation fact is TRUE"),
-    ("APPROVE", "The decision is APPROVE or APPROVE_WITH_CONDITIONS"),
-    ("tprm_lead", "The reviewer role is high enough"),
-)
+RESULT_CAPTION = "Decision record from this run."
+DRY_RUN_NOTE = "Dry-run only. Nothing was recorded."
+AUDIT_EVENTS_CAPTION = "Latest rows on the hash chain."
+AUDIT_EVENTS_EMPTY = "No audit events yet."
 
 
 def split_eval_summary(text: str, mark: str = "Synthetic data. Small n.") -> tuple[str, str]:
@@ -248,21 +175,49 @@ def split_eval_summary(text: str, mark: str = "Synthetic data. Small n.") -> tup
     return text, ""
 
 
+def review_conditions(selected: list[str], other: str) -> list[str]:
+    """Selected options, then a non-blank other condition. Blanks dropped. No duplicates."""
+    chosen: list[str] = []
+    for item in [*selected, other.strip()]:
+        text = item.strip()
+        if text and text not in chosen:
+            chosen.append(text)
+    return chosen
+
+
+def _first_text(*values: object) -> str:
+    for value in values:
+        if isinstance(value, str) and value.strip():
+            return value
+    return "unknown"
+
+
+def live_run_summary(cases: list[dict[str, Any]], health: dict[str, Any]) -> dict[str, str]:
+    """Keys n, latest, data_backend, llm_provider.
+
+    latest is the max created stamp, or "—" when there are no cases.
+    data_backend is health.mode.data, else health.data.backend, else "unknown".
+    llm_provider is provider.provider_resolved, else provider.provider, else mode.llm.
+    """
+    stamps = [str(item.get("created")) for item in cases if item.get("created")]
+    mode = health.get("mode") if isinstance(health.get("mode"), dict) else {}
+    provider = health.get("provider") if isinstance(health.get("provider"), dict) else {}
+    data_block = health.get("data") if isinstance(health.get("data"), dict) else {}
+    return {
+        "n": str(len(cases)),
+        "latest": max(stamps) if stamps else "—",
+        "data_backend": _first_text(mode.get("data"), data_block.get("backend")),
+        "llm_provider": _first_text(
+            provider.get("provider_resolved"),
+            provider.get("provider"),
+            mode.get("llm"),
+        ),
+    }
+
+
 def see_raw(payload: object) -> None:
     with st.expander("See raw", expanded=False):
         st.code(json.dumps(payload, indent=2, sort_keys=True, default=str), language="json")
-
-
-def eligibility_body(hint: dict[str, Any]) -> str:
-    if hint.get("eligible"):
-        lines = [f"- {humanised_bullet(code, text)}" for code, text in ELIGIBILITY_HELD]
-        return f"{ELIGIBLE_TITLE}\n\n" + "\n".join(lines)
-    reasons = [str(code) for code in hint.get("reasons") or []]
-    lines = [f"- {humanised_bullet(code, humanise_eligibility_reason(code))}" for code in reasons]
-    body = INELIGIBLE_TITLE
-    if lines:
-        body += "\n\n" + "\n".join(lines)
-    return f"{body}\n\n{ELIGIBILITY_NOTE}"
 
 
 def _display_value(value: Any) -> str:
@@ -492,21 +447,6 @@ def control_table(controls: list[dict[str, Any]], facts: list[dict[str, Any]]) -
                 evidence_chip(chip, fact=fact)
 
 
-def glossary() -> None:
-    st.markdown("<div style='height: 8px'></div>", unsafe_allow_html=True)
-    with st.expander("Glossary", expanded=False):
-        st.markdown(
-            """
-- **SoR (system of record):** authoritative enterprise data federated via Zetaris or DuckDB sample mode.
-- **KEV:** CISA Known Exploited Vulnerabilities catalogue.
-- **USL:** Zetaris unified semantic layer over onboarded sources.
-- **DQ:** data-quality rules applied to query results.
-- **Precedent:** governed human exception stored in H-MEM when policy allows.
-- **Counterfactual:** evidence that would flip a failing control if verified.
-            """
-        )
-
-
 def timeline(events: list[dict[str, Any]], *, filters: TimelineFilters | None = None) -> None:
     if not events:
         st.info("No trace events for this case.")
@@ -524,9 +464,7 @@ def timeline(events: list[dict[str, Any]], *, filters: TimelineFilters | None = 
     filtered = [
         e for e in events if str(e.get("agent_name")) in agent_pick and str(e.get("status")) in status_pick
     ]
-    st.subheader("Agent collaboration graph")
     st.graphviz_chart(build_timeline_dot(filtered))
-    st.subheader("Agent timeline")
     table = timeline_rows(filtered)
     for row in table:
         row["status"] = status_label(str(row.get("status", "")))

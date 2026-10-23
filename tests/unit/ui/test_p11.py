@@ -135,9 +135,7 @@ def test_p11_review_order_and_autofill(fake_client: FakeArbiterClient) -> None:
     assert "mitigation_not_true" in _text(amber.markdown)
     for label in ("Mitigations", "Conditions", "Other condition"):
         widget = next(
-            item
-            for item in [*amber.multiselect, *amber.text_input]
-            if str(item.label).startswith(label)
+            item for item in [*amber.multiselect, *amber.text_input] if str(item.label).startswith(label)
         )
         assert _disabled(widget)
     precedent = next(item for item in amber.checkbox if item.label == "Create precedent")
