@@ -6,7 +6,6 @@ import os
 from typing import Any
 
 import httpx
-from pydantic import BaseModel
 
 DEFAULT_BASE_URL = "http://localhost:8000"
 TIMEOUT = 90.0
