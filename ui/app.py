@@ -13,6 +13,38 @@ _CSS = """
 </style>
 """
 _ROOT = __import__("pathlib").Path(__file__).resolve().parent
+_LOGO = _ROOT.parent / "docs" / "img" / "arbiter_logo.png"
+
+
+def _version_tuple(version: str) -> tuple[int, ...]:
+    parts: list[int] = []
+    for piece in version.split("."):
+        digits = ""
+        for char in piece:
+            if not char.isdigit():
+                break
+            digits += char
+        if not digits:
+            break
+        parts.append(int(digits))
+    return tuple(parts)
+
+
+def _streamlit_supports_logo() -> bool:
+    return _version_tuple(st.__version__) >= (1, 31) and hasattr(st, "logo")
+
+
+def _install_logo() -> None:
+    # st.logo size="large" is a 32px max height. This wordmark is 800x300, so that
+    # cap leaves the name illegible. The sidebar image is the persistent small mark.
+    st.sidebar.image(str(_LOGO), width=200)
+
+
+def _hero_wordmark() -> None:
+    """Centered wordmark at the top of the main area, above the page title."""
+    _left, center, _right = st.columns([1, 1, 1])
+    with center:
+        st.image(str(_LOGO), width=300)
 
 
 def _sidebar_status() -> None:
@@ -33,6 +65,7 @@ def _sidebar_status() -> None:
 def main() -> None:
     st.set_page_config(page_title="Arbiter Reviewer", layout="wide")
     st.markdown(_CSS, unsafe_allow_html=True)
+    _install_logo()
     _sidebar_status()
     pages = [
         st.Page(str(_ROOT / "pages" / "new_assessment.py"), title="New assessment", default=True),
@@ -43,6 +76,7 @@ def main() -> None:
         st.Page(str(_ROOT / "pages" / "audit.py"), title="Audit"),
         st.Page(str(_ROOT / "pages" / "evaluation.py"), title="Evaluation"),
     ]
+    _hero_wordmark()
     st.navigation(pages).run()
 
 

@@ -3,6 +3,10 @@
 [![CI](https://github.com/awkwardapples/Arbiter/actions/workflows/ci.yml/badge.svg)](https://github.com/awkwardapples/Arbiter/actions/workflows/ci.yml)
 ![Track: Reasoning Architecture](https://img.shields.io/badge/track-Reasoning%20Architecture-1f6feb)
 
+<p align="center">
+  <img src="docs/img/arbiter_logo.png" alt="Arbiter" width="360">
+</p>
+
 Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract.
 
 Demo video: not published yet. It is recorded in the submission pass. Until then, the sample runs below are the ones in `output_examples/` and `logs/examples/`.

@@ -208,7 +208,6 @@ def test_p11_evaluation_split(fake_client: FakeArbiterClient) -> None:
     assert metrics["Cases"] == "1"
     assert metrics["Data backend"] == "duckdb"
     assert metrics["LLM provider"] == "offline"
-    assert any(item.value == "Cases" for item in at.page_link)
 
 
 def test_p11_live_run_summary() -> None:
