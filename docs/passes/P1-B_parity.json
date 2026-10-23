@@ -1,30 +1,43 @@
 {
-  "all_green": false,
+  "all_green": true,
   "dq_parity": [
     {
-      "error": "UpstreamError",
-      "ok": false,
-      "table": "contract"
+      "duckdb": [
+        "CTR-30028"
+      ],
+      "ok": true,
+      "table": "contract",
+      "zetaris": [
+        "CTR-30028"
+      ]
     },
     {
-      "error": "UpstreamError",
-      "ok": false,
-      "table": "contract"
+      "duckdb": [
+        "CTR-30028"
+      ],
+      "ok": true,
+      "table": "contract",
+      "zetaris": [
+        "CTR-30028"
+      ]
     },
     {
-      "error": "UpstreamError",
-      "ok": false,
-      "table": "submission_document"
+      "duckdb": [],
+      "ok": true,
+      "table": "submission_document",
+      "zetaris": []
     },
     {
-      "error": "UpstreamError",
-      "ok": false,
-      "table": "incident"
+      "duckdb": [],
+      "ok": true,
+      "table": "incident",
+      "zetaris": []
     },
     {
-      "error": "UpstreamError",
-      "ok": false,
-      "table": "vendor"
+      "duckdb": [],
+      "ok": true,
+      "table": "vendor",
+      "zetaris": []
     }
   ],
   "kev_subset": [
@@ -157,7 +170,7 @@
       "ok": true
     }
   ],
-  "query_layer": "views",
+  "query_layer": "usl",
   "query_parity": [
     {
       "duckdb_hash": "3d5cc7f49d3d2ddf3c4ceda6ad3196a44740fc708ab316b06236edf1f4e870ee",
@@ -3614,6 +3627,294 @@
       "vendor_id": "VND-0032",
       "zetaris_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
       "zetaris_rows": 0
+    },
+    {
+      "duckdb_hash": "4c7add92ab5b59165f409e80e9398cc5f2cb0d110d9c84bdb749f62eaf103848",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0001",
+      "zetaris_hash": "4c7add92ab5b59165f409e80e9398cc5f2cb0d110d9c84bdb749f62eaf103848",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "25c7eaadda4a30f4d212a1f35258c533d8537702167d34699431f74b80a76f33",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0002",
+      "zetaris_hash": "25c7eaadda4a30f4d212a1f35258c533d8537702167d34699431f74b80a76f33",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "7a9f097e64164912431fe52deda33133fd52c165d03bb2b28efcbd4c138225a4",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0003",
+      "zetaris_hash": "7a9f097e64164912431fe52deda33133fd52c165d03bb2b28efcbd4c138225a4",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "5c1920dac84840977852b8ccb8be9c51166e32eb4584de6b35ce0b44af27bdfa",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0004",
+      "zetaris_hash": "5c1920dac84840977852b8ccb8be9c51166e32eb4584de6b35ce0b44af27bdfa",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "e6361908ac401dbeedbaca63a1601de076058aba15716e6f4e30cf8577b7afb1",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0005",
+      "zetaris_hash": "e6361908ac401dbeedbaca63a1601de076058aba15716e6f4e30cf8577b7afb1",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "c59fdd040a5d9cb1c3e2a063d1e6a9bb3a2fb9b16f8e4ae401650eeaf5ce695a",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0006",
+      "zetaris_hash": "c59fdd040a5d9cb1c3e2a063d1e6a9bb3a2fb9b16f8e4ae401650eeaf5ce695a",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "547ba92085743d2f909fb21385825f23043dbce8f717a10170dc5893befbc904",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0007",
+      "zetaris_hash": "547ba92085743d2f909fb21385825f23043dbce8f717a10170dc5893befbc904",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "9f0d4c7295cf2a22d91f4766c3133b66abd264fbe1e3089564a97fefc900b15e",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0008",
+      "zetaris_hash": "9f0d4c7295cf2a22d91f4766c3133b66abd264fbe1e3089564a97fefc900b15e",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "62fd49c284e2bd385c1ba5b59f75d7cf865abe298329277f62c5b419044e7b24",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0009",
+      "zetaris_hash": "62fd49c284e2bd385c1ba5b59f75d7cf865abe298329277f62c5b419044e7b24",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "648553eb95425802e3b31fd5e41520b3b8c0d05c47f873eab222e76f246adb69",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0010",
+      "zetaris_hash": "648553eb95425802e3b31fd5e41520b3b8c0d05c47f873eab222e76f246adb69",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "5a941f738df90869026a011cf8a1bca0b4dc5de5bfd56a407d599f1bee8a94f7",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0011",
+      "zetaris_hash": "5a941f738df90869026a011cf8a1bca0b4dc5de5bfd56a407d599f1bee8a94f7",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "5bb4716459689075ac693e9b3a146c666a5e677031077d9640addf298364afa4",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0012",
+      "zetaris_hash": "5bb4716459689075ac693e9b3a146c666a5e677031077d9640addf298364afa4",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "b56422d80b4ee34b717b0fa295f9a2abd4cb0ffe0a28b8daff3e7d64efebd0fb",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0013",
+      "zetaris_hash": "b56422d80b4ee34b717b0fa295f9a2abd4cb0ffe0a28b8daff3e7d64efebd0fb",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "767ad9193d140dd53f864b93e3565a486f16fed9f7c4961300a214f580051024",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0014",
+      "zetaris_hash": "767ad9193d140dd53f864b93e3565a486f16fed9f7c4961300a214f580051024",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "92fe369f378b342113146326eb0a755a8434c728d2dfe4288fb16c9e90a5c2c1",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0015",
+      "zetaris_hash": "92fe369f378b342113146326eb0a755a8434c728d2dfe4288fb16c9e90a5c2c1",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "01d32f67a81dbdcf04cdd22965a05b5a554b2bb836c3695e6d31b441127adb14",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0016",
+      "zetaris_hash": "01d32f67a81dbdcf04cdd22965a05b5a554b2bb836c3695e6d31b441127adb14",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "e27463ca12d81e6e5a7b121a596135528c2cb412d574ab3506fc3482ceeddf53",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0017",
+      "zetaris_hash": "e27463ca12d81e6e5a7b121a596135528c2cb412d574ab3506fc3482ceeddf53",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "de0475fedc84ff00c4bcef596e0feb6233458c4dd70f77c5d08f15fc3bf06a44",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0018",
+      "zetaris_hash": "de0475fedc84ff00c4bcef596e0feb6233458c4dd70f77c5d08f15fc3bf06a44",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "ed446f2c7bb17766bda4f7c838e3df337d64a0d1c96af9f87afc6035bbafb1dd",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0019",
+      "zetaris_hash": "ed446f2c7bb17766bda4f7c838e3df337d64a0d1c96af9f87afc6035bbafb1dd",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "44b49d24c94cbe8f1508ce93baef12caf30f1dcdf2bb1103ce644df13d2d62ae",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0020",
+      "zetaris_hash": "44b49d24c94cbe8f1508ce93baef12caf30f1dcdf2bb1103ce644df13d2d62ae",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "3a908df6af42ad46f9866459e948a5dcda6cc6a8897742f92dd44bd1ae3971c7",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0021",
+      "zetaris_hash": "3a908df6af42ad46f9866459e948a5dcda6cc6a8897742f92dd44bd1ae3971c7",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "dea886e9dc71eba86e7ed5112c6eeb7416118be07c96a0e2554e0fb773d3acac",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0022",
+      "zetaris_hash": "dea886e9dc71eba86e7ed5112c6eeb7416118be07c96a0e2554e0fb773d3acac",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "dfbd937f0e91b7e0fc98fc9e7bdd7735a221d1f4cda46ba860b4798f4fffb9cf",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0023",
+      "zetaris_hash": "dfbd937f0e91b7e0fc98fc9e7bdd7735a221d1f4cda46ba860b4798f4fffb9cf",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "59b8ebadf4c8195bf0543905af8d1af7444a71ec5fedd2ec64cc81c387b33b67",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0024",
+      "zetaris_hash": "59b8ebadf4c8195bf0543905af8d1af7444a71ec5fedd2ec64cc81c387b33b67",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "74e1aed43f6f67a1141eabd502631391f186a9d3b242a4da77669bbc67daee3f",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0025",
+      "zetaris_hash": "74e1aed43f6f67a1141eabd502631391f186a9d3b242a4da77669bbc67daee3f",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "f7c2fc986285fdde60b87f138f41ef8e1f9eaab8ce94cce1fb15af98ab23820b",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0026",
+      "zetaris_hash": "f7c2fc986285fdde60b87f138f41ef8e1f9eaab8ce94cce1fb15af98ab23820b",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "1a0c452be18b2add98a4bb1aedba34cdc727557de9cc998042b0753ae37b5367",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0027",
+      "zetaris_hash": "1a0c452be18b2add98a4bb1aedba34cdc727557de9cc998042b0753ae37b5367",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "43a6cc5f2a2bc1bd14f16f3d1a674f074aa34023539b72945f5fd43e07d88341",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0028",
+      "zetaris_hash": "43a6cc5f2a2bc1bd14f16f3d1a674f074aa34023539b72945f5fd43e07d88341",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "15fe1e72430fac3eb65008d395090cc0beb19084e0eb917fa96d9b21488adbb4",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0029",
+      "zetaris_hash": "15fe1e72430fac3eb65008d395090cc0beb19084e0eb917fa96d9b21488adbb4",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "fd81cd13258670cde2c3e41c3e15f65b9b4cccd5ce7c8f6734e98e4f9ff778b4",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0030",
+      "zetaris_hash": "fd81cd13258670cde2c3e41c3e15f65b9b4cccd5ce7c8f6734e98e4f9ff778b4",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "95722ab3a2634fb69ecf35d150daf1e72009a77cfa8cf9747d37fe53f85d21dd",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0031",
+      "zetaris_hash": "95722ab3a2634fb69ecf35d150daf1e72009a77cfa8cf9747d37fe53f85d21dd",
+      "zetaris_rows": 1
+    },
+    {
+      "duckdb_hash": "9702c6a39930482a2c79677e56d9591d611d02ae4f140b382032426c4bd19443",
+      "duckdb_rows": 1,
+      "ok": true,
+      "query_id": "Q_VENDOR_360",
+      "vendor_id": "VND-0032",
+      "zetaris_hash": "9702c6a39930482a2c79677e56d9591d611d02ae4f140b382032426c4bd19443",
+      "zetaris_rows": 1
     }
   ],
   "source_mode": "github_raw",

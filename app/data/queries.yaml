@@ -166,6 +166,12 @@ queries:
       FROM {T.submission_document}
       WHERE vendor_id = :vendor_id
       ORDER BY doc_id
+    sql_usl: |
+      SELECT doc_id, submission_id, vendor_id, doc_type, title, issued_on, expires_on,
+        doc_text AS text
+      FROM {T.submission_document}
+      WHERE vendor_id = :vendor_id
+      ORDER BY doc_id
     params:
       - {name: vendor_id, type: vendor_id}
     columns: [doc_id, submission_id, vendor_id, doc_type, title, issued_on, expires_on, text]
@@ -246,6 +252,43 @@ queries:
       - closed_at
     systems: [itsm]
     control_ids: [C06]
+
+  Q_VENDOR_360:
+    description: One row for a vendor across procurement, CLM, the trust portal, and CISA KEV
+    sql: |
+      SELECT v.vendor_id,
+        c.status AS contract_status,
+        c.dpa_signed,
+        c.hosting_region_clause,
+        c.breach_notification_hours,
+        s.patch_sla_critical_days,
+        COUNT(DISTINCT comp.component_id) AS component_count,
+        COUNT(DISTINCT k.cve_id) AS kev_cve_count,
+        MAX(k.date_added) AS latest_kev_date
+      FROM {T.vendor} v
+      INNER JOIN {T.contract} c ON v.clm_supplier_ref = c.supplier_ref
+      INNER JOIN {T.submission} s ON s.vendor_id = v.vendor_id
+      LEFT JOIN {T.vendor_component} comp ON comp.vendor_id = v.vendor_id
+      LEFT JOIN {T.kev_vuln} k
+        ON lower(k.vendor_project) = lower(comp.vendor_project)
+       AND lower(k.product) LIKE concat('%', lower(comp.product), '%')
+      WHERE v.vendor_id = :vendor_id
+      GROUP BY v.vendor_id, c.status, c.dpa_signed, c.hosting_region_clause,
+        c.breach_notification_hours, s.patch_sla_critical_days
+    params:
+      - {name: vendor_id, type: vendor_id}
+    columns:
+      - vendor_id
+      - contract_status
+      - dpa_signed
+      - hosting_region_clause
+      - breach_notification_hours
+      - patch_sla_critical_days
+      - component_count
+      - kev_cve_count
+      - latest_kev_date
+    systems: [procurement, clm, trust_portal, cisa_kev]
+    control_ids: []
 
   Q_DQ_INVALID:
     description: DQ-invalid primary keys for vendor-related tables

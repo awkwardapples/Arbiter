@@ -15,7 +15,7 @@ GITHUB_RAW_BASE=https://raw.githubusercontent.com/awkwardapples/Arbiter/main/dat
 
 Use `simulator` + `SOURCES_PUBLIC_BASE` only when `driver`/`api` containers can curl the simulator.
 
-**KEV:** In `github_raw` mode, step `02_kev.sql` loads the committed `data/kev/kev_snapshot.json` from GitHub (not live CISA), derived from `GITHUB_RAW_BASE`.
+**KEV:** `02_kev.sql` loads `settings.KEV_URL` (the CISA catalogue on `cisagov/kev-data@develop`) in every source mode. The DuckDB mirror still uses the committed `data/kev/kev_snapshot.json`.
 
 ## Query layer
 

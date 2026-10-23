@@ -38,6 +38,7 @@ class QueryDef(BaseModel):
     id: str
     description: str
     sql: str | None = None
+    sql_usl: str | None = None
     handler: str | None = None
     params: list[ParamSpec] = Field(default_factory=list)
     columns: list[str]
@@ -145,10 +146,10 @@ def render(
     qdef = reg[query_id]
     if qdef.handler:
         raise ValidationFailed(f"query {query_id} uses handler {qdef.handler}, not SQL")
-    if not qdef.sql:
+    sql = qdef.sql_usl if backend == "zetaris" and layer == "usl" and qdef.sql_usl else qdef.sql
+    if not sql:
         raise ValidationFailed(f"query {query_id} has no sql")
     validated = validate_params(query_id, params, reg)
-    sql = qdef.sql
     for table in (
         "vendor",
         "vendor_alias",

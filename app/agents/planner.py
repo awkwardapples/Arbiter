@@ -12,6 +12,7 @@ from app.agents.catalogue import INCIDENT_WINDOW_DAYS, SCREEN_QUERIES, SCREEN_QU
 from app.agents.llm_schemas import PlanOut
 from app.data.inline import DELEGATED, INLINE_QUERIES
 from app.data.registry import QueryDef, load_registry
+from app.errors import ConfigError
 from app.llm import prompts
 from app.memory.assessments import plan_queries_from_priors
 from app.state import CaseState, Plan, PlanStep
@@ -81,7 +82,34 @@ def _targets(state: CaseState) -> list[str]:
     return sorted({a for gap in evaluation.gaps for a in gap.suggested_answer_ids})
 
 
-def _prompt(state: CaseState, allowed: list[str], registry: dict[str, QueryDef]) -> str:
+def _query_tables(allowed: list[str], registry: dict[str, QueryDef]) -> str:
+    lines: list[str] = []
+    for query_id in allowed:
+        qdef = registry[query_id]
+        found: list[str] = []
+        for name in re.findall(r"\{T\.([a-z0-9_]+)\}", qdef.sql or ""):
+            if name not in found:
+                found.append(name)
+        if found:
+            lines.append(f"{query_id}: {', '.join(found)}")
+        else:
+            lines.append(f"{query_id}: {', '.join(qdef.systems) or 'handler'}")
+    return "\n".join(lines)
+
+
+def _catalogue_text() -> tuple[str, str, int] | None:
+    """Compact catalogue, sha256, and token estimate. None when the model file is not exported yet."""
+    from app.data.usl_model import catalogue_tokens, compact_catalogue, load_model, model_sha256
+
+    try:
+        model = load_model()
+    except ConfigError:
+        return None
+    text = compact_catalogue(model)
+    return text, model_sha256(model), catalogue_tokens(text)
+
+
+def _prompt(state: CaseState, allowed: list[str], registry: dict[str, QueryDef], usl_text: str) -> str:
     evaluation = state.latest_evaluation()
     gaps = [] if evaluation is None else [g.model_dump() for g in evaluation.gaps]
     summary = {
@@ -104,6 +132,8 @@ def _prompt(state: CaseState, allowed: list[str], registry: dict[str, QueryDef])
         case_summary=json.dumps(summary, sort_keys=True, default=str),
         registry=json.dumps(catalogue, sort_keys=True),
         gaps=json.dumps(gaps, sort_keys=True),
+        usl_catalogue=usl_text,
+        query_tables=_query_tables(allowed, registry),
     )
 
 
@@ -120,8 +150,19 @@ class PlannerAgent:
             return list(required), ""
 
         def from_model() -> tuple[list[tuple[str, str]], str]:
+            loaded = _catalogue_text()
+            usl_text = "" if loaded is None else loaded[0]
+            if loaded is not None:
+                ctx.tracer.event(
+                    NAME,
+                    "usl_catalogue",
+                    input_summary=f"usl_model_sha256={loaded[1]}",
+                    output_summary=f"tokens={loaded[2]}",
+                    status="success",
+                    purpose="plan",
+                )
             result = ctx.generator(
-                _prompt(state, allowed, registry),
+                _prompt(state, allowed, registry, usl_text),
                 system=prompts.UNTRUSTED_SENTENCE,
                 route="deep",
                 response="json",

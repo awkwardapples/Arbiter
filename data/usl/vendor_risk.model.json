@@ -1,0 +1,716 @@
+{
+  "name": "vendor_risk",
+  "namespace": [
+    "metastore",
+    "arbiter"
+  ],
+  "tables": [
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "name": "vendor_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "legal_name"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "trading_name"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(80)\"",
+          "dqAnnotations": [],
+          "name": "category"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "requested_service"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(120)\"",
+          "dqAnnotations": [],
+          "name": "business_owner"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"decimal(14,2)\"",
+          "dqAnnotations": [],
+          "name": "annual_spend_gbp"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(10)\"",
+          "dqAnnotations": [],
+          "name": "criticality"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(120)\"",
+          "dqAnnotations": [],
+          "name": "data_categories"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(120)\"",
+          "dqAnnotations": [],
+          "name": "processing_countries"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "clm_supplier_ref"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(20)\"",
+          "dqAnnotations": [],
+          "name": "onboarding_status"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "requested_at"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "vendor",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "alias_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "foreignKey": {
+            "columns": [],
+            "refColumns": [
+              "vendor_id"
+            ],
+            "refTable": [
+              "lightning.metastore.arbiter.vendor_risk.vendor"
+            ]
+          },
+          "name": "vendor_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "alias_lower"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "vendor_alias",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "contract_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "supplier_ref"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "status"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"boolean\"",
+          "dqAnnotations": [],
+          "name": "dpa_signed"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "dpa_signed_date"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(10)\"",
+          "dqAnnotations": [],
+          "name": "hosting_region_clause"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(10)\"",
+          "dqAnnotations": [],
+          "name": "transfer_mechanism"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"integer\"",
+          "dqAnnotations": [],
+          "name": "breach_notification_hours"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"boolean\"",
+          "dqAnnotations": [],
+          "name": "subprocessor_list_attached"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "renewal_date"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "contract",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "incident_number",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "opened_at"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "vendor_name_raw"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(4)\"",
+          "dqAnnotations": [],
+          "name": "severity"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(40)\"",
+          "dqAnnotations": [],
+          "name": "category"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(40)\"",
+          "dqAnnotations": [],
+          "name": "root_cause_tag"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "name": "status"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"boolean\"",
+          "dqAnnotations": [],
+          "name": "rca_completed"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "closed_at"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "incident",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "entry_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "entity_name"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(60)\"",
+          "dqAnnotations": [],
+          "name": "list_name"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(4)\"",
+          "dqAnnotations": [],
+          "name": "country"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "added_on"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "reason"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "watchlist_entry",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "submission_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "foreignKey": {
+            "columns": [],
+            "refColumns": [
+              "vendor_id"
+            ],
+            "refTable": [
+              "lightning.metastore.arbiter.vendor_risk.vendor"
+            ]
+          },
+          "name": "vendor_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "submitted_at"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"integer\"",
+          "dqAnnotations": [],
+          "name": "patch_sla_critical_days"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(60)\"",
+          "dqAnnotations": [],
+          "name": "contact_role"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "submission",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(20)\"",
+          "dqAnnotations": [],
+          "name": "answer_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "foreignKey": {
+            "columns": [],
+            "refColumns": [
+              "submission_id"
+            ],
+            "refTable": [
+              "lightning.metastore.arbiter.vendor_risk.submission"
+            ]
+          },
+          "name": "submission_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "name": "vendor_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(4)\"",
+          "dqAnnotations": [],
+          "name": "question_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(300)\"",
+          "dqAnnotations": [],
+          "name": "question"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(4000)\"",
+          "dqAnnotations": [],
+          "name": "answer_text"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "submission_answer",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "doc_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "foreignKey": {
+            "columns": [],
+            "refColumns": [
+              "submission_id"
+            ],
+            "refTable": [
+              "lightning.metastore.arbiter.vendor_risk.submission"
+            ]
+          },
+          "name": "submission_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "name": "vendor_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(40)\"",
+          "dqAnnotations": [],
+          "name": "doc_type"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "title"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "issued_on"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "expires_on"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12000)\"",
+          "dqAnnotations": [],
+          "name": "doc_text"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "submission_document",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "component_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(12)\"",
+          "dqAnnotations": [],
+          "foreignKey": {
+            "columns": [],
+            "refColumns": [
+              "vendor_id"
+            ],
+            "refTable": [
+              "lightning.metastore.arbiter.vendor_risk.vendor"
+            ]
+          },
+          "name": "vendor_id"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(120)\"",
+          "dqAnnotations": [],
+          "name": "vendor_project"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "product"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(60)\"",
+          "dqAnnotations": [],
+          "name": "version"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "vendor_component",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    },
+    {
+      "acAnnotations": [],
+      "checks": [],
+      "columnSpecs": [
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(24)\"",
+          "dqAnnotations": [],
+          "name": "cve_id",
+          "notNull": {
+            "columns": []
+          },
+          "primaryKey": {
+            "columns": []
+          }
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(200)\"",
+          "dqAnnotations": [],
+          "name": "vendor_project"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(300)\"",
+          "dqAnnotations": [],
+          "name": "product"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(400)\"",
+          "dqAnnotations": [],
+          "name": "vulnerability_name"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "date_added"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"date\"",
+          "dqAnnotations": [],
+          "name": "due_date"
+        },
+        {
+          "acAnnotations": [],
+          "dataType": "\"varchar(16)\"",
+          "dqAnnotations": [],
+          "name": "ransomware_use"
+        }
+      ],
+      "dqAnnotations": [],
+      "foreignKeys": [],
+      "ifNotExit": false,
+      "name": "kev_vuln",
+      "namespace": [
+        "lightning",
+        "metastore",
+        "arbiter",
+        "vendor_risk"
+      ],
+      "unique": []
+    }
+  ]
+}
