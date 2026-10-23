@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from tests.unit.ui.conftest import FakeArbiterClient
-from tests.unit.ui.test_pages_smoke import _run_page
+from tests.unit.ui.test_pages_smoke import PAGES, _run_page
 
 pytestmark = pytest.mark.p5a
 
@@ -117,3 +117,14 @@ def test_p12_readme_logo() -> None:
     logo = readme.index(_README_LOGO)
     paragraph = readme.index("Auditable reasoning for third-party vendor onboarding")
     assert h1 < badge < logo < paragraph
+
+
+@pytest.mark.parametrize(("title", "page_file"), PAGES)
+def test_p12_hero_logo_before_title(
+    title: str, page_file: str, fake_client: FakeArbiterClient
+) -> None:
+    """P12-T8: the main-area wordmark is rendered before the page title."""
+    at = _run_page(title, page_file, client=fake_client)
+    assert not at.exception
+    kinds = [node.type for node in at.main]
+    assert kinds.index("image") < kinds.index("title")
