@@ -26,7 +26,7 @@ PAGES: list[tuple[str, str]] = [
 
 
 def _run_page(title: str, page_file: str, *, client: FakeArbiterClient) -> AppTest:
-    at = AppTest.from_file(str(APP))
+    at = AppTest.from_file(str(APP), default_timeout=15)  # P19 F7: the first run in a module is slow
     at.session_state["api_client"] = client
     at.run()
     if page_file != "pages/new_assessment.py":
@@ -55,22 +55,16 @@ def test_p5_t11_case_page_shows_outcome_text(fake_client: FakeArbiterClient) -> 
 
 
 def test_p5_t14_eval_not_published_on_404(
-    fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    fake_client: FakeArbiterClient,
 ) -> None:
-    """P5-T14: a missing summary falls back; the committed summary is rendered."""
-    import ui.screens as screens
-
+    """P5-T14: a 404 from /eval/latest falls back; the published summary is rendered."""
     fake_client.eval_latest_404 = True
-    missing = tmp_path / "summary.md"
-    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", missing, raising=False)
     at = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not at.exception
     text = " ".join(getattr(m, "value", "") or "" for m in at.info)
     assert "not published yet" in text.lower()
 
-    real = ROOT / "eval/results/20261022T080517661769Z/summary.md"
-    assert real.is_file()
-    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", real, raising=False)
+    fake_client.eval_latest_404 = False
     shown = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not shown.exception
     blob = " ".join(getattr(m, "value", "") or "" for m in shown.markdown)

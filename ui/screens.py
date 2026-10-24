@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 import streamlit as st
@@ -20,6 +19,7 @@ from ui.components import (
     ELIGIBLE_TITLE,
     EMPTY_PRECEDENTS,
     EVAL_CAPTION,
+    EVAL_LIVE_CAPTION,
     EVAL_OFFLINE_CAPTION,
     INELIGIBLE_CAPTION,
     INELIGIBLE_TITLE,
@@ -53,10 +53,9 @@ from ui.components import (
 from ui.models import ReviewRequest
 from ui.session import get_client
 
-EVAL_SUMMARY_PATH = Path(__file__).resolve().parents[1] / "eval/results/20261022T080517661769Z/summary.md"
-
 ASSESSMENT_SPINNER = (
-    "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
+    "Running the assessment. Sample mode takes a few seconds; "
+    "a live run takes about 2–4 minutes (measured median 142 s)."
 )
 _DECISIONS = ["APPROVE", "APPROVE_WITH_CONDITIONS", "REQUEST_INFO", "ESCALATE", "DECLINE"]
 
@@ -451,19 +450,21 @@ def page_audit() -> None:
 def page_evaluation() -> None:
     st.title("Evaluation")
     st.caption(EVAL_CAPTION)
-    _section("Offline benchmark", EVAL_OFFLINE_CAPTION)
     client = get_client()
-    if EVAL_SUMMARY_PATH.is_file():
-        _render_eval_markdown(EVAL_SUMMARY_PATH.read_text(encoding="utf-8"))
+    latest: dict[str, Any] = {}
+    try:
+        latest = client.eval_latest()
+    except ArbiterAPIError as exc:
+        if exc.status_code != 404:
+            st.error(exc.message)
+    if latest.get("live_markdown"):
+        _section("Live evaluation", EVAL_LIVE_CAPTION)
+        _render_eval_markdown(str(latest["live_markdown"]))
+    _section("Offline benchmark", EVAL_OFFLINE_CAPTION)
+    if latest.get("offline_markdown"):
+        _render_eval_markdown(str(latest["offline_markdown"]))
     else:
-        try:
-            latest = client.eval_latest()
-            _render_eval_markdown(str(latest.get("markdown", latest)))
-        except ArbiterAPIError as exc:
-            if exc.status_code == 404:
-                st.info("Evaluation results are not published yet.")
-            else:
-                st.error(exc.message)
+        st.info("Evaluation results are not published yet.")
     _section("Live runs on this instance", LIVE_CAPTION)
     try:
         health = client.health()

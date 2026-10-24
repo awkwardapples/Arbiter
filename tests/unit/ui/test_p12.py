@@ -13,11 +13,10 @@ pytestmark = pytest.mark.p5a
 
 ROOT = Path(__file__).resolve().parents[3]
 LOGO = ROOT / "docs" / "img" / "arbiter_logo.png"
-SUMMARY = ROOT / "eval/results/20261022T080517661769Z/summary.md"
 _PNG_MAGIC = b"\x89PNG\r\n\x1a\n"
 _PAGE_CAPTION = (
-    "Two views: the offline benchmark measures the decision pipeline on a fixed labelled set. "
-    "The live section shows this instance's activity."
+    "Three views: the published live evaluation, the offline benchmark on a fixed labelled set, "
+    "and this instance's own activity."
 )
 _OFFLINE_CAPTION = "Fixed labelled set, no live services. Method: docs/EVALUATION.md."
 _LIVE_CAPTION = "Cases, backend, and provider on this API."
@@ -31,10 +30,7 @@ def _text(elements) -> str:
 
 
 def _evaluation(fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch):
-    import ui.screens as screens
-
-    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", SUMMARY, raising=False)
-    fake_client.eval_latest_404 = True
+    del monkeypatch
     at = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not at.exception
     return at
@@ -64,6 +60,7 @@ def test_p12_eval_sections(fake_client: FakeArbiterClient, monkeypatch: pytest.M
     """P12-T3: one subheader level, with the approved captions."""
     at = _evaluation(fake_client, monkeypatch)
     assert [item.value for item in at.subheader] == [
+        "Live evaluation",
         "Offline benchmark",
         "Live runs on this instance",
     ]

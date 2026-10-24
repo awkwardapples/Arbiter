@@ -13,7 +13,10 @@ from ui.client import ArbiterAPIError
 
 pytestmark = pytest.mark.p5a
 
-SPINNER_TEXT = "Running the assessment loop — this takes 2–5 seconds in sample mode, up to 60 seconds live…"
+SPINNER_TEXT = (
+    "Running the assessment. Sample mode takes a few seconds; "
+    "a live run takes about 2–4 minutes (measured median 142 s)."
+)  # P19 F5
 
 OUTCOME_SENTENCES = {
     "CONTRADICTION": "Contradiction on a system-of-record claim",
