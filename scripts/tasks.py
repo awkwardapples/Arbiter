@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -142,6 +143,42 @@ def cmd_hardcode_check(_args: argparse.Namespace) -> int:
     return _run([py, str(ROOT / "scripts" / "check_hardcoding.py")])
 
 
+WEB = ROOT / "web"
+NODE_HINT = "The web console needs Node.js 20.19 or newer (https://nodejs.org); install it, then re-run."
+
+
+def _npm() -> str | None:
+    """The npm executable, or None (with a message) when Node is not installed."""
+    if shutil.which("node") is None:
+        print(NODE_HINT, file=sys.stderr)
+        return None
+    npm = shutil.which("npm") or shutil.which("npm.cmd")
+    if npm is None:
+        print(NODE_HINT, file=sys.stderr)
+    return npm
+
+
+def _npm_run(script: str) -> int:
+    npm = _npm()
+    if npm is None:
+        return 1
+    if not (WEB / "node_modules").is_dir():
+        code = subprocess.run([npm, "ci"], cwd=WEB).returncode
+        if code != 0:
+            return code
+    return subprocess.run([npm, "run", script], cwd=WEB).returncode
+
+
+def cmd_web_build(_args: argparse.Namespace) -> int:
+    """Build the web console into web/dist (commit the result)."""
+    return _npm_run("build")
+
+
+def cmd_web_check(_args: argparse.Namespace) -> int:
+    """Lint, typecheck, test and build the web console."""
+    return _npm_run("check")
+
+
 def main(argv: list[str] | None = None) -> int:
     os.chdir(ROOT)
     if str(ROOT) not in sys.path:
@@ -176,6 +213,8 @@ def main(argv: list[str] | None = None) -> int:
     tc.set_defaults(func=cmd_trace_check)
 
     sub.add_parser("hardcode-check").set_defaults(func=cmd_hardcode_check)
+    sub.add_parser("web-build").set_defaults(func=cmd_web_build)
+    sub.add_parser("web-check").set_defaults(func=cmd_web_check)
 
     args = parser.parse_args(argv)
     return int(args.func(args))
