@@ -13,18 +13,17 @@ pytestmark = pytest.mark.p6
 
 ROOT = Path(__file__).resolve().parents[3]
 
+# P17 retarget: the README order is P17 §3.2 (the same list as P17-T5 in test_claims.py).
 H2 = [
-    "Problem and users",
-    "What Arbiter does",
-    "Agents",
-    "What makes this an agent system",
-    "Architecture",
-    "Tech stack",
-    "Setup",
-    "Usage",
-    "Sample mode",
-    "Failure handling",
+    "Quick start",
+    "Why it matters",
+    "Track 3 mapping",
+    "See it work",
+    "How it works",
+    "Zetaris USL",
+    "Nemotron and Nightshift",
     "Evaluation",
+    "Setup and usage",
     "Sponsor technology",
     "AI and model usage",
     "Data and licensing",
