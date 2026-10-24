@@ -370,5 +370,11 @@ One red verify-pass (Docker socket), then green. No acceptance test was added or
 - **Lane:** 17, impact case, truthful docs, deck outline, demo script and submission checklist
 - **Tool and model:** Claude Code CLI, Claude Opus 5.5. P17 was built in Claude Code rather than Cursor; this note sits in `docs/cursor-usage/` so the compiler picks it up.
 - **Plan:** `.cursor/plans/P17.md`, approved with all five recommendations, plus the AI-usage correction and the demo-script retarget.
-- **Notable loops:** see `docs/passes/P17_REPORT.md`.
-- **Hook and verify iterations:** see `docs/passes/P17_REPORT.md`.
+- **Notable loops:**
+  - **Evidence search.** The KEV join and a completed Lightning call exist only in `eval/results_live/` traces, not in `logs/examples/live/`. That led to `metadata.json` `model_evidence` and the T6 scope.
+  - **Claim corrections found while writing:** KEV in Zetaris is a snapshot, not CISA's live feed; the Reporter can call a model, so "deterministic by design" became "template in these runs".
+- **Hook and verify iterations:**
+  - **Tests first:** 29 failing at the tests-first commit.
+  - **Secret scan:** the history scan flagged a loop variable named `token` in the new test. It was renamed and folded into the unpushed commit.
+  - **Citations and monitoring:** two SLIDES lines failed T3/T10 (a sample-size line without its URL, and the monitoring line without "future"). Both were fixed.
+  - **Final:** `verify-pass --pass 17` green on the first full run; `tasks.py verify` green.
