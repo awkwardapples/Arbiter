@@ -160,3 +160,13 @@ class HealthResponse(BaseModel):
     provider: dict[str, Any] | None = None
     hmem_records: int | None = None
     audit_chain_length: int = 0
+
+
+class QuestionInfo(BaseModel):
+    """One questionnaire item for the intake form. Additive (P14-B)."""
+
+    question_id: str
+    question: str
+    help: str = ""
+    type: Literal["yes_no", "text"]
+    options: list[str] | None = None

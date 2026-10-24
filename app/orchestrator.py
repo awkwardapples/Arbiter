@@ -292,7 +292,10 @@ def run(case_input: CaseInput, *, options: RunOptions, deps: Deps | None = None)
     log_file = f"logs/trace-{run_id}.jsonl"
     elapsed = max(time.perf_counter() - started, 1e-6)
     output = build_output(state, record, report)
-    output = output.model_copy(update={"workload": _workload(state, log_file, elapsed)})
+    workload = _workload(state, log_file, elapsed)
+    output = output.model_copy(update={"workload": workload})
+    if hasattr(sink, "save_workload"):
+        sink.save_workload(state.case_id, workload)
     return RunResponse(
         run_id=run_id,
         status=run_status,  # type: ignore[arg-type]

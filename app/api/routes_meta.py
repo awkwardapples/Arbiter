@@ -9,12 +9,14 @@ from pathlib import Path
 from fastapi import APIRouter
 from pydantic import BaseModel
 
+from app.agents.catalogue import QUESTION_TEXTS
 from app.config import Settings
 from app.data.duckdb_backend import DuckDBBackend
 from app.data.factory import get_backend
 from app.data.status import check as data_check
 from app.llm.status import check as provider_check
-from app.schemas.api import HealthResponse
+from app.policy.loader import load_default
+from app.schemas.api import HealthResponse, QuestionInfo
 from app.tracing import Tracer
 
 router = APIRouter(tags=["meta"])
@@ -63,6 +65,34 @@ def health() -> HealthResponse:
         hmem_records=_hmem_count(),
         audit_chain_length=_audit_length(),
     )
+
+
+_YES_NO_LEADS = {"Is", "Have", "Do", "Will"}
+
+
+@router.get("/questions", response_model=list[QuestionInfo])
+def questions() -> list[QuestionInfo]:
+    """The fixed questionnaire. Texts come from the catalogue, help from the policy control."""
+    policy, _calibration = load_default()
+    control_by_question = {}
+    for control in policy.controls:
+        for question_id in control.question_ids:
+            control_by_question.setdefault(question_id, control)
+    items: list[QuestionInfo] = []
+    for question_id in sorted(QUESTION_TEXTS):
+        text = QUESTION_TEXTS[question_id]
+        control = control_by_question.get(question_id)
+        yes_no = text.split(" ", 1)[0] in _YES_NO_LEADS
+        items.append(
+            QuestionInfo(
+                question_id=question_id,
+                question=text,
+                help=f"Used to check: {control.title}." if control else "",
+                type="yes_no" if yes_no else "text",
+                options=["Yes", "No", "Not answered"] if yes_no else None,
+            )
+        )
+    return items
 
 
 @router.get("/vendors")

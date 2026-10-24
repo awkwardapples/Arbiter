@@ -90,6 +90,10 @@ class Store:
                 case_id TEXT NOT NULL,
                 json TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS workloads (
+                case_id TEXT PRIMARY KEY,
+                json TEXT NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS human_decisions (
                 id INTEGER PRIMARY KEY,
                 case_id TEXT NOT NULL,
@@ -175,6 +179,17 @@ class Store:
         if order == "recent":
             return sorted(bundles, key=lambda bundle: bundle.created_at, reverse=True)
         return sorted(bundles, key=_risk_key)
+
+    def save_workload(self, case_id: str, workload: BaseModel) -> None:
+        """Keep the measured workload of a run so the case page can show it later."""
+        self._conn.execute(
+            "INSERT OR REPLACE INTO workloads (case_id, json) VALUES (?, ?)", (case_id, _dump(workload))
+        )
+        self._conn.commit()
+
+    def workload_for(self, case_id: str) -> dict[str, Any] | None:
+        row = self._conn.execute("SELECT json FROM workloads WHERE case_id = ?", (case_id,)).fetchone()
+        return json.loads(row[0]) if row else None
 
     def put_contract(self, contract: ExecutionContract) -> None:
         self._conn.execute(
