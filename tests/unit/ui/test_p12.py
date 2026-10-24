@@ -8,6 +8,7 @@ import pytest
 
 from tests.unit.ui.conftest import FakeArbiterClient
 from tests.unit.ui.test_pages_smoke import PAGES, _run_page
+from PIL import Image
 
 pytestmark = pytest.mark.p5a
 
