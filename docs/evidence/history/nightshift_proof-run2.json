@@ -1,0 +1,143 @@
+{
+  "timestamp": "2026-10-24T04:01:55Z",
+  "base_url": "http://localhost:8088/v1",
+  "provider": "meterless",
+  "fast": {
+    "route": "fast",
+    "sent_model": "meterless/fast",
+    "requested_model": "meterless/fast",
+    "response_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "routed_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "provider_model": "meterless/auto",
+    "winning_route_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "mode_coerced": true,
+    "requested_mode": "fast",
+    "routed_mode": "auto",
+    "receipt_id": "rcpt_req_54c10ozg",
+    "response_id": "chatcmpl-3ee1e5f5-0c59-4105-9aef-10b8b924e443",
+    "latency_ms": 640,
+    "tokens_in": 57,
+    "tokens_out": 34,
+    "receipt": {
+      "requested_model": "meterless/fast",
+      "response_id": "chatcmpl-3ee1e5f5-0c59-4105-9aef-10b8b924e443",
+      "schema": "meterless.compute_receipt.v1",
+      "receipt_id": "rcpt_req_54c10ozg",
+      "decision_id": "req_54c10ozg",
+      "provider_model": "meterless/auto",
+      "routed_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "mode": "auto",
+      "requires_review": "False",
+      "winning_route.provider": "nvidia",
+      "winning_route.label": "Nemotron 3.5 Super VL 120B A12B",
+      "winning_route.kind": "cloud",
+      "winning_route.tier": "C",
+      "winning_route.model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "app_policy.app": "arbiter",
+      "app_policy.has_rule": "True",
+      "app_policy.bound_mode": "auto",
+      "app_policy.requested_mode": "fast",
+      "app_policy.routed_mode": "auto",
+      "app_policy.mode_coerced": "True",
+      "app_policy.privacy": "cloud-ok",
+      "cost.actual_usd": "0",
+      "cost.naive_usd": "0",
+      "cost.race_overhead_usd": "0",
+      "cost.verifier_usd": "0",
+      "cost.baseline.model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "cost.baseline.label": "Nemotron 3.5 Super VL 120B A12B",
+      "cost.baseline.source": "mode-default-frontier",
+      "savings.amount": "0",
+      "savings.currency": "USD",
+      "savings.vs": "Nemotron 3.5 Super VL 120B A12B",
+      "savings.baseline_source": "mode-default-frontier"
+    }
+  },
+  "deep": {
+    "route": "deep",
+    "sent_model": "meterless/deep",
+    "requested_model": "meterless/deep",
+    "response_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "routed_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "provider_model": "meterless/auto",
+    "winning_route_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "mode_coerced": true,
+    "requested_mode": "deep",
+    "routed_mode": "auto",
+    "receipt_id": "rcpt_req_04ajibho",
+    "response_id": "chatcmpl-0846da97-ce8c-4007-8254-59fcc5c39a8c",
+    "latency_ms": 702,
+    "tokens_in": 57,
+    "tokens_out": 34,
+    "receipt": {
+      "requested_model": "meterless/deep",
+      "response_id": "chatcmpl-0846da97-ce8c-4007-8254-59fcc5c39a8c",
+      "schema": "meterless.compute_receipt.v1",
+      "receipt_id": "rcpt_req_04ajibho",
+      "decision_id": "req_04ajibho",
+      "provider_model": "meterless/auto",
+      "routed_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "mode": "auto",
+      "requires_review": "False",
+      "winning_route.provider": "nvidia",
+      "winning_route.label": "Nemotron 3.5 Super VL 120B A12B",
+      "winning_route.kind": "cloud",
+      "winning_route.tier": "C",
+      "winning_route.model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "app_policy.app": "arbiter",
+      "app_policy.has_rule": "True",
+      "app_policy.bound_mode": "auto",
+      "app_policy.requested_mode": "deep",
+      "app_policy.routed_mode": "auto",
+      "app_policy.mode_coerced": "True",
+      "app_policy.privacy": "cloud-ok",
+      "cost.actual_usd": "0",
+      "cost.naive_usd": "0",
+      "cost.race_overhead_usd": "0",
+      "cost.verifier_usd": "0",
+      "cost.baseline.model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "cost.baseline.label": "Nemotron 3.5 Super VL 120B A12B",
+      "cost.baseline.source": "mode-default-frontier",
+      "savings.amount": "0",
+      "savings.currency": "USD",
+      "savings.vs": "Nemotron 3.5 Super VL 120B A12B",
+      "savings.baseline_source": "mode-default-frontier"
+    }
+  },
+  "deviations": [
+    {
+      "kind": "mode_coerced",
+      "detail": "fast: Nightshift coerced requested mode fast to auto (receipt rcpt_req_54c10ozg)",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "receipt_ids": [
+        "rcpt_req_54c10ozg"
+      ]
+    },
+    {
+      "kind": "mode_coerced",
+      "detail": "deep: Nightshift coerced requested mode deep to auto (receipt rcpt_req_04ajibho)",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "receipt_ids": [
+        "rcpt_req_04ajibho"
+      ]
+    },
+    {
+      "kind": "same_model_both_lanes",
+      "detail": "Both lanes were served by nvidia/nemotron-3.5-super-vl-120b-a12b (receipts rcpt_req_54c10ozg, rcpt_req_04ajibho)",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "receipt_ids": [
+        "rcpt_req_54c10ozg",
+        "rcpt_req_04ajibho"
+      ]
+    },
+    {
+      "kind": "lane_model_differs_from_design",
+      "detail": "fast: the design expects Nemotron 3.5 Lightning; Nightshift served nvidia/nemotron-3.5-super-vl-120b-a12b (receipt rcpt_req_54c10ozg)",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "receipt_ids": [
+        "rcpt_req_54c10ozg"
+      ]
+    }
+  ],
+  "human_observations": "docs/evidence/nightshift_deviations.md"
+}
