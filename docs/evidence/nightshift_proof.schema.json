@@ -1,0 +1,251 @@
+{
+  "$defs": {
+    "Deviation": {
+      "properties": {
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "receipt_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Receipt Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "detail"
+      ],
+      "title": "Deviation",
+      "type": "object"
+    },
+    "ProofLane": {
+      "properties": {
+        "route": {
+          "enum": [
+            "fast",
+            "deep"
+          ],
+          "title": "Route",
+          "type": "string"
+        },
+        "sent_model": {
+          "title": "Sent Model",
+          "type": "string"
+        },
+        "requested_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Model"
+        },
+        "response_model": {
+          "title": "Response Model",
+          "type": "string"
+        },
+        "routed_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Routed Model"
+        },
+        "provider_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provider Model"
+        },
+        "winning_route_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Winning Route Model"
+        },
+        "mode_coerced": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mode Coerced"
+        },
+        "requested_mode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Mode"
+        },
+        "routed_mode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Routed Mode"
+        },
+        "receipt_id": {
+          "title": "Receipt Id",
+          "type": "string"
+        },
+        "response_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Response Id"
+        },
+        "latency_ms": {
+          "title": "Latency Ms",
+          "type": "integer"
+        },
+        "tokens_in": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokens In"
+        },
+        "tokens_out": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokens Out"
+        },
+        "receipt": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Receipt",
+          "type": "object"
+        }
+      },
+      "required": [
+        "route",
+        "sent_model",
+        "response_model",
+        "receipt_id",
+        "latency_ms",
+        "receipt"
+      ],
+      "title": "ProofLane",
+      "type": "object"
+    }
+  },
+  "description": "`docs/evidence/nightshift_proof.json`: one real request per lane, as recorded in its trace.",
+  "properties": {
+    "timestamp": {
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "base_url": {
+      "title": "Base Url",
+      "type": "string"
+    },
+    "provider": {
+      "const": "meterless",
+      "title": "Provider",
+      "type": "string"
+    },
+    "fast": {
+      "$ref": "#/$defs/ProofLane"
+    },
+    "deep": {
+      "$ref": "#/$defs/ProofLane"
+    },
+    "deviations": {
+      "items": {
+        "$ref": "#/$defs/Deviation"
+      },
+      "title": "Deviations",
+      "type": "array"
+    },
+    "human_observations": {
+      "title": "Human Observations",
+      "type": "string"
+    }
+  },
+  "required": [
+    "timestamp",
+    "base_url",
+    "provider",
+    "fast",
+    "deep",
+    "deviations",
+    "human_observations"
+  ],
+  "title": "ProofDocument",
+  "type": "object"
+}
