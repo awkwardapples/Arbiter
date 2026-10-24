@@ -30,7 +30,7 @@ MAX_LOOPS = int(os.environ.get("ARBITER_HOOK_MAX_LOOPS", "5"))
 TIMEOUT_S = int(os.environ.get("ARBITER_HOOK_TIMEOUT", "840"))
 TAIL_LINES = 80
 MAX_CHARS = 6000
-VALID_IDS = {"0", "1a", "1b", "2a", "2b", "2c", "2d", "3", "4a", "4b", "5a", "5b", "6", "7", "13", "14a", "14b", "15", "16", "17"}
+VALID_IDS = {"0", "1a", "1b", "2a", "2b", "2c", "2d", "3", "4a", "4b", "5a", "5b", "6", "7", "13", "14a", "14b", "15", "16", "17", "18a", "18b", "18c", "18d", "19", "20"}
 
 
 def label(pass_id: str) -> str:

@@ -13,4 +13,4 @@ alwaysApply: true
 - **Honest docs.** Every capability claimed in README/docs/deck exists in code with a test or a trace. Synthetic data is labelled synthetic. Limitations are stated.
 - **Licences.** Third-party material (Meterless vectors and eval cases, CISA KEV) keeps its notice and is attributed.
 - **Zetaris safety.** Read-only first; dry-run and show statements; wait for the human's explicit "go" before any create/drop; never call port 8889.
-- **Cursor is the development environment.** All code is written and committed through Cursor.
+- **Development environment.** Passes P0–P14-A were written and committed through Cursor; P14-B onwards through Claude Code (`CLAUDE.md`). Each pass records its tool and model in `docs/cursor-usage/<LABEL>.md`.

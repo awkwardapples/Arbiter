@@ -8,7 +8,7 @@ requires-python = ">=3.12"
 [tool.ruff]
 line-length = 110
 target-version = "py312"
-extend-exclude = [".cursor"]
+extend-exclude = [".cursor", ".claude"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
@@ -36,6 +36,12 @@ markers = [
     "p15: release 2 pass 15 live evidence",
     "p16: release 2 pass 16 monitoring",
     "p17: release 2 pass 17 impact and submission",
+    "p18a: release 3 pass 18a stream api",
+    "p18b: release 3 pass 18b web console and run view",
+    "p18c: release 3 pass 18c case and queue",
+    "p18d: release 3 pass 18d remaining pages",
+    "p19: release 3 pass 19 fixes",
+    "p20: release 3 pass 20 live re-run and docs",
     "live: requires live services",
     "slow: slow tests",
 ]

@@ -19,3 +19,6 @@ logs/*
 .pytest_cache/
 .ruff_cache/
 eval/results/*/cases.jsonl
+
+# Release 3 web console
+web/node_modules/

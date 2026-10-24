@@ -1,6 +1,6 @@
 # AGENTS.md: operating manual for coding agents working on Arbiter
 
-You are a coding agent in Cursor, building **Arbiter** for the Open Agent Hackathon 2026 (Track 3: Reasoning Architecture). This file is binding. If it conflicts with a pass spec, stop and ask the human.
+You are a coding agent building **Arbiter** (in Cursor for passes P0–P14-A; in Claude Code from P14-B onwards, where `CLAUDE.md` adds the Claude Code workflow) for the Open Agent Hackathon 2026 (Track 3: Reasoning Architecture). This file is binding. If it conflicts with a pass spec, stop and ask the human.
 
 ## 1. What Arbiter is (one paragraph)
 
@@ -18,7 +18,7 @@ The output is a replayable, cited decision (APPROVE, APPROVE_WITH_CONDITIONS, RE
 
 1. This file.
 2. `docs/spec/00_MASTER_SPEC.md`: architecture, contracts and invariants.
-3. The pass file you were given: `docs/spec/passes/P<n>_*.md` (Release 1) or `docs/spec/release2/P<n>_*.md` (Release 2, passes 13–17; start with `docs/spec/release2/README.md` and `R2_00_ASSESSMENT.md`).
+3. The pass file you were given: `docs/spec/passes/P<n>_*.md` (Release 1) or `docs/spec/release2/P<n>_*.md` (Release 2, passes 13–17; start with `docs/spec/release2/README.md` and `R2_00_ASSESSMENT.md`) or `docs/spec/release3/P<n>*.md` (Release 3, lanes 18a–20; start with `docs/spec/release3/README.md` and `R3_00_ASSESSMENT.md`).
 4. Only the spec sections that pass references: `01_DATA_AND_ZETARIS.md`, `02_POLICY.md`, `03_EVALUATION.md`.
 
 Do not read other pass files. Do not implement anything outside your pass.
@@ -74,6 +74,7 @@ zetaris/        onboarding SQL, dq_rules.yaml, onboarding and parity scripts
 data/           generator/, sample/ (generated), kev/, evals/
 eval/           harness, baseline, results/
 ui/             Streamlit reviewer console (:8501)
+web/            Web console (Release 3; built to web/dist/, served by the API at /console/)
 tests/          unit/, conformance/, evals/, e2e/, contract/
 vendor/         third-party test vectors (Meterless, Apache-2.0) with LICENSE notices
 scripts/tasks.py  cross-platform task runner (source of truth for commands)
@@ -96,7 +97,7 @@ Live tests (real Zetaris or Meterless) are marked `live` and run only when `ARBI
 
 ## 6. Workflow for every pass (do not skip steps)
 
-1. The human runs `/start-pass <ID>` (IDs: `0, 1a, 1b, 2a, 2b, 2c, 2d, 3, 4a, 4b, 5a, 5b, 6, 7`). This writes `.cursor/ACTIVE_PASS` containing `<ID> plan`.
+1. The human runs `/start-pass <ID>` (IDs: `0, 1a, 1b, 2a, 2b, 2c, 2d, 3, 4a, 4b, 5a, 5b, 6, 7`; Release 2 `13, 14a, 14b, 15, 16, 17`; Release 3 `18a, 18b, 18c, 18d, 19, 20`). This writes `.cursor/ACTIVE_PASS` containing `<ID> plan`.
    - The phase word controls the auto-verify stop hook: `plan` (hook idle), `build` (hook re-runs `verify-pass` and feeds failures back), `blocked` (hook idle while you wait for the human).
 2. **Plan Mode first.**
    - Read the pass spec, then produce a plan in `.cursor/plans/<LABEL>.md` (LABEL = `P0`, `P1-A`, `P1-B`, `P2-A` … `P7`) listing files, interfaces and test ids.

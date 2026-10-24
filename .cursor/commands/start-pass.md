@@ -1,6 +1,6 @@
 # Start a pass
 
-The text after this command is the lane ID: Release 1 `0 1a 1b 2a 2b 2c 2d 3 4a 4b 5a 5b 6 7`, Release 2 `13 14a 14b 15 16 17`.
+The text after this command is the lane ID: Release 1 `0 1a 1b 2a 2b 2c 2d 3 4a 4b 5a 5b 6 7`, Release 2 `13 14a 14b 15 16 17`. Release 3 lanes (`18a 18b 18c 18d 19 20`) are run in Claude Code with `.claude/commands/start-pass.md`.
 
 1. Write the file `.cursor/ACTIVE_PASS` containing exactly one line: `<ID> plan`.
 2. Read `AGENTS.md` in full.

@@ -7,3 +7,4 @@ logs/*
 .cursor
 tests/live
 eval/results
+web/node_modules
