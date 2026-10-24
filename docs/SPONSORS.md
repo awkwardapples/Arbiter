@@ -92,7 +92,7 @@ Every LLM step in live example 1, with its lane, the model Nightshift served and
 | plan (revise) | PlannerAgent | deep | `nvidia/nemotron-3.5-super-vl-120b-a12b` | `rcpt_req_cdh75z4f` | 2 follow-up queries |
 | challenge | ChallengerAgent | deep | `nvidia/nemotron-3.5-super-vl-120b-a12b` | `rcpt_req_7r1o2wvc` | Re-plan request (uncorroborated claim) |
 | plan (after challenge) | PlannerAgent | deep | none: HTTP 502 empty response from Nightshift | – | Deterministic fallback, labelled `fallback` |
-| brief | ReporterAgent | – | not a model call | – | Deterministic template by design (P14-A), so every brief sentence is checkable |
+| brief | ReporterAgent | deep (when enabled) | no model call in this run | – | Brief from the deterministic template (`generator=template:v1`), so every sentence is checkable |
 
 Planning on Nemotron, with its receipt:
 

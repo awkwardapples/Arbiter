@@ -87,7 +87,7 @@ An onboarding request goes in, by `vendor_id` or as a free-form questionnaire. T
 | `PolicyEngine` | Code | – | Tier the vendor; produce the outcome and what evidence would change it | Call a model |
 | `MemoryKeeper` | Meterless H-MEM | – | Retrieve lead-approved precedents; record feedback | Change the policy |
 | `ChallengerAgent` | LLM + deterministic triggers | deep | Attack the candidate decision; request one re-plan; escalate | Approve or upgrade an outcome |
-| `ReporterAgent` | Deterministic template | – | Write the cited brief and draft the next action | Cite anything outside the decision record |
+| `ReporterAgent` | Template + optional LLM rewrite + validator | deep | Write the cited brief and draft the next action | Cite anything outside the decision record |
 | `ScoutGuard` | Meterless Scout subset | – | Block, warn or pass untrusted vendor text; redact PII | Decide |
 | `ActionExecutor` | Scout execution contracts | – | Issue and verify signed contracts; run the outbox once approvals exist | Act without a valid contract |
 
@@ -124,7 +124,7 @@ Every model call goes through one seam, `app/llm/generator.py`, to Meterless Nig
 | fast | `meterless/fast` | `auto` (coerced) | `nvidia/nemotron-3.5-lightning-30b-a3b` | `rcpt_req_924f14pn` |
 | deep | `meterless/deep` | `auto` (coerced) | `nvidia/nemotron-3.5-super-vl-120b-a12b` | `rcpt_req_p412l7ql` |
 
-Which agent steps run on which lane: planning and challenge request the deep lane; claim extraction and critique request the fast lane. In live example 1 all five successful calls were served by Nemotron 3.5 Super VL. The brief is a deterministic template by design, so every sentence in it is checkable.
+Which agent steps run on which lane: planning and challenge request the deep lane; claim extraction and critique request the fast lane. In live example 1 all five successful calls were served by Nemotron 3.5 Super VL. The brief came from the deterministic template (`generator=template:v1`), so every sentence in it is checkable.
 
 **Deviation, stated plainly.** The deep lane runs `nvidia/nemotron-3.5-super-vl-120b-a12b`. It was designed for `nvidia/nemotron-3-super-120b-a12b`, which returns 404 on this NVIDIA account (not entitled). Separately, a Nightshift Default app rule coerces both lanes to `auto`, which picks the model per request, so lane separation is not guaranteed: most live calls on both lanes landed on Super VL, and large deep-lane prompts sometimes landed on Lightning and returned HTTP 502. Meterless has acknowledged the routing bug, with a fix targeted for its Sunday release. Every receipt records the coercion (`app_policy.mode_coerced: True`). Operator observations and the vendor acknowledgement: `docs/evidence/nightshift_deviations.md`.
 
