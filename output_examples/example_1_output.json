@@ -1,17 +1,17 @@
 {
   "header": {
-    "generated_at": "2026-10-23T01:03:17Z",
+    "generated_at": "2026-10-24T04:31:13Z",
     "generated_by": "python run.py examples",
-    "git_sha": "f3415c3c844e9f4a95a3f6a007b5d30f0529ae9c",
+    "git_sha": "b8a0dd00ffd246c4aaaaa064524f026e6e90c9a0",
     "mode": {
-      "data": "duckdb",
-      "llm": "offline"
+      "data": "zetaris",
+      "llm": "meterless"
     },
     "n_runs": 1,
-    "p50_ms": 477.46672599987505,
-    "provider": "offline",
-    "run_id": "run-a1ad72bed1f3",
-    "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
+    "p50_ms": 188802.29630599933,
+    "provider": "meterless",
+    "run_id": "run-7fff81db62da",
+    "timing_note": "p50 is the wall time of this one run, including provider calls."
   },
   "response": {
     "agents": [
@@ -36,66 +36,168 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.47746672599987505,
-    "log_file": "logs/trace-run-a1ad72bed1f3.jsonl",
+    "execution_time_seconds": 188.80229630599933,
+    "log_file": "logs/trace-run-7fff81db62da.jsonl",
     "mode": {
-      "data": "duckdb",
-      "llm": "offline"
+      "data": "zetaris",
+      "llm": "meterless"
     },
     "output": {
       "actions": [
         {
-          "capability": "procurement.approval.record",
-          "contract_id": "ctr-327f9c81f37c",
-          "intent": "vendor.onboarding.approve",
+          "capability": "outbox.email.draft",
+          "contract_id": "ctr-eae633feb703",
+          "intent": "vendor.onboarding.request_info",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/procurement/ctr-327f9c81f37c.json"
+        "var/outbox/email/ctr-eae633feb703.json"
       ],
+      "brief": {
+        "generator": "template:v2",
+        "headline": "Request information to the vendor: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
+        "next_steps": [
+          {
+            "action": "Send the clarification email and wait for the vendor's reply.",
+            "due": null,
+            "owner_role": "tprm_analyst"
+          }
+        ],
+        "why": [
+          {
+            "citations": [
+              "F-C01-1"
+            ],
+            "claim": null,
+            "record": null,
+            "text": "MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception."
+          },
+          {
+            "citations": [
+              "F-C04-1"
+            ],
+            "claim": null,
+            "record": null,
+            "text": "Encryption at rest and in transit is unverified. What would satisfy it: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+."
+          }
+        ]
+      },
       "case_id": "CASE-0003",
       "confidence": {
-        "abstained": false,
-        "gate": 0.8,
+        "abstained": true,
+        "gate": 0.95,
         "signals": {
           "contradiction_free": 1.0,
-          "coverage": 1.0,
+          "coverage": 0.6,
           "grounding": 1.0,
           "precedent_alignment": 1.0,
           "source_health": 1.0
         },
-        "value": 1.0
+        "unknown_controls": [
+          "C01",
+          "C04"
+        ],
+        "value": 0.88
       },
       "contradictions": [],
-      "counterfactuals": [],
-      "decision": "APPROVE",
+      "counterfactuals": [
+        {
+          "control_id": "C01",
+          "evidence_required": [
+            "Q01 and Q02 affirmative, naming the mechanism",
+            "or assurance report noting the MFA control without exception"
+          ],
+          "question_ids": [
+            "Q01",
+            "Q02"
+          ]
+        },
+        {
+          "control_id": "C04",
+          "evidence_required": [
+            "Q05 naming the standard (e.g. AES-256)",
+            "Q06 confirming TLS 1.2+"
+          ],
+          "question_ids": [
+            "Q05",
+            "Q06"
+          ]
+        }
+      ],
+      "decision": "REQUEST_INFO",
+      "drafts": [
+        {
+          "body": "Please send the following so we can finish the assessment of Pellucid Forms Ltd.\n\nIs MFA enforced for all administrative and privileged accounts?\nEvidence that would satisfy this: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception\n\nIs MFA enforced for all remote and employee access to systems processing our data?\nEvidence that would satisfy this: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception\n\nIs customer data encrypted at rest? Which standard?\nEvidence that would satisfy this: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+\n\nIs data encrypted in transit (TLS 1.2+)?\nEvidence that would satisfy this: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+",
+          "subject": "Information requested for Pellucid Forms Ltd (CASE-0003)",
+          "to_role": "vendor"
+        }
+      ],
       "findings": [
         {
           "citations": [
+            "R-C01",
             "F-C01-1"
           ],
-          "text": "No required control failed for outcome APPROVE."
+          "text": "C01 (MFA enforced for privileged and remote access) is UNKNOWN."
+        },
+        {
+          "citations": [
+            "R-C04",
+            "F-C04-1"
+          ],
+          "text": "C04 (Encryption at rest and in transit) is UNKNOWN."
+        },
+        {
+          "citations": [
+            "R-C01"
+          ],
+          "text": "C01 would reach TRUE with Q01, Q02."
+        },
+        {
+          "citations": [
+            "R-C04"
+          ],
+          "text": "C04 would reach TRUE with Q05, Q06."
         }
       ],
       "limitations": [
-        "template:v1 deterministic report from the decision record.",
-        "LLM offline: deterministic extraction and reporting used."
+        "template:v1 deterministic report from the decision record."
       ],
       "precedents": [],
       "recommendations": [
-        "Record the approval once required approvers sign the contract."
+        "Send the clarification email and wait for the vendor's reply."
       ],
-      "residual_risk": 15,
+      "residual_risk": 30,
       "risk_tier": "T3",
-      "summary": "Outcome APPROVE: ALL_REQUIRED_CONTROLS_MET.",
+      "summary": "Request information to the vendor: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
       "vendor": {
         "legal_name": "Pellucid Forms Ltd",
         "vendor_id": "VND-0003"
+      },
+      "workload": {
+        "answers_read": 16,
+        "claims_extracted": 0,
+        "claims_grounded": 0,
+        "contradictions": 0,
+        "documents_read": 0,
+        "dq_flags": 0,
+        "elapsed_seconds": 188.80229630599933,
+        "guard_blocks": 0,
+        "model_calls": 0,
+        "models": [],
+        "queries": 0,
+        "rows_read": 22,
+        "systems_queried": [
+          "Vendor trust portal",
+          "Procurement (ERP)",
+          "Service desk (ITSM)",
+          "Sanctions watchlist (GRC)"
+        ]
       }
     },
-    "run_id": "run-a1ad72bed1f3",
+    "run_id": "run-7fff81db62da",
     "status": "success",
-    "trace_id": "run-a1ad72bed1f3"
+    "trace_id": "run-7fff81db62da"
   }
 }
