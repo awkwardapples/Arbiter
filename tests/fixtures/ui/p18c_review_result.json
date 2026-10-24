@@ -1,0 +1,2298 @@
+{
+  "contract": {
+    "case_id": "CASE-0007",
+    "contract_id": "ctr-b12fdea6ab27",
+    "expires_at": "2026-10-31T11:57:04.732539Z",
+    "intent": "vendor.onboarding.approve_with_conditions",
+    "issued_at": "2026-10-24T11:57:04.732539Z",
+    "parameters": {
+      "decision_record_sha256": "3589b001000db50780be1eb516693fd4765a94a1bc456110714c795448e29fc8",
+      "outcome": "APPROVE_WITH_CONDITIONS",
+      "policy_version": "1.0.0",
+      "report_generator": "template:v1"
+    },
+    "parent_id": "ctr-4e3b7948b6cb",
+    "policy_pack_version": "1.0.0",
+    "registry_version": 1,
+    "risk": {
+      "approvals": [
+        {
+          "at": "2026-10-24T11:57:04Z",
+          "by": "Sam Lead",
+          "decision": "approve",
+          "rationale": "Residency confirmed with the vendor's DPO in writing; hosting moves to the EU region.",
+          "role": "tprm_lead"
+        }
+      ],
+      "approvals_required": [
+        {
+          "role": "tprm_analyst"
+        }
+      ],
+      "flags": [],
+      "level": "medium"
+    },
+    "scope": {
+      "budget": null,
+      "capabilities": [
+        "procurement.approval.record"
+      ],
+      "deadline": null
+    },
+    "signature": "60629e0559148cb43ea7604cf22686a0ed8a6f1dc51fc02d08cd00c7d3afadd0",
+    "signed_by": "scout",
+    "state": "executed",
+    "tool_plan": [
+      {
+        "args": {},
+        "capability": "procurement.approval.record"
+      }
+    ],
+    "trace_id": "rev-bb0103e4a9d6"
+  },
+  "eligibility": {
+    "eligible": true,
+    "reasons": []
+  },
+  "human_decision": {
+    "as_of": "2026-10-26",
+    "calibration_version": "cal-2026-10-26-eb975166",
+    "case_id": "CASE-0007",
+    "conditions": [],
+    "confidence": {
+      "abstained": true,
+      "gate": 0.95,
+      "signals": {
+        "contradiction_free": 0.0,
+        "coverage": 0.9167,
+        "grounding": 1.0,
+        "precedent_alignment": 1.0,
+        "source_health": 1.0
+      },
+      "unknown_controls": [
+        "C05"
+      ],
+      "value": 0.825
+    },
+    "contradictions": [
+      {
+        "claim_id": "CL-Q10-11",
+        "claim_value": [
+          "EU"
+        ],
+        "control_id": "C09",
+        "key": "residency.regions",
+        "resolved": false,
+        "severity": "material",
+        "sor_provenance": {
+          "answer_ref": null,
+          "backend": "duckdb",
+          "field": "hosting_region_clause",
+          "kind": "system_of_record",
+          "query_id": "Q_VENDOR_CONTRACT",
+          "quote": null,
+          "record_key": "contract_id=CTR-30007",
+          "system": "clm",
+          "zetaris_request_id": null
+        },
+        "sor_value": [
+          "US"
+        ]
+      }
+    ],
+    "controls": [
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C01",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C01-1",
+          "F-C01-2"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C01",
+        "state": "TRUE",
+        "title": "MFA enforced for privileged and remote access",
+        "weight": 3.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C02",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C02-1",
+          "F-C02-2"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C02",
+        "state": "TRUE",
+        "title": "Credential and secret hygiene",
+        "weight": 2.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C03",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C03-1"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C03",
+        "state": "TRUE",
+        "title": "Least privilege with periodic access reviews",
+        "weight": 2.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C04",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C04-1",
+          "F-C04-2"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C04",
+        "state": "TRUE",
+        "title": "Encryption at rest and in transit",
+        "weight": 2.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C05",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C05-3",
+          "F-C05-4"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C05",
+        "state": "UNKNOWN",
+        "title": "Current independent assurance (SOC 2 Type II or ISO 27001)",
+        "weight": 3.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C06",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C06-2"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C06",
+        "state": "TRUE",
+        "title": "No unremediated material incident in 24 months",
+        "weight": 2.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C07",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C07-1"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C07",
+        "state": "TRUE",
+        "title": "Personal-data breach notification within 72 hours",
+        "weight": 2.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C08",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C08-1"
+        ],
+        "hard_gate": "escalate",
+        "required": true,
+        "rule_id": "C08",
+        "state": "TRUE",
+        "title": "Data Processing Agreement executed",
+        "weight": 3.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C09",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C09-1",
+          "F-C09-4"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C09",
+        "state": "FALSE",
+        "title": "Data residency or lawful transfer mechanism",
+        "weight": 3.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C10",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C10-1"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C10",
+        "state": "TRUE",
+        "title": "Sub-processor disclosure",
+        "weight": 1.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C11",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C11-2"
+        ],
+        "hard_gate": "decline",
+        "required": true,
+        "rule_id": "C11",
+        "state": "TRUE",
+        "title": "Sanctions and watchlist clear",
+        "weight": 3.0
+      },
+      {
+        "condition_text": null,
+        "conditional": false,
+        "control_id": "C12",
+        "exception_applied": null,
+        "fact_ids": [
+          "F-C12-3",
+          "F-C12-4"
+        ],
+        "hard_gate": null,
+        "required": true,
+        "rule_id": "C12",
+        "state": "FALSE",
+        "title": "No unmitigated exposure to known-exploited vulnerabilities",
+        "weight": 3.0
+      }
+    ],
+    "counterfactuals": [
+      {
+        "control_id": "C05",
+        "evidence_required": [
+          "SOC 2 Type II report summary issued ≤ 12 months before as_of",
+          "or ISO 27001 certificate with expires_on ≥ as_of"
+        ],
+        "from_state": "UNKNOWN",
+        "question_ids": [
+          "Q07"
+        ],
+        "to_state": "TRUE"
+      },
+      {
+        "control_id": "C09",
+        "evidence_required": [
+          "CLM hosting clause UK/EU",
+          "or a documented transfer mechanism (SCCs/IDTA)",
+          "resolve contradiction on residency.regions"
+        ],
+        "from_state": "FALSE",
+        "question_ids": [
+          "Q10",
+          "Q11"
+        ],
+        "to_state": "TRUE"
+      },
+      {
+        "control_id": "C12",
+        "evidence_required": [
+          "Declared components checked against CISA KEV",
+          "or critical patch SLA ≤ 14 days with attestation"
+        ],
+        "from_state": "FALSE",
+        "question_ids": [
+          "Q13",
+          "Q14"
+        ],
+        "to_state": "TRUE"
+      }
+    ],
+    "created_at": "2026-10-24T11:57:04.724130Z",
+    "escalation_reasons": [
+      "CHALLENGE_T1_UNCORROBORATED"
+    ],
+    "exceptions_applied": [],
+    "facts": [
+      {
+        "control_id": "C01",
+        "derived_from_claims": [
+          "CL-Q01-1"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C01-1",
+        "key": "mfa.admin_enforced",
+        "provenance": [
+          {
+            "answer_ref": "Q01",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "MFA is mandatory for admin access.",
+            "record_key": "answer_id=A-VND-0007-Q01",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C01",
+        "derived_from_claims": [
+          "CL-Q02-2"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C01-2",
+        "key": "mfa.remote_enforced",
+        "provenance": [
+          {
+            "answer_ref": "Q02",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Remote access requires MFA for all users.",
+            "record_key": "answer_id=A-VND-0007-Q02",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C02",
+        "derived_from_claims": [
+          "CL-Q03-3"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C02-1",
+        "key": "creds.rotation_days",
+        "provenance": [
+          {
+            "answer_ref": "Q03",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+            "record_key": "answer_id=A-VND-0007-Q03",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 90.0
+      },
+      {
+        "control_id": "C02",
+        "derived_from_claims": [
+          "CL-Q03-4"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C02-2",
+        "key": "creds.vaulted",
+        "provenance": [
+          {
+            "answer_ref": "Q03",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+            "record_key": "answer_id=A-VND-0007-Q03",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C03",
+        "derived_from_claims": [
+          "CL-Q04-5"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C03-1",
+        "key": "access.review_interval_days",
+        "provenance": [
+          {
+            "answer_ref": "Q04",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Access reviews occur every 60 days.",
+            "record_key": "answer_id=A-VND-0007-Q04",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 60.0
+      },
+      {
+        "control_id": "C04",
+        "derived_from_claims": [
+          "CL-Q05-6"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C04-1",
+        "key": "crypto.at_rest",
+        "provenance": [
+          {
+            "answer_ref": "Q05",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Yes, customer data is encrypted at rest with AES-256.",
+            "record_key": "answer_id=A-VND-0007-Q05",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C04",
+        "derived_from_claims": [
+          "CL-Q06-7"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C04-2",
+        "key": "crypto.in_transit_tls12",
+        "provenance": [
+          {
+            "answer_ref": "Q06",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Yes, all traffic uses TLS 1.2 or higher.",
+            "record_key": "answer_id=A-VND-0007-Q06",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C05",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C05-1",
+        "key": "assurance.bridge_letter_current",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": null,
+            "field": null,
+            "kind": "derived",
+            "query_id": "Q_SUBMISSION_DOCUMENTS",
+            "quote": null,
+            "record_key": null,
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "FALSE",
+        "value": false
+      },
+      {
+        "control_id": "C05",
+        "derived_from_claims": [
+          "CL-Q07-8"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C05-2",
+        "key": "assurance.claimed",
+        "provenance": [
+          {
+            "answer_ref": "Q07",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "We hold a current SOC 2 Type II report.",
+            "record_key": "answer_id=A-VND-0007-Q07",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": [
+          "SOC 2 Type II"
+        ]
+      },
+      {
+        "control_id": "C05",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C05-3",
+        "key": "assurance.iso27001_current",
+        "provenance": [
+          {
+            "answer_ref": "Q07",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "We hold a current SOC 2 Type II report.",
+            "record_key": "answer_id=A-VND-0007-Q07",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "FALSE",
+        "value": false
+      },
+      {
+        "control_id": "C05",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C05-4",
+        "key": "assurance.soc2_type2_current",
+        "provenance": [
+          {
+            "answer_ref": "Q07",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "We hold a current SOC 2 Type II report.",
+            "record_key": "answer_id=A-VND-0007-Q07",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "UNKNOWN",
+        "value": null
+      },
+      {
+        "control_id": "C06",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C06-1",
+        "key": "incidents.itsm_vendor_related_24m",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "category",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_INCIDENTS",
+            "quote": null,
+            "record_key": null,
+            "system": "itsm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 0.0
+      },
+      {
+        "control_id": "C06",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C06-2",
+        "key": "incidents.material_unremediated_24m",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "rca_completed",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_INCIDENTS",
+            "quote": null,
+            "record_key": null,
+            "system": "itsm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 0.0
+      },
+      {
+        "control_id": "C06",
+        "derived_from_claims": [
+          "CL-Q08-9"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C06-3",
+        "key": "incidents.vendor_reported_24m",
+        "provenance": [
+          {
+            "answer_ref": "Q08",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "No breaches of customer data in the last 24 months.",
+            "record_key": "answer_id=A-VND-0007-Q08",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 0.0
+      },
+      {
+        "control_id": "C07",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C07-1",
+        "key": "breach.notify_hours",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "breach_notification_hours",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 72.0
+      },
+      {
+        "control_id": "C07",
+        "derived_from_claims": [
+          "CL-Q09-10"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C07-2",
+        "key": "breach.notify_hours_claimed",
+        "provenance": [
+          {
+            "answer_ref": "Q09",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "We notify within 72 hours.",
+            "record_key": "answer_id=A-VND-0007-Q09",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 72.0
+      },
+      {
+        "control_id": "C07",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C07-3",
+        "key": "breach.notify_hours_contract",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "breach_notification_hours",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 72.0
+      },
+      {
+        "control_id": "C08",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C08-1",
+        "key": "dpa.signed",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "dpa_signed",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C08",
+        "derived_from_claims": [
+          "CL-Q15-16"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C08-2",
+        "key": "dpa.vendor_commits",
+        "provenance": [
+          {
+            "answer_ref": "Q15",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Yes, we will sign your Data Processing Agreement.",
+            "record_key": "answer_id=A-VND-0007-Q15",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C09",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C09-1",
+        "key": "residency.regions",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "hosting_region_clause",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": [
+          "US"
+        ]
+      },
+      {
+        "control_id": "C09",
+        "derived_from_claims": [
+          "CL-Q10-11"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C09-2",
+        "key": "residency.regions_claimed",
+        "provenance": [
+          {
+            "answer_ref": "Q10",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Processing stays within EU regions.",
+            "record_key": "answer_id=A-VND-0007-Q10",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": [
+          "EU"
+        ]
+      },
+      {
+        "control_id": "C09",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C09-3",
+        "key": "residency.regions_contract",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "hosting_region_clause",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": [
+          "US"
+        ]
+      },
+      {
+        "control_id": "C09",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C09-4",
+        "key": "transfer.mechanism",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "transfer_mechanism",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": "NONE"
+      },
+      {
+        "control_id": "C09",
+        "derived_from_claims": [
+          "CL-Q11-12"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C09-5",
+        "key": "transfer.mechanism_claimed",
+        "provenance": [
+          {
+            "answer_ref": "Q11",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Standard Contractual Clauses apply.",
+            "record_key": "answer_id=A-VND-0007-Q11",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": "SCCs"
+      },
+      {
+        "control_id": "C10",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C10-1",
+        "key": "subprocessors.disclosed",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "subprocessor_list_attached",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C10",
+        "derived_from_claims": [
+          "CL-Q12-13"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C10-2",
+        "key": "subprocessors.disclosed_claimed",
+        "provenance": [
+          {
+            "answer_ref": "Q12",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Yes, sub-processors are disclosed in our register.",
+            "record_key": "answer_id=A-VND-0007-Q12",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": true
+      },
+      {
+        "control_id": "C11",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C11-1",
+        "key": "sanctions.near_matches",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "entity_name",
+            "kind": "system_of_record",
+            "query_id": "Q_WATCHLIST_ALL",
+            "quote": null,
+            "record_key": null,
+            "system": "grc_watchlist",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 0.0
+      },
+      {
+        "control_id": "C11",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C11-2",
+        "key": "sanctions.watchlist_matches",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "entity_name",
+            "kind": "system_of_record",
+            "query_id": "Q_WATCHLIST_SCREEN",
+            "quote": null,
+            "record_key": null,
+            "system": "grc_watchlist",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 0.0
+      },
+      {
+        "control_id": "C12",
+        "derived_from_claims": [
+          "CL-Q14-15"
+        ],
+        "dq_flags": [],
+        "fact_id": "F-C12-1",
+        "key": "pentest.interval_months",
+        "provenance": [
+          {
+            "answer_ref": "Q14",
+            "backend": null,
+            "field": null,
+            "kind": "vendor_answer",
+            "query_id": "Q_SUBMISSION_ANSWERS",
+            "quote": "Pen tests annually.",
+            "record_key": "answer_id=A-VND-0007-Q14",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 12.0
+      },
+      {
+        "control_id": "C12",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C12-2",
+        "key": "vuln.components_declared",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "component_id",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_COMPONENTS",
+            "quote": null,
+            "record_key": null,
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 1.0
+      },
+      {
+        "control_id": "C12",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C12-3",
+        "key": "vuln.kev_matches",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2018-13374",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2018-13379",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2018-13382",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2018-13383",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2019-5591",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2019-6693",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2020-12812",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2021-44168",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2022-41328",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2022-42475",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2023-27997",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2024-21762",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2024-55591",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2025-24472",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          },
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "cve_id",
+            "kind": "public_feed",
+            "query_id": "Q_COMPONENT_KEV",
+            "quote": null,
+            "record_key": "cve_id=CVE-2025-68686",
+            "system": "cisa_kev",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 15.0
+      },
+      {
+        "control_id": "C12",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-C12-4",
+        "key": "vuln.patch_sla_critical_days",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "patch_sla_critical_days",
+            "kind": "system_of_record",
+            "query_id": "Q_SUBMISSION",
+            "quote": null,
+            "record_key": "submission_id=SUBM-0007",
+            "system": "trust_portal",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": 30.0
+      },
+      {
+        "control_id": "TIER",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-TIER-1",
+        "key": "contract.status",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "status",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": "signed"
+      },
+      {
+        "control_id": "TIER",
+        "derived_from_claims": [],
+        "dq_flags": [],
+        "fact_id": "F-TIER-2",
+        "key": "vendor.data_categories",
+        "provenance": [
+          {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "data_categories",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_PROFILE",
+            "quote": null,
+            "record_key": "vendor_id=VND-0007",
+            "system": "procurement",
+            "zetaris_request_id": null
+          }
+        ],
+        "state": "TRUE",
+        "value": [
+          "personal"
+        ]
+      }
+    ],
+    "inherent_risk_score": 8,
+    "outcome": "APPROVE_WITH_CONDITIONS",
+    "outcome_reasons": [
+      "HUMAN_REVIEW"
+    ],
+    "policy_engine_version": "1.1",
+    "policy_inputs": {
+      "as_of": "2026-10-26",
+      "case_id": "CASE-0007",
+      "confidence": {
+        "abstained": false,
+        "gate": 0.95,
+        "signals": {
+          "contradiction_free": 0.0,
+          "coverage": 0.9167,
+          "grounding": 1.0,
+          "precedent_alignment": 1.0,
+          "source_health": 1.0
+        },
+        "unknown_controls": [
+          "C05"
+        ],
+        "value": 0.825
+      },
+      "contradictions": [
+        {
+          "claim_id": "CL-Q10-11",
+          "claim_value": [
+            "EU"
+          ],
+          "control_id": "C09",
+          "key": "residency.regions",
+          "resolved": false,
+          "severity": "material",
+          "sor_provenance": {
+            "answer_ref": null,
+            "backend": "duckdb",
+            "field": "hosting_region_clause",
+            "kind": "system_of_record",
+            "query_id": "Q_VENDOR_CONTRACT",
+            "quote": null,
+            "record_key": "contract_id=CTR-30007",
+            "system": "clm",
+            "zetaris_request_id": null
+          },
+          "sor_value": [
+            "US"
+          ]
+        }
+      ],
+      "facts": [
+        {
+          "control_id": "C01",
+          "derived_from_claims": [
+            "CL-Q01-1"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C01-1",
+          "key": "mfa.admin_enforced",
+          "provenance": [
+            {
+              "answer_ref": "Q01",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "MFA is mandatory for admin access.",
+              "record_key": "answer_id=A-VND-0007-Q01",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C01",
+          "derived_from_claims": [
+            "CL-Q02-2"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C01-2",
+          "key": "mfa.remote_enforced",
+          "provenance": [
+            {
+              "answer_ref": "Q02",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Remote access requires MFA for all users.",
+              "record_key": "answer_id=A-VND-0007-Q02",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C02",
+          "derived_from_claims": [
+            "CL-Q03-3"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C02-1",
+          "key": "creds.rotation_days",
+          "provenance": [
+            {
+              "answer_ref": "Q03",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+              "record_key": "answer_id=A-VND-0007-Q03",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 90.0
+        },
+        {
+          "control_id": "C02",
+          "derived_from_claims": [
+            "CL-Q03-4"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C02-2",
+          "key": "creds.vaulted",
+          "provenance": [
+            {
+              "answer_ref": "Q03",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+              "record_key": "answer_id=A-VND-0007-Q03",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C03",
+          "derived_from_claims": [
+            "CL-Q04-5"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C03-1",
+          "key": "access.review_interval_days",
+          "provenance": [
+            {
+              "answer_ref": "Q04",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Access reviews occur every 60 days.",
+              "record_key": "answer_id=A-VND-0007-Q04",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 60.0
+        },
+        {
+          "control_id": "C04",
+          "derived_from_claims": [
+            "CL-Q05-6"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C04-1",
+          "key": "crypto.at_rest",
+          "provenance": [
+            {
+              "answer_ref": "Q05",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Yes, customer data is encrypted at rest with AES-256.",
+              "record_key": "answer_id=A-VND-0007-Q05",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C04",
+          "derived_from_claims": [
+            "CL-Q06-7"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C04-2",
+          "key": "crypto.in_transit_tls12",
+          "provenance": [
+            {
+              "answer_ref": "Q06",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Yes, all traffic uses TLS 1.2 or higher.",
+              "record_key": "answer_id=A-VND-0007-Q06",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C05",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C05-1",
+          "key": "assurance.bridge_letter_current",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": null,
+              "field": null,
+              "kind": "derived",
+              "query_id": "Q_SUBMISSION_DOCUMENTS",
+              "quote": null,
+              "record_key": null,
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "FALSE",
+          "value": false
+        },
+        {
+          "control_id": "C05",
+          "derived_from_claims": [
+            "CL-Q07-8"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C05-2",
+          "key": "assurance.claimed",
+          "provenance": [
+            {
+              "answer_ref": "Q07",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "We hold a current SOC 2 Type II report.",
+              "record_key": "answer_id=A-VND-0007-Q07",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": [
+            "SOC 2 Type II"
+          ]
+        },
+        {
+          "control_id": "C05",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C05-3",
+          "key": "assurance.iso27001_current",
+          "provenance": [
+            {
+              "answer_ref": "Q07",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "We hold a current SOC 2 Type II report.",
+              "record_key": "answer_id=A-VND-0007-Q07",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "FALSE",
+          "value": false
+        },
+        {
+          "control_id": "C05",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C05-4",
+          "key": "assurance.soc2_type2_current",
+          "provenance": [
+            {
+              "answer_ref": "Q07",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "We hold a current SOC 2 Type II report.",
+              "record_key": "answer_id=A-VND-0007-Q07",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "UNKNOWN",
+          "value": null
+        },
+        {
+          "control_id": "C06",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C06-1",
+          "key": "incidents.itsm_vendor_related_24m",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "category",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_INCIDENTS",
+              "quote": null,
+              "record_key": null,
+              "system": "itsm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 0.0
+        },
+        {
+          "control_id": "C06",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C06-2",
+          "key": "incidents.material_unremediated_24m",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "rca_completed",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_INCIDENTS",
+              "quote": null,
+              "record_key": null,
+              "system": "itsm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 0.0
+        },
+        {
+          "control_id": "C06",
+          "derived_from_claims": [
+            "CL-Q08-9"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C06-3",
+          "key": "incidents.vendor_reported_24m",
+          "provenance": [
+            {
+              "answer_ref": "Q08",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "No breaches of customer data in the last 24 months.",
+              "record_key": "answer_id=A-VND-0007-Q08",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 0.0
+        },
+        {
+          "control_id": "C07",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C07-1",
+          "key": "breach.notify_hours",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "breach_notification_hours",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 72.0
+        },
+        {
+          "control_id": "C07",
+          "derived_from_claims": [
+            "CL-Q09-10"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C07-2",
+          "key": "breach.notify_hours_claimed",
+          "provenance": [
+            {
+              "answer_ref": "Q09",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "We notify within 72 hours.",
+              "record_key": "answer_id=A-VND-0007-Q09",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 72.0
+        },
+        {
+          "control_id": "C07",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C07-3",
+          "key": "breach.notify_hours_contract",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "breach_notification_hours",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 72.0
+        },
+        {
+          "control_id": "C08",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C08-1",
+          "key": "dpa.signed",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "dpa_signed",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C08",
+          "derived_from_claims": [
+            "CL-Q15-16"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C08-2",
+          "key": "dpa.vendor_commits",
+          "provenance": [
+            {
+              "answer_ref": "Q15",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Yes, we will sign your Data Processing Agreement.",
+              "record_key": "answer_id=A-VND-0007-Q15",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C09",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C09-1",
+          "key": "residency.regions",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "hosting_region_clause",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": [
+            "US"
+          ]
+        },
+        {
+          "control_id": "C09",
+          "derived_from_claims": [
+            "CL-Q10-11"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C09-2",
+          "key": "residency.regions_claimed",
+          "provenance": [
+            {
+              "answer_ref": "Q10",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Processing stays within EU regions.",
+              "record_key": "answer_id=A-VND-0007-Q10",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": [
+            "EU"
+          ]
+        },
+        {
+          "control_id": "C09",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C09-3",
+          "key": "residency.regions_contract",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "hosting_region_clause",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": [
+            "US"
+          ]
+        },
+        {
+          "control_id": "C09",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C09-4",
+          "key": "transfer.mechanism",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "transfer_mechanism",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": "NONE"
+        },
+        {
+          "control_id": "C09",
+          "derived_from_claims": [
+            "CL-Q11-12"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C09-5",
+          "key": "transfer.mechanism_claimed",
+          "provenance": [
+            {
+              "answer_ref": "Q11",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Standard Contractual Clauses apply.",
+              "record_key": "answer_id=A-VND-0007-Q11",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": "SCCs"
+        },
+        {
+          "control_id": "C10",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C10-1",
+          "key": "subprocessors.disclosed",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "subprocessor_list_attached",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C10",
+          "derived_from_claims": [
+            "CL-Q12-13"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C10-2",
+          "key": "subprocessors.disclosed_claimed",
+          "provenance": [
+            {
+              "answer_ref": "Q12",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Yes, sub-processors are disclosed in our register.",
+              "record_key": "answer_id=A-VND-0007-Q12",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": true
+        },
+        {
+          "control_id": "C11",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C11-1",
+          "key": "sanctions.near_matches",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "entity_name",
+              "kind": "system_of_record",
+              "query_id": "Q_WATCHLIST_ALL",
+              "quote": null,
+              "record_key": null,
+              "system": "grc_watchlist",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 0.0
+        },
+        {
+          "control_id": "C11",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C11-2",
+          "key": "sanctions.watchlist_matches",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "entity_name",
+              "kind": "system_of_record",
+              "query_id": "Q_WATCHLIST_SCREEN",
+              "quote": null,
+              "record_key": null,
+              "system": "grc_watchlist",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 0.0
+        },
+        {
+          "control_id": "C12",
+          "derived_from_claims": [
+            "CL-Q14-15"
+          ],
+          "dq_flags": [],
+          "fact_id": "F-C12-1",
+          "key": "pentest.interval_months",
+          "provenance": [
+            {
+              "answer_ref": "Q14",
+              "backend": null,
+              "field": null,
+              "kind": "vendor_answer",
+              "query_id": "Q_SUBMISSION_ANSWERS",
+              "quote": "Pen tests annually.",
+              "record_key": "answer_id=A-VND-0007-Q14",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 12.0
+        },
+        {
+          "control_id": "C12",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C12-2",
+          "key": "vuln.components_declared",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "component_id",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_COMPONENTS",
+              "quote": null,
+              "record_key": null,
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 1.0
+        },
+        {
+          "control_id": "C12",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C12-3",
+          "key": "vuln.kev_matches",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2018-13374",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2018-13379",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2018-13382",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2018-13383",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2019-5591",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2019-6693",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2020-12812",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2021-44168",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2022-41328",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2022-42475",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2023-27997",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2024-21762",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2024-55591",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2025-24472",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            },
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "cve_id",
+              "kind": "public_feed",
+              "query_id": "Q_COMPONENT_KEV",
+              "quote": null,
+              "record_key": "cve_id=CVE-2025-68686",
+              "system": "cisa_kev",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 15.0
+        },
+        {
+          "control_id": "C12",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-C12-4",
+          "key": "vuln.patch_sla_critical_days",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "patch_sla_critical_days",
+              "kind": "system_of_record",
+              "query_id": "Q_SUBMISSION",
+              "quote": null,
+              "record_key": "submission_id=SUBM-0007",
+              "system": "trust_portal",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": 30.0
+        },
+        {
+          "control_id": "TIER",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-TIER-1",
+          "key": "contract.status",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "status",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_CONTRACT",
+              "quote": null,
+              "record_key": "contract_id=CTR-30007",
+              "system": "clm",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": "signed"
+        },
+        {
+          "control_id": "TIER",
+          "derived_from_claims": [],
+          "dq_flags": [],
+          "fact_id": "F-TIER-2",
+          "key": "vendor.data_categories",
+          "provenance": [
+            {
+              "answer_ref": null,
+              "backend": "duckdb",
+              "field": "data_categories",
+              "kind": "system_of_record",
+              "query_id": "Q_VENDOR_PROFILE",
+              "quote": null,
+              "record_key": "vendor_id=VND-0007",
+              "system": "procurement",
+              "zetaris_request_id": null
+            }
+          ],
+          "state": "TRUE",
+          "value": [
+            "personal"
+          ]
+        }
+      ],
+      "guard_flags": [],
+      "precedents": [],
+      "profile": {
+        "annual_spend_gbp": 180000.0,
+        "contract_status": "signed",
+        "criticality": "high",
+        "data_categories": [
+          "personal"
+        ],
+        "vendor_category": "SaaS"
+      },
+      "run_id": "run-fd464e2ab2e7"
+    },
+    "policy_sha256": "d87244d91cacbd6a8c7119595311261a1205fc9019b00426b7d9c66fa06f4857",
+    "policy_version": "1.0.0",
+    "precedents_considered": [],
+    "record_sha256": "3589b001000db50780be1eb516693fd4765a94a1bc456110714c795448e29fc8",
+    "residual_risk": 100,
+    "run_id": "rev-bb0103e4a9d6",
+    "tier": "T1"
+  },
+  "precedent": null,
+  "review_id": "rev-bb0103e4a9d6"
+}
