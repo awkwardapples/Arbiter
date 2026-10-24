@@ -1,3 +1,3 @@
-from ui.screens import page_case
+from ui.case_view import render_case
 
-page_case()
+render_case()

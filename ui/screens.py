@@ -12,14 +12,6 @@ from ui.components import (
     AUDIT_CAPTION,
     AUDIT_EVENTS_CAPTION,
     AUDIT_EVENTS_EMPTY,
-    CAPTION_ACTIONS,
-    CAPTION_CONTRADICTIONS,
-    CAPTION_CONTROLS,
-    CAPTION_COUNTERFACTUALS,
-    CAPTION_PRECEDENTS,
-    CAPTION_TIMELINE,
-    CAPTION_TRACE,
-    CASE_EMPTY,
     CONDITION_OPTIONS,
     CONDITIONS_HELP,
     DRY_RUN_NOTE,
@@ -40,25 +32,13 @@ from ui.components import (
     MITIGATION_FACT,
     MITIGATION_HELP,
     MITIGATION_OPTIONS,
-    NEW_ASSESSMENT_CAPTION,
-    NO_CONTRACTS,
-    NO_CONTRADICTIONS,
     PRECEDENT_HELP,
-    QUEUE_CAPTION,
     REPLAY_MATCH_CAPTION,
     REPLAY_MISMATCH_CAPTION,
     REPLAY_SECTION_CAPTION,
-    RESULT_CAPTION,
     REVIEW_CAPTION,
     REVIEW_EMPTY,
-    confidence_gauge,
-    contract_card,
-    contradiction_rows,
-    control_table,
-    counterfactual_line,
-    decision_badge,
     humanise_eligibility_reason,
-    humanise_outcome_reason,
     humanised_bullet,
     ledger_line,
     live_run_summary,
@@ -69,12 +49,9 @@ from ui.components import (
     see_raw,
     split_eval_summary,
     strip_leading_h1,
-    tier_chip,
-    timeline,
 )
 from ui.models import ReviewRequest
 from ui.session import get_client
-from ui.validation import parse_case_input
 
 EVAL_SUMMARY_PATH = Path(__file__).resolve().parents[1] / "eval/results/20261022T080517661769Z/summary.md"
 
@@ -236,179 +213,6 @@ def _review_request(
         conditions=conditions,
         create_precedent=create_precedent,
     )
-
-
-def page_new_assessment() -> None:
-    st.title("New assessment")
-    st.caption(NEW_ASSESSMENT_CAPTION)
-    client = get_client()
-    mode = st.radio("Intake", ["Pick vendor", "Paste / upload JSON"], horizontal=True)
-    case_input = None
-    errors: list[str] = []
-    if mode == "Pick vendor":
-        try:
-            vendors = client.list_vendors()
-        except ArbiterAPIError as exc:
-            st.error(exc.message)
-            return
-        labels = {str(v.get("vendor_id", v.get("legal_name", "vendor"))): v for v in vendors}
-        pick = st.selectbox("Vendor", sorted(labels) if labels else ["—"])
-        if pick and pick != "—":
-            case_input, errors = parse_case_input({"vendor_id": pick})
-    else:
-        uploaded = st.file_uploader("Upload JSON", type=["json"])
-        raw_text = st.text_area("Or paste JSON", height=200)
-        payload: str | dict[str, Any] | None = None
-        if uploaded is not None:
-            payload = uploaded.read().decode("utf-8")
-        elif raw_text.strip():
-            payload = raw_text
-        if payload is not None:
-            case_input, errors = parse_case_input(payload)
-    if errors:
-        for err in errors:
-            st.error(err)
-    if st.button("Run assessment", type="primary", disabled=case_input is None):
-        if case_input is None:
-            return
-        with st.spinner(ASSESSMENT_SPINNER):
-            try:
-                resp = client.run(case_input)
-            except ArbiterAPIError as exc:
-                st.error(exc.message)
-                return
-        output = resp.get("output") or {}
-        case_id = output.get("case_id", "unknown")
-        _section("Result", RESULT_CAPTION)
-        st.success(f"Run {resp.get('status')} — case {case_id}")
-        see_raw(resp)
-        if output.get("case_id"):
-            st.session_state["last_case_id"] = output["case_id"]
-            st.session_state["nav_case_id"] = output["case_id"]
-
-
-def page_queue() -> None:
-    st.title("Cases")
-    st.caption(QUEUE_CAPTION)
-    client = get_client()
-    try:
-        items = client.list_cases()
-    except ArbiterAPIError as exc:
-        st.error(exc.message)
-        return
-    if not items:
-        st.info("No cases yet.")
-        return
-    rows = [
-        {
-            "Case": str(item.get("case_id") or ""),
-            "Vendor": str(item.get("vendor") or ""),
-            "Outcome": str(item.get("outcome") or ""),
-            "Tier": str(item.get("tier") or ""),
-            "Residual risk": item.get("residual_risk"),
-            "Status": str(item.get("status") or ""),
-            "Created": str(item.get("created") or ""),
-        }
-        for item in items
-    ]
-    state = st.dataframe(
-        rows,
-        hide_index=True,
-        on_select="rerun",
-        selection_mode="single-row",
-        key="cases_table",
-    )
-    picked = list(state.selection.rows)
-    if picked and picked[0] < len(rows):
-        case_id = rows[picked[0]]["Case"]
-        st.session_state["last_case_id"] = case_id
-        st.session_state["nav_case_id"] = case_id
-        st.switch_page("pages/case.py")
-
-
-def page_case() -> None:
-    client = get_client()
-    case_id = st.query_params.get("case_id") or st.session_state.get("nav_case_id")
-    if not case_id:
-        st.title("Case")
-        st.caption("Decision record for one assessment.")
-        st.info(CASE_EMPTY)
-        return
-    try:
-        detail = client.get_case(str(case_id))
-        trace = client.get_trace(str(case_id))
-    except ArbiterAPIError as exc:
-        st.title(str(case_id))
-        st.caption("Decision record for one assessment.")
-        st.error(exc.message)
-        return
-    record = detail.get("record") or {}
-    vendor = str(detail.get("vendor") or "—")
-    st.title(f"{case_id} · {vendor}")
-    st.caption(f"{record.get('run_id') or '—'} · {record.get('created_at') or '—'}")
-    outcome, tier, risk, confidence = st.columns(4)
-    with outcome:
-        st.caption("Outcome")
-        decision_badge(str(record.get("outcome", "ESCALATE")))
-    with tier:
-        st.caption("Tier")
-        tier_chip(str(record.get("tier") or "—"))
-    with risk:
-        st.metric("Residual risk", record.get("residual_risk", "—"))
-    conf = record.get("confidence") or {}
-    with confidence:
-        confidence_gauge(
-            float(conf.get("value", 0)),
-            float(conf.get("gate", 1)),
-            bool(conf.get("abstained", False)),
-        )
-    for code in record.get("outcome_reasons") or []:
-        reason = str(code)
-        st.markdown(f"- {humanised_bullet(reason, humanise_outcome_reason(reason))}")
-    report = detail.get("report") or {}
-    if report.get("summary"):
-        st.write(report["summary"])
-    _section("Controls", CAPTION_CONTROLS)
-    controls = list(record.get("controls") or [])
-    control_table(controls, list(record.get("facts") or []))
-    see_raw(controls)
-    _section("Timeline", CAPTION_TIMELINE)
-    timeline(trace)
-    see_raw(trace)
-    _section("Contradictions", CAPTION_CONTRADICTIONS)
-    contradictions = list(record.get("contradictions") or [])
-    if contradictions:
-        st.dataframe(contradiction_rows(contradictions), hide_index=True)
-    else:
-        st.info(NO_CONTRADICTIONS)
-    see_raw(contradictions)
-    _section("Counterfactuals", CAPTION_COUNTERFACTUALS)
-    counterfactuals = list(record.get("counterfactuals") or [])
-    for item in counterfactuals:
-        st.markdown(f"- {counterfactual_line(item)}")
-    see_raw(counterfactuals)
-    _section("Precedents considered", CAPTION_PRECEDENTS)
-    considered = list(record.get("precedents_considered") or [])
-    if considered:
-        candidates = list((record.get("policy_inputs") or {}).get("precedents") or [])
-        st.dataframe(
-            precedent_rows(considered, candidates=candidates, as_of=str(record.get("as_of") or "")),
-            hide_index=True,
-        )
-    else:
-        st.info(EMPTY_PRECEDENTS)
-    see_raw(considered)
-    _section("Actions", CAPTION_ACTIONS)
-    contracts = list(detail.get("contracts") or [])
-    if not contracts:
-        st.info(NO_CONTRACTS)
-    for contract in contracts:
-        with st.container(border=True):
-            for label, value in contract_card(contract).items():
-                st.markdown(f"**{label}:** {value}")
-    see_raw(contracts)
-    _section("Trace and raw data", CAPTION_TRACE)
-    see_raw({"record": record, "report": report, "trace": trace})
 
 
 def page_review() -> None:

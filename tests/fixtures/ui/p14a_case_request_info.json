@@ -1,0 +1,1773 @@
+{
+ "case_id": "CASE-0022",
+ "contracts": [
+  {
+   "case_id": "CASE-0022",
+   "contract_id": "ctr-e91dbcb7d496",
+   "expires_at": "2026-10-31T00:39:30.182989Z",
+   "intent": "vendor.onboarding.request_info",
+   "issued_at": "2026-10-24T00:39:30.182989Z",
+   "parameters": {
+    "decision_record_sha256": "201d3413b7475a2a5fd8b7403b974e6983eef2ad363ec5b14ab84a8134d0fcf5",
+    "outcome": "REQUEST_INFO",
+    "policy_version": "1.0.0",
+    "report_generator": "template:v1"
+   },
+   "parent_id": null,
+   "policy_pack_version": "1.0.0",
+   "registry_version": 1,
+   "risk": {
+    "approvals": [],
+    "approvals_required": [],
+    "flags": [],
+    "level": "low"
+   },
+   "scope": {
+    "budget": null,
+    "capabilities": [
+     "outbox.email.draft"
+    ],
+    "deadline": null
+   },
+   "signature": "d5d86972e4ab97da31e144f33ea31c4bfbc0309dcb2ff0bf0720f9bebbbfba60",
+   "signed_by": "scout",
+   "state": "executed",
+   "tool_plan": [
+    {
+     "args": {},
+     "capability": "outbox.email.draft"
+    }
+   ],
+   "trace_id": "run-eb903fec2941"
+  }
+ ],
+ "record": {
+  "as_of": "2026-10-26",
+  "calibration_version": "cal-2026-10-26-eb975166",
+  "case_id": "CASE-0022",
+  "conditions": [],
+  "confidence": {
+   "abstained": true,
+   "gate": 0.95,
+   "signals": {
+    "contradiction_free": 1.0,
+    "coverage": 0.6,
+    "grounding": 1.0,
+    "precedent_alignment": 1.0,
+    "source_health": 1.0
+   },
+   "unknown_controls": [
+    "C01",
+    "C04"
+   ],
+   "value": 0.88
+  },
+  "contradictions": [],
+  "controls": [
+   {
+    "condition_text": null,
+    "conditional": false,
+    "control_id": "C01",
+    "exception_applied": null,
+    "fact_ids": [
+     "F-C01-1",
+     "F-C01-2"
+    ],
+    "hard_gate": null,
+    "required": true,
+    "rule_id": "C01",
+    "state": "UNKNOWN",
+    "title": "MFA enforced for privileged and remote access",
+    "weight": 3.0
+   },
+   {
+    "condition_text": null,
+    "conditional": false,
+    "control_id": "C04",
+    "exception_applied": null,
+    "fact_ids": [
+     "F-C04-1",
+     "F-C04-2"
+    ],
+    "hard_gate": null,
+    "required": true,
+    "rule_id": "C04",
+    "state": "UNKNOWN",
+    "title": "Encryption at rest and in transit",
+    "weight": 2.0
+   },
+   {
+    "condition_text": null,
+    "conditional": false,
+    "control_id": "C06",
+    "exception_applied": null,
+    "fact_ids": [
+     "F-C06-2"
+    ],
+    "hard_gate": null,
+    "required": true,
+    "rule_id": "C06",
+    "state": "TRUE",
+    "title": "No unremediated material incident in 24 months",
+    "weight": 2.0
+   },
+   {
+    "condition_text": null,
+    "conditional": false,
+    "control_id": "C11",
+    "exception_applied": null,
+    "fact_ids": [
+     "F-C11-2"
+    ],
+    "hard_gate": "decline",
+    "required": true,
+    "rule_id": "C11",
+    "state": "TRUE",
+    "title": "Sanctions and watchlist clear",
+    "weight": 3.0
+   },
+   {
+    "condition_text": null,
+    "conditional": false,
+    "control_id": "C12",
+    "exception_applied": null,
+    "fact_ids": [
+     "F-C12-3",
+     "F-C12-4"
+    ],
+    "hard_gate": null,
+    "required": true,
+    "rule_id": "C12",
+    "state": "TRUE",
+    "title": "No unmitigated exposure to known-exploited vulnerabilities",
+    "weight": 3.0
+   }
+  ],
+  "counterfactuals": [
+   {
+    "control_id": "C01",
+    "evidence_required": [
+     "Q01 and Q02 affirmative, naming the mechanism",
+     "or assurance report noting the MFA control without exception"
+    ],
+    "from_state": "UNKNOWN",
+    "question_ids": [
+     "Q01",
+     "Q02"
+    ],
+    "to_state": "TRUE"
+   },
+   {
+    "control_id": "C04",
+    "evidence_required": [
+     "Q05 naming the standard (e.g. AES-256)",
+     "Q06 confirming TLS 1.2+"
+    ],
+    "from_state": "UNKNOWN",
+    "question_ids": [
+     "Q05",
+     "Q06"
+    ],
+    "to_state": "TRUE"
+   }
+  ],
+  "created_at": "2026-10-26T00:00:00Z",
+  "escalation_reasons": [],
+  "exceptions_applied": [],
+  "facts": [
+   {
+    "control_id": "C01",
+    "derived_from_claims": [
+     "CL-Q01-1"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C01-1",
+    "key": "mfa.admin_enforced",
+    "provenance": [
+     {
+      "answer_ref": "Q01",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "We implement recognized admin access practices.",
+      "record_key": "answer_id=A-VND-0022-Q01",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C01",
+    "derived_from_claims": [
+     "CL-Q02-2"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C01-2",
+    "key": "mfa.remote_enforced",
+    "provenance": [
+     {
+      "answer_ref": "Q02",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Remote workforce authentication includes MFA.",
+      "record_key": "answer_id=A-VND-0022-Q02",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": true
+   },
+   {
+    "control_id": "C02",
+    "derived_from_claims": [
+     "CL-Q03-3"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C02-1",
+    "key": "creds.rotation_days",
+    "provenance": [
+     {
+      "answer_ref": "Q03",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "record_key": "answer_id=A-VND-0022-Q03",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 90.0
+   },
+   {
+    "control_id": "C02",
+    "derived_from_claims": [
+     "CL-Q03-4"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C02-2",
+    "key": "creds.vaulted",
+    "provenance": [
+     {
+      "answer_ref": "Q03",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+      "record_key": "answer_id=A-VND-0022-Q03",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": true
+   },
+   {
+    "control_id": "C03",
+    "derived_from_claims": [
+     "CL-Q04-5"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C03-1",
+    "key": "access.review_interval_days",
+    "provenance": [
+     {
+      "answer_ref": "Q04",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Access reviews occur every 60 days.",
+      "record_key": "answer_id=A-VND-0022-Q04",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 60.0
+   },
+   {
+    "control_id": "C04",
+    "derived_from_claims": [
+     "CL-Q05-6"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C04-1",
+    "key": "crypto.at_rest",
+    "provenance": [
+     {
+      "answer_ref": "Q05",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "We protect stored data as needed.",
+      "record_key": "answer_id=A-VND-0022-Q05",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C04",
+    "derived_from_claims": [
+     "CL-Q06-7"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C04-2",
+    "key": "crypto.in_transit_tls12",
+    "provenance": [
+     {
+      "answer_ref": "Q06",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "We require TLS 1.2 or above for every connection.",
+      "record_key": "answer_id=A-VND-0022-Q06",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": true
+   },
+   {
+    "control_id": "C05",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C05-1",
+    "key": "assurance.bridge_letter_current",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": null,
+      "field": null,
+      "kind": "derived",
+      "query_id": "Q_SUBMISSION_DOCUMENTS",
+      "quote": null,
+      "record_key": null,
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "FALSE",
+    "value": false
+   },
+   {
+    "control_id": "C05",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C05-2",
+    "key": "assurance.iso27001_current",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": null,
+      "field": "assurance.iso27001_current",
+      "kind": "derived",
+      "query_id": null,
+      "quote": null,
+      "record_key": null,
+      "system": null,
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C05",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C05-3",
+    "key": "assurance.soc2_type2_current",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": null,
+      "field": "assurance.soc2_type2_current",
+      "kind": "derived",
+      "query_id": null,
+      "quote": null,
+      "record_key": null,
+      "system": null,
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C06",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C06-1",
+    "key": "incidents.itsm_vendor_related_24m",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "category",
+      "kind": "system_of_record",
+      "query_id": "Q_VENDOR_INCIDENTS",
+      "quote": null,
+      "record_key": null,
+      "system": "itsm",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C06",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C06-2",
+    "key": "incidents.material_unremediated_24m",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "rca_completed",
+      "kind": "system_of_record",
+      "query_id": "Q_VENDOR_INCIDENTS",
+      "quote": null,
+      "record_key": null,
+      "system": "itsm",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C06",
+    "derived_from_claims": [
+     "CL-Q08-8"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C06-3",
+    "key": "incidents.vendor_reported_24m",
+    "provenance": [
+     {
+      "answer_ref": "Q08",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "We had no customer-data security incidents in 24 months.",
+      "record_key": "answer_id=A-VND-0022-Q08",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C07",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C07-1",
+    "key": "breach.notify_hours",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": null,
+      "field": "breach.notify_hours",
+      "kind": "derived",
+      "query_id": null,
+      "quote": null,
+      "record_key": null,
+      "system": null,
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C07",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C07-2",
+    "key": "breach.notify_hours_claimed",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": null,
+      "field": "breach.notify_hours_claimed",
+      "kind": "derived",
+      "query_id": null,
+      "quote": null,
+      "record_key": null,
+      "system": null,
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C08",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C08-1",
+    "key": "dpa.signed",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": null,
+      "field": "dpa.signed",
+      "kind": "derived",
+      "query_id": null,
+      "quote": null,
+      "record_key": null,
+      "system": null,
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "UNKNOWN",
+    "value": null
+   },
+   {
+    "control_id": "C08",
+    "derived_from_claims": [
+     "CL-Q15-14"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C08-2",
+    "key": "dpa.vendor_commits",
+    "provenance": [
+     {
+      "answer_ref": "Q15",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Yes, we will sign your Data Processing Agreement.",
+      "record_key": "answer_id=A-VND-0022-Q15",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": true
+   },
+   {
+    "control_id": "C09",
+    "derived_from_claims": [
+     "CL-Q10-9"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C09-1",
+    "key": "residency.regions",
+    "provenance": [
+     {
+      "answer_ref": "Q10",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Our hosting is EU-only for your data.",
+      "record_key": "answer_id=A-VND-0022-Q10",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": [
+     "EU"
+    ]
+   },
+   {
+    "control_id": "C09",
+    "derived_from_claims": [
+     "CL-Q10-9"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C09-2",
+    "key": "residency.regions_claimed",
+    "provenance": [
+     {
+      "answer_ref": "Q10",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Our hosting is EU-only for your data.",
+      "record_key": "answer_id=A-VND-0022-Q10",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": [
+     "EU"
+    ]
+   },
+   {
+    "control_id": "C09",
+    "derived_from_claims": [
+     "CL-Q11-10"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C09-3",
+    "key": "transfer.mechanism",
+    "provenance": [
+     {
+      "answer_ref": "Q11",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Standard Contractual Clauses apply.",
+      "record_key": "answer_id=A-VND-0022-Q11",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": "SCCs"
+   },
+   {
+    "control_id": "C09",
+    "derived_from_claims": [
+     "CL-Q11-10"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C09-4",
+    "key": "transfer.mechanism_claimed",
+    "provenance": [
+     {
+      "answer_ref": "Q11",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Standard Contractual Clauses apply.",
+      "record_key": "answer_id=A-VND-0022-Q11",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": "SCCs"
+   },
+   {
+    "control_id": "C10",
+    "derived_from_claims": [
+     "CL-Q12-11"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C10-1",
+    "key": "subprocessors.disclosed",
+    "provenance": [
+     {
+      "answer_ref": "Q12",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Yes, sub-processors are disclosed in our register.",
+      "record_key": "answer_id=A-VND-0022-Q12",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": true
+   },
+   {
+    "control_id": "C10",
+    "derived_from_claims": [
+     "CL-Q12-11"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C10-2",
+    "key": "subprocessors.disclosed_claimed",
+    "provenance": [
+     {
+      "answer_ref": "Q12",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Yes, sub-processors are disclosed in our register.",
+      "record_key": "answer_id=A-VND-0022-Q12",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": true
+   },
+   {
+    "control_id": "C11",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C11-1",
+    "key": "sanctions.near_matches",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "entity_name",
+      "kind": "system_of_record",
+      "query_id": "Q_WATCHLIST_ALL",
+      "quote": null,
+      "record_key": null,
+      "system": "grc_watchlist",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C11",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C11-2",
+    "key": "sanctions.watchlist_matches",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "entity_name",
+      "kind": "system_of_record",
+      "query_id": "Q_WATCHLIST_SCREEN",
+      "quote": null,
+      "record_key": null,
+      "system": "grc_watchlist",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C12",
+    "derived_from_claims": [
+     "CL-Q14-13"
+    ],
+    "dq_flags": [],
+    "fact_id": "F-C12-1",
+    "key": "pentest.interval_months",
+    "provenance": [
+     {
+      "answer_ref": "Q14",
+      "backend": null,
+      "field": null,
+      "kind": "vendor_answer",
+      "query_id": "Q_SUBMISSION_ANSWERS",
+      "quote": "Pen tests annually.",
+      "record_key": "answer_id=A-VND-0022-Q14",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 12.0
+   },
+   {
+    "control_id": "C12",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C12-2",
+    "key": "vuln.components_declared",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "component_id",
+      "kind": "system_of_record",
+      "query_id": "Q_VENDOR_COMPONENTS",
+      "quote": null,
+      "record_key": null,
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C12",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C12-3",
+    "key": "vuln.kev_matches",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "component_id",
+      "kind": "system_of_record",
+      "query_id": "Q_VENDOR_COMPONENTS",
+      "quote": null,
+      "record_key": null,
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 0.0
+   },
+   {
+    "control_id": "C12",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-C12-4",
+    "key": "vuln.patch_sla_critical_days",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "patch_sla_critical_days",
+      "kind": "system_of_record",
+      "query_id": "Q_SUBMISSION",
+      "quote": null,
+      "record_key": "submission_id=SUBM-0022",
+      "system": "trust_portal",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": 14.0
+   },
+   {
+    "control_id": "TIER",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-TIER-1",
+    "key": "contract.status",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "status",
+      "kind": "system_of_record",
+      "query_id": "Q_VENDOR_CONTRACT",
+      "quote": null,
+      "record_key": "contract_id=CTR-30022",
+      "system": "clm",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": "draft"
+   },
+   {
+    "control_id": "TIER",
+    "derived_from_claims": [],
+    "dq_flags": [],
+    "fact_id": "F-TIER-2",
+    "key": "vendor.data_categories",
+    "provenance": [
+     {
+      "answer_ref": null,
+      "backend": "duckdb",
+      "field": "data_categories",
+      "kind": "system_of_record",
+      "query_id": "Q_VENDOR_PROFILE",
+      "quote": null,
+      "record_key": "vendor_id=VND-0022",
+      "system": "procurement",
+      "zetaris_request_id": null
+     }
+    ],
+    "state": "TRUE",
+    "value": [
+     "internal"
+    ]
+   }
+  ],
+  "inherent_risk_score": 2,
+  "outcome": "REQUEST_INFO",
+  "outcome_reasons": [
+   "EVIDENCE_MISSING",
+   "LOW_CONFIDENCE_ABSTAIN"
+  ],
+  "policy_engine_version": "1.1",
+  "policy_inputs": {
+   "as_of": "2026-10-26",
+   "case_id": "CASE-0022",
+   "confidence": {
+    "abstained": false,
+    "gate": 0.95,
+    "signals": {
+     "contradiction_free": 1.0,
+     "coverage": 0.6,
+     "grounding": 1.0,
+     "precedent_alignment": 1.0,
+     "source_health": 1.0
+    },
+    "unknown_controls": [
+     "C01",
+     "C04"
+    ],
+    "value": 0.88
+   },
+   "contradictions": [],
+   "facts": [
+    {
+     "control_id": "C01",
+     "derived_from_claims": [
+      "CL-Q01-1"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C01-1",
+     "key": "mfa.admin_enforced",
+     "provenance": [
+      {
+       "answer_ref": "Q01",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "We implement recognized admin access practices.",
+       "record_key": "answer_id=A-VND-0022-Q01",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C01",
+     "derived_from_claims": [
+      "CL-Q02-2"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C01-2",
+     "key": "mfa.remote_enforced",
+     "provenance": [
+      {
+       "answer_ref": "Q02",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Remote workforce authentication includes MFA.",
+       "record_key": "answer_id=A-VND-0022-Q02",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": true
+    },
+    {
+     "control_id": "C02",
+     "derived_from_claims": [
+      "CL-Q03-3"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C02-1",
+     "key": "creds.rotation_days",
+     "provenance": [
+      {
+       "answer_ref": "Q03",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+       "record_key": "answer_id=A-VND-0022-Q03",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 90.0
+    },
+    {
+     "control_id": "C02",
+     "derived_from_claims": [
+      "CL-Q03-4"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C02-2",
+     "key": "creds.vaulted",
+     "provenance": [
+      {
+       "answer_ref": "Q03",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Keys are rotated every 90 days and stored in HashiCorp Vault.",
+       "record_key": "answer_id=A-VND-0022-Q03",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": true
+    },
+    {
+     "control_id": "C03",
+     "derived_from_claims": [
+      "CL-Q04-5"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C03-1",
+     "key": "access.review_interval_days",
+     "provenance": [
+      {
+       "answer_ref": "Q04",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Access reviews occur every 60 days.",
+       "record_key": "answer_id=A-VND-0022-Q04",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 60.0
+    },
+    {
+     "control_id": "C04",
+     "derived_from_claims": [
+      "CL-Q05-6"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C04-1",
+     "key": "crypto.at_rest",
+     "provenance": [
+      {
+       "answer_ref": "Q05",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "We protect stored data as needed.",
+       "record_key": "answer_id=A-VND-0022-Q05",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C04",
+     "derived_from_claims": [
+      "CL-Q06-7"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C04-2",
+     "key": "crypto.in_transit_tls12",
+     "provenance": [
+      {
+       "answer_ref": "Q06",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "We require TLS 1.2 or above for every connection.",
+       "record_key": "answer_id=A-VND-0022-Q06",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": true
+    },
+    {
+     "control_id": "C05",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C05-1",
+     "key": "assurance.bridge_letter_current",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": null,
+       "field": null,
+       "kind": "derived",
+       "query_id": "Q_SUBMISSION_DOCUMENTS",
+       "quote": null,
+       "record_key": null,
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "FALSE",
+     "value": false
+    },
+    {
+     "control_id": "C05",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C05-2",
+     "key": "assurance.iso27001_current",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": null,
+       "field": "assurance.iso27001_current",
+       "kind": "derived",
+       "query_id": null,
+       "quote": null,
+       "record_key": null,
+       "system": null,
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C05",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C05-3",
+     "key": "assurance.soc2_type2_current",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": null,
+       "field": "assurance.soc2_type2_current",
+       "kind": "derived",
+       "query_id": null,
+       "quote": null,
+       "record_key": null,
+       "system": null,
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C06",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C06-1",
+     "key": "incidents.itsm_vendor_related_24m",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "category",
+       "kind": "system_of_record",
+       "query_id": "Q_VENDOR_INCIDENTS",
+       "quote": null,
+       "record_key": null,
+       "system": "itsm",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C06",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C06-2",
+     "key": "incidents.material_unremediated_24m",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "rca_completed",
+       "kind": "system_of_record",
+       "query_id": "Q_VENDOR_INCIDENTS",
+       "quote": null,
+       "record_key": null,
+       "system": "itsm",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C06",
+     "derived_from_claims": [
+      "CL-Q08-8"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C06-3",
+     "key": "incidents.vendor_reported_24m",
+     "provenance": [
+      {
+       "answer_ref": "Q08",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "We had no customer-data security incidents in 24 months.",
+       "record_key": "answer_id=A-VND-0022-Q08",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C07",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C07-1",
+     "key": "breach.notify_hours",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": null,
+       "field": "breach.notify_hours",
+       "kind": "derived",
+       "query_id": null,
+       "quote": null,
+       "record_key": null,
+       "system": null,
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C07",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C07-2",
+     "key": "breach.notify_hours_claimed",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": null,
+       "field": "breach.notify_hours_claimed",
+       "kind": "derived",
+       "query_id": null,
+       "quote": null,
+       "record_key": null,
+       "system": null,
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C08",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C08-1",
+     "key": "dpa.signed",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": null,
+       "field": "dpa.signed",
+       "kind": "derived",
+       "query_id": null,
+       "quote": null,
+       "record_key": null,
+       "system": null,
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "UNKNOWN",
+     "value": null
+    },
+    {
+     "control_id": "C08",
+     "derived_from_claims": [
+      "CL-Q15-14"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C08-2",
+     "key": "dpa.vendor_commits",
+     "provenance": [
+      {
+       "answer_ref": "Q15",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Yes, we will sign your Data Processing Agreement.",
+       "record_key": "answer_id=A-VND-0022-Q15",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": true
+    },
+    {
+     "control_id": "C09",
+     "derived_from_claims": [
+      "CL-Q10-9"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C09-1",
+     "key": "residency.regions",
+     "provenance": [
+      {
+       "answer_ref": "Q10",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Our hosting is EU-only for your data.",
+       "record_key": "answer_id=A-VND-0022-Q10",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": [
+      "EU"
+     ]
+    },
+    {
+     "control_id": "C09",
+     "derived_from_claims": [
+      "CL-Q10-9"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C09-2",
+     "key": "residency.regions_claimed",
+     "provenance": [
+      {
+       "answer_ref": "Q10",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Our hosting is EU-only for your data.",
+       "record_key": "answer_id=A-VND-0022-Q10",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": [
+      "EU"
+     ]
+    },
+    {
+     "control_id": "C09",
+     "derived_from_claims": [
+      "CL-Q11-10"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C09-3",
+     "key": "transfer.mechanism",
+     "provenance": [
+      {
+       "answer_ref": "Q11",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Standard Contractual Clauses apply.",
+       "record_key": "answer_id=A-VND-0022-Q11",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": "SCCs"
+    },
+    {
+     "control_id": "C09",
+     "derived_from_claims": [
+      "CL-Q11-10"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C09-4",
+     "key": "transfer.mechanism_claimed",
+     "provenance": [
+      {
+       "answer_ref": "Q11",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Standard Contractual Clauses apply.",
+       "record_key": "answer_id=A-VND-0022-Q11",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": "SCCs"
+    },
+    {
+     "control_id": "C10",
+     "derived_from_claims": [
+      "CL-Q12-11"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C10-1",
+     "key": "subprocessors.disclosed",
+     "provenance": [
+      {
+       "answer_ref": "Q12",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Yes, sub-processors are disclosed in our register.",
+       "record_key": "answer_id=A-VND-0022-Q12",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": true
+    },
+    {
+     "control_id": "C10",
+     "derived_from_claims": [
+      "CL-Q12-11"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C10-2",
+     "key": "subprocessors.disclosed_claimed",
+     "provenance": [
+      {
+       "answer_ref": "Q12",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Yes, sub-processors are disclosed in our register.",
+       "record_key": "answer_id=A-VND-0022-Q12",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": true
+    },
+    {
+     "control_id": "C11",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C11-1",
+     "key": "sanctions.near_matches",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "entity_name",
+       "kind": "system_of_record",
+       "query_id": "Q_WATCHLIST_ALL",
+       "quote": null,
+       "record_key": null,
+       "system": "grc_watchlist",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C11",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C11-2",
+     "key": "sanctions.watchlist_matches",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "entity_name",
+       "kind": "system_of_record",
+       "query_id": "Q_WATCHLIST_SCREEN",
+       "quote": null,
+       "record_key": null,
+       "system": "grc_watchlist",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C12",
+     "derived_from_claims": [
+      "CL-Q14-13"
+     ],
+     "dq_flags": [],
+     "fact_id": "F-C12-1",
+     "key": "pentest.interval_months",
+     "provenance": [
+      {
+       "answer_ref": "Q14",
+       "backend": null,
+       "field": null,
+       "kind": "vendor_answer",
+       "query_id": "Q_SUBMISSION_ANSWERS",
+       "quote": "Pen tests annually.",
+       "record_key": "answer_id=A-VND-0022-Q14",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 12.0
+    },
+    {
+     "control_id": "C12",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C12-2",
+     "key": "vuln.components_declared",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "component_id",
+       "kind": "system_of_record",
+       "query_id": "Q_VENDOR_COMPONENTS",
+       "quote": null,
+       "record_key": null,
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C12",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C12-3",
+     "key": "vuln.kev_matches",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "component_id",
+       "kind": "system_of_record",
+       "query_id": "Q_VENDOR_COMPONENTS",
+       "quote": null,
+       "record_key": null,
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 0.0
+    },
+    {
+     "control_id": "C12",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-C12-4",
+     "key": "vuln.patch_sla_critical_days",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "patch_sla_critical_days",
+       "kind": "system_of_record",
+       "query_id": "Q_SUBMISSION",
+       "quote": null,
+       "record_key": "submission_id=SUBM-0022",
+       "system": "trust_portal",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": 14.0
+    },
+    {
+     "control_id": "TIER",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-TIER-1",
+     "key": "contract.status",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "status",
+       "kind": "system_of_record",
+       "query_id": "Q_VENDOR_CONTRACT",
+       "quote": null,
+       "record_key": "contract_id=CTR-30022",
+       "system": "clm",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": "draft"
+    },
+    {
+     "control_id": "TIER",
+     "derived_from_claims": [],
+     "dq_flags": [],
+     "fact_id": "F-TIER-2",
+     "key": "vendor.data_categories",
+     "provenance": [
+      {
+       "answer_ref": null,
+       "backend": "duckdb",
+       "field": "data_categories",
+       "kind": "system_of_record",
+       "query_id": "Q_VENDOR_PROFILE",
+       "quote": null,
+       "record_key": "vendor_id=VND-0022",
+       "system": "procurement",
+       "zetaris_request_id": null
+      }
+     ],
+     "state": "TRUE",
+     "value": [
+      "internal"
+     ]
+    }
+   ],
+   "guard_flags": [],
+   "precedents": [],
+   "profile": {
+    "annual_spend_gbp": 8000.0,
+    "contract_status": "draft",
+    "criticality": "low",
+    "data_categories": [
+     "internal"
+    ],
+    "vendor_category": "SaaS"
+   },
+   "run_id": "run-eb903fec2941"
+  },
+  "policy_sha256": "d87244d91cacbd6a8c7119595311261a1205fc9019b00426b7d9c66fa06f4857",
+  "policy_version": "1.0.0",
+  "precedents_considered": [],
+  "record_sha256": "201d3413b7475a2a5fd8b7403b974e6983eef2ad363ec5b14ab84a8134d0fcf5",
+  "residual_risk": 30,
+  "run_id": "run-eb903fec2941",
+  "tier": "T3"
+ },
+ "report": {
+  "brief": {
+   "generator": "template:v2",
+   "headline": "Request information to the vendor: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
+   "next_steps": [
+    {
+     "action": "Send the clarification email and wait for the vendor's reply.",
+     "due": null,
+     "owner_role": "tprm_analyst"
+    }
+   ],
+   "why": [
+    {
+     "citations": [
+      "F-C01-1"
+     ],
+     "claim": null,
+     "record": null,
+     "text": "MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception."
+    },
+    {
+     "citations": [
+      "F-C04-1"
+     ],
+     "claim": null,
+     "record": null,
+     "text": "Encryption at rest and in transit is unverified. What would satisfy it: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+."
+    }
+   ]
+  },
+  "clarification_email": {
+   "body": "Please reply to the following:\nQ01: Is MFA enforced for all administrative and privileged accounts?\nQ02: Is MFA enforced for all remote and employee access to systems processing our data?\nQ05: Is customer data encrypted at rest? Which standard?\nQ06: Is data encrypted in transit (TLS 1.2+)?",
+   "subject": "Information requested (CASE-0022)",
+   "to_role": "vendor"
+  },
+  "drafts": [
+   {
+    "body": "Please send the following so we can finish the assessment of Fennimore Survey Tools Ltd.\n\nIs MFA enforced for all administrative and privileged accounts?\nEvidence that would satisfy this: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception\n\nIs MFA enforced for all remote and employee access to systems processing our data?\nEvidence that would satisfy this: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception\n\nIs customer data encrypted at rest? Which standard?\nEvidence that would satisfy this: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+\n\nIs data encrypted in transit (TLS 1.2+)?\nEvidence that would satisfy this: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+",
+    "subject": "Information requested for Fennimore Survey Tools Ltd (CASE-0022)",
+    "to_role": "vendor"
+   }
+  ],
+  "generator": "template:v1",
+  "limitations": [
+   "template:v1 deterministic report from the decision record."
+  ],
+  "rationale": [
+   {
+    "citations": [
+     "R-C01",
+     "F-C01-1"
+    ],
+    "text": "C01 (MFA enforced for privileged and remote access) is UNKNOWN."
+   },
+   {
+    "citations": [
+     "R-C04",
+     "F-C04-1"
+    ],
+    "text": "C04 (Encryption at rest and in transit) is UNKNOWN."
+   },
+   {
+    "citations": [
+     "R-C01"
+    ],
+    "text": "C01 would reach TRUE with Q01, Q02."
+   },
+   {
+    "citations": [
+     "R-C04"
+    ],
+    "text": "C04 would reach TRUE with Q05, Q06."
+   }
+  ],
+  "recommended_actions": [
+   "Send the clarification email and wait for the vendor's reply."
+  ],
+  "summary": "Outcome REQUEST_INFO: EVIDENCE_MISSING, LOW_CONFIDENCE_ABSTAIN. Failing controls: C01, C04."
+ },
+ "reviews": [],
+ "status": "success",
+ "trace_path": "logs/trace-run-eb903fec2941.jsonl",
+ "vendor": "Fennimore Survey Tools Ltd",
+ "workload": {
+  "answers_read": 14,
+  "claims_extracted": 14,
+  "claims_grounded": 14,
+  "contradictions": 0,
+  "documents_read": 0,
+  "dq_flags": 0,
+  "elapsed_seconds": 0.4324011749999954,
+  "guard_blocks": 0,
+  "model_calls": 0,
+  "models": [],
+  "queries": 10,
+  "rows_read": 21,
+  "systems_queried": [
+   "Vendor trust portal",
+   "Procurement (ERP)",
+   "Contract system (CLM)",
+   "Service desk (ITSM)",
+   "Sanctions watchlist (GRC)"
+  ]
+ }
+}

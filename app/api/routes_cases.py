@@ -14,6 +14,7 @@ from pydantic import BaseModel
 from app.audit.replay import ReplayResult, replay
 from app.dossier import render
 from app.errors import NotFound, ParseFailure
+from app.schemas.api import Workload
 from app.schemas.contract import ExecutionContract
 from app.schemas.decision import DecisionRecord
 from app.schemas.report import Report
@@ -41,6 +42,7 @@ class CaseDetail(BaseModel):
     contracts: list[ExecutionContract]
     reviews: list[dict]
     trace_path: str
+    workload: Workload | None = None
 
 
 def _store() -> Store:
@@ -80,6 +82,7 @@ def get_case(case_id: str) -> CaseDetail:
         contracts=store.contracts_for(case_id),
         reviews=store.reviews_for(case_id),
         trace_path=bundle.log_file,
+        workload=store.workload_for(case_id),
     )
 
 

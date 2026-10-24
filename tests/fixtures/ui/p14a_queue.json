@@ -1,0 +1,20 @@
+[
+ {
+  "case_id": "CASE-0007",
+  "created": "2026-10-24T00:39:29.652655Z",
+  "outcome": "ESCALATE",
+  "residual_risk": 100,
+  "status": "success",
+  "tier": "T1",
+  "vendor": "Quillfeather Payroll Cloud Ltd"
+ },
+ {
+  "case_id": "CASE-0022",
+  "created": "2026-10-24T00:39:30.191809Z",
+  "outcome": "REQUEST_INFO",
+  "residual_risk": 30,
+  "status": "success",
+  "tier": "T3",
+  "vendor": "Fennimore Survey Tools Ltd"
+ }
+]

@@ -50,10 +50,11 @@ def _button(at, label: str):
 
 def test_p8_spinner_text_is_the_approved_sentence() -> None:
     """The assessment spinner uses the approved sentence and does not cycle stages."""
-    from ui.screens import ASSESSMENT_SPINNER, page_new_assessment
+    from ui.intake import run_and_open
+    from ui.screens import ASSESSMENT_SPINNER
 
     assert ASSESSMENT_SPINNER == SPINNER_TEXT
-    source = inspect.getsource(page_new_assessment)
+    source = inspect.getsource(run_and_open)
     assert "ASSESSMENT_SPINNER" in source
     assert "stage" not in source.lower()
 

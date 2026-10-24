@@ -65,6 +65,12 @@ class FakeArbiterClient:
     def approve_contract(self, contract_id: str, body: Any) -> dict[str, Any]:
         return {"contract_id": contract_id, "state": "executed", "executed": True}
 
+    def questions(self) -> list[dict[str, Any]]:
+        return _load("p14b_questions.json")
+
+    def dossier(self, case_id: str, fmt: str = "html") -> str:
+        return f"dossier {case_id} {fmt}"
+
     def eval_latest(self) -> dict[str, Any]:
         if self.eval_latest_404:
             raise ArbiterAPIError("Evaluation not published.", status_code=404)

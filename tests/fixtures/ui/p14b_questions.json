@@ -1,0 +1,142 @@
+[
+ {
+  "question_id": "Q01",
+  "question": "Is MFA enforced for all administrative and privileged accounts?",
+  "help": "Used to check: MFA enforced for privileged and remote access.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q02",
+  "question": "Is MFA enforced for all remote and employee access to systems processing our data?",
+  "help": "Used to check: MFA enforced for privileged and remote access.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q03",
+  "question": "How often are credentials, keys and secrets rotated, and how are they stored?",
+  "help": "Used to check: Credential and secret hygiene.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q04",
+  "question": "How often are user access rights reviewed?",
+  "help": "Used to check: Least privilege with periodic access reviews.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q05",
+  "question": "Is customer data encrypted at rest? Which standard?",
+  "help": "Used to check: Encryption at rest and in transit.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q06",
+  "question": "Is data encrypted in transit (TLS 1.2+)?",
+  "help": "Used to check: Encryption at rest and in transit.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q07",
+  "question": "Which independent certifications or attestations do you hold?",
+  "help": "Used to check: Current independent assurance (SOC 2 Type II or ISO 27001).",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q08",
+  "question": "Have you had any security incidents affecting customer data in the last 24 months?",
+  "help": "Used to check: No unremediated material incident in 24 months.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q09",
+  "question": "Within how many hours will you notify us of a personal-data breach?",
+  "help": "Used to check: Personal-data breach notification within 72 hours.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q10",
+  "question": "Where will our data be hosted and processed?",
+  "help": "Used to check: Data residency or lawful transfer mechanism.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q11",
+  "question": "What mechanism governs international transfers?",
+  "help": "Used to check: Data residency or lawful transfer mechanism.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q12",
+  "question": "Do you disclose all sub-processors?",
+  "help": "Used to check: Sub-processor disclosure.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q13",
+  "question": "What is your patch SLA for critical vulnerabilities?",
+  "help": "Used to check: No unmitigated exposure to known-exploited vulnerabilities.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q14",
+  "question": "How often do you run independent penetration tests?",
+  "help": "Used to check: No unmitigated exposure to known-exploited vulnerabilities.",
+  "type": "text",
+  "options": null
+ },
+ {
+  "question_id": "Q15",
+  "question": "Will you sign our Data Processing Agreement?",
+  "help": "Used to check: Data Processing Agreement executed.",
+  "type": "yes_no",
+  "options": [
+   "Yes",
+   "No",
+   "Not answered"
+  ]
+ },
+ {
+  "question_id": "Q16",
+  "question": "Describe your secure development lifecycle.",
+  "help": "",
+  "type": "text",
+  "options": null
+ }
+]
