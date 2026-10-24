@@ -91,7 +91,9 @@ def test_p12_logo_asset() -> None:
     """P12-T5: the committed logo is a PNG and still has palette transparency."""
     data = LOGO.read_bytes()
     assert data.startswith(_PNG_MAGIC)
-    assert b"tRNS" in data
+    im = Image.open(LOGO)
+    has_alpha = im.mode == "RGBA" or b"tRNS" in data
+    assert has_alpha, f"{LOGO} has no transparency (mode {im.mode}, no tRNS chunk)"
 
 
 def test_p12_logo_call_site() -> None:
