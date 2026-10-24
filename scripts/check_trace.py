@@ -22,6 +22,7 @@ def validate_file(path: Path, *, require_collaboration: bool, require_live: bool
     has_collab = False
     has_zetaris = False
     has_meterless = False
+    has_model_call = False
     for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         if not line.strip():
             continue
@@ -42,6 +43,9 @@ def validate_file(path: Path, *, require_collaboration: bool, require_live: bool
             has_zetaris = True
         if evt.provider == "meterless":
             has_meterless = True
+            # A fallback event also carries provider=meterless; only a completed call proves live use.
+            if evt.status == "success" and evt.model:
+                has_model_call = True
         if "status" not in data:
             errors.append(f"{path}:{line_no} missing status")
 
@@ -55,6 +59,8 @@ def validate_file(path: Path, *, require_collaboration: bool, require_live: bool
             errors.append(f"{path}: no backend=zetaris event")
         if not has_meterless:
             errors.append(f"{path}: no provider=meterless event")
+        elif not has_model_call:
+            errors.append(f"{path}: no successful provider=meterless model call")
     return errors
 
 

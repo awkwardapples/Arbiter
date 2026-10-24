@@ -22,10 +22,36 @@
     "cli": "python run.py assess --input input_examples/example_1.json",
     "docker_sample_mode": "docker run --rm -p 8000:8000 -e SAMPLE_MODE=true arbiter"
   },
+  "track_mapping": {
+    "Data": "Zetaris USL vendor_risk: five systems plus CISA KEV",
+    "Knowledge": "Versioned policy-as-code (policy/arbiter_policy.v1.yaml)",
+    "Memory": "Meterless H-MEM governed precedents",
+    "Reasoning": "Planner, Evidence, Evaluator and Challenger tool loop on Nemotron via Nightshift",
+    "Reliable": "Policy decides; live eval; replay",
+    "Decisions": "Five outcomes with briefs",
+    "Actions": "Signed execution contracts and approvals"
+  },
+  "impact": [
+    {
+      "stat": "Third parties are involved in 48% of breaches",
+      "source": "Verizon 2026 DBIR",
+      "url": "https://www.verizon.com/business/resources/Te26/reports/2026-dbir-data-breach-investigations-report.pdf"
+    },
+    {
+      "stat": "Organisations average 2,643 third parties and assess 36%; 40% have an assessment backlog",
+      "source": "ProcessUnity, State of Third-Party Risk Assessments 2026 (Ponemon-Sullivan, n = 1,465)",
+      "url": "https://ponemonsullivanreport.com/2026/03/state-of-third-party-risk-assessments/"
+    },
+    {
+      "stat": "Companies spend 37.4 hours a week assessing vendors; 94% can't assess every vendor they'd like",
+      "source": "Whistic, 2025 TPRM Impact Report (n = 525)",
+      "url": "https://www.whistic.com/resources/blog/2025-impact-report-takeaways"
+    }
+  ],
   "agents": [
     {
       "name": "Orchestrator",
-      "role": "State machine driving INTAKE \u2192 DONE; not an LLM agent",
+      "role": "State machine driving INTAKE → DONE; not an LLM agent",
       "route": null
     },
     {
@@ -92,6 +118,11 @@
         "zetaris/dq_rules.yaml",
         "app/data/zetaris.py",
         "app/data/queries.yaml"
+      ],
+      "evidence": [
+        "docs/passes/P1-B_parity.json",
+        "docs/ZETARIS_USL.md",
+        "logs/examples/live/trace-run-83de5da137c0.jsonl"
       ]
     },
     "meterless": {
@@ -110,18 +141,26 @@
       ],
       "evidence": [
         "tests/conformance/test_hmem_conformance.py",
-        "tests/conformance/test_scout_adversarial.py"
+        "tests/conformance/test_scout_adversarial.py",
+        "docs/evidence/nightshift_proof.json",
+        "docs/evidence/nightshift_deviations.md",
+        "docs/evidence/memory_session.md",
+        "logs/examples/live/trace-run-83de5da137c0.jsonl"
       ]
     },
     "nvidia": {
       "models": [
-        "nvidia/nemotron-3.5-lightning-30b-a3b",
-        "nvidia/nemotron-3-super-120b-a12b"
+        "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "nvidia/nemotron-3.5-lightning-30b-a3b"
       ],
-      "access": "Via Meterless Nightshift lanes (primary) or build.nvidia.com (fallback)",
+      "access": "Via Meterless Nightshift. Arbiter requests meterless/fast and meterless/deep; a Nightshift app rule currently coerces both lanes to auto, which picks the model per request (docs/evidence/nightshift_deviations.md).",
       "files": [
         "app/llm/providers/meterless.py",
         "app/llm/providers/nvidia.py"
+      ],
+      "evidence": [
+        "docs/evidence/nightshift_proof.json",
+        "logs/examples/live/trace-run-83de5da137c0.jsonl"
       ]
     },
     "cursor": {
@@ -144,8 +183,101 @@
     }
   },
   "models": [
-    "meterless/fast",
-    "nvidia/nemotron-3-super-120b-a12b"
+    "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "nvidia/nemotron-3.5-lightning-30b-a3b"
+  ],
+  "model_evidence": {
+    "nvidia/nemotron-3.5-super-vl-120b-a12b": [
+      {
+        "file": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+        "receipt_id": "rcpt_req_ltd0d684"
+      },
+      {
+        "file": "docs/evidence/nightshift_proof.json",
+        "receipt_id": "rcpt_req_p412l7ql"
+      }
+    ],
+    "nvidia/nemotron-3.5-lightning-30b-a3b": [
+      {
+        "file": "docs/evidence/nightshift_proof.json",
+        "receipt_id": "rcpt_req_924f14pn"
+      },
+      {
+        "file": "eval/results_live/20261024T045916036274Z/traces/trace-run-f59a50433bf5.jsonl",
+        "receipt_id": "rcpt_req_szjmqbge"
+      }
+    ]
+  },
+  "lane_deviation": {
+    "summary": "The deep lane is served by Nemotron 3.5 Super VL, and a Nightshift app rule coerces both lanes to auto; Meterless has acknowledged the routing bug, with a fix targeted for its Sunday release.",
+    "file": "docs/evidence/nightshift_deviations.md",
+    "proof": "docs/evidence/nightshift_proof.json"
+  },
+  "evidence_map": [
+    {
+      "sponsor": "zetaris",
+      "feature": "Lightning REST tables",
+      "file": "zetaris/sql/01_sources.sql",
+      "evidence": "docs/passes/P1-B_parity.json"
+    },
+    {
+      "sponsor": "zetaris",
+      "feature": "SchemaStore views",
+      "file": "zetaris/sql/01_sources.sql",
+      "evidence": "docs/passes/P1-B_parity.json"
+    },
+    {
+      "sponsor": "zetaris",
+      "feature": "USL model vendor_risk",
+      "file": "zetaris/sql/03_usl.sql",
+      "evidence": "docs/passes/P1-B_parity.json",
+      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+      "match": "query_id=Q_VENDOR_360"
+    },
+    {
+      "sponsor": "zetaris",
+      "feature": "DQ rules",
+      "file": "zetaris/dq_rules.yaml",
+      "evidence": "docs/passes/P1-B_parity.json"
+    },
+    {
+      "sponsor": "zetaris",
+      "feature": "Federated public and private join",
+      "file": "zetaris/sql/02_kev.sql",
+      "trace": "eval/results_live/20261024T045916036274Z/traces/trace-run-257c86984507.jsonl",
+      "match": "zetaris_request_id=75b06ff3-786b-45f2-9f74-cefdba9b659b"
+    },
+    {
+      "sponsor": "zetaris",
+      "feature": "REST SQL API",
+      "file": "app/data/zetaris.py",
+      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+      "match": "zetaris_request_id=55bf9cc1-e25e-4a48-9b41-f2bda35d935d"
+    },
+    {
+      "sponsor": "meterless",
+      "feature": "Nightshift Runtime (POWER contract)",
+      "file": "app/llm/providers/meterless.py",
+      "evidence": "docs/evidence/nightshift_proof.json",
+      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+      "match": "rcpt_req_ltd0d684"
+    },
+    {
+      "sponsor": "meterless",
+      "feature": "H-MEM",
+      "file": "app/memory/hmem",
+      "evidence": "docs/evidence/memory_session.md",
+      "trace": "logs/examples/session/trace-run-a1c914808974.jsonl",
+      "match": "\"action\":\"precedent_applied\""
+    },
+    {
+      "sponsor": "meterless",
+      "feature": "Scout Intent (guard and execution contracts subset)",
+      "file": "app/guard/scout_guard.py",
+      "evidence": "tests/conformance/test_scout_adversarial.py",
+      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+      "match": "executed: ok"
+    }
   ],
   "data": {
     "synthetic": true,

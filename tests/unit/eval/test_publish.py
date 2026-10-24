@@ -12,14 +12,17 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 def test_p5_t5_readme_block_matches_latest() -> None:
-    """P5-T5: once the README markers exist, the block equals render(latest summary.json)."""
+    """P5-T5: once the README markers exist, the block equals render(latest summary.json).
+
+    P17 retarget: the latest results are the live run in eval/results_live/.
+    """
     readme = ROOT / "README.md"
     text = readme.read_text(encoding="utf-8") if readme.is_file() else ""
     if "<!-- EVAL:START -->" not in text or "<!-- EVAL:END -->" not in text:
         pytest.skip("README eval markers are added in P6")
     from eval.report import latest_summary, render_summary_md
 
-    rendered = render_summary_md(latest_summary(ROOT / "eval" / "results"))
+    rendered = render_summary_md(latest_summary(ROOT / "eval" / "results_live"))
     start = text.index("<!-- EVAL:START -->") + len("<!-- EVAL:START -->")
     end = text.index("<!-- EVAL:END -->")
     assert text[start:end].strip() == rendered.strip()

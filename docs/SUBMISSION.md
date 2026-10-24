@@ -1,65 +1,86 @@
 # Submission checklist
 
-Nothing here is a recorded video, an uploaded deck, or a HackOS submission. Boxes stay open until that artefact exists. Notes marked **in repo** are true of the tree today. They are not ticks for the video or the form.
+State on 24 October 2026, at the end of P17. A box is ticked only when the artefact exists in the repo and the path is given. **The video has not been recorded and the deck has not been built.** `metadata.json` `demo_video` and `slide_deck` stay empty strings until those uploads exist.
 
-`metadata.json` fields `demo_video` and `slide_deck` are empty strings. Leave them empty until the uploads exist, then set only those two values.
+## Form text
+
+**Project name.** Arbiter
+
+**Track.** Reasoning Architecture
+
+**One-line description** (identical in the README, `metadata.json`, `docs/SLIDES.md` and here; `tests/unit/docs/test_claims.py` checks it):
+
+> Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract.
+
+**Sponsor technology** (from `docs/SPONSORS.md`):
+
+> Zetaris is the single SQL access point: five enterprise systems and the CISA KEV catalogue are onboarded as Lightning REST tables and modelled as one Unified Semantic Layer, `vendor_risk`, with DQ rules; every live query carries a request id. Meterless Nightshift runs every model call and returns a compute receipt; Meterless H-MEM holds lead-governed precedents; the Meterless Scout subset guards untrusted vendor text and signs every action as an execution contract. NVIDIA Nemotron 3.5 Super VL and Nemotron 3.5 Lightning, served through Nightshift, do the planning, claim extraction, critique and challenge. Note: a Nightshift app rule currently coerces both lanes to `auto`; Meterless has acknowledged the bug, with a fix targeted for its Sunday release.
+
+**Pre-existing components** (from `docs/PRIOR_WORK.md`):
+
+1. Design documentation, no code: `AGENTS.md`, `docs/spec/**`, `.cursor/` rules, commands, `hooks.json` and two hook scripts, and the `docs/DAY0_CHECKS.md` template. Written 20–21 Oct 2026 with Claude (Anthropic) as architect; committed unchanged in `b3c720deca0140efe6ef53fd88e9f18474ca707c`, after the window opened.
+2. Problem framing, user research and pitch narrative from the earlier prototype Vendor-Risk-Assessment-Agent (React/Node). No code reused.
+3. Market-research slides (problem, users, competitors), refreshed and reused in deck slides 2–4.
+4. Third-party material under licence: Meterless H-MEM vectors and Scout eval cases (Apache-2.0, `vendor/meterless/`), CISA KEV (CC0 1.0).
+5. Data: none prepared before the window; all synthetic data comes from the seeded generator.
+
+`docs/PRIOR_WORK.md` §1 says "All application code was written during the build window in Cursor". The window part is true. But P14-B, P15 and P17 were done in Claude Code (`docs/CURSOR_USAGE.md`), and the README's AI-usage section says so. P17 does not own `docs/PRIOR_WORK.md`; update that sentence before submitting.
+
+**Numbers to quote** (README eval block, `eval/results_live/20261024T045916036274Z/summary.json`):
+
+- Arbiter, live: 5/5 on the first 5 test cases, 0 unsafe approvals, 4/4 consistent; 5 of 25 model calls fell back to deterministic logic.
+- Baseline: not measured. All 9 calls returned HTTP 502 from Nightshift's forced `auto` routing.
+- Arbiter, offline: 16/16 on the full test split, 0 unsafe approvals.
 
 ## In the repo
 
-- **Track.** `Reasoning Architecture` is the README badge and `metadata.json` `track`. **in repo**
-- **One-line description.** The deck and `docs/DEMO_SCRIPT.md` use the README sentence: "Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract." `metadata.json` `description` is a longer sentence. They are not the same string. Pick one before the form is submitted. This pass does not change `metadata.json`.
-- **Eval numbers.** README block between the eval markers is `eval/results/20261022T080517661769Z/summary.json`: offline, n=15, `arbiter_offline` accuracy 15/15, unsafe approvals 0/15, git sha `a7228be2efe2bca9f004f981db12c1e8dd53704f`. That file has no second system. **in repo**
-- **Console eval page.** `docs/img/ui_5.png` says results are not published yet. Do not quote it as the eval. **in repo**
-- **Screenshots.** `docs/img/ui_1.png` through `docs/img/ui_6.png` exist. Sidebar on those frames: Data: zetaris, LLM: auto. Later frames use CASE-0007. The six committed traces are DuckDB / offline, and example 1 is CASE-0003. **in repo**
-- **Agent names.** README "Agents" lists Orchestrator plus Planner, Evidence, Evaluator, PolicyEngine, MemoryKeeper, Challenger, Reporter, ScoutGuard, and ActionExecutor. `metadata.json` `agents` has those names except Orchestrator. The counts differ. Align them on the form, the deck, and the video before submit.
-- **Sponsor claims.** `docs/SPONSORS.md` ties each claim to a file and a trace line from the offline examples. Those lines do not show a Zetaris request id or a Nightshift model id. **in repo**
-- **Pre-existing declaration.** README "Pre-existing components" points at `docs/PRIOR_WORK.md`: design docs from 20–21 Oct 2026, the Vendor-Risk-Assessment-Agent narrative with no code reused, market-research slide material, Meterless vectors (Apache-2.0), CISA KEV (CC0). Compare that list with the form text in `docs/spec/04_SUBMISSION_PLAYBOOK.md` §7 before submit.
-- **URL placeholders.** `demo_video` and `slide_deck` are `""`. **in repo**
-- **Video and PDF.** Not in the repo. The script is `docs/DEMO_SCRIPT.md`. The outline is `docs/SLIDES.md`.
+- [x] Track "Reasoning Architecture" in the README badge and `metadata.json` `track`
+- [x] One-line description identical across README, `metadata.json`, `docs/SLIDES.md` and this file
+- [x] README rewritten in the P17 order, with the live eval block (`README.md`)
+- [x] Impact case with cited sources and a labelled estimate (`docs/IMPACT.md`)
+- [x] Sponsor claims, each tied to a file and a verbatim trace line (`docs/SPONSORS.md`, `metadata.json` `evidence_map`)
+- [x] Models are only what ran: Nemotron 3.5 Super VL and Lightning, each with a receipt (`metadata.json` `model_evidence`)
+- [x] The deep-lane deviation stated in README, SPONSORS, `metadata.json` and `docs/evidence/nightshift_deviations.md`
+- [x] Live example 1 (`output_examples/example_1_output.json`, `logs/examples/live/`); the sample-mode set (`output_examples/sample_mode/`)
+- [x] Live memory session, 6/6 (`docs/evidence/memory_session.md`)
+- [x] Clean-clone check, 8/8 with Docker (`docs/passes/clean-clone-2026-10-24.md`)
+- [x] Zetaris USL parity green (`docs/passes/P1-B_parity.json`)
+- [x] Demo script (`docs/DEMO_SCRIPT.md`), deck outline (`docs/SLIDES.md`), judge Q&A (`docs/QA_PREP.md`)
+- [x] Per-pass tool and model record (`docs/CURSOR_USAGE.md`)
+- [ ] Live runs for examples 2–6: not done. Example 3's attempts failed (`logs/examples/live_failed/`); the others are offline
+- [ ] A measured live baseline: blocked on the Nightshift routing fix
+- [ ] USL ERD screenshot from the Zetaris UI: not committed
 
 ## Video
 
-Record from `docs/DEMO_SCRIPT.md`. Target about 3:30, hard stop 3:45. File name from the playbook: `OAH2026-Arbiter-ReasoningArchitecture-Demo.mp4`.
+Record from `docs/DEMO_SCRIPT.md`. Target 3:35, hard stop 3:50.
 
-- [ ] Length is between 1:00 and 3:45
-- [ ] Track, user, and problem are stated in the first 20 seconds
-- [ ] At least two agents interact, including one loop line in a trace (`needs_revision` on `run-3d6b7460d393` if the offline sample is what you show)
-- [ ] Zetaris is shown doing work, or the narration says this sample used the DuckDB mirror and names `zetaris/sql/03_usl.sql`
-- [ ] Meterless is shown doing work, or the narration says `provider=offline` on this sample and names Nightshift, H-MEM, and Scout as the live engines
-- [ ] The final output is on screen, and the close says why it matters
-- [ ] No secrets in any frame (no `.env`, no Nightshift Providers tab, no Zetaris API-keys page)
-- [ ] Spoken numbers match `eval/results/20261022T080517661769Z/summary.json` (15/15, 0 unsafe approvals, offline). No baseline figure.
+- [ ] Video recorded
+- [ ] Track, user and problem stated in the first 20 seconds
+- [ ] Live shots are example 1, the proof, the memory session and the eval; Quillfeather frames captioned "sample mode"
+- [ ] The Nightshift proof shot shows both receipt ids and routed models, and the deviation is said aloud
+- [ ] No model named other than Nemotron 3.5 Super VL and Nemotron 3.5 Lightning; no baseline "win"
+- [ ] No secrets in any frame (no `.env`, no Nightshift providers tab, no Zetaris API-keys page)
+- [ ] Console stills re-captured without the Streamlit popup
+- [ ] Video uploaded (HackOS, plus an unlisted backup)
 
 ## Deck
 
-Build 10 slides from `docs/SLIDES.md` (within 8–12). Export a PDF.
+Build from `docs/SLIDES.md` (13 slides) and export a PDF.
 
-- [ ] All eight required points appear (coverage table in `docs/SLIDES.md`)
-- [ ] On-slide text is about 30 words, with the README one-liner on the title slide
-- [ ] Eval numbers match the same `summary.json` as the video and the README
-- [ ] Screenshots are the six `docs/img/ui_*.png` files, with the honesty notes from slide 9
-- [ ] No keys and no real personal data
-- [ ] PDF exported
+- [ ] Deck built
+- [ ] Rubric coverage table in `docs/SLIDES.md` honoured; all eight required points present
+- [ ] Every statistic carries its source
+- [ ] Eval numbers match the README block
+- [ ] Monitoring appears only on slide 13, as future work
+- [ ] Deck PDF uploaded
 
-## Consistency across README, deck, video, form, and metadata.json
+## After upload
 
-- [ ] The track is "Reasoning Architecture" everywhere
-- [ ] The one-line description is the same string everywhere (README and `metadata.json` differ today; see above)
-- [ ] Eval numbers are the same and come from `eval/results/20261022T080517661769Z/summary.json`
-- [ ] Agent names and count match (README includes Orchestrator; `metadata.json` does not)
-- [ ] Sponsor claims match, and each one used on the form is backed by a file or a trace in `docs/SPONSORS.md`
-- [ ] The pre-existing declaration matches the form, the README, and `docs/PRIOR_WORK.md`
-- [ ] No secrets in the video, the screenshots, the deck, or the logs
-
-## Still to do by hand
-
-- [ ] Record the video
-- [ ] Upload the video (HackOS, plus an unlisted backup) and the deck PDF
 - [ ] Paste the two URLs into `metadata.json` `demo_video` and `slide_deck` only
-- [ ] Put the video link in the README under the existing "Demo video" line (that line still says it is not published)
-- [ ] Create the HackOS submission from the playbook §7 worksheet, after the roster shows only you
-- [ ] Run `python scripts/clean_clone_check.py` on the public repo URL
-- [ ] Tag `submission-final` and push the tag when the final submission is in
+- [ ] Replace the README "Demo video" line with the link
+- [ ] Update the AI-usage sentence in `docs/PRIOR_WORK.md` §1 (see above)
+- [ ] Create the HackOS submission with the form text above
+- [ ] Run `python scripts/clean_clone_check.py` against the public repository URL
+- [ ] Tag `submission-final` and push the tag
 - [ ] Keep the video and the deck reachable through 6 Nov 2026
-
-`docs/QA_PREP.md` is the Tuesday question list from the pass. It is not part of this checklist's documents.

@@ -113,6 +113,12 @@ flowchart LR
 
 `Q_COMPONENT_KEV` joins declared components to the KEV table. In sample mode the backend field on that event is `duckdb`. The SQL for the live model is `zetaris/sql/03_usl.sql`. Data-quality rules live in `zetaris/dq_rules.yaml` and surface as `Q_DQ_INVALID`.
 
+## Model lanes
+
+Agents ask `app/llm/generator.py` for a route, not a model. Planner, Challenger and Reporter use `deep`; Evidence and the Evaluator critic use `fast`. The Meterless provider sends `meterless/deep` or `meterless/fast`, and Nightshift chooses the Nemotron model and returns a receipt that the trace keeps in `provider_meta`.
+
+In the committed live evidence the models served were `nvidia/nemotron-3.5-super-vl-120b-a12b` and `nvidia/nemotron-3.5-lightning-30b-a3b` (`docs/evidence/nightshift_proof.json`). A Nightshift app rule currently coerces both lanes to `auto`, so the lane does not fix the model; see `docs/evidence/nightshift_deviations.md`. If Nightshift is unreachable, resolution tries NVIDIA direct (`app/llm/providers/nvidia.py`) and then the offline generator.
+
 ## Memory governance
 
 Examples in this repo are generated with `ARBITER_MEMORY=off`, so a sample trace shows `precedents=0`. The path is still the one below. A precedent changes a later outcome only through the policy's precedent-exception clause, and only after the required human role approves.

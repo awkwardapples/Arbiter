@@ -1,113 +1,138 @@
 # Slide deck outline
 
-Ten slides. The playbook's deck table is thirteen slides; this outline is shorter and still covers all eight required points. Build the deck from this file (Slides or PowerPoint) and export a PDF. On-slide text is about thirty words. Speaker notes hold the file or trace. Do not put keys, `.env`, or real personal data on a slide.
+Thirteen slides. The deck has not been built yet; build it from this file and export a PDF. Keep on-slide text to about thirty words. Speaker notes hold the file or trace behind each claim. No keys, `.env` or real personal data on any slide.
 
-The one-line description, identical to the README opening sentence:
+The one-line description, identical in the README, `metadata.json`, this deck and the submission form:
 
 > Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract.
 
-Track everywhere: Reasoning Architecture. Team: Josh Lennon, solo builder.
-
-`metadata.json` uses a longer description. This deck follows the README sentence. Align the form to the same sentence before submit. See `docs/SUBMISSION.md`.
+Track: Reasoning Architecture. Team: Josh Lennon, solo builder.
 
 ## Coverage
 
+Judging rubric:
+
+| Criterion | Weight | Slides |
+|---|---:|---|
+| Impact (30) | 30 | 2, 3, 12 |
+| Technical (20) | 20 | 5, 6, 10, 12 |
+| Innovation (15) | 15 | 4, 6, 7 |
+| Demo (15) | 15 | 6, 11 (and the video) |
+| Product & UX (10) | 10 | 4, 11 |
+| Sponsor Tech (10) | 10 | 8, 9, 10 |
+
+The eight required points:
+
 | Required point | Slides |
 |---|---|
-| 1 Problem and users | 2 |
-| 2 Solution | 3 |
-| 3 Workflow / architecture | 4, 5, 6 |
-| 4 Technical stack | 7 |
-| 5 Sponsor use | 7 |
-| 6 What was unique | 6, 8 |
-| 7 Product visuals | 9 |
-| 8 Results and future | 10 |
-
-There is no competitor slide. The old market-research deck is not in this repo. Do not reconstruct it.
+| 1 Problem and users | 2, 3 |
+| 2 Solution | 4, 12 |
+| 3 Workflow and architecture | 5, 6, 7 |
+| 4 Technical stack | 10 |
+| 5 Sponsor use | 8, 9 |
+| 6 What was unique | 7, 8, 9 |
+| 7 Product visuals | 11 |
+| 8 Results and future | 12, 13 |
 
 ## 1. Title
 
-**On slide.** Arbiter. Track: Reasoning Architecture. Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract. Josh Lennon, solo.
+**On slide.** Arbiter. Track: Reasoning Architecture. "Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract." Josh Lennon.
 
-**Notes.** Form fields: project name Arbiter, track Reasoning Architecture, primary contact Josh Lennon. Repository `https://github.com/awkwardapples/Arbiter`.
+**Visual.** `docs/img/arbiter_logo.png`.
 
-## 2. Problem and users
+## 2. The problem, in numbers
 
-**Point 1.**
+**On slide.**
+- Third parties are involved in 48% of breaches (Verizon 2026 DBIR, https://www.verizon.com/business/resources/Te26/reports/2026-dbir-data-breach-investigations-report.pdf)
+- 2,643 third parties on average; only 36% assessed; 40% have a backlog (https://ponemonsullivanreport.com/2026/03/state-of-third-party-risk-assessments/)
+- 37.4 hours a week spent assessing vendors (https://www.whistic.com/resources/blog/2025-impact-report-takeaways)
 
-**On slide.** Verizon DBIR 2026: third parties are involved in 48% of breaches, up from 30%. The user is a third-party risk analyst. The evidence sits in five systems and a questionnaire.
+**Notes.** Sources and sample sizes are in `docs/IMPACT.md` §2 (Ponemon-Sullivan n = 1,465, https://ponemonsullivanreport.com/2026/03/state-of-third-party-risk-assessments/; Whistic n = 525, https://www.whistic.com/resources/blog/2025-impact-report-takeaways). Show the short source names on the slide and keep the URLs in the notes or a footer.
 
-**Notes.** README "Problem and users", with the Verizon PDF and news URLs. The five systems are procurement, contracts, ITSM, a sanctions watchlist, and the vendor trust portal. Also the public CISA KEV catalogue. Do not add a market-size or competitor claim.
+## 3. The user and the job
 
-## 3. Solution
+**On slide.** A TPRM analyst decides whether a new SaaS vendor may touch customer data. The evidence is spread across a questionnaire, four internal systems and CISA's exploited-vulnerability list. The TPRM lead signs off exceptions.
 
-**Point 2.**
+**Notes.** `docs/IMPACT.md` §1 and §3 (the before/after table). The "today" column marks what is an assumption.
 
-**On slide.** One request, five outcomes: approve, approve with conditions, request information, escalate, or decline. Facts are cited. A counterfactual says what would change the answer. The next action is a signed contract.
+## 4. The solution: one request, five outcomes, brief and action
 
-**Notes.** README "What Arbiter does". Company data in the repo is synthetic. CISA KEV is public (CC0). Outcome names in code: `APPROVE`, `APPROVE_WITH_CONDITIONS`, `REQUEST_INFO`, `ESCALATE`, `DECLINE`.
+**On slide.** One onboarding request in. Out: `APPROVE`, `APPROVE_WITH_CONDITIONS`, `REQUEST_INFO`, `ESCALATE` or `DECLINE`, with a cited plain-English brief and the next action drafted under a signed contract.
 
-## 4. Workflow
+**Visual.** `docs/img/ui_case.png` (Quillfeather: claim versus record card, KEV bullet). Caption it "sample mode".
 
-**Point 3.**
+**Notes.** `output_examples/sample_mode/example_2_output.json`; the live example is `output_examples/example_1_output.json` (`APPROVE`).
 
-**On slide.** Models read. The policy decides. The Evaluator can send the Planner back. The Challenger can force one re-plan or an escalation. It cannot approve.
+## 5. Architecture
 
-**Notes.** Diagram: `docs/ARCHITECTURE.md`. Decision code: `app/policy/engine.py`. Authority table: README "Agents". Bounds: at most two evaluator loops and one challenger re-plan.
+**On slide.** Zetaris USL → Planner → Evidence (ScoutGuard) → Evaluator ⇄ Planner → policy engine → H-MEM precedents → Challenger → brief → signed contract. Models via Nightshift. The policy decides.
 
-## 5. Reasoning in action
+**Visual.** The state-machine diagram from `docs/ARCHITECTURE.md`.
 
-**Point 3.**
+**Notes.** Bounds: Evaluator → Planner at most twice, Challenger → Planner once; 600 s budget; every model step has a labelled deterministic fallback (`app/orchestrator.py`).
 
-**On slide.** Quillfeather, offline sample `run-3d6b7460d393`. The Evaluator sends the plan back (`needs_revision`, `Q_COMPONENT_KEV`). The vendor says EU. The contract system says US. Outcome: ESCALATE.
+## 6. Reasoning in action (live trace)
 
-**Notes.** Trace `logs/examples/trace-run-3d6b7460d393.jsonl`. The query line is `backend=duckdb`. Say that. Do not call this run a live Zetaris query. Challenger line: `CHALLENGE_T1_UNCORROBORATED`. Optional still `docs/img/ui_1.png` shows the same vendor name on a different session (sidebar Data: zetaris, LLM: auto). It is not this run id.
+**On slide.** Live run, Pellucid Forms: 12 Zetaris queries, 5 Nemotron calls with receipts, Evaluator sends the Planner back, Challenger asks for a re-plan, policy approves. 159 seconds.
 
-## 6. Memory under governance
+**Visual.** Four trace lines from `logs/examples/live/trace-run-83de5da137c0.jsonl`: a `query_zetaris` line with its `zetaris_request_id`, the Planner `model_call` (`rcpt_req_ltd0d684`), the Evaluator `needs_revision`, the Challenger `request_replan`. The same lines are quoted in `docs/SPONSORS.md`.
 
-**Points 3 and 6.**
+**Notes.** One call returned HTTP 502 and fell back; say so if asked. The outcome still matched its label.
 
-**On slide.** The six example runs record `precedents=0`. A precedent can change a later outcome only through a policy exception and a human approval. The Memory page in the capture is empty.
+## 7. Memory under governance
 
-**Notes.** Quillfeather redecide line: `input_summary` `precedents=0` in the same trace. Governed session, when you run one: `python run.py demo-session`. Still: `docs/img/ui_4.png` (CASE-0007, empty list). `docs/img/ui_6.png` is a blank review form, not a submitted precedent. Do not say memory changed Quillfeather.
+**On slide.** A lead-approved precedent from Marrowgate lets Tessellate be approved with conditions. Reset memory, or let an analyst set the precedent, and it escalates. Memory changes outcomes only through policy.
 
-## 7. Stack and sponsors
+**Visual.** The six-step table from `docs/evidence/memory_session.md` (6/6, live).
 
-**Points 4 and 5.**
+**Notes.** `logs/examples/session/trace-run-a1c914808974.jsonl` (`precedent_applied`), `app/memory/precedents.py`, `policy/arbiter_policy.v1.yaml`. Monitoring is not on this slide: it was not shipped (see slide 13).
 
-**On slide.** Python 3.12, FastAPI, Streamlit, DuckDB, and Docker. Zetaris is the SQL access point. Meterless runs Nightshift, H-MEM, and Scout. NVIDIA Nemotron is the model family. Built in Cursor.
+## 8. Zetaris USL
 
-**Notes.** Stack table: README "Tech stack". Sponsor claims and the trace lines that back them: `docs/SPONSORS.md`. Committed examples are `provider: offline` and `backend: duckdb`. Nightshift model ids and Zetaris request ids appear only on a live run. Do not put a key or the Nightshift Providers tab on the slide.
+**On slide.** Sources → Lightning REST tables → SchemaStore views → USL `vendor_risk` → agents. One query path; DQ in the layer; 416/416 parity.
 
-## 8. What was unique
+**Visual.** `docs/img/zetaris_1.png`, `docs/img/zetaris_3.png`, and the measured comparison from `docs/ZETARIS_USL.md` §4:
 
-**Point 6.**
+| Custom pipeline (mirror) | USL |
+|---|---|
+| `app/data/duckdb_backend.py` 162 lines plus `app/data/dq.py` 61 lines | `zetaris/sql/03_usl.sql` 81 lines plus `zetaris/dq_rules.yaml` 22 lines |
+| One `Q_VENDOR_360` call: 37 ms | One `Q_VENDOR_360` call: 5220 ms (one HTTP round trip, not warmed) |
+| Planner reads names only: 275 tokens | Planner reads the USL catalogue with keys and descriptions: 304 tokens |
 
-**On slide.** The policy decides. The Evaluator re-checks systems of record. Memory moves an outcome only through a policy exception and a human approval. Every action is signed, and the decision replays.
+**Notes.** Parity: `docs/passes/P1-B_parity.json` (`query_layer: usl`, `all_green: true`). DQ: `CTR-30028`, a DPA marked signed with no date. Capture a USL ERD from the Zetaris UI for this slide if possible; none is committed.
 
-**Notes.** README "Sponsor technology", the paragraph that starts "What is specific to this design". Replay for the committed approve example: `python run.py replay CASE-0003`. `docs/img/ui_3.png` is a match on CASE-0007, a different case.
+## 9. Meterless and NVIDIA
 
-## 9. Product visuals
+**On slide.** Every model call through Nightshift, with a receipt. Fast lane → Nemotron 3.5 Lightning; deep lane → Nemotron 3.5 Super VL. Plan, extract, critique and challenge run on Nemotron. H-MEM precedents; Scout guard and signed contracts.
 
-**Point 7.**
+**Visual.** The proof table from `docs/evidence/nightshift_proof.json`: `rcpt_req_924f14pn` (fast, Lightning) and `rcpt_req_p412l7ql` (deep, Super VL).
 
-**On slide.** Six console frames: Queue, Case, Review, Memory, Audit, and Evaluation. The sidebar says Data: zetaris and LLM: auto. These frames are not the six offline example traces.
+**Notes.** Deviation, said plainly: Super 3 120B is not entitled on this account (404), and a Nightshift app rule coerces both lanes to `auto`; Meterless acknowledged it, fix targeted for Sunday's release (`docs/evidence/nightshift_deviations.md`). Per-step table: `docs/SPONSORS.md`, "Our agents do real work on Nemotron".
 
-**Notes.** Files, in the order a judge sees them in the nav:
+## 10. Technical stack and how it was built
 
-- `docs/img/ui_1.png` — Queue. Quillfeather ESCALATE T1, Corvid DECLINE T3.
-- `docs/img/ui_2.png` — Case Why. DECLINE, sanctions control C11 false, cited facts. No vendor name on the frame.
-- `docs/img/ui_6.png` — Review. CASE-0007, empty form.
-- `docs/img/ui_4.png` — Memory. CASE-0007, precedent list empty.
-- `docs/img/ui_3.png` — Audit. Replay CASE-0007, `match` true.
-- `docs/img/ui_5.png` — Evaluation. "Evaluation results are not published yet." Do not read numbers from this frame.
+**On slide.** Python 3.12, FastAPI, pydantic, DuckDB mirror, Streamlit console. Zetaris REST SQL, Meterless Nightshift, Nemotron. No agent framework: an explicit state machine. Built pass by pass with plans, tests first and a verify hook.
 
-Synthetic vendors only. No secrets in the frames.
+**Notes.** Cursor: `AGENTS.md`, `.cursor/rules/`, `.cursor/commands/`, `.cursor/hooks.json` (stop hook re-runs `verify-pass`), `.cursor/plans/`, parallel worktrees. The per-pass tool and model table is `docs/CURSOR_USAGE.md`: 17 passes in Cursor, three (P14-B, P15, P17) in Claude Code, one not recorded.
 
-## 10. Results, limits, and later work
+## 11. Product visuals
 
-**Point 8.**
+**On slide.** The reviewer console: queue by residual risk, the case brief with claim versus record, the drafted next action, governed precedents.
 
-**On slide.** Offline eval, 15 synthetic cases. `arbiter_offline` is 15/15 accurate, with 0 unsafe approvals. The console Evaluation page is unpublished. JDBC connectors, SOC 2 OCR, policy what-if, KEV deltas, and RBAC are later work, not this build.
+**Visual.** `docs/img/ui_queue.png`, `docs/img/ui_case.png`, `docs/img/ui_case_next_action.png`, `docs/img/ui_memory.png`. Re-capture with `scripts/capture_ui.py` first and dismiss the Streamlit popup in the committed stills.
 
-**Notes.** Source: `eval/results/20261022T080517661769Z/summary.json`, rendered in the README between the eval markers. git sha `a7228be2efe2bca9f004f981db12c1e8dd53704f`. Mode duckdb / offline. No second system is in that file, so do not show a baseline number. Limits also in README "Limitations": simulated systems, small n, no PDF OCR, outbox is local files. The later-work list is not implemented.
+**Notes.** Synthetic vendors only. The sidebar shows the Nightshift Runtime URL with the token hidden.
+
+## 12. Results
+
+**On slide.** Live: 5/5 correct, 0 unsafe approvals, 4/4 consistent; 5 of 25 model calls fell back and the decisions still matched. Offline: 16/16. Single-prompt baseline: not measurable through the routing bug.
+
+**Visual.** The eval table from the README block; the workload for one live case (12 queries, 16 quoted claims, 5 model calls, 159 s); the before/after table from `docs/IMPACT.md` §3.
+
+**Notes.** `eval/results_live/20261024T045916036274Z/summary.json`; `docs/EVALUATION.md`. Five live cases give a Wilson 95% interval of 0.57–1.00. Do not present the baseline 0/5 as a win. The capacity range in `docs/IMPACT.md` §5 is an estimate; label it so if shown.
+
+## 13. Future work and the path to production
+
+**On slide.** Future work: real connectors through Zetaris (procurement, CLM, SOC 2 register). SSO and RBAC. Document OCR with NVIDIA NeMo Retriever. Policy authoring UI. Monitoring approved vendors when CISA adds a vulnerability.
+
+**Notes.** Monitoring (P16) was designed but not shipped; it is future work only. `docs/IMPACT.md` §7.
