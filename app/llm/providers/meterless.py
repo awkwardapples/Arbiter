@@ -18,6 +18,7 @@ AUTODETECT_HOSTS = ("127.0.0.1", "localhost", "[::1]")
 AUTODETECT_PORTS = (8088, 8090, 8787, 11434)
 CONNECT_TIMEOUT_S = 2.0
 PLACEHOLDER_TOKEN = "rt-local"
+NO_THINK_MESSAGE = {"role": "system", "content": "/no_think"}
 # Pasted URLs may end in any of these; longest first so "/v1/models" is not read as "/v1".
 _PASTED_SUFFIXES = ("/v1/chat/completions", "/v1/models", "/healthz", "/v1")
 # Receipt fields copied from the response body's `meterless` object into the trace.
@@ -207,9 +208,11 @@ class MeterlessProvider:
         model_fast: str,
         model_deep: str,
         timeout_s: float = 180.0,
+        no_think: bool = False,
         transport: httpx.BaseTransport | None = None,
     ) -> None:
         self.base_url = normalise_base_url(base_url)
+        self.no_think = no_think
         self._token = token
         self.app_id = app_id
         self.models = {"fast": model_fast, "deep": model_deep}
@@ -230,6 +233,7 @@ class MeterlessProvider:
             model_fast=settings.METERLESS_MODEL_FAST,
             model_deep=settings.METERLESS_MODEL_DEEP,
             timeout_s=float(settings.METERLESS_TIMEOUT_SECONDS),
+            no_think=settings.METERLESS_NO_THINK,
             transport=transport,
         )
 
@@ -247,6 +251,8 @@ class MeterlessProvider:
     ) -> ChatResult:
         # `timeout` is deliberately ignored: the POWER contract fixes every Meterless call at 180 s
         # because a cold lane can take minutes and a shorter limit reads as a false outage.
+        if self.no_think:
+            messages = [dict(NO_THINK_MESSAGE), *messages]
         body, resp_headers, latency_ms = post_chat(
             provider=self.name,
             url=f"{self.base_url}/chat/completions",
@@ -262,11 +268,14 @@ class MeterlessProvider:
             transport=self._transport,
         )
         text, served, tokens_in, tokens_out = parse_chat_body(body, self.name)
+        meta = receipt_meta(body, resp_headers)
+        if self.no_think:
+            meta["no_think"] = "true"
         return ChatResult(
             text=text,
             model=served,
             tokens_in=tokens_in,
             tokens_out=tokens_out,
             latency_ms=latency_ms,
-            provider_meta=receipt_meta(body, resp_headers),
+            provider_meta=meta,
         )
