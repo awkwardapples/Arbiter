@@ -43,7 +43,7 @@ class Settings(BaseSettings):
     NVIDIA_BASE_URL: str = "https://integrate.api.nvidia.com/v1"
     NVIDIA_API_KEY: SecretField = None
     NVIDIA_MODEL_FAST: str = "nvidia/nemotron-3.5-lightning-30b-a3b"
-    NVIDIA_MODEL_DEEP: str = "nvidia/nemotron-3-super-120b-a12b"
+    NVIDIA_MODEL_DEEP: str = "nvidia/nemotron-3.5-super-vl-120b-a12b"
     NVIDIA_TIMEOUT_SECONDS: int = 90
 
     ZETARIS_REST_URL: str = "http://localhost:8888/api/v1.0"

@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import importlib
+import json
 import sqlite3
 from pathlib import Path
+from typing import Any
 
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -14,6 +16,7 @@ from app.config import Settings
 from app.data.duckdb_backend import DuckDBBackend
 from app.data.factory import get_backend
 from app.data.status import check as data_check
+from app.errors import NotFound
 from app.llm.status import check as provider_check
 from app.policy.loader import load_default
 from app.schemas.api import HealthResponse, QuestionInfo
@@ -22,6 +25,8 @@ from app.tracing import Tracer
 router = APIRouter(tags=["meta"])
 
 _AUDIT_DB = Path("var/audit.db")
+_EVAL_LIVE = Path("eval/results_live")
+_EVAL_OFFLINE = Path("eval/results")
 
 
 class AuditVerifyResponse(BaseModel):
@@ -140,3 +145,31 @@ def audit_verify() -> AuditVerifyResponse:
 
     ok, seq = AuditChain().verify()
     return AuditVerifyResponse(ok=ok, first_bad_seq=seq)
+
+
+def _latest_summary(root: Path) -> tuple[dict[str, Any] | None, str | None]:
+    """The newest run directory by name with a summary.json. Reads summaries only, never labels."""
+    if not root.is_dir():
+        return None, None
+    runs = sorted(path for path in root.iterdir() if (path / "summary.json").is_file())
+    if not runs:
+        return None, None
+    latest = runs[-1]
+    summary = json.loads((latest / "summary.json").read_text(encoding="utf-8"))
+    markdown = latest / "summary.md"
+    return summary, markdown.read_text(encoding="utf-8") if markdown.is_file() else None
+
+
+@router.get("/eval/latest")
+def eval_latest() -> dict[str, Any]:
+    """The published live evaluation and the offline benchmark. 404 only if neither exists."""
+    live, live_markdown = _latest_summary(_EVAL_LIVE)
+    offline, offline_markdown = _latest_summary(_EVAL_OFFLINE)
+    if live is None and offline is None:
+        raise NotFound("evaluation results are not published")
+    return {
+        "live": live,
+        "offline": offline,
+        "live_markdown": live_markdown,
+        "offline_markdown": offline_markdown,
+    }

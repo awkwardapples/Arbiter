@@ -5,7 +5,6 @@ from __future__ import annotations
 import copy
 import json
 from datetime import UTC, datetime
-from pathlib import Path
 
 import pytest
 
@@ -112,13 +111,9 @@ def test_p9_ledger_line_is_text() -> None:
 
 
 def test_p9_eval_renders_summary_when_present(
-    fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch
+    fake_client: FakeArbiterClient,
 ) -> None:
-    import ui.screens as screens
-
     assert SUMMARY.is_file()
-    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", SUMMARY, raising=False)
-    fake_client.eval_latest_404 = True
     at = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not at.exception
     assert "Synthetic data" in _text(at.markdown)
@@ -127,11 +122,8 @@ def test_p9_eval_renders_summary_when_present(
 
 
 def test_p9_eval_fallback_when_summary_missing(
-    fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    fake_client: FakeArbiterClient,
 ) -> None:
-    import ui.screens as screens
-
-    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", tmp_path / "missing.md", raising=False)
     fake_client.eval_latest_404 = True
     at = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not at.exception

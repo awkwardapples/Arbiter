@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from tests.unit.ui.conftest import FakeArbiterClient
-from tests.unit.ui.test_pages_smoke import ROOT, _run_page
+from tests.unit.ui.test_pages_smoke import _run_page
 
 pytestmark = pytest.mark.p5a
 
@@ -196,13 +196,7 @@ def test_p10_audit_replay_captions(fake_client: FakeArbiterClient) -> None:
     assert "The decision reproduces identically from its inputs." in _text(matched.caption)
 
 
-def test_p10_eval_offline_caption(fake_client: FakeArbiterClient, monkeypatch: pytest.MonkeyPatch) -> None:
-    import ui.screens as screens
-
-    summary = ROOT / "eval/results/20261022T080517661769Z/summary.md"
-    assert summary.is_file()
-    monkeypatch.setattr(screens, "EVAL_SUMMARY_PATH", summary, raising=False)
-    fake_client.eval_latest_404 = True
+def test_p10_eval_offline_caption(fake_client: FakeArbiterClient) -> None:
     at = _run_page("Evaluation", "pages/evaluation.py", client=fake_client)
     assert not at.exception
     blob = _text(at.markdown)
