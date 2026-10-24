@@ -36,14 +36,14 @@ _REVIEW_FLOW = (
     ("button", "Submit"),
     ("button", "Dry-run"),
 )
-_CASE_SECTIONS = (
+_CASE_SECTIONS = (  # P14-B layout: brief first, then the next action, the audit detail last
+    "Next action",
     "Controls",
-    "Timeline",
-    "Contradictions",
-    "Counterfactuals",
+    "What would change this decision",
     "Precedents considered",
-    "Actions",
-    "Trace and raw data",
+    "Agent timeline",
+    "Workload",
+    "Dossier",
 )
 _TITLES = {
     "pages/new_assessment.py": "New assessment",

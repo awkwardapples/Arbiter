@@ -5,6 +5,7 @@ from __future__ import annotations
 import streamlit as st
 
 from ui.client import ArbiterAPIError
+from ui.provider import provider_lines
 from ui.session import get_client
 
 _CSS = """
@@ -47,6 +48,18 @@ def _hero_wordmark() -> None:
         st.image(str(_LOGO), width=300)
 
 
+def _last_trace(client: object) -> list[dict]:
+    """Trace of the most recent case, for the provider proof. Empty when there is none."""
+    try:
+        items = client.list_cases()  # type: ignore[attr-defined]
+        if not items:
+            return []
+        newest = max(items, key=lambda item: str(item.get("created") or ""))
+        return client.get_trace(str(newest["case_id"]))  # type: ignore[attr-defined]
+    except (ArbiterAPIError, KeyError):
+        return []
+
+
 def _sidebar_status() -> None:
     client = get_client()
     try:
@@ -57,9 +70,8 @@ def _sidebar_status() -> None:
     mode = health.get("mode") or {}
     st.sidebar.markdown(f"**Data:** {mode.get('data', 'unknown')}")
     st.sidebar.markdown(f"**LLM:** {mode.get('llm', 'unknown')}")
-    provider = health.get("provider") or {}
-    if provider.get("models"):
-        st.sidebar.caption(f"Models: {provider.get('models')}")
+    for line in provider_lines(health, _last_trace(client)):
+        st.sidebar.caption(line)
 
 
 def main() -> None:
@@ -71,6 +83,7 @@ def main() -> None:
         st.Page(str(_ROOT / "pages" / "new_assessment.py"), title="New assessment", default=True),
         st.Page(str(_ROOT / "pages" / "queue.py"), title="Cases"),
         st.Page(str(_ROOT / "pages" / "case.py"), title="Case"),
+        st.Page(str(_ROOT / "pages" / "sources.py"), title="Sources"),
         st.Page(str(_ROOT / "pages" / "review.py"), title="Review"),
         st.Page(str(_ROOT / "pages" / "memory.py"), title="Precedents"),
         st.Page(str(_ROOT / "pages" / "audit.py"), title="Audit"),

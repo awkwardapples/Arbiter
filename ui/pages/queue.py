@@ -1,3 +1,3 @@
-from ui.screens import page_queue
+from ui.portfolio import render_portfolio
 
-page_queue()
+render_portfolio()

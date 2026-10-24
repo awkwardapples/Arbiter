@@ -1,3 +1,3 @@
-from ui.screens import page_new_assessment
+from ui.intake import render_new_assessment
 
-page_new_assessment()
+render_new_assessment()

@@ -47,9 +47,11 @@ def test_p5_t11_pages_smoke(title: str, page_file: str, fake_client: FakeArbiter
 def test_p5_t11_case_page_shows_outcome_text(fake_client: FakeArbiterClient) -> None:
     """P5-T11: case page surfaces outcome as visible text."""
     at = _run_page("Case", "pages/case.py", client=fake_client)
+    from ui.labels_ui import outcome_label
+
     outcome = fake_client.case_detail["record"]["outcome"]
-    blob = " ".join(getattr(m, "value", "") or "" for m in at.markdown)
-    assert outcome in blob
+    headings = " ".join(item.value for item in at.subheader)
+    assert outcome_label(outcome) in headings  # P14-B: the business label, not the code
 
 
 def test_p5_t14_eval_not_published_on_404(

@@ -87,3 +87,14 @@ class ReviewRequest(BaseModel):
     mitigations: list[str] = Field(default_factory=list)
     conditions: list[str] = Field(default_factory=list)
     create_precedent: bool = Field(default=False)
+
+
+class ApprovalRequest(BaseModel):
+    """Body of POST /contracts/{id}/approve. Kept here so ui/ does not import app."""
+
+    model_config = ConfigDict(extra="allow")
+
+    by: str = Field()
+    role: str = Field()
+    decision: Literal["approve", "reject"] = Field()
+    rationale: str = Field(min_length=30)

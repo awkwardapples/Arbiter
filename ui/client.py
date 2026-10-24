@@ -34,7 +34,7 @@ class ArbiterClient:
         if self._owns_client:
             self._client.close()
 
-    def _request(self, method: str, path: str, **kwargs: Any) -> Any:
+    def _request(self, method: str, path: str, *, text: bool = False, **kwargs: Any) -> Any:
         try:
             resp = self._client.request(method, path, **kwargs)
         except httpx.TimeoutException as exc:
@@ -48,7 +48,7 @@ class ArbiterClient:
             raise ArbiterAPIError(message, status_code=resp.status_code)
         if resp.status_code == 204 or not resp.content:
             return None
-        return resp.json()
+        return resp.text if text else resp.json()
 
     @staticmethod
     def _error_message(resp: httpx.Response) -> str:
@@ -127,3 +127,11 @@ class ArbiterClient:
     def eval_latest(self) -> dict[str, Any]:
         data = self._request("GET", "/eval/latest")
         return dict(data) if isinstance(data, dict) else {}
+
+    def questions(self) -> list[dict[str, Any]]:
+        data = self._request("GET", "/questions")
+        return list(data) if isinstance(data, list) else []
+
+    def dossier(self, case_id: str, fmt: str = "html") -> str:
+        data = self._request("GET", f"/cases/{case_id}/dossier", params={"format": fmt}, text=True)
+        return str(data or "")

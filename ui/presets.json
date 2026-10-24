@@ -1,0 +1,188 @@
+{
+ "presets": [
+  {
+   "name": "Internal wiki tool (low risk)",
+   "legal_name": "Harbour Wiki Ltd",
+   "trading_name": "Harbour Wiki",
+   "category": "Internal tools",
+   "requested_service": "Team wiki",
+   "criticality": "low",
+   "annual_spend_gbp": 5000,
+   "data_categories": [
+    "internal"
+   ],
+   "processing_countries": [
+    "GB"
+   ],
+   "patch_sla_critical_days": 14,
+   "documents": [],
+   "components": [],
+   "answers": {
+    "Q02": {
+     "choice": "Yes",
+     "how": "Remote staff authenticate with MFA."
+    },
+    "Q06": {
+     "choice": "Yes",
+     "how": "TLS 1.2 or higher on all traffic."
+    },
+    "Q11": {
+     "choice": null,
+     "how": "Standard Contractual Clauses apply."
+    },
+    "Q14": {
+     "choice": null,
+     "how": "Pen tests annually."
+    },
+    "Q16": {
+     "choice": null,
+     "how": "We use a secure SDLC with code review and CI scanning."
+    },
+    "Q12": {
+     "choice": "Yes",
+     "how": "Sub-processors are disclosed in our register."
+    },
+    "Q15": {
+     "choice": "Yes",
+     "how": "We will sign the customer DPA."
+    },
+    "Q01": {
+     "choice": "Yes",
+     "how": "MFA is enforced for admins."
+    },
+    "Q03": {
+     "choice": null,
+     "how": "Keys are rotated every 90 days and stored in HashiCorp Vault."
+    },
+    "Q04": {
+     "choice": null,
+     "how": "Access reviews occur every 60 days."
+    },
+    "Q05": {
+     "choice": "Yes",
+     "how": "Customer data is encrypted at rest with AES-256."
+    },
+    "Q07": {
+     "choice": null,
+     "how": "We hold ISO/IEC 27001 certification."
+    },
+    "Q08": {
+     "choice": "No",
+     "how": "No security incidents affecting customer data in the last 24 months."
+    },
+    "Q09": {
+     "choice": null,
+     "how": "We notify within 72 hours."
+    },
+    "Q10": {
+     "choice": null,
+     "how": "Our hosting is UK-only for your data."
+    },
+    "Q13": {
+     "choice": null,
+     "how": "Critical patches within 14 days."
+    }
+   }
+  },
+  {
+   "name": "Payroll platform (personal data)",
+   "legal_name": "Larkspur Payroll Ltd",
+   "trading_name": "Larkspur",
+   "category": "SaaS",
+   "requested_service": "Payroll processing",
+   "criticality": "high",
+   "annual_spend_gbp": 180000,
+   "data_categories": [
+    "personal",
+    "payment"
+   ],
+   "processing_countries": [
+    "GB",
+    "IE"
+   ],
+   "patch_sla_critical_days": 30,
+   "documents": [
+    {
+     "doc_type": "SOC 2 Type II",
+     "title": "SOC 2 Type II summary",
+     "issued_on": "2026-03-01",
+     "expires_on": "",
+     "text": "SOC 2 Type II report, period ending 2026-02-28. No exceptions noted for access control or encryption."
+    }
+   ],
+   "components": [
+    {
+     "vendor": "Fortinet",
+     "product": "FortiOS",
+     "version": "7.0.1"
+    }
+   ],
+   "answers": {
+    "Q02": {
+     "choice": "Yes",
+     "how": "Remote staff authenticate with MFA."
+    },
+    "Q06": {
+     "choice": "Yes",
+     "how": "TLS 1.2 or higher on all traffic."
+    },
+    "Q11": {
+     "choice": null,
+     "how": "Standard Contractual Clauses apply."
+    },
+    "Q14": {
+     "choice": null,
+     "how": "Pen tests annually."
+    },
+    "Q16": {
+     "choice": null,
+     "how": "We use a secure SDLC with code review and CI scanning."
+    },
+    "Q12": {
+     "choice": "Yes",
+     "how": "Sub-processors are disclosed in our register."
+    },
+    "Q15": {
+     "choice": "Yes",
+     "how": "We will sign the customer DPA."
+    },
+    "Q01": {
+     "choice": "Yes",
+     "how": "MFA is enforced for admins."
+    },
+    "Q03": {
+     "choice": null,
+     "how": "Keys are rotated every 90 days and stored in HashiCorp Vault."
+    },
+    "Q04": {
+     "choice": null,
+     "how": "Access reviews occur every 60 days."
+    },
+    "Q05": {
+     "choice": "Yes",
+     "how": "Customer data is encrypted at rest with AES-256."
+    },
+    "Q07": {
+     "choice": null,
+     "how": "We hold a current SOC 2 Type II report."
+    },
+    "Q08": {
+     "choice": "No",
+     "how": "No security incidents affecting customer data in the last 24 months."
+    },
+    "Q09": {
+     "choice": null,
+     "how": "We notify within 72 hours."
+    },
+    "Q10": {
+     "choice": null,
+     "how": "Processing stays within EU regions."
+    },
+    "Q13": {
+     "choice": null,
+     "how": "Critical patches within 30 days."
+    }
+   }
+  }
+ ]
+}
