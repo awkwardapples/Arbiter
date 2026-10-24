@@ -99,6 +99,10 @@ class Store:
                 case_id TEXT NOT NULL,
                 json TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS machine_decisions (
+                case_id TEXT PRIMARY KEY,
+                json TEXT NOT NULL
+            );
             """
         )
         self._conn.commit()
@@ -240,6 +244,25 @@ class Store:
             (case_id,),
         ).fetchall()
         return [json.loads(row[0]) for row in rows]
+
+    def put_machine_decision(self, record: DecisionRecord) -> None:
+        """Keep the machine record a review replaces.
+
+        The review route calls this only when the record it replaces is a machine one, so a second
+        review keeps the first machine record, while a fresh run of the case followed by a review
+        replaces it.
+        """
+        self._conn.execute(
+            "INSERT OR REPLACE INTO machine_decisions (case_id, json) VALUES (?, ?)",
+            (record.case_id, _dump(record)),
+        )
+        self._conn.commit()
+
+    def machine_decision_for(self, case_id: str) -> DecisionRecord | None:
+        row = self._conn.execute(
+            "SELECT json FROM machine_decisions WHERE case_id = ?", (case_id,)
+        ).fetchone()
+        return DecisionRecord.model_validate_json(row[0]) if row else None
 
     def put_human_decision(self, record: DecisionRecord) -> None:
         self._conn.execute(
