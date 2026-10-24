@@ -105,7 +105,7 @@ def cmd_verify(_args: argparse.Namespace) -> int:
         return 1
     if cmd_test(argparse.Namespace(mark="not live", quiet=False)) != 0:
         return 1
-    if cmd_secret_scan(argparse.Namespace()) != 0:
+    if cmd_secret_scan(argparse.Namespace(history=False)) != 0:
         return 1
     if cmd_hardcode_check(argparse.Namespace()) != 0:
         return 1
@@ -121,7 +121,7 @@ def cmd_e2e_sample(_args: argparse.Namespace) -> int:
 def cmd_secret_scan(args: argparse.Namespace) -> int:
     py = _python()
     cmd = [py, str(ROOT / "scripts" / "scan_secrets.py"), str(ROOT)]
-    if args.history:
+    if getattr(args, "history", False):
         cmd.append("--history")
     return _run(cmd)
 

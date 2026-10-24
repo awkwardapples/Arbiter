@@ -72,7 +72,7 @@ def validate(root: Path) -> list[str]:
             corpus = _trace_text(root)
             for model in models:
                 if not isinstance(model, str) or model not in corpus:
-                    errors.append(f"model id {model} is not in logs/examples")
+                    errors.append(f"model id {model} is not in logs/examples or logs/examples/live")
     return errors
 
 
@@ -89,14 +89,16 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-def _trace_text(root: Path) -> str:
+def _trace_paths(root: Path) -> list[Path]:
+    """Top-level example traces plus the live traces P15 keeps in logs/examples/live/."""
     directory = root / "logs" / "examples"
     if not directory.is_dir():
-        return ""
-    parts: list[str] = []
-    for path in sorted(directory.glob("trace-*.jsonl")):
-        parts.append(path.read_text(encoding="utf-8", errors="replace"))
-    return "\n".join(parts)
+        return []
+    return sorted(directory.glob("trace-*.jsonl")) + sorted((directory / "live").glob("trace-*.jsonl"))
+
+
+def _trace_text(root: Path) -> str:
+    return "\n".join(path.read_text(encoding="utf-8", errors="replace") for path in _trace_paths(root))
 
 
 def _traces_attribute_a_model(root: Path) -> bool:
@@ -105,10 +107,7 @@ def _traces_attribute_a_model(root: Path) -> bool:
     An offline run records provider=offline and model=null, so the configured
     routes are absent. That corpus does not satisfy the live assertion.
     """
-    directory = root / "logs" / "examples"
-    if not directory.is_dir():
-        return False
-    for path in sorted(directory.glob("trace-*.jsonl")):
+    for path in _trace_paths(root):
         for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
             line = line.strip()
             if not line:
