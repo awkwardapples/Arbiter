@@ -11,10 +11,15 @@ Needs a running API that serves the built console at /console/, and Playwright w
 from __future__ import annotations
 
 import argparse
+import json
 import os
+import re
 import sys
+import time
 from pathlib import Path
 from typing import Any
+
+import httpx
 
 ROOT = Path(__file__).resolve().parents[1]
 SIZES = {"1440": {"width": 1440, "height": 900}, "1280": {"width": 1280, "height": 720}}
@@ -28,6 +33,9 @@ SECRET_ENV = (
     "ARBITER_SIGNING_KEY",
 )
 RAIL_LABELS = ("Assess", "Cases", "Memory", "Sources", "Provider", "Audit", "Evaluation")
+SMOKE_EXAMPLE = "example_2.json"  # the residency contradiction case named in the pass spec
+SMOKE_RECORDING = "run-257c86984507"  # the committed live eval run the pass spec names
+RUN_TIMEOUT_MS = 120_000
 
 
 class SmokeFailure(AssertionError):
@@ -77,9 +85,76 @@ def smoke_shell(page: Any, base: str) -> None:
     check(bool(chip.strip()), "the mode chip is empty")
 
 
+def vendor_name_for(base: str, example: str) -> str:
+    """The legal name of an input example's vendor, looked up through the API (no ids in this script)."""
+    payload = json.loads((ROOT / "input_examples" / example).read_text(encoding="utf-8"))
+    vendors = httpx.get(f"{base}/vendors", timeout=30).json()
+    for vendor in vendors:
+        if vendor.get("vendor_id") == payload.get("vendor_id"):
+            return str(vendor["legal_name"])
+    raise SmokeFailure(f"the vendor of {example} is not in GET /vendors")
+
+
+def wait_for_ruling(page: Any) -> str:
+    page.wait_for_selector("[data-testid='ruling-card']", timeout=RUN_TIMEOUT_MS)
+    return page.inner_text("[data-testid='outcome-stamp']").strip()
+
+
+def smoke_run(page: Any, base: str, out: Path) -> str:
+    """Start the example from Assess, watch the bench fill, check the ruling and the clash card."""
+    name = vendor_name_for(base, SMOKE_EXAMPLE)
+    page.goto(f"{base}/console/")
+    page.get_by_role("button", name=f"Start assessment of {name}").click()
+    page.wait_for_url(re.compile(r".*/console/runs/run-[0-9a-f]{12}$"), timeout=15_000)
+    page.wait_for_selector("[data-node='evidence']", timeout=30_000)
+    time.sleep(3)
+    shoot(page, out, "console_run_mid.png")
+    stamp = wait_for_ruling(page)
+    check(stamp == "Escalate", f"the ruling stamp reads {stamp!r}, expected 'Escalate'")
+    clash = page.inner_text("[data-testid='clash-card']")
+    check("EU" in clash and "US" in clash, f"the clash card does not mention EU and US: {clash!r}")
+    chip = page.inner_text("[data-testid='mode-chip']")
+    check(not chip.startswith("Recorded"), f"a fresh run is labelled as a recording: {chip!r}")
+    time.sleep(1.5)
+    shoot(page, out, "console_run_ruling.png")
+    page.get_by_role("link", name="Open the case").click()
+    page.wait_for_url(re.compile(r".*/console/cases/[^/]+$"), timeout=15_000)
+    page.wait_for_selector("main h1", timeout=15_000)
+    return page.url
+
+
+def smoke_recording(page: Any, base: str, out: Path) -> None:
+    """Watch the committed live run at 16x from Recorded live runs; check its ruling and its label."""
+    page.goto(f"{base}/console/")
+    row = page.locator(f"li[data-run-id='{SMOKE_RECORDING}']")
+    row.wait_for(timeout=15_000)
+    row.get_by_role("button").click()
+    page.wait_for_url(re.compile(rf".*/console/recordings/{SMOKE_RECORDING}$"), timeout=15_000)
+    page.get_by_role("button", name="16×").click()
+    stamp = wait_for_ruling(page)
+    check(stamp == "Escalate", f"the recording's stamp reads {stamp!r}, expected 'Escalate'")
+    chip = page.inner_text("[data-testid='mode-chip']")
+    check("Recorded live run" in chip, f"the mode chip says {chip!r}, expected 'Recorded live run'")
+    time.sleep(1.5)
+    shoot(page, out, "console_run_recorded.png")
+
+
+def smoke_empty(page: Any, base: str, out: Path) -> None:
+    """The empty bench: a recording held at its first event."""
+    page.goto(f"{base}/console/recordings/{SMOKE_RECORDING}")
+    page.wait_for_selector("[data-testid='bench']", timeout=15_000)
+    page.get_by_role("button", name="Pause").click()
+    page.get_by_role("slider", name="Timeline").fill("0")
+    time.sleep(0.8)
+    shoot(page, out, "console_run_empty.png")
+
+
 def run_smoke(page: Any, base: str, out: Path) -> None:
     smoke_shell(page, base)
-    shoot(page, out, "console_run_empty.png")
+    case_url = smoke_run(page, base, out)
+    print(f"opened the case at {case_url}")
+    smoke_recording(page, base, out)
+    smoke_empty(page, base, out)
 
 
 def main(argv: list[str] | None = None) -> int:

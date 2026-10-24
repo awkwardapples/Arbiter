@@ -2,7 +2,7 @@
 
 export type ModeSource =
   | { kind: "mode"; mode: Record<string, string> | null | undefined; fallbacks?: number; paced?: boolean }
-  | { kind: "recording"; startedAt: string | null | undefined; fallbacks?: number };
+  | { kind: "recording"; startedAt: string | null | undefined; fallbacks?: number; mode?: Record<string, string> | null };
 
 export interface ModeChip {
   text: string;
@@ -36,8 +36,11 @@ const LLM_WORDS: Record<string, string> = {
 export function modeChipText(source: ModeSource): ModeChip {
   if (source.kind === "recording") {
     const when = source.startedAt ? formatUtc(source.startedAt) : null;
+    // A recording is called live only when its events say Zetaris and Nightshift served it.
+    const live = !source.mode || (source.mode.data === "zetaris" && source.mode.llm === "meterless");
+    const what = live ? "Recorded live run" : source.mode?.data === "duckdb" ? "Recorded sample-mode run" : "Recorded run";
     return {
-      text: when ? `Recorded live run, ${when}` : "Recorded live run",
+      text: when ? `${what}, ${when}` : what,
       tone: "recorded",
       fallbacks: fallbackText(source.fallbacks),
       extra: null,
