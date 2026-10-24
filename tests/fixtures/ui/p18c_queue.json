@@ -1,7 +1,7 @@
 [
   {
     "case_id": "CASE-0007",
-    "created": "2026-10-24T11:58:57.893968Z",
+    "created": "2026-10-24T15:32:10.659959Z",
     "outcome": "ESCALATE",
     "residual_risk": 100,
     "status": "success",
@@ -10,7 +10,7 @@
   },
   {
     "case_id": "CASE-0019",
-    "created": "2026-10-24T11:58:59.167170Z",
+    "created": "2026-10-24T15:32:12.530864Z",
     "outcome": "DECLINE",
     "residual_risk": 33,
     "status": "success",
@@ -19,7 +19,7 @@
   },
   {
     "case_id": "CASE-0015",
-    "created": "2026-10-24T11:58:58.367615Z",
+    "created": "2026-10-24T15:32:11.223298Z",
     "outcome": "ESCALATE",
     "residual_risk": 30,
     "status": "success",
@@ -28,7 +28,7 @@
   },
   {
     "case_id": "CASE-0022",
-    "created": "2026-10-24T11:58:58.771186Z",
+    "created": "2026-10-24T15:32:11.849077Z",
     "outcome": "REQUEST_INFO",
     "residual_risk": 30,
     "status": "success",
@@ -37,7 +37,7 @@
   },
   {
     "case_id": "CASE-0003",
-    "created": "2026-10-24T11:58:57.080369Z",
+    "created": "2026-10-24T15:32:09.603718Z",
     "outcome": "APPROVE",
     "residual_risk": 15,
     "status": "success",
@@ -46,7 +46,7 @@
   },
   {
     "case_id": "CASE-F0595FCA",
-    "created": "2026-10-24T11:58:59.552218Z",
+    "created": "2026-10-24T15:32:13.099661Z",
     "outcome": "APPROVE",
     "residual_risk": 15,
     "status": "success",

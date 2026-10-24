@@ -149,10 +149,41 @@ def smoke_empty(page: Any, base: str, out: Path) -> None:
     shoot(page, out, "console_run_empty.png")
 
 
+CASE_TABS = {
+    "Decision": "decision-tab",
+    "Evidence": "evidence-tab",
+    "Agent activity": "agent-activity-tab",
+    "Audit trail": "audit-trail-tab",
+    "Technical details": "technical-tab",
+}
+
+
+def smoke_case(page: Any, case_url: str, out: Path) -> None:
+    """Lane P18-C: every Case tab renders, the replay matches, and the Decision and Agent activity shots."""
+    page.goto(f"{case_url}?tab=decision")
+    page.wait_for_selector("[data-testid='claim-card']", timeout=15_000)
+    shoot(page, out, "console_case_decision.png")
+    for name, test_id in CASE_TABS.items():
+        page.get_by_role("tab", name=name).click()
+        page.wait_for_selector(f"[data-testid='{test_id}']", timeout=15_000)
+    page.get_by_role("tab", name="Audit trail").click()
+    page.get_by_role("button", name="Replay decision").click()
+    result = page.locator("[data-testid='replay-result']")
+    result.wait_for(timeout=15_000)
+    check("Decision replays identically" in result.inner_text(), f"the replay says {result.inner_text()!r}")
+    page.get_by_role("tab", name="Agent activity").click()
+    activity = page.locator("[data-testid='agent-activity']")
+    activity.get_by_role("button", name=re.compile("skip to result", re.I)).click()
+    activity.locator("[data-testid='outcome-stamp']").wait_for(timeout=15_000)
+    time.sleep(1.5)
+    shoot(page, out, "console_case_activity.png")
+
+
 def run_smoke(page: Any, base: str, out: Path) -> None:
     smoke_shell(page, base)
     case_url = smoke_run(page, base, out)
     print(f"opened the case at {case_url}")
+    smoke_case(page, case_url, out)
     smoke_recording(page, base, out)
     smoke_empty(page, base, out)
 

@@ -3,6 +3,8 @@
 Runs the real API in-process in sample mode (DuckDB mirror, offline fallback) in a temporary working
 directory, assesses every file in input_examples/ (never expected.json), then records:
 
+- p18c_registry.json         GET /registry/queries (the run view's query-to-system map)
+- p18c_agents.json           GET /agents
 - p18c_queue.json            GET /cases
 - p18c_case_pending.json     GET /cases/{id} for the first case with a contract in pending_approval
 - p18c_trace_pending.json    GET /cases/{id}/trace for that case
@@ -67,6 +69,8 @@ def main() -> int:
         for path in examples:
             _ok(client.post("/run", json=json.loads(path.read_text(encoding="utf-8"))))
 
+        _write("p18c_registry.json", _ok(client.get("/registry/queries")))
+        _write("p18c_agents.json", _ok(client.get("/agents")))
         queue = _ok(client.get("/cases"))
         _write("p18c_queue.json", queue)
         details = {item["case_id"]: _ok(client.get(f"/cases/{item['case_id']}")) for item in queue}

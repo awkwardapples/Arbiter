@@ -1,7 +1,7 @@
 {
-  "artifact": "var/outbox/procurement/ctr-66a50b23f300.json",
-  "contract_id": "ctr-66a50b23f300",
+  "artifact": "var/outbox/procurement/ctr-7af773dd5e1e.json",
+  "contract_id": "ctr-7af773dd5e1e",
   "executed": true,
-  "parent_id": "ctr-ca4bf6436166",
+  "parent_id": "ctr-7694f85c4949",
   "state": "executed"
 }

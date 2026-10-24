@@ -6,10 +6,10 @@
   },
   "diff": [],
   "human_override": {
-    "at": "2026-10-24T11:58:59.822175Z",
+    "at": "2026-10-24T15:32:13.773702Z",
     "decision": "APPROVE_WITH_CONDITIONS",
     "rationale": "Residency confirmed with the vendor's DPO in writing; hosting moves to the EU region.",
-    "review_id": "rev-627ebc6c537b",
+    "review_id": "rev-e2da0f82f05a",
     "reviewer": "Sam Lead",
     "role": "tprm_lead"
   },

@@ -72,7 +72,7 @@ export function CasePage() {
           <EvidenceTab detail={data} questions={questions.data ?? []} />
         </TabsPrimitive.Content>
         <TabsPrimitive.Content value="activity" className="pt-6 outline-none">
-          <AgentActivityTab detail={data} />
+          <AgentActivityTab detail={data} trace={trace.data} mode={traceMode(trace.data)} traceError={trace.isError ? trace.error.message : null} />
         </TabsPrimitive.Content>
         <TabsPrimitive.Content value="audit" className="pt-6 outline-none">
           <AuditTrailTab detail={data} replays={replays} onReplay={(r) => setReplays((list) => [...list, r])} />

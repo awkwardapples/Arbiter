@@ -127,6 +127,8 @@ export function caseRoutes(detail: Recorded, trace: unknown): Record<string, Han
     [`GET /cases/${detail.case_id}/trace`]: trace,
     "GET /questions": load("p14b_questions.json"),
     "GET /health": load("p14a_health_offline.json"),
+    "GET /registry/queries": load("p18c_registry.json"),
+    "GET /agents": load("p18c_agents.json"),
   };
 }
 

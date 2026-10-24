@@ -3,12 +3,12 @@
   "contracts": [
     {
       "case_id": "CASE-0007",
-      "contract_id": "ctr-1c53a4cfa554",
-      "expires_at": "2026-10-31T11:58:57.892074Z",
+      "contract_id": "ctr-a0e755aaffaf",
+      "expires_at": "2026-10-31T15:32:10.652755Z",
       "intent": "vendor.onboarding.escalate",
-      "issued_at": "2026-10-24T11:58:57.892074Z",
+      "issued_at": "2026-10-24T15:32:10.652755Z",
       "parameters": {
-        "decision_record_sha256": "b51ffda8a6ae228bb30a3f7f2a0efe78aa82731703cef21b9b711a526eb4b20c",
+        "decision_record_sha256": "4d1d29249412d79b86d415e7b7ebf78af1b006547793070bdad0956cc000b68f",
         "outcome": "ESCALATE",
         "policy_version": "1.0.0",
         "report_generator": "template:v1"
@@ -29,7 +29,7 @@
         ],
         "deadline": null
       },
-      "signature": "3bed6313e4eea2230efad02f2cfe2c0e6a2759ffbf425a0470a71e6621a24b44",
+      "signature": "dcf5cd123894a1395e3e61e52f926be953b1708ee039696558a1d6f957a8b118",
       "signed_by": "scout",
       "state": "executed",
       "tool_plan": [
@@ -38,7 +38,7 @@
           "capability": "itsm.ticket.create"
         }
       ],
-      "trace_id": "run-54e4f886f0dd"
+      "trace_id": "run-ae69cb34bed3"
     }
   ],
   "record": {
@@ -2273,14 +2273,14 @@
         ],
         "vendor_category": "SaaS"
       },
-      "run_id": "run-54e4f886f0dd"
+      "run_id": "run-ae69cb34bed3"
     },
     "policy_sha256": "d87244d91cacbd6a8c7119595311261a1205fc9019b00426b7d9c66fa06f4857",
     "policy_version": "1.0.0",
     "precedents_considered": [],
-    "record_sha256": "b51ffda8a6ae228bb30a3f7f2a0efe78aa82731703cef21b9b711a526eb4b20c",
+    "record_sha256": "4d1d29249412d79b86d415e7b7ebf78af1b006547793070bdad0956cc000b68f",
     "residual_risk": 100,
-    "run_id": "run-54e4f886f0dd",
+    "run_id": "run-ae69cb34bed3",
     "tier": "T1"
   },
   "report": {
@@ -2396,7 +2396,7 @@
   },
   "reviews": [],
   "status": "success",
-  "trace_path": "logs/trace-run-54e4f886f0dd.jsonl",
+  "trace_path": "logs/trace-run-ae69cb34bed3.jsonl",
   "vendor": "Quillfeather Payroll Cloud Ltd",
   "workload": {
     "answers_read": 16,
@@ -2405,7 +2405,7 @@
     "contradictions": 1,
     "documents_read": 0,
     "dq_flags": 0,
-    "elapsed_seconds": 0.7790508949983632,
+    "elapsed_seconds": 1.012457885000913,
     "guard_blocks": 0,
     "model_calls": 0,
     "models": [],

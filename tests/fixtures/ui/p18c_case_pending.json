@@ -3,12 +3,12 @@
   "contracts": [
     {
       "case_id": "CASE-0019",
-      "contract_id": "ctr-ca4bf6436166",
-      "expires_at": "2026-10-31T11:58:59.165803Z",
+      "contract_id": "ctr-7694f85c4949",
+      "expires_at": "2026-10-31T15:32:12.529624Z",
       "intent": "vendor.onboarding.decline",
-      "issued_at": "2026-10-24T11:58:59.165803Z",
+      "issued_at": "2026-10-24T15:32:12.529624Z",
       "parameters": {
-        "decision_record_sha256": "1e2e8935676254d9593198c7a0644f7457958e4d6eecf1487b87ab28dddb6f2d",
+        "decision_record_sha256": "a080687da9fba11e37db5a2c09ea38b6886b853a238b289637d06d1731aab8de",
         "outcome": "DECLINE",
         "policy_version": "1.0.0",
         "report_generator": "template:v1"
@@ -33,7 +33,7 @@
         ],
         "deadline": null
       },
-      "signature": "6a55fcf327dd86e870e19b212dbe3a9e2df572fb0c6db121aac074d5e92c769e",
+      "signature": "72fd86edc204cade8a789112f1f88ab4c7e92ad872508711eabc18421848b925",
       "signed_by": "scout",
       "state": "pending_approval",
       "tool_plan": [
@@ -42,7 +42,7 @@
           "capability": "procurement.decline.record"
         }
       ],
-      "trace_id": "run-93656fce8433"
+      "trace_id": "run-ff7eb18cfddb"
     }
   ],
   "record": {
@@ -1773,14 +1773,14 @@
         ],
         "vendor_category": "SaaS"
       },
-      "run_id": "run-93656fce8433"
+      "run_id": "run-ff7eb18cfddb"
     },
     "policy_sha256": "d87244d91cacbd6a8c7119595311261a1205fc9019b00426b7d9c66fa06f4857",
     "policy_version": "1.0.0",
     "precedents_considered": [],
-    "record_sha256": "1e2e8935676254d9593198c7a0644f7457958e4d6eecf1487b87ab28dddb6f2d",
+    "record_sha256": "a080687da9fba11e37db5a2c09ea38b6886b853a238b289637d06d1731aab8de",
     "residual_risk": 33,
-    "run_id": "run-93656fce8433",
+    "run_id": "run-ff7eb18cfddb",
     "tier": "T3"
   },
   "report": {
@@ -1839,7 +1839,7 @@
   },
   "reviews": [],
   "status": "success",
-  "trace_path": "logs/trace-run-93656fce8433.jsonl",
+  "trace_path": "logs/trace-run-ff7eb18cfddb.jsonl",
   "vendor": "Corvid Ledger Services Ltd",
   "workload": {
     "answers_read": 16,
@@ -1848,7 +1848,7 @@
     "contradictions": 0,
     "documents_read": 0,
     "dq_flags": 0,
-    "elapsed_seconds": 0.36704116799955955,
+    "elapsed_seconds": 0.6327964779993636,
     "guard_blocks": 0,
     "model_calls": 0,
     "models": [],
