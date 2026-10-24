@@ -13,6 +13,7 @@ import yaml
 
 from app.canon import sha256_hex
 from data.generator.kev_match import kev_matches
+from data.generator.oracle import expected_controls
 from data.generator.truth import inline_truth, vendor_truth
 from data.kev.fetch_kev import fetch_kev
 
@@ -491,11 +492,18 @@ def _write_system_files(tables: dict[str, list[dict[str, Any]]], as_of: date) ->
         (SYSTEMS_DIR / fname).write_text(json.dumps(env, indent=2, sort_keys=True), encoding="utf-8")
 
 
-def _labels(vendors: list[VendorBuild], spec: dict[str, Any]) -> list[dict[str, Any]]:
+def _labels(
+    vendors: list[VendorBuild],
+    spec: dict[str, Any],
+    truth: dict[str, dict[str, Any]],
+    as_of: date,
+) -> list[dict[str, Any]]:
+    """Outcomes from the scenario spec; controls and contradiction keys from the oracle on truth facts."""
     outcomes = spec.get("expected_outcomes") or {}
     lines: list[dict[str, Any]] = []
     for v in vendors:
         meta = outcomes.get(v.scenario_key) or outcomes.get(v.scenarios[0], {})
+        oracle = expected_controls(truth[v.vendor_id], as_of=as_of)
         lines.append(
             {
                 "case_ref": v.vendor_id,
@@ -511,9 +519,7 @@ def _labels(vendors: list[VendorBuild], spec: dict[str, Any]) -> list[dict[str, 
                 ),
                 "expected_outcome": meta.get("outcome", "ESCALATE"),
                 "expected_reasons": meta.get("reasons", []),
-                "expected_failing_controls": [],
-                "expected_unknown_controls": [],
-                "expected_contradiction_keys": ["residency.regions"] if "S06" in v.scenarios else [],
+                **oracle,
                 "injection": v.injection,
                 "dq_rules": ["dq_contract_dpa_date"] if v.dq_dpa_date_null else [],
                 "notes": "",
@@ -538,6 +544,7 @@ def _splits(vendors: list[VendorBuild], seed: int) -> dict[str, Any]:
             test.extend(sorted(ids[mid:]))
         else:
             cal.extend(ids)
+    _cover_codes(vendors, cal, test)
     inline = ["inline_clean_t3", "inline_injection", "inline_missing", "inline_kev"]
     session = ["VND-0011", "VND-0012"]
     payload = {
@@ -554,6 +561,41 @@ def _splits(vendors: list[VendorBuild], seed: int) -> dict[str, Any]:
         },
     }
     return payload
+
+
+def _cover_codes(vendors: list[VendorBuild], cal: list[str], test: list[str]) -> None:
+    """Every scenario code on 2+ vendors gets one in each split, even when its keys are singletons.
+
+    Only vendors whose scenario key is a singleton move, so key-level stratification still holds.
+    The mover covering the most missing codes goes first; ties break on vendor id.
+    """
+    key_size: dict[str, int] = {}
+    for v in vendors:
+        key_size[v.scenario_key] = key_size.get(v.scenario_key, 0) + 1
+    by_code: dict[str, list[VendorBuild]] = {}
+    for v in vendors:
+        for code in v.scenarios:
+            by_code.setdefault(code, []).append(v)
+    shared = {code: members for code, members in by_code.items() if len(members) >= 2}
+    for source, target in ((cal, test), (test, cal)):
+        while True:
+            missing = {
+                code for code, members in shared.items() if not {m.vendor_id for m in members} & set(target)
+            }
+            if not missing:
+                break
+            movers = [
+                v
+                for v in vendors
+                if v.vendor_id in source and key_size[v.scenario_key] == 1 and missing & set(v.scenarios)
+            ]
+            if not movers:
+                raise AssertionError(f"cannot place scenario codes {sorted(missing)} in both splits")
+            pick = min(movers, key=lambda v: (-len(missing & set(v.scenarios)), v.vendor_id))
+            source.remove(pick.vendor_id)
+            target.append(pick.vendor_id)
+            if not all({m.vendor_id for m in members} & set(source) for members in shared.values()):
+                raise AssertionError(f"moving {pick.vendor_id} empties a split for a shared code")
 
 
 def _inline_payloads() -> dict[str, dict[str, Any]]:
@@ -701,7 +743,8 @@ def generate(*, seed: int, as_of: date, refresh_kev: bool = False, kev_url: str 
     _write_system_files(tables, as_of)
 
     EVALS_DIR.mkdir(parents=True, exist_ok=True)
-    labels = _labels(vendors, spec)
+    truth = _truth_rows(vendors, tables, as_of, kev)
+    labels = _labels(vendors, spec, {row["case_ref"]: row for row in truth}, as_of)
     (EVALS_DIR / "labels.jsonl").write_text(
         "\n".join(json.dumps(row, sort_keys=True) for row in labels) + "\n",
         encoding="utf-8",
@@ -710,7 +753,6 @@ def generate(*, seed: int, as_of: date, refresh_kev: bool = False, kev_url: str 
         json.dumps(_splits(vendors, seed), indent=2, sort_keys=True),
         encoding="utf-8",
     )
-    truth = _truth_rows(vendors, tables, as_of, kev)
     (EVALS_DIR / "truth_facts.jsonl").write_text(
         "\n".join(json.dumps(row, sort_keys=True) for row in truth) + "\n",
         encoding="utf-8",
