@@ -1,4 +1,8 @@
-"""Offline examples: six real runs, traces, and a recorded p50 per example."""
+"""Offline examples: six real runs, traces, and a recorded p50 per example.
+
+Since P15 the sample-mode set lives in `output_examples/sample_mode/` and `logs/examples/sample_mode/`;
+`output_examples/` itself holds the live runs.
+"""
 
 from __future__ import annotations
 
@@ -16,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[3]
 
 def test_offline_examples_have_traces_and_p50() -> None:
     """The offline gate writes one output per input example, with a trace and p50_ms."""
-    out_dir = ROOT / "output_examples"
+    out_dir = ROOT / "output_examples" / "sample_mode"
     files = sorted(out_dir.glob("example_*_output.json"))
     inputs = sorted((ROOT / "input_examples").glob("example_*.json"))
     assert len(inputs) == 6
@@ -30,7 +34,7 @@ def test_offline_examples_have_traces_and_p50() -> None:
         assert header["p50_ms"] >= 0
         assert header["n_runs"] >= 1
         assert "git_sha" in header
-        trace = ROOT / "logs" / "examples" / f"trace-{header['run_id']}.jsonl"
+        trace = ROOT / "logs" / "examples" / "sample_mode" / f"trace-{header['run_id']}.jsonl"
         assert trace.is_file()
         assert validate_file(trace, require_collaboration=True, require_live=False) == []
         assert document["response"]["run_id"] == header["run_id"]
