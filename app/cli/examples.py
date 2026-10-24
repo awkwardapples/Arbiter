@@ -32,10 +32,16 @@ def register(sub: argparse._SubParsersAction) -> None:
     p.set_defaults(_handler=cmd_examples)
 
 
+def example_dirs(*, live: bool) -> tuple[Path, Path]:
+    """(outputs, traces). Live runs are the headline set; sample mode is what a keyless judge reproduces."""
+    if live:
+        return ROOT / "output_examples", ROOT / "logs" / "examples" / "live"
+    return ROOT / "output_examples" / "sample_mode", ROOT / "logs" / "examples" / "sample_mode"
+
+
 def cmd_examples(args: argparse.Namespace) -> None:
     _prepare(live=bool(args.live))
-    out_dir = ROOT / "output_examples"
-    traces = ROOT / "logs" / "examples"
+    out_dir, traces = example_dirs(live=bool(args.live))
     out_dir.mkdir(parents=True, exist_ok=True)
     traces.mkdir(parents=True, exist_ok=True)
     live_miss: list[str] = []
@@ -101,9 +107,9 @@ def export_trace_schema(path: Path) -> None:
 def _prepare(*, live: bool) -> None:
     os.environ["ARBITER_MEMORY"] = "off"
     if live:
+        # Pinned to Nightshift: an outage fails the run instead of falling back to NVIDIA direct.
         os.environ["SAMPLE_MODE"] = "false"
-        if os.environ.get("LLM_PROVIDER") == "offline":
-            os.environ["LLM_PROVIDER"] = "auto"
+        os.environ["LLM_PROVIDER"] = "meterless"
     else:
         os.environ["SAMPLE_MODE"] = "true"
         os.environ["LLM_PROVIDER"] = "offline"
@@ -123,7 +129,7 @@ def _once(case: CaseInput, *, live: bool) -> tuple[dict[str, Any], bytes, str, d
             return box["tracer"]
 
         if live:
-            options = RunOptions(sample_mode=False, llm=None)
+            options = RunOptions(sample_mode=False, llm="meterless")
         else:
             options = RunOptions(sample_mode=True, llm="offline")
         response = run(case, options=options, deps=Deps(var_dir=work / "var", tracer_factory=factory))
@@ -144,7 +150,7 @@ def _once(case: CaseInput, *, live: bool) -> tuple[dict[str, Any], bytes, str, d
 
 
 def _is_live(mode: dict[str, str]) -> bool:
-    return mode.get("data") == "zetaris" and mode.get("llm") not in {"offline", "auto", ""}
+    return mode.get("data") == "zetaris" and mode.get("llm") == "meterless"
 
 
 def _git_sha() -> str:
