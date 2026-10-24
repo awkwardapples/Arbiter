@@ -22,15 +22,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "3216c69dee694433",
+    "span_id": "e563ede1e4fd4770",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.377033Z",
+    "timestamp": "2026-10-24T11:58:57.149671Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -39,7 +39,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_VENDOR_PROFILE params=['vendor_id']",
     "iteration": 0,
-    "latency_ms": 21,
+    "latency_ms": 24,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -55,15 +55,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 1,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "procurement",
-    "span_id": "e927e69639b948e2",
+    "span_id": "1f403fb6a93647d1",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.398952Z",
+    "timestamp": "2026-10-24T11:58:57.174820Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -88,15 +88,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "d258e3614a344349",
+    "span_id": "797f4fb285474cf6",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.399091Z",
+    "timestamp": "2026-10-24T11:58:57.175174Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "plan",
@@ -121,15 +121,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "085eb6cd7b314592",
+    "span_id": "95dffee7b7c74746",
     "status": "success",
     "target_agent": "EvidenceAgent",
-    "timestamp": "2026-10-24T11:57:02.436021Z",
+    "timestamp": "2026-10-24T11:58:57.227637Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -154,15 +154,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "a8d80ac750f7401c",
+    "span_id": "8523889729194dfa",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.436160Z",
+    "timestamp": "2026-10-24T11:58:57.227779Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -171,7 +171,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_VENDOR_ALIASES params=['vendor_id']",
     "iteration": 1,
-    "latency_ms": 19,
+    "latency_ms": 61,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -187,15 +187,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 2,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "procurement",
-    "span_id": "d666369a8005411f",
+    "span_id": "3c4688dcc12a466d",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.455740Z",
+    "timestamp": "2026-10-24T11:58:57.289366Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -204,7 +204,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_WATCHLIST_SCREEN params=['vendor_id']",
     "iteration": 1,
-    "latency_ms": 20,
+    "latency_ms": 42,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -220,15 +220,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 0,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "grc_watchlist",
-    "span_id": "69f209ad641d4a76",
+    "span_id": "55b641a26acf49ac",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.476801Z",
+    "timestamp": "2026-10-24T11:58:57.332400Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -237,7 +237,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_WATCHLIST_ALL params=[]",
     "iteration": 1,
-    "latency_ms": 20,
+    "latency_ms": 23,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -253,15 +253,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 2,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "grc_watchlist",
-    "span_id": "1c6ae87c9087488f",
+    "span_id": "4afd5a70507e472a",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.497106Z",
+    "timestamp": "2026-10-24T11:58:57.356763Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -270,7 +270,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_SUBMISSION params=['vendor_id']",
     "iteration": 1,
-    "latency_ms": 21,
+    "latency_ms": 30,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -286,15 +286,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 1,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "trust_portal",
-    "span_id": "7ec24eab4a254b28",
+    "span_id": "1f4c493916e24358",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.518927Z",
+    "timestamp": "2026-10-24T11:58:57.387546Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -303,7 +303,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_SUBMISSION_ANSWERS params=['vendor_id']",
     "iteration": 1,
-    "latency_ms": 20,
+    "latency_ms": 23,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -319,15 +319,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 16,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "trust_portal",
-    "span_id": "4f80b3a35c28497c",
+    "span_id": "eabad471316442d5",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.539428Z",
+    "timestamp": "2026-10-24T11:58:57.411085Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -352,15 +352,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "667359a1a7554b6a",
+    "span_id": "9a0bfdfacea049cd",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.539755Z",
+    "timestamp": "2026-10-24T11:58:57.411325Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -385,15 +385,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "915c280deae54777",
+    "span_id": "5b65a34e5c3b409b",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.539936Z",
+    "timestamp": "2026-10-24T11:58:57.411451Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -418,15 +418,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "2626838dca544e58",
+    "span_id": "990e30d6175d490b",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540054Z",
+    "timestamp": "2026-10-24T11:58:57.411557Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -451,15 +451,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "6d65949128cd4744",
+    "span_id": "071e6126b6b743d1",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540166Z",
+    "timestamp": "2026-10-24T11:58:57.411657Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -484,15 +484,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "4b1b0fa887974bcb",
+    "span_id": "fc8a75b6ae0746d1",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540264Z",
+    "timestamp": "2026-10-24T11:58:57.411751Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -517,15 +517,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "b5fceeb7326e40e7",
+    "span_id": "3b8a7f62cfbb41db",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540353Z",
+    "timestamp": "2026-10-24T11:58:57.411877Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -550,15 +550,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "35602eb3ed744aa3",
+    "span_id": "2ac0a3ddc7134f87",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540441Z",
+    "timestamp": "2026-10-24T11:58:57.411977Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -583,15 +583,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "8bfdf25952604748",
+    "span_id": "668b0ae497604f6d",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540530Z",
+    "timestamp": "2026-10-24T11:58:57.412083Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -616,15 +616,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "990da49db31440d8",
+    "span_id": "abb6ac5f1e7348f4",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540605Z",
+    "timestamp": "2026-10-24T11:58:57.412167Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -649,15 +649,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "9bf4114dc2704e53",
+    "span_id": "e8e8cb2d57ea4fdb",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540680Z",
+    "timestamp": "2026-10-24T11:58:57.412243Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -682,15 +682,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "1ddb61e7a9164757",
+    "span_id": "66c0f973cc8d470e",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540768Z",
+    "timestamp": "2026-10-24T11:58:57.412388Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -715,15 +715,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "f45b41d60ab8466d",
+    "span_id": "6525feac76734cf2",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540914Z",
+    "timestamp": "2026-10-24T11:58:57.412499Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -748,15 +748,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "9a0f079a63334f1d",
+    "span_id": "8ec9d835e76649d2",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.540996Z",
+    "timestamp": "2026-10-24T11:58:57.412578Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -781,15 +781,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "cdf36a675f924faa",
+    "span_id": "2e547fcfe9a74e68",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.541066Z",
+    "timestamp": "2026-10-24T11:58:57.412649Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -814,15 +814,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "32424b8563244230",
+    "span_id": "95ea7eea755546b8",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.541149Z",
+    "timestamp": "2026-10-24T11:58:57.412733Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "guard_segment",
@@ -847,15 +847,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "56f36bd8ce324559",
+    "span_id": "a824aa19e258433c",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.541239Z",
+    "timestamp": "2026-10-24T11:58:57.412824Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -864,7 +864,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_SUBMISSION_DOCUMENTS params=['vendor_id']",
     "iteration": 1,
-    "latency_ms": 20,
+    "latency_ms": 23,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -880,15 +880,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 0,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "trust_portal",
-    "span_id": "44ed7143378f460e",
+    "span_id": "82b94c82f99c451f",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.561616Z",
+    "timestamp": "2026-10-24T11:58:57.436219Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -897,7 +897,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_VENDOR_COMPONENTS params=['vendor_id']",
     "iteration": 1,
-    "latency_ms": 19,
+    "latency_ms": 20,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -913,15 +913,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 1,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "trust_portal",
-    "span_id": "6a9b67c874f84610",
+    "span_id": "57bfe7da6a6c454f",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.581682Z",
+    "timestamp": "2026-10-24T11:58:57.456684Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "extract_claims",
@@ -946,15 +946,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "358452d62deb4638",
+    "span_id": "c03e418896b14ba0",
     "status": "success",
     "target_agent": "EvaluatorAgent",
-    "timestamp": "2026-10-24T11:57:02.582299Z",
+    "timestamp": "2026-10-24T11:58:57.457416Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -979,15 +979,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "305f1474497b4899",
+    "span_id": "dfe9f9c65d454bb5",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.582368Z",
+    "timestamp": "2026-10-24T11:58:57.457510Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "evaluate",
@@ -1012,15 +1012,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "9a719dbb88a74fe4",
+    "span_id": "e5b023f342fd45c0",
     "status": "needs_revision",
     "target_agent": "PlannerAgent",
-    "timestamp": "2026-10-24T11:57:02.583650Z",
+    "timestamp": "2026-10-24T11:58:57.458931Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1045,15 +1045,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "03ce7bd216b6442d",
+    "span_id": "59bce88e6ccd42b1",
     "status": "needs_revision",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.583760Z",
+    "timestamp": "2026-10-24T11:58:57.459070Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "plan",
@@ -1078,15 +1078,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "3e9cc726273442ed",
+    "span_id": "3b41a7e148f04453",
     "status": "success",
     "target_agent": "EvidenceAgent",
-    "timestamp": "2026-10-24T11:57:02.620199Z",
+    "timestamp": "2026-10-24T11:58:57.502950Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1111,15 +1111,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "0fcdca19a57347f2",
+    "span_id": "920ce09abacc4dd0",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.620341Z",
+    "timestamp": "2026-10-24T11:58:57.503096Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -1128,7 +1128,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_VENDOR_INCIDENTS params=['since', 'vendor_id']",
     "iteration": 2,
-    "latency_ms": 21,
+    "latency_ms": 22,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -1144,15 +1144,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 0,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "itsm",
-    "span_id": "0f837750d1bc4641",
+    "span_id": "300b0e9ed2024ab1",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.641792Z",
+    "timestamp": "2026-10-24T11:58:57.525912Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -1161,7 +1161,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_VENDOR_CONTRACT params=['vendor_id']",
     "iteration": 2,
-    "latency_ms": 20,
+    "latency_ms": 26,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -1177,15 +1177,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 1,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "clm",
-    "span_id": "5e7703885df04f10",
+    "span_id": "759fbe26489f4876",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.662760Z",
+    "timestamp": "2026-10-24T11:58:57.552854Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -1194,7 +1194,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_COMPONENT_KEV params=['vendor_id']",
     "iteration": 2,
-    "latency_ms": 24,
+    "latency_ms": 27,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -1210,15 +1210,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 15,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "cisa_kev",
-    "span_id": "9efc60b98f28472a",
+    "span_id": "6d122194946143e1",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.687419Z",
+    "timestamp": "2026-10-24T11:58:57.580802Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1243,15 +1243,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "cd55983c2f444e62",
+    "span_id": "a835afe2f77243e3",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.687593Z",
+    "timestamp": "2026-10-24T11:58:57.580937Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "contradiction_found",
@@ -1276,15 +1276,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "3efb22cc63dc472e",
+    "span_id": "1d25ef68bfbb4533",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.688511Z",
+    "timestamp": "2026-10-24T11:58:57.581986Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "evaluate",
@@ -1309,15 +1309,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "e22846ccb9ae4917",
+    "span_id": "dd149876519748a8",
     "status": "needs_revision",
     "target_agent": "PlannerAgent",
-    "timestamp": "2026-10-24T11:57:02.688780Z",
+    "timestamp": "2026-10-24T11:58:57.582393Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1342,15 +1342,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "94673cd98461486b",
+    "span_id": "92f485e2765e4ad1",
     "status": "needs_revision",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.688852Z",
+    "timestamp": "2026-10-24T11:58:57.582481Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "plan",
@@ -1375,15 +1375,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "756939343e2f4ccc",
+    "span_id": "dee93cb06ae64e67",
     "status": "success",
     "target_agent": "EvidenceAgent",
-    "timestamp": "2026-10-24T11:57:02.730411Z",
+    "timestamp": "2026-10-24T11:58:57.622824Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1408,15 +1408,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "1563cc85227542e4",
+    "span_id": "ad9e1388b4c84dfb",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.730570Z",
+    "timestamp": "2026-10-24T11:58:57.622979Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -1425,7 +1425,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_DQ_INVALID params=['vendor_id']",
     "iteration": 3,
-    "latency_ms": 27,
+    "latency_ms": 29,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -1441,15 +1441,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 0,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "data_quality",
-    "span_id": "8d82381b6a9e4a63",
+    "span_id": "48d7db0a406c4247",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.758610Z",
+    "timestamp": "2026-10-24T11:58:57.652450Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -1458,7 +1458,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_VENDOR_CONTRACT params=['vendor_id']",
     "iteration": 3,
-    "latency_ms": 21,
+    "latency_ms": 25,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -1474,15 +1474,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 1,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "clm",
-    "span_id": "9c4ed388b0cb45fb",
+    "span_id": "0163c4c452524e30",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.782386Z",
+    "timestamp": "2026-10-24T11:58:57.680204Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1507,15 +1507,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "4ad371daf11d4feb",
+    "span_id": "27f35bc4052a4d1c",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.782515Z",
+    "timestamp": "2026-10-24T11:58:57.680404Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "evaluate",
@@ -1540,15 +1540,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "3852c0d7c4814b14",
+    "span_id": "0adeeead595c468f",
     "status": "success",
     "target_agent": "PolicyEngine",
-    "timestamp": "2026-10-24T11:57:02.783683Z",
+    "timestamp": "2026-10-24T11:58:57.681555Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1573,15 +1573,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "5d7329b221704d1c",
+    "span_id": "11432d6ccb9f4418",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.783758Z",
+    "timestamp": "2026-10-24T11:58:57.681638Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "decide",
@@ -1606,15 +1606,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "0b4872a80f8b49e2",
+    "span_id": "736cdacaa17d4663",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.786931Z",
+    "timestamp": "2026-10-24T11:58:57.684957Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1639,15 +1639,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "c3aacbe25047470c",
+    "span_id": "f07459b035de4d64",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.787029Z",
+    "timestamp": "2026-10-24T11:58:57.685124Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "memory_check",
@@ -1672,15 +1672,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "ee4b7772e1b2472c",
+    "span_id": "abf5835250f6427c",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.787127Z",
+    "timestamp": "2026-10-24T11:58:57.685199Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1705,15 +1705,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "b9664adf1d064659",
+    "span_id": "07cca5fdc10a4454",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.787192Z",
+    "timestamp": "2026-10-24T11:58:57.685256Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "decide",
@@ -1738,15 +1738,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "ac8b731841ed49b8",
+    "span_id": "1d66235d8e2a4705",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.790214Z",
+    "timestamp": "2026-10-24T11:58:57.688584Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "redecide",
@@ -1771,15 +1771,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "a8375d91fa784a11",
+    "span_id": "58d135dfb5d84d1d",
     "status": "success",
     "target_agent": "ChallengerAgent",
-    "timestamp": "2026-10-24T11:57:02.790311Z",
+    "timestamp": "2026-10-24T11:58:57.688685Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1804,15 +1804,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "af0cd804244d4a1e",
+    "span_id": "735351947cba4f86",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.790364Z",
+    "timestamp": "2026-10-24T11:58:57.688793Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "request_replan",
@@ -1837,15 +1837,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "e0b6eb5ea5f542e8",
+    "span_id": "94a970752eca4a90",
     "status": "success",
     "target_agent": "PlannerAgent",
-    "timestamp": "2026-10-24T11:57:02.809623Z",
+    "timestamp": "2026-10-24T11:58:57.707741Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1870,15 +1870,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "47b244fd2c18476d",
+    "span_id": "60b5e052d92e4ca7",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.809766Z",
+    "timestamp": "2026-10-24T11:58:57.707952Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "plan",
@@ -1903,15 +1903,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "d54fc8caf0bf4638",
+    "span_id": "3bb18c8c223146ff",
     "status": "success",
     "target_agent": "EvidenceAgent",
-    "timestamp": "2026-10-24T11:57:02.883059Z",
+    "timestamp": "2026-10-24T11:58:57.797718Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -1936,15 +1936,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "86a7b053cbe540d7",
+    "span_id": "1c8fc19d61dc45c2",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.883219Z",
+    "timestamp": "2026-10-24T11:58:57.797946Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "query_run",
@@ -1953,7 +1953,7 @@
     "confidence": null,
     "input_summary": "query_id=Q_SUBMISSION_DOCUMENTS params=['vendor_id']",
     "iteration": 4,
-    "latency_ms": 19,
+    "latency_ms": 29,
     "loop": null,
     "mode": {
       "data": "duckdb",
@@ -1969,15 +1969,15 @@
     "retry_count": 0,
     "route": null,
     "rows": 0,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": "trust_portal",
-    "span_id": "c2259bc9cb5148cb",
+    "span_id": "630eea7d05f341c4",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.903407Z",
+    "timestamp": "2026-10-24T11:58:57.827571Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2002,15 +2002,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "ae5d941139a140c9",
+    "span_id": "70a0bba319eb4c90",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.903564Z",
+    "timestamp": "2026-10-24T11:58:57.827721Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "evaluate",
@@ -2035,15 +2035,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "f9745c23e601436d",
+    "span_id": "11355c69a26a4f0d",
     "status": "success",
     "target_agent": "PolicyEngine",
-    "timestamp": "2026-10-24T11:57:02.904612Z",
+    "timestamp": "2026-10-24T11:58:57.829184Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2068,15 +2068,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "596c918e5f7e4d8a",
+    "span_id": "4fc07fc6c75443b3",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.904700Z",
+    "timestamp": "2026-10-24T11:58:57.829368Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "decide",
@@ -2101,15 +2101,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "2141219679be4e17",
+    "span_id": "fa582c9c69df419a",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.908091Z",
+    "timestamp": "2026-10-24T11:58:57.833730Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2134,15 +2134,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "b47a972addba4892",
+    "span_id": "b4eef625201241c3",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.908224Z",
+    "timestamp": "2026-10-24T11:58:57.833886Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "memory_check",
@@ -2167,15 +2167,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "eac5ae6e30284d1e",
+    "span_id": "0c4d6c4671fc4966",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.908286Z",
+    "timestamp": "2026-10-24T11:58:57.833954Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2200,15 +2200,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "1ab4b2d246a54020",
+    "span_id": "34ebd4c18fdf48ec",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.908331Z",
+    "timestamp": "2026-10-24T11:58:57.834000Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "decide",
@@ -2233,15 +2233,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "0156784da0664a32",
+    "span_id": "ce3dfadd935e48c7",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.911364Z",
+    "timestamp": "2026-10-24T11:58:57.837358Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "redecide",
@@ -2266,15 +2266,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "fefd84c864894a58",
+    "span_id": "a09a923bc47c4f6b",
     "status": "success",
     "target_agent": "ChallengerAgent",
-    "timestamp": "2026-10-24T11:57:02.911475Z",
+    "timestamp": "2026-10-24T11:58:57.837471Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2299,15 +2299,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "5fe9849a511549e1",
+    "span_id": "cf30fb3b76754587",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.911560Z",
+    "timestamp": "2026-10-24T11:58:57.837525Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "challenge",
@@ -2332,15 +2332,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "6040857c6ec3438f",
+    "span_id": "257b5708bd8e4774",
     "status": "escalated",
     "target_agent": "ReporterAgent",
-    "timestamp": "2026-10-24T11:57:02.932212Z",
+    "timestamp": "2026-10-24T11:58:57.860884Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2365,15 +2365,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "581882eeb87849e6",
+    "span_id": "2283338ae00745cb",
     "status": "escalated",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.932344Z",
+    "timestamp": "2026-10-24T11:58:57.861022Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "report",
@@ -2398,15 +2398,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "f6a5d0af38694290",
+    "span_id": "538d487c8ce249e2",
     "status": "success",
     "target_agent": "ActionExecutor",
-    "timestamp": "2026-10-24T11:57:02.957527Z",
+    "timestamp": "2026-10-24T11:58:57.891837Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2431,15 +2431,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "d2e01e88c8c24325",
+    "span_id": "eb8c7fe818574cd6",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.957648Z",
+    "timestamp": "2026-10-24T11:58:57.892007Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2464,22 +2464,22 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "663558383c7446e7",
+    "span_id": "c33d295db4f844ed",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.957891Z",
+    "timestamp": "2026-10-24T11:58:57.892457Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "execute_action",
     "agent_name": "ActionExecutor",
     "backend": null,
     "confidence": null,
-    "input_summary": "contract=ctr-bf66dca57100 intent=vendor.onboarding.escalate",
+    "input_summary": "contract=ctr-1c53a4cfa554 intent=vendor.onboarding.escalate",
     "iteration": null,
     "latency_ms": null,
     "loop": null,
@@ -2488,7 +2488,7 @@
       "llm": "offline"
     },
     "model": null,
-    "output_summary": "executed: ok → var/outbox/itsm/ctr-bf66dca57100.json",
+    "output_summary": "executed: ok → var/outbox/itsm/ctr-1c53a4cfa554.json",
     "parent_span_id": null,
     "provider": null,
     "provider_meta": null,
@@ -2497,15 +2497,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "fa4775758c214188",
+    "span_id": "1f236f7af7644fca",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.958342Z",
+    "timestamp": "2026-10-24T11:58:57.893100Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "transition",
@@ -2530,15 +2530,15 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "5579a9befe3c4bab",
+    "span_id": "f3a613a5f39a4173",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.958404Z",
+    "timestamp": "2026-10-24T11:58:57.893169Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   },
   {
     "action": "complete_run",
@@ -2554,7 +2554,7 @@
       "llm": "offline"
     },
     "model": null,
-    "output_summary": "ESCALATE in 0.610s",
+    "output_summary": "ESCALATE in 0.779s",
     "parent_span_id": null,
     "provider": null,
     "provider_meta": null,
@@ -2563,14 +2563,14 @@
     "retry_count": 0,
     "route": null,
     "rows": null,
-    "run_id": "run-fd464e2ab2e7",
+    "run_id": "run-54e4f886f0dd",
     "source_system": null,
-    "span_id": "4e202cbf010e4879",
+    "span_id": "339974a806e74006",
     "status": "success",
     "target_agent": null,
-    "timestamp": "2026-10-24T11:57:02.962655Z",
+    "timestamp": "2026-10-24T11:58:57.896796Z",
     "tokens_in": null,
     "tokens_out": null,
-    "trace_id": "run-fd464e2ab2e7"
+    "trace_id": "run-54e4f886f0dd"
   }
 ]

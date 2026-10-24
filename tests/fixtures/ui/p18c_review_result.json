@@ -1,23 +1,23 @@
 {
   "contract": {
     "case_id": "CASE-0007",
-    "contract_id": "ctr-b12fdea6ab27",
-    "expires_at": "2026-10-31T11:57:04.732539Z",
+    "contract_id": "ctr-ff36a852369c",
+    "expires_at": "2026-10-31T11:58:59.831404Z",
     "intent": "vendor.onboarding.approve_with_conditions",
-    "issued_at": "2026-10-24T11:57:04.732539Z",
+    "issued_at": "2026-10-24T11:58:59.831404Z",
     "parameters": {
-      "decision_record_sha256": "3589b001000db50780be1eb516693fd4765a94a1bc456110714c795448e29fc8",
+      "decision_record_sha256": "a12860b62e20f94957c7e2cbc3d08ae4161e775476fea97ab15f02f384512538",
       "outcome": "APPROVE_WITH_CONDITIONS",
       "policy_version": "1.0.0",
       "report_generator": "template:v1"
     },
-    "parent_id": "ctr-4e3b7948b6cb",
+    "parent_id": "ctr-58c68496ecb9",
     "policy_pack_version": "1.0.0",
     "registry_version": 1,
     "risk": {
       "approvals": [
         {
-          "at": "2026-10-24T11:57:04Z",
+          "at": "2026-10-24T11:58:59Z",
           "by": "Sam Lead",
           "decision": "approve",
           "rationale": "Residency confirmed with the vendor's DPO in writing; hosting moves to the EU region.",
@@ -39,7 +39,7 @@
       ],
       "deadline": null
     },
-    "signature": "60629e0559148cb43ea7604cf22686a0ed8a6f1dc51fc02d08cd00c7d3afadd0",
+    "signature": "d54dda1e9e16b8271dbe1e25ae654cdc4732144cdf820ae6707b2b600c85d1ae",
     "signed_by": "scout",
     "state": "executed",
     "tool_plan": [
@@ -48,7 +48,7 @@
         "capability": "procurement.approval.record"
       }
     ],
-    "trace_id": "rev-bb0103e4a9d6"
+    "trace_id": "rev-627ebc6c537b"
   },
   "eligibility": {
     "eligible": true,
@@ -329,7 +329,7 @@
         "to_state": "TRUE"
       }
     ],
-    "created_at": "2026-10-24T11:57:04.724130Z",
+    "created_at": "2026-10-24T11:58:59.822175Z",
     "escalation_reasons": [
       "CHALLENGE_T1_UNCORROBORATED"
     ],
@@ -2283,16 +2283,16 @@
         ],
         "vendor_category": "SaaS"
       },
-      "run_id": "run-fd464e2ab2e7"
+      "run_id": "run-54e4f886f0dd"
     },
     "policy_sha256": "d87244d91cacbd6a8c7119595311261a1205fc9019b00426b7d9c66fa06f4857",
     "policy_version": "1.0.0",
     "precedents_considered": [],
-    "record_sha256": "3589b001000db50780be1eb516693fd4765a94a1bc456110714c795448e29fc8",
+    "record_sha256": "a12860b62e20f94957c7e2cbc3d08ae4161e775476fea97ab15f02f384512538",
     "residual_risk": 100,
-    "run_id": "rev-bb0103e4a9d6",
+    "run_id": "rev-627ebc6c537b",
     "tier": "T1"
   },
   "precedent": null,
-  "review_id": "rev-bb0103e4a9d6"
+  "review_id": "rev-627ebc6c537b"
 }

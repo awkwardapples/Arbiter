@@ -3,23 +3,23 @@
   "contracts": [
     {
       "case_id": "CASE-0019",
-      "contract_id": "ctr-29c52ddfee9d",
-      "expires_at": "2026-10-31T11:57:04.097923Z",
+      "contract_id": "ctr-66a50b23f300",
+      "expires_at": "2026-10-31T11:58:59.165803Z",
       "intent": "vendor.onboarding.decline",
-      "issued_at": "2026-10-24T11:57:04.097923Z",
+      "issued_at": "2026-10-24T11:58:59.165803Z",
       "parameters": {
-        "decision_record_sha256": "feddd8fe2e50b5a164641cd2d1d36d3299614f3f3e65eb030445965204d128d6",
+        "decision_record_sha256": "1e2e8935676254d9593198c7a0644f7457958e4d6eecf1487b87ab28dddb6f2d",
         "outcome": "DECLINE",
         "policy_version": "1.0.0",
         "report_generator": "template:v1"
       },
-      "parent_id": "ctr-aab38767effc",
+      "parent_id": "ctr-ca4bf6436166",
       "policy_pack_version": "1.0.0",
       "registry_version": 1,
       "risk": {
         "approvals": [
           {
-            "at": "2026-10-24T11:57:04Z",
+            "at": "2026-10-24T11:58:59Z",
             "by": "Dana Reviewer",
             "decision": "approve",
             "rationale": "Reviewed the decline memo; the hard gate failure is confirmed in the record.",
@@ -41,7 +41,7 @@
         ],
         "deadline": null
       },
-      "signature": "830558b6b3831bbd11ecf8d7c23d095bb6e033ed561d531125d77563216d64cd",
+      "signature": "3859763935bb04057e4a00fe53563f2a83322e03ed39e245c99e3d38f10be29f",
       "signed_by": "scout",
       "state": "executed",
       "tool_plan": [
@@ -50,16 +50,16 @@
           "capability": "procurement.decline.record"
         }
       ],
-      "trace_id": "run-acfb48549e9c"
+      "trace_id": "run-93656fce8433"
     },
     {
       "case_id": "CASE-0019",
-      "contract_id": "ctr-aab38767effc",
-      "expires_at": "2026-10-31T11:57:04.097923Z",
+      "contract_id": "ctr-ca4bf6436166",
+      "expires_at": "2026-10-31T11:58:59.165803Z",
       "intent": "vendor.onboarding.decline",
-      "issued_at": "2026-10-24T11:57:04.097923Z",
+      "issued_at": "2026-10-24T11:58:59.165803Z",
       "parameters": {
-        "decision_record_sha256": "feddd8fe2e50b5a164641cd2d1d36d3299614f3f3e65eb030445965204d128d6",
+        "decision_record_sha256": "1e2e8935676254d9593198c7a0644f7457958e4d6eecf1487b87ab28dddb6f2d",
         "outcome": "DECLINE",
         "policy_version": "1.0.0",
         "report_generator": "template:v1"
@@ -84,7 +84,7 @@
         ],
         "deadline": null
       },
-      "signature": "a869d1176205113542376870b3d19db82c0f65986968291371214de444a5ef69",
+      "signature": "6a55fcf327dd86e870e19b212dbe3a9e2df572fb0c6db121aac074d5e92c769e",
       "signed_by": "scout",
       "state": "pending_approval",
       "tool_plan": [
@@ -93,7 +93,7 @@
           "capability": "procurement.decline.record"
         }
       ],
-      "trace_id": "run-acfb48549e9c"
+      "trace_id": "run-93656fce8433"
     }
   ],
   "record": {
@@ -1824,14 +1824,14 @@
         ],
         "vendor_category": "SaaS"
       },
-      "run_id": "run-acfb48549e9c"
+      "run_id": "run-93656fce8433"
     },
     "policy_sha256": "d87244d91cacbd6a8c7119595311261a1205fc9019b00426b7d9c66fa06f4857",
     "policy_version": "1.0.0",
     "precedents_considered": [],
-    "record_sha256": "feddd8fe2e50b5a164641cd2d1d36d3299614f3f3e65eb030445965204d128d6",
+    "record_sha256": "1e2e8935676254d9593198c7a0644f7457958e4d6eecf1487b87ab28dddb6f2d",
     "residual_risk": 33,
-    "run_id": "run-acfb48549e9c",
+    "run_id": "run-93656fce8433",
     "tier": "T3"
   },
   "report": {
@@ -1890,7 +1890,7 @@
   },
   "reviews": [],
   "status": "success",
-  "trace_path": "logs/trace-run-acfb48549e9c.jsonl",
+  "trace_path": "logs/trace-run-93656fce8433.jsonl",
   "vendor": "Corvid Ledger Services Ltd",
   "workload": {
     "answers_read": 16,
@@ -1899,7 +1899,7 @@
     "contradictions": 0,
     "documents_read": 0,
     "dq_flags": 0,
-    "elapsed_seconds": 0.3483960820012726,
+    "elapsed_seconds": 0.36704116799955955,
     "guard_blocks": 0,
     "model_calls": 0,
     "models": [],

@@ -5,6 +5,7 @@ directory, assesses every file in input_examples/ (never expected.json), then re
 
 - p18c_queue.json            GET /cases
 - p18c_case_pending.json     GET /cases/{id} for the first case with a contract in pending_approval
+- p18c_trace_pending.json    GET /cases/{id}/trace for that case
 - p18c_approve_result.json   POST /contracts/{id}/approve on that contract
 - p18c_case_approved.json    GET /cases/{id} afterwards (approvals, outbox state)
 - p18c_case_contradiction.json  GET /cases/{id} for the first case whose brief has a claim and a record
@@ -77,6 +78,7 @@ def main() -> int:
         if pending is None:
             raise SystemExit("no case has a contract in pending_approval")
         _write("p18c_case_pending.json", pending)
+        _write("p18c_trace_pending.json", _ok(client.get(f"/cases/{pending['case_id']}/trace")))
         contract = next(c for c in pending["contracts"] if c["state"] == "pending_approval")
         role = str(contract["risk"]["approvals_required"][0]["role"])
         approval = {"by": "Dana Reviewer", "role": role, "decision": "approve"}
