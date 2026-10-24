@@ -68,6 +68,16 @@ def wait_idle(page: Any, settle: float = 0.8) -> None:
     page.wait_for_load_state("networkidle")
     page.wait_for_selector("[data-testid='stStatusWidget']", state="detached", timeout=60_000)
     time.sleep(settle)
+    dismiss_skills_nudge(page)
+
+
+def dismiss_skills_nudge(page: Any) -> None:
+    """Streamlit shows a "Help agents write better apps" popover on local runs with an AI agent
+    present; toolbarMode does not hide it. Click "Don't show again" when it is there (P19 F5)."""
+    button = page.get_by_role("button", name="Don't show again")
+    if button.count():
+        button.first.click()
+        time.sleep(0.3)
 
 
 def assert_no_secrets(page: Any) -> None:
