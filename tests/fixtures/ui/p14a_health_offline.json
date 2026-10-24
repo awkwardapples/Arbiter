@@ -1,0 +1,51 @@
+{
+ "audit_chain_length": 0,
+ "data": {
+  "backend": "duckdb",
+  "sample_dir": "data/sample/systems",
+  "table_counts": {
+   "contract": 32,
+   "incident": 2,
+   "kev_vuln": 84,
+   "submission": 32,
+   "submission_answer": 504,
+   "submission_document": 9,
+   "vendor": 32,
+   "vendor_alias": 64,
+   "vendor_component": 2,
+   "watchlist_entry": 2
+  },
+  "zetaris": {
+   "degraded": false,
+   "error": "ConnectError",
+   "query_layer": "usl",
+   "reachable": false,
+   "source_mode": "github_raw"
+  }
+ },
+ "hmem_records": null,
+ "mode": {
+  "data": "duckdb",
+  "llm": "offline"
+ },
+ "provider": {
+  "llm_provider_setting": "offline",
+  "meterless": {
+   "base_url": "http://localhost:8088/v1",
+   "deep_model": "nvidia/nemotron-3-super-120b-a12b",
+   "detail": "unreachable (ConnectError)",
+   "fast_model": "meterless/fast",
+   "models_seen": [],
+   "status": "offline"
+  },
+  "nvidia": {
+   "base_url": "https://integrate.api.nvidia.com/v1",
+   "configured": false,
+   "deep_model": "nvidia/nemotron-3-super-120b-a12b",
+   "fast_model": "nvidia/nemotron-3.5-lightning-30b-a3b"
+  },
+  "provider_resolved": "offline",
+  "reason": "LLM_PROVIDER=offline"
+ },
+ "status": "ok"
+}
