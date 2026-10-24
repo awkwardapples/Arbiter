@@ -36,19 +36,31 @@ def cmd_eval(args: argparse.Namespace) -> None:
         publish(summary, docs_path=ROOT / "docs" / "EVALUATION.md", readme_path=ROOT / "README.md")
         return
 
-    _offline_env(memory="off")
-    from eval.harness import run
-
     splits = [part.strip() for part in (args.split or "test").split(",") if part.strip()]
     systems = [part.strip() for part in (args.systems or "arbiter_offline").split(",") if part.strip()]
     consistency = _consistency(args.consistency)
-    # This lane never calls Nightshift or Zetaris. --llm is accepted and ignored.
-    out = run(systems, splits, consistency=consistency, results_root=_results_root())
+    live = bool(getattr(args, "live", False))
+    if not live:
+        _offline_env(memory="off")
+    from eval.harness import run
+
+    # Offline unless --live: then arbiter and baseline run on Zetaris and Nightshift (P15).
+    # --llm is accepted and ignored; --live pins LLM_PROVIDER=meterless per system.
+    out = run(
+        systems,
+        splits,
+        consistency=consistency,
+        live=live,
+        limit=getattr(args, "cases", None),
+        results_root=_results_root(live=live),
+    )
     if args.publish:
         from eval.report import publish
 
         summary = json.loads((out / "summary.json").read_text(encoding="utf-8"))
-        publish(summary, docs_path=ROOT / "docs" / "EVALUATION.md", readme_path=ROOT / "README.md")
+        # A live run publishes docs/EVALUATION.md only; the README block belongs to P17.
+        readme = None if live else ROOT / "README.md"
+        publish(summary, docs_path=ROOT / "docs" / "EVALUATION.md", readme_path=readme)
     print(out)
 
 
@@ -63,11 +75,11 @@ def cmd_calibrate(_args: argparse.Namespace) -> None:
     print(result.path)
 
 
-def _results_root() -> Path:
+def _results_root(*, live: bool = False) -> Path:
     override = os.environ.get("ARBITER_EVAL_ROOT")
     if override:
         return Path(override)
-    return ROOT / "eval" / "results"
+    return ROOT / "eval" / ("results_live" if live else "results")
 
 
 def _consistency(raw: str | None) -> tuple[int, int] | None:
@@ -87,6 +99,8 @@ def register(sub: argparse._SubParsersAction) -> None:
     ev.add_argument("--consistency")
     ev.add_argument("--llm")
     ev.add_argument("--publish", action="store_true")
+    ev.add_argument("--live", action="store_true", help="arbiter and baseline on Zetaris and Nightshift")
+    ev.add_argument("--cases", type=int, help="live systems run the first N cases by case id")
     ev.add_argument("--session", action="store_true")
     ev.set_defaults(_handler=cmd_eval)
 

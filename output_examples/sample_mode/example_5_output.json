@@ -1,0 +1,164 @@
+{
+  "header": {
+    "generated_at": "2026-10-24T03:21:39Z",
+    "generated_by": "python run.py examples",
+    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "n_runs": 1,
+    "p50_ms": 378.30725599997095,
+    "provider": "offline",
+    "run_id": "run-ce24c4cc49df",
+    "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
+  },
+  "response": {
+    "agents": [
+      {
+        "name": "PlannerAgent",
+        "role": "Chooses registry queries and extraction targets; revises the plan from feedback"
+      },
+      {
+        "name": "EvidenceAgent",
+        "role": "Runs registry queries via the data layer, guards vendor text, extracts quoted claims"
+      },
+      {
+        "name": "EvaluatorAgent",
+        "role": "Grounds claims, derives facts, critiques coverage and requests verification"
+      },
+      {
+        "name": "ChallengerAgent",
+        "role": "Stress-tests a favourable decision; can only accept, re-plan or escalate"
+      },
+      {
+        "name": "ReporterAgent",
+        "role": "Writes a cited report of the policy decision, or the deterministic template"
+      }
+    ],
+    "execution_time_seconds": 0.37830725599997095,
+    "log_file": "logs/trace-run-ce24c4cc49df.jsonl",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "output": {
+      "actions": [
+        {
+          "capability": "procurement.decline.record",
+          "contract_id": "ctr-afda97fa84b1",
+          "intent": "vendor.onboarding.decline",
+          "state": "pending_approval"
+        }
+      ],
+      "artifacts": [],
+      "brief": {
+        "generator": "template:v2",
+        "headline": "Decline to the business owner: Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases.",
+        "next_steps": [
+          {
+            "action": "Tell the business owner the vendor is declined.",
+            "due": null,
+            "owner_role": "business_owner"
+          }
+        ],
+        "why": [
+          {
+            "citations": [
+              "F-C11-2"
+            ],
+            "claim": null,
+            "record": null,
+            "text": "Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases."
+          }
+        ]
+      },
+      "case_id": "CASE-0019",
+      "confidence": {
+        "abstained": false,
+        "gate": 0.95,
+        "signals": {
+          "contradiction_free": 1.0,
+          "coverage": 1.0,
+          "grounding": 1.0,
+          "precedent_alignment": 1.0,
+          "source_health": 1.0
+        },
+        "unknown_controls": [],
+        "value": 1.0
+      },
+      "contradictions": [],
+      "counterfactuals": [
+        {
+          "control_id": "C11",
+          "evidence_required": [
+            "GRC watchlist screening across all vendor aliases"
+          ],
+          "question_ids": []
+        }
+      ],
+      "decision": "DECLINE",
+      "drafts": [
+        {
+          "body": "Dear procurement.owner@example.com,\n\nThis memo is for the business owner of Corvid Ledger Services Ltd.\nDo not onboard Corvid Ledger Services Ltd. The assessment declined the vendor because Sanctions and watchlist clear is not met.\nNo approval contract should be signed.",
+          "subject": "Decline memo: Corvid Ledger Services Ltd",
+          "to_role": "business_owner"
+        }
+      ],
+      "findings": [
+        {
+          "citations": [
+            "R-C11",
+            "F-C11-2"
+          ],
+          "text": "C11 (Sanctions and watchlist clear) is FALSE."
+        },
+        {
+          "citations": [
+            "R-C11"
+          ],
+          "text": "C11 would reach TRUE with further evidence."
+        }
+      ],
+      "limitations": [
+        "template:v1 deterministic report from the decision record.",
+        "LLM offline: deterministic extraction and reporting used."
+      ],
+      "precedents": [],
+      "recommendations": [
+        "Record the decline and notify the business owner."
+      ],
+      "residual_risk": 33,
+      "risk_tier": "T3",
+      "summary": "Decline to the business owner: Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases.",
+      "vendor": {
+        "legal_name": "Corvid Ledger Services Ltd",
+        "vendor_id": "VND-0019"
+      },
+      "workload": {
+        "answers_read": 16,
+        "claims_extracted": 16,
+        "claims_grounded": 16,
+        "contradictions": 0,
+        "documents_read": 0,
+        "dq_flags": 0,
+        "elapsed_seconds": 0.37830725599997095,
+        "guard_blocks": 0,
+        "model_calls": 0,
+        "models": [],
+        "queries": 0,
+        "rows_read": 24,
+        "systems_queried": [
+          "Vendor trust portal",
+          "Procurement (ERP)",
+          "Contract system (CLM)",
+          "Service desk (ITSM)",
+          "Sanctions watchlist (GRC)"
+        ]
+      }
+    },
+    "run_id": "run-ce24c4cc49df",
+    "status": "success",
+    "trace_id": "run-ce24c4cc49df"
+  }
+}

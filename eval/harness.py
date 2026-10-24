@@ -1,4 +1,8 @@
-"""Run labelled cases and write the result directory. Offline DuckDB only."""
+"""Run labelled cases and write the result directory.
+
+Offline (DuckDB mirror, offline generator) by default. With `live=True`, `arbiter` and `baseline` run on
+Zetaris and Meterless Nightshift; `arbiter_offline` always stays offline.
+"""
 
 from __future__ import annotations
 
@@ -17,15 +21,16 @@ from app.agents.evaluator import EvaluatorAgent
 from app.agents.evidence import EvidenceAgent
 from app.agents.planner import PlannerAgent
 from app.agents.reporter import ReporterAgent
-from app.config import Settings, get_settings
-from app.llm.resolve import reset_cache
-from app.orchestrator import Deps, RunOptions
+from app.config import Settings
+from app.orchestrator import Deps
 from app.orchestrator import run as run_case
 from app.schemas.decision import DecisionRecord
 from app.store import Store
 from app.tracing import Tracer
 from eval.baseline import run_baseline
 from eval.corpus import ROOT, cases_for, labels, split_document, truth_facts
+from eval.live import force_offline as force_offline  # re-exported for calibrate and examples
+from eval.live import is_live, run_block, select_cases, system_env, system_options
 from eval.metrics import OUTCOMES, score_rows
 from eval.report import render_summary_md
 
@@ -49,35 +54,27 @@ def describe_run(paths: list[Path]) -> dict[str, Any]:
     return {"model_ids": models, "offline": offline}
 
 
-def force_offline() -> Settings:
-    """DuckDB mirror and the offline generator. No Nightshift and no Zetaris."""
-    os.environ["SAMPLE_MODE"] = "true"
-    os.environ["LLM_PROVIDER"] = "offline"
-    os.environ["ARBITER_MEMORY"] = "off"
-    get_settings.cache_clear()
-    reset_cache()
-    return Settings()
-
-
 def run(
     systems: list[str],
     splits: list[str],
     *,
     consistency: tuple[int, int] | None = None,
     concurrency: int = 1,
-    llm: str = "offline",
-    sample_mode: bool | None = True,
+    live: bool = False,
+    limit: int | None = None,
     results_root: Path | None = None,
 ) -> Path:
-    """Run each case with a fresh var directory. Always the offline DuckDB mirror."""
-    del llm, sample_mode
+    """Run each case with a fresh var directory, one system at a time.
+
+    `limit` applies to live systems only: they run the first `limit` cases by case id, while
+    `arbiter_offline` runs the whole split.
+    """
     if concurrency > 2:
         concurrency = 2
     del concurrency  # DuckDB's shared connection is not safe to share across threads.
     unknown = [name for name in systems if name not in _SYSTEMS]
     if unknown:
         raise ValueError(f"unknown systems: {unknown}")
-    settings = force_offline()
     root = results_root or _default_root()
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
     out = root / stamp
@@ -87,40 +84,49 @@ def run(
     truth = truth_facts()
     document = split_document()
     refs = cases_for(splits)
-    jobs = _jobs(refs, consistency)
     grouped: dict[str, list[dict[str, Any]]] = {name: [] for name in systems}
+    modes: dict[str, dict[str, str]] = {}
     decisions: list[dict[str, Any]] = []
     for system in systems:
-        for case_ref, repeat in jobs:
-            row, record, trace = _one(
-                system,
-                case_ref,
-                repeat,
-                label=catalogue[case_ref],
-                settings=settings,
-                out=out,
-            )
-            grouped[system].append(row)
-            if record is not None:
-                decisions.append(
-                    {
-                        "case_ref": case_ref,
-                        "system": system,
-                        "tier": record.tier,
-                        "expected_outcome": catalogue[case_ref]["expected_outcome"],
-                        "policy_inputs": record.policy_inputs.model_dump(mode="json"),
-                    }
+        selected = select_cases(refs, limit) if is_live(system, live=live) else refs
+        with system_env(system, live=live) as settings:
+            modes[system] = settings.mode()
+            for case_ref, repeat in _jobs(selected, consistency):
+                row, record, trace = _one(
+                    system,
+                    case_ref,
+                    repeat,
+                    label=catalogue[case_ref],
+                    settings=settings,
+                    out=out,
+                    live=live,
                 )
-            if trace is not None:
-                row["trace_path"] = str(trace)
+                grouped[system].append(row)
+                if record is not None:
+                    decisions.append(
+                        {
+                            "case_ref": case_ref,
+                            "system": system,
+                            "tier": record.tier,
+                            "expected_outcome": catalogue[case_ref]["expected_outcome"],
+                            "policy_inputs": record.policy_inputs.model_dump(mode="json"),
+                        }
+                    )
+                if trace is not None:
+                    row["trace_path"] = str(trace)
     _write_cases(out / "cases.jsonl", [row for rows in grouped.values() for row in rows])
     _write_jsonl(out / "decisions.jsonl", decisions)
-    summary = _summary(grouped, splits=splits, truth=truth, out=out, document=document)
+    summary = _summary(grouped, splits=splits, truth=truth, out=out, document=document, modes=modes)
+    if limit is not None and live:
+        summary["live_subset"] = {
+            "n": min(limit, len(refs)),
+            "rule": f"first {min(limit, len(refs))} {'+'.join(splits)} cases by case_id",
+        }
     (out / "summary.json").write_text(_dump(summary), encoding="utf-8")
     (out / "summary.md").write_text(render_summary_md(summary), encoding="utf-8")
     for system, rows in grouped.items():
         _confusion(out / f"confusion_{system}.csv", rows)
-    _env(out, splits=splits, document=document)
+    _env(out, splits=splits, document=document, mode=summary["mode"])
     return out
 
 
@@ -148,6 +154,7 @@ def _one(
     label: dict[str, Any],
     settings: Settings,
     out: Path,
+    live: bool = False,
 ) -> tuple[dict[str, Any], DecisionRecord | None, Path | None]:
     from eval.corpus import case_input
 
@@ -185,7 +192,7 @@ def _one(
         counter = _CountingEvaluator()
         response = run_case(
             case,
-            options=RunOptions(sample_mode=True, llm="offline"),
+            options=system_options(system, live=live),
             deps=Deps(
                 var_dir=work / "var",
                 agents={
@@ -309,22 +316,31 @@ def _summary(
     truth: dict[str, dict[str, Any]],
     out: Path,
     document: dict[str, Any],
+    modes: dict[str, dict[str, str]],
 ) -> dict[str, Any]:
     traces = list((out / "traces").glob("trace-*.jsonl"))
     described = describe_run(traces) if traces else {"model_ids": [], "offline": True}
     n = max((len(rows) for rows in grouped.values()), default=0)
+    live_modes = [mode for mode in modes.values() if mode.get("llm") != "offline"]
+    mode = live_modes[0] if live_modes else {"data": "duckdb", "llm": "offline"}
+    systems = {}
+    for name, rows in sorted(grouped.items()):
+        block = _score(rows, name, truth)
+        if live_modes:
+            block["run"] = run_block(rows, mode=modes[name])
+        systems[name] = block
     return {
         "splits": list(splits),
         "split_sha256": {name: (document.get("sha256") or {}).get(name) for name in splits},
         "n": n,
-        "mode": {"data": "duckdb", "llm": "offline"},
-        "offline": True,
-        "provider": "offline",
+        "mode": mode,
+        "offline": not live_modes,
+        "provider": mode["llm"] if live_modes else "offline",
         "model_ids": described["model_ids"],
         "synthetic": True,
         "git_sha": _git_sha(),
         "generated_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "systems": {name: _score(rows, name, truth) for name, rows in sorted(grouped.items())},
+        "systems": systems,
     }
 
 
@@ -336,12 +352,12 @@ def _score(rows: list[dict[str, Any]], system: str, truth: dict[str, dict[str, A
     return scored
 
 
-def _env(out: Path, *, splits: list[str], document: dict[str, Any]) -> None:
+def _env(out: Path, *, splits: list[str], document: dict[str, Any], mode: dict[str, str]) -> None:
     described = describe_run(list((out / "traces").glob("trace-*.jsonl")))
     payload = {
         "git_sha": _git_sha(),
-        "mode": {"data": "duckdb", "llm": "offline"},
-        "provider": "offline",
+        "mode": mode,
+        "provider": mode.get("llm", "offline"),
         "model_ids": described["model_ids"],
         "catalog_version": _catalog_version(),
         "split_sha256": {name: (document.get("sha256") or {}).get(name) for name in splits},

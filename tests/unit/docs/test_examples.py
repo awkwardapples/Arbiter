@@ -32,7 +32,8 @@ def test_p6_t3_examples_match_traces() -> None:
         live = _says_live(header)
         if not live:
             assert header.get("provider") == "offline" or "offline" in json.dumps(header["mode"]).lower()
-        trace = ROOT / "logs" / "examples" / f"trace-{header['run_id']}.jsonl"
+        # P15: live examples keep their traces in logs/examples/live/; offline ones in logs/examples/.
+        trace = ROOT / "logs" / "examples" / ("live" if live else "") / f"trace-{header['run_id']}.jsonl"
         assert trace.is_file(), header["run_id"]
         errors = validate_file(trace, require_collaboration=True, require_live=live)
         assert errors == []

@@ -6,8 +6,10 @@ import json
 from pathlib import Path
 from typing import Any
 
-_START = "<!-- EVAL:START -->"
-_END = "<!-- EVAL:END -->"
+EVAL_START = "<!-- EVAL:START -->"
+EVAL_END = "<!-- EVAL:END -->"
+_START = EVAL_START
+_END = EVAL_END
 
 
 def render_summary_md(summary: dict[str, Any]) -> str:
@@ -48,24 +50,91 @@ def render_summary_md(summary: dict[str, Any]) -> str:
             )
         )
     lines.append("")
+    if any(isinstance(block.get("run"), dict) for block in (summary.get("systems") or {}).values()):
+        lines.extend(_run_lines(summary))
     return "\n".join(lines)
+
+
+def _run_lines(summary: dict[str, Any]) -> list[str]:
+    """Per-system run facts for a summary that has them (live harness runs)."""
+    systems = summary.get("systems") or {}
+    runs = {
+        name: block["run"] for name, block in sorted(systems.items()) if isinstance(block.get("run"), dict)
+    }
+    lines: list[str] = []
+    subset = summary.get("live_subset")
+    if isinstance(subset, dict):
+        offline_n = [run["n"] for run in runs.values() if (run.get("mode") or {}).get("llm") == "offline"]
+        offline_text = f", n={offline_n[0]} for the offline system" if offline_n else ""
+        lines.append(
+            f"Reduced n: n={subset.get('n')} for the live systems{offline_text}; "
+            f"the live subset is the {subset.get('rule')}."
+        )
+        lines.append("")
+    lines.append(
+        "| System | Mode | n | Contradiction recall | Failing-control recall "
+        "| p50 ms | p95 ms | Model calls/case | Model-call fallback |"
+    )
+    lines.append("|---|---|---:|---:|---:|---:|---:|---:|---:|")
+    for name, run in runs.items():
+        mode = run.get("mode") or {}
+        block = systems[name]
+        latency = run.get("latency_ms") or {}
+        contradiction = _recall(block.get("contradiction_recall"))
+        failing = _recall(block.get("failing_control_recall"))
+        lines.append(
+            f"| {name} | {mode.get('data', '?')} / {mode.get('llm', '?')} | {run.get('n', 0)} | "
+            f"{contradiction} | {failing} | {latency.get('p50', 0)} | {latency.get('p95', 0)} | "
+            f"{float(run.get('model_calls_per_case') or 0):.1f} | {_cell(run.get('fallback_rate'))} |"
+        )
+    lines.append("")
+    lanes: dict[str, list[str]] = {}
+    for run in runs.values():
+        for lane, models in (run.get("routed_models") or {}).items():
+            seen = lanes.setdefault(lane, [])
+            seen.extend(model for model in models if model not in seen)
+    for lane in sorted(lanes):
+        lines.append(f"- {lane} lane routed to: {', '.join(lanes[lane])} (from trace receipts)")
+    if lanes.get("fast") and lanes.get("fast") == lanes.get("deep"):
+        lines.append("")
+        lines.append(
+            f"Deviation: both the fast and deep lanes were served by {', '.join(lanes['fast'])}. "
+            "See docs/evidence/nightshift_proof.json."
+        )
+    lines.append("")
+    return lines
+
+
+def _recall(block: dict[str, Any] | None) -> str:
+    if not block or block.get("rate") is None:
+        return "—"
+    return f"{block['rate']:.3f} ({block.get('found', 0)}/{block.get('expected', 0)})"
 
 
 def publish(summary: dict[str, Any], *, docs_path: Path, readme_path: Path | None = None) -> None:
     """Rewrite the docs file. Replace the README block only when both markers exist."""
     text = render_summary_md(summary)
     docs_path.parent.mkdir(parents=True, exist_ok=True)
-    docs_path.write_text(text, encoding="utf-8")
+    existing = docs_path.read_text(encoding="utf-8") if docs_path.is_file() else ""
+    if _START in existing and _END in existing:
+        # Hand-written text around the markers is kept; only the generated block changes.
+        _replace_block(docs_path, existing, text)
+    else:
+        docs_path.write_text(text, encoding="utf-8")
     if readme_path is None or not readme_path.is_file():
         return
     raw = readme_path.read_text(encoding="utf-8")
     if _START not in raw or _END not in raw:
         return
+    _replace_block(readme_path, raw, text)
+
+
+def _replace_block(path: Path, raw: str, text: str) -> None:
     start = raw.index(_START) + len(_START)
     end = raw.index(_END)
     updated = raw[:start] + "\n" + text.rstrip("\n") + "\n" + raw[end:]
     if updated != raw:
-        readme_path.write_text(updated, encoding="utf-8")
+        path.write_text(updated, encoding="utf-8")
 
 
 def latest_summary(results_root: Path) -> dict[str, Any]:

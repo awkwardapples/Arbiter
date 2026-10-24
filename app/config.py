@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     METERLESS_MODEL_FAST: str = "meterless/fast"
     METERLESS_MODEL_DEEP: str = "meterless/deep"
     METERLESS_TIMEOUT_SECONDS: int = 180
+    # Prepend a `/no_think` system message on Nightshift calls (Nemotron reasoning otherwise
+    # spends the whole output budget and returns an empty response). Off by default.
+    METERLESS_NO_THINK: bool = False
 
     NVIDIA_BASE_URL: str = "https://integrate.api.nvidia.com/v1"
     NVIDIA_API_KEY: SecretField = None

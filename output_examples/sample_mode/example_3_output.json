@@ -1,0 +1,149 @@
+{
+  "header": {
+    "generated_at": "2026-10-24T03:21:39Z",
+    "generated_by": "python run.py examples",
+    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "n_runs": 1,
+    "p50_ms": 425.66870800146717,
+    "provider": "offline",
+    "run_id": "run-3947da93b9ba",
+    "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
+  },
+  "response": {
+    "agents": [
+      {
+        "name": "PlannerAgent",
+        "role": "Chooses registry queries and extraction targets; revises the plan from feedback"
+      },
+      {
+        "name": "EvidenceAgent",
+        "role": "Runs registry queries via the data layer, guards vendor text, extracts quoted claims"
+      },
+      {
+        "name": "EvaluatorAgent",
+        "role": "Grounds claims, derives facts, critiques coverage and requests verification"
+      },
+      {
+        "name": "ChallengerAgent",
+        "role": "Stress-tests a favourable decision; can only accept, re-plan or escalate"
+      },
+      {
+        "name": "ReporterAgent",
+        "role": "Writes a cited report of the policy decision, or the deterministic template"
+      }
+    ],
+    "execution_time_seconds": 0.42566870800146717,
+    "log_file": "logs/trace-run-3947da93b9ba.jsonl",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "output": {
+      "actions": [
+        {
+          "capability": "itsm.ticket.create",
+          "contract_id": "ctr-7947f16ff40d",
+          "intent": "vendor.onboarding.escalate",
+          "state": "executed"
+        }
+      ],
+      "artifacts": [
+        "var/outbox/itsm/ctr-7947f16ff40d.json"
+      ],
+      "brief": {
+        "generator": "template:v2",
+        "headline": "Escalate to the TPRM lead: The vendor submission was blocked before it could be used as evidence.",
+        "next_steps": [
+          {
+            "action": "Open the service-desk ticket for the TPRM lead.",
+            "due": null,
+            "owner_role": "tprm_lead"
+          }
+        ],
+        "why": [
+          {
+            "citations": [],
+            "claim": null,
+            "record": null,
+            "text": "The vendor submission was blocked before it could be used as evidence."
+          }
+        ]
+      },
+      "case_id": "CASE-0015",
+      "confidence": {
+        "abstained": false,
+        "gate": 0.95,
+        "signals": {
+          "contradiction_free": 1.0,
+          "coverage": 1.0,
+          "grounding": 1.0,
+          "precedent_alignment": 1.0,
+          "source_health": 1.0
+        },
+        "unknown_controls": [],
+        "value": 1.0
+      },
+      "contradictions": [],
+      "counterfactuals": [],
+      "decision": "ESCALATE",
+      "drafts": [
+        {
+          "body": "Summary: Oakhaven Mail Relay Ltd needs a decision from the TPRM lead.\n\nEvidence:\n- No single control failed; the case still needs a person.\n\nRisk: residual risk 30 out of 100, tier T3.\n\nRequested decision: continue, ask Oakhaven Mail Relay Ltd for evidence, or decline.",
+          "subject": "Escalation ticket: Oakhaven Mail Relay Ltd",
+          "to_role": "tprm_lead"
+        }
+      ],
+      "findings": [
+        {
+          "citations": [
+            "F-C01-1"
+          ],
+          "text": "No required control failed for outcome ESCALATE."
+        }
+      ],
+      "limitations": [
+        "template:v1 deterministic report from the decision record.",
+        "LLM offline: deterministic extraction and reporting used."
+      ],
+      "precedents": [],
+      "recommendations": [
+        "Open a ticket for the TPRM lead."
+      ],
+      "residual_risk": 30,
+      "risk_tier": "T3",
+      "summary": "Escalate to the TPRM lead: The vendor submission was blocked before it could be used as evidence.",
+      "vendor": {
+        "legal_name": "Oakhaven Mail Relay Ltd",
+        "vendor_id": "VND-0015"
+      },
+      "workload": {
+        "answers_read": 16,
+        "claims_extracted": 16,
+        "claims_grounded": 16,
+        "contradictions": 0,
+        "documents_read": 1,
+        "dq_flags": 0,
+        "elapsed_seconds": 0.42566870800146717,
+        "guard_blocks": 2,
+        "model_calls": 0,
+        "models": [],
+        "queries": 0,
+        "rows_read": 24,
+        "systems_queried": [
+          "Vendor trust portal",
+          "Procurement (ERP)",
+          "Contract system (CLM)",
+          "Service desk (ITSM)",
+          "Sanctions watchlist (GRC)"
+        ]
+      }
+    },
+    "run_id": "run-3947da93b9ba",
+    "status": "success",
+    "trace_id": "run-3947da93b9ba"
+  }
+}
