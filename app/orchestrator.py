@@ -183,6 +183,20 @@ def _decide(
     return decide(inputs, ctx.policy, ctx.calibration)
 
 
+def _trace_decide(ctx: AgentContext, state: CaseState, record: DecisionRecord, *, precedents: int) -> None:
+    failing = ",".join(c.control_id for c in record.controls if c.state == "FALSE")
+    unknown = ",".join(c.control_id for c in record.controls if c.state == "UNKNOWN")
+    ctx.tracer.event(
+        "PolicyEngine",
+        "decide",
+        input_summary=(
+            f"facts={len(state.facts)} contradictions={len(state.contradictions)} precedents={precedents}"
+        ),
+        output_summary=f"outcome={record.outcome} tier={record.tier} failing={failing} unknown={unknown}",
+        status="success",
+    )
+
+
 def _safe_record(state: CaseState, ctx: AgentContext, reason: str) -> DecisionRecord:
     try:
         return force_escalate(_decide(state, ctx), reason)
@@ -320,6 +334,7 @@ def _act(phase: State, state: CaseState, ctx: AgentContext, agents: dict[str, An
     elif phase is State.DECIDE_1:
         state.first_decision = _decide(state, ctx)
         state.decision = state.first_decision
+        _trace_decide(ctx, state, state.first_decision, precedents=0)
     elif phase is State.MEMORY_CHECK:
         _memory(state, ctx)
     elif phase is State.DECIDE_2:
@@ -329,6 +344,7 @@ def _act(phase: State, state: CaseState, ctx: AgentContext, agents: dict[str, An
         state.decision = _decide(state, ctx, precedents=state.precedents, precedent_alignment=alignment)
         if isinstance(ctx.memory, HMemMemory):
             ctx.memory.trace_precedent_outcomes(state.decision)
+        _trace_decide(ctx, state, state.decision, precedents=len(state.precedents))
         ctx.tracer.event(
             "Orchestrator",
             "redecide",

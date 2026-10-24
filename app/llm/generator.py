@@ -61,6 +61,20 @@ class _Call:
     agent_name: str
 
     def chat(self, attempt: int, messages: list[dict[str, str]]) -> ChatResult:
+        if self.tracer is not None:
+            self.tracer.event(
+                self.agent_name,
+                "model_request",
+                input_summary=(
+                    f"purpose={self.purpose} route={self.route} attempt={attempt} "
+                    f"prompt_chars={sum(len(m['content']) for m in messages)}"
+                ),
+                output_summary=f"sent to {self.provider.name}",
+                status="success",
+                provider=self.provider.name,
+                route=self.route,
+                purpose=self.purpose,
+            )
         start = time.monotonic()
         try:
             return self.provider.chat(

@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import json
+from typing import Any
 
 from app.agents.base import AgentContext, llm_or_fallback
 from app.agents.catalogue import DQ_QUERY, VERIFY_QUERIES, VERIFY_QUERIES_INLINE
 from app.agents.llm_schemas import CritiqueOut
+from app.config import mask_secrets
 from app.facts import derive, tier_profile
 from app.grounding import is_grounded
 from app.llm import prompts
@@ -238,14 +240,25 @@ def _gaps(state: CaseState, ctx: AgentContext, tier: str) -> list[Gap]:
     return gaps
 
 
+def _trace_value(value: Any) -> str:
+    """Contradiction values may hold vendor text: mask secrets first, then cut to 80 characters."""
+    text = ",".join(str(item) for item in value) if isinstance(value, list | tuple | set) else str(value)
+    return mask_secrets(text)[:80]
+
+
 class EvaluatorAgent:
     name = NAME
     role = "Grounds claims, derives facts, critiques coverage and requests verification"
+
+    def __init__(self) -> None:
+        self._reported_run: str | None = None
+        self._reported: set[tuple[str, str]] = set()
 
     def __call__(self, state: CaseState, ctx: AgentContext) -> CaseState:
         _ground(state)
         _critique(state, ctx)
         state.facts, state.contradictions = derive(state, ctx.policy)
+        self._trace_contradictions(state, ctx)
         case_tier, _ = assign_tier(tier_profile(state, state.facts), ctx.policy)
         state.tier_hint = case_tier
         gaps = _gaps(state, ctx, case_tier)
@@ -289,3 +302,26 @@ class EvaluatorAgent:
                 iteration=len(state.evaluations),
             )
         return state
+
+    def _trace_contradictions(self, state: CaseState, ctx: AgentContext) -> None:
+        """One `contradiction_found` per (key, claim id) per run; later evaluation loops stay quiet."""
+        if self._reported_run != state.run_id:
+            self._reported_run = state.run_id
+            self._reported = set()
+        for item in state.contradictions:
+            seen = (item.key, item.claim_id)
+            if seen in self._reported:
+                continue
+            self._reported.add(seen)
+            source = item.sor_provenance
+            ctx.tracer.event(
+                NAME,
+                "contradiction_found",
+                input_summary=f"key={item.key} control={item.control_id}",
+                output_summary=(
+                    f"vendor={_trace_value(item.claim_value)} record={_trace_value(item.sor_value)} "
+                    f"system={source.system} record_key={source.record_key}"
+                ),
+                status="success",
+                target_agent=None,
+            )
