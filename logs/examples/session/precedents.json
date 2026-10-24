@@ -1,0 +1,15 @@
+{
+  "P-0001": {
+    "case_id": "CASE-0011",
+    "category": "HR SaaS",
+    "control_id": "C05",
+    "created_as_of": "2026-10-26",
+    "decision": "APPROVE_WITH_CONDITIONS",
+    "hmem_id": "mem-2",
+    "mitigation": "assurance.bridge_letter_current",
+    "precedent_id": "P-0001",
+    "review_id": "CASE-0011-review",
+    "reviewer_role": "tprm_lead",
+    "tier": "T2"
+  }
+}
