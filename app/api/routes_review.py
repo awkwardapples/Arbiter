@@ -80,6 +80,8 @@ def submit_review(
     human = human.model_copy(
         update={"record_sha256": sha256_hex(human.model_dump(exclude={"record_sha256"}))}
     )
+    if machine.outcome_reasons != ["HUMAN_REVIEW"]:
+        store.put_machine_decision(machine)
     store.put_human_decision(human)
     report = template_report(human)
     contract = issue(

@@ -5,7 +5,7 @@ import json
 import sys
 
 from app.audit.chain import AuditChain
-from app.audit.replay import replay
+from app.audit.replay import ReplayResult, replay
 
 
 def register(sub: argparse._SubParsersAction) -> None:
@@ -19,8 +19,24 @@ def register(sub: argparse._SubParsersAction) -> None:
 def _replay(args: argparse.Namespace) -> None:
     result = replay(args.case)
     print(result.model_dump_json())
+    if result.human_override is not None:
+        # stderr, so stdout stays one JSON line for scripts that parse it
+        print(_override_sentence(result), file=sys.stderr)
     if not result.match:
         sys.exit(1)
+
+
+def _override_sentence(result: ReplayResult) -> str:
+    override = result.human_override
+    assert override is not None
+    replays = "replays identically" if result.match else "does not replay"
+    source = ""
+    if result.machine_source == "reconstructed":
+        source = " (reconstructed: no machine record was kept)"
+    return (
+        f"Machine decision {result.machine_outcome} {replays}{source}. "
+        f"Overridden by {override.role} ({override.reviewer}) to {override.decision}: {override.rationale}"
+    )
 
 
 def _verify(_args: argparse.Namespace) -> None:

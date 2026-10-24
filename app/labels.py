@@ -46,12 +46,12 @@ _SYSTEMS: dict[str, str] = {
     "cisa_kev": "CISA Known Exploited Vulnerabilities",
 }
 _STATE_WORDS = {"TRUE": "met", "FALSE": "not met", "UNKNOWN": "unverified"}
-_AUDIENCE = {
-    "APPROVE": "the approval record",
-    "APPROVE_WITH_CONDITIONS": "the approval record",
-    "REQUEST_INFO": "the vendor",
-    "ESCALATE": "the TPRM lead",
-    "DECLINE": "the business owner",
+_HEADLINE_LEAD = {
+    "ESCALATE": "Escalate to the TPRM lead",
+    "REQUEST_INFO": "Ask the vendor for more information",
+    "DECLINE": "Decline, and tell the business owner",
+    "APPROVE_WITH_CONDITIONS": "Approve with conditions",
+    "APPROVE": "Approve",
 }
 _NAME = re.compile(r"\b[A-Z][a-zA-Z]{2,}\b")
 _NUMBER = re.compile(r"\d+")
@@ -101,7 +101,7 @@ def build_brief(record: DecisionRecord, state: CaseState | None = None) -> Analy
     points = _why_points(record, state, vendor)[:4]
     if points:
         detail = points[0].text.rstrip(".")
-        headline = f"{outcome_label(record.outcome)} to {_AUDIENCE[record.outcome]}: {detail}."
+        headline = f"{_HEADLINE_LEAD[record.outcome]}: {detail}."
     else:
         headline = f"{outcome_label(record.outcome)}: {vendor} meets the checks this assessment could verify."
     return AnalystBrief(

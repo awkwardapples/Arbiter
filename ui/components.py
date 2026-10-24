@@ -96,8 +96,8 @@ def humanised_bullet(code: str, sentence: str) -> str:
 QUEUE_CAPTION = "All cases sorted by residual risk. Click a row to open its decision record."
 AUDIT_CAPTION = "Append-only hash chain of every case, decision, contract, and action."
 EVAL_CAPTION = (
-    "Two views: the offline benchmark measures the decision pipeline on a fixed labelled set. "
-    "The live section shows this instance's activity."
+    "Three views: the published live evaluation, the offline benchmark on a fixed labelled set, "
+    "and this instance's own activity."
 )
 CAPTION_CONTROLS = "Required controls and the facts behind them."
 CAPTION_CONTRADICTIONS = "A vendor claim and the system-of-record value it disagrees with."
@@ -137,6 +137,10 @@ CONDITIONS_HELP = (
 PRECEDENT_HELP = (
     "Save this exception to H-MEM. A later case with the same mitigation and conditions "
     "can reuse this decision."
+)
+EVAL_LIVE_CAPTION = (
+    "Published run on live services: Zetaris data, Nemotron through Meterless Nightshift. "
+    "Method: docs/EVALUATION.md."
 )
 EVAL_OFFLINE_CAPTION = "Fixed labelled set, no live services. Method: docs/EVALUATION.md."
 LIVE_CAPTION = "Cases, backend, and provider on this API."
