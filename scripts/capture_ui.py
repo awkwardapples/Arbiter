@@ -90,7 +90,7 @@ def prepare(page: Any, spec: dict[str, str], ui_url: str, api: httpx.Client) -> 
         wait_idle(page)
         page.get_by_role("tab", name="New vendor questionnaire").click()
         wait_idle(page)
-        page.get_by_label("Load an example vendor").click()
+        page.get_by_role("combobox", name="Load an example vendor").click()
         page.get_by_role("option").nth(1).click()
         wait_idle(page)
     else:
