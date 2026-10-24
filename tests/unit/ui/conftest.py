@@ -11,16 +11,31 @@ import pytest
 from ui.client import ArbiterAPIError
 
 FIXTURES = Path(__file__).resolve().parents[2] / "fixtures" / "ui"
+ROOT = Path(__file__).resolve().parents[3]
 
 
 def _load(name: str) -> Any:
     return json.loads((FIXTURES / name).read_text(encoding="utf-8"))
 
 
+def published_eval() -> dict[str, Any]:
+    """The /eval/latest payload built from the committed results, as the API builds it."""
+    from app.api.routes_meta import _latest_summary
+
+    live, live_markdown = _latest_summary(ROOT / "eval" / "results_live")
+    offline, offline_markdown = _latest_summary(ROOT / "eval" / "results")
+    return {
+        "live": live,
+        "offline": offline,
+        "live_markdown": live_markdown,
+        "offline_markdown": offline_markdown,
+    }
+
+
 class FakeArbiterClient:
     """In-memory API stand-in for Streamlit AppTest."""
 
-    eval_latest_404: bool = True
+    eval_latest_404: bool = False
     run_calls: int = 0
 
     def __init__(self) -> None:
@@ -74,7 +89,7 @@ class FakeArbiterClient:
     def eval_latest(self) -> dict[str, Any]:
         if self.eval_latest_404:
             raise ArbiterAPIError("Evaluation not published.", status_code=404)
-        return {"markdown": "# Evaluation summary"}
+        return published_eval()
 
 
 @pytest.fixture

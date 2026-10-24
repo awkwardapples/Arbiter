@@ -26,7 +26,7 @@ The bottleneck is not the decision itself. It is assembling and cross-checking e
 
 | Step | Today (manual) | With Arbiter (measured from live runs) |
 |---|---|---|
-| Collect evidence | Open the questionnaire and four internal systems, one by one (*assumption*) | 12 registry queries through one Zetaris USL, 33 s of Zetaris time in total, each with a request id |
+| Collect evidence | Open the questionnaire and four internal systems, one by one (*assumption*) | 12 registry queries through one Zetaris USL, 16.6 s of Zetaris time in total, each with a request id |
 | Read answers and documents | Read every answer and attachment (*assumption*) | 16 claims extracted from 15 answers, each with a verbatim quote; none discarded at grounding |
 | Cross-check against records | Usually skipped (*assumption*); incomplete vendor information is the top backlog cause, cited by 67%[^ponemon] | The Evaluator checks claims against systems of record. Live eval: the one residency contradiction in the subset (VND-0007, vendor says EU, contract says US) was found |
 | Check exploited vulnerabilities | Rarely done (*assumption*) | KEV joined to the vendor's declared components inside Zetaris. Live eval run `run-257c86984507`: 15 KEV matches for Quillfeather |

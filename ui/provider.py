@@ -18,7 +18,8 @@ def _served(trace: list[dict[str, Any]]) -> tuple[dict[str, str], str | None]:
         if event.get("provider") not in ("meterless", "nvidia"):
             continue
         meta = event.get("provider_meta") or {}
-        model = meta.get("provider_model") or meta.get("routed_model") or event.get("model")
+        # provider_model is the routing mode (meterless/auto), not the model that served the call
+        model = event.get("model") or meta.get("routed_model") or meta.get("winning_route.model")
         route = event.get("route")
         if model and route:
             models[str(route)] = str(model)
