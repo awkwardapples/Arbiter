@@ -54,7 +54,7 @@ def test_p2_t15_auto_falls_back_to_nvidia(spy: Any, mtok: str, nkey: str) -> Non
     spy(OFFLINE)
     p = resolve.resolve(_settings(METERLESS_RUNTIME_TOKEN=mtok, NVIDIA_API_KEY=nkey))
     assert p.name == "nvidia"
-    assert p.model_for("deep") == "nvidia/nemotron-3-super-120b-a12b"
+    assert p.model_for("deep") == "nvidia/nemotron-3.5-super-vl-120b-a12b"  # P19 F6: the entitled default
 
 
 def test_p2_t15_auto_unauthorized_falls_back_to_nvidia(spy: Any, nkey: str) -> None:
