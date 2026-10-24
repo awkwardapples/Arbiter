@@ -2,7 +2,7 @@
 import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { callsTo, caseRoutes, load, mockApi, renderAt, type Recorded } from "./helpers";
+import { callsTo, caseRoutes, fill, load, mockApi, renderAt, type Recorded } from "./helpers";
 
 const pending = load<Recorded>("p18c_case_pending.json");
 const approved = load<Recorded>("p18c_case_approved.json");
@@ -32,7 +32,7 @@ describe("P18C-T4 Contract approval", () => {
     renderAt(`/cases/${pending.case_id}`);
     const block = await screen.findByTestId("contract-approval");
     await userEvent.type(within(block).getByLabelText("Your name"), "Dana Reviewer");
-    await userEvent.type(within(block).getByLabelText(/Rationale/), "x".repeat(29));
+    await fill(userEvent, within(block).getByLabelText(/Rationale/), "x".repeat(29));
     expect(within(block).getByTestId("rationale-count")).toHaveTextContent("29 / 30");
     const approve = within(block).getByRole("button", { name: "Approve contract" });
     expect(approve).toBeDisabled();
@@ -46,7 +46,7 @@ describe("P18C-T4 Contract approval", () => {
     renderAt(`/cases/${pending.case_id}`);
     const block = await screen.findByTestId("contract-approval");
     await userEvent.type(within(block).getByLabelText("Your name"), "Dana Reviewer");
-    await userEvent.type(within(block).getByLabelText(/Rationale/), RATIONALE);
+    await fill(userEvent, within(block).getByLabelText(/Rationale/), RATIONALE);
     const approve = within(block).getByRole("button", { name: "Approve contract" });
     expect(approve).toBeEnabled();
     await userEvent.click(approve);

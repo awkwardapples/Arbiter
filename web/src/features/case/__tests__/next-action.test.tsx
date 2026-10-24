@@ -2,7 +2,7 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { caseRoutes, load, mockApi, renderAt, type Recorded } from "./helpers";
+import { caseRoutes, load, mockApi, readBlob, renderAt, type Recorded } from "./helpers";
 
 const detail = load<Recorded>("p14a_case_escalate.json");
 const trace = load("p14a_trace_escalate.json");
@@ -39,7 +39,7 @@ describe("P18C-T3 Next action", () => {
 
     expect(fileName).toMatch(/\.txt$/);
     expect(blob).not.toBeNull();
-    const text = await (blob as unknown as Blob).text();
+    const text = await readBlob(blob as unknown as Blob);
     expect(text).toContain(EDIT);
     expect((blob as unknown as Blob).type).toContain("text/plain");
   });

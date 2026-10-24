@@ -22,6 +22,25 @@ function fixturesDir(): string {
 
 const FIXTURES = fixturesDir();
 
+// Whole pages render in jsdom here, four files at a time; the default 5 s is too tight under that load.
+vi.setConfig({ testTimeout: 20_000 });
+
+/** jsdom's Blob has no text(); FileReader reads it. */
+export function readBlob(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(reader.error);
+    reader.readAsText(blob);
+  });
+}
+
+/** Put text into a field as one paste; typing long text key by key is slow and tests nothing extra. */
+export async function fill(user: { click: (e: Element) => Promise<void>; paste: (t: string) => Promise<void> }, field: Element, text: string) {
+  await user.click(field);
+  await user.paste(text);
+}
+
 export function load<T = unknown>(name: string): T {
   return JSON.parse(readFileSync(`${FIXTURES}${name}`, "utf-8")) as T;
 }
