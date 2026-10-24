@@ -1,17 +1,22 @@
 from __future__ import annotations
 
 import logging
+import os
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api import (
     routes_cases,
     routes_contracts,
+    routes_evidence,
     routes_meta,
     routes_review,
     routes_run,
+    routes_stream,
+    routes_web,
 )
 from app.errors import ArbiterError, ValidationFailed, http_status_for
 from app.schemas.api import ErrorBody, ErrorResponse
@@ -25,6 +30,15 @@ app.include_router(routes_run.router)
 app.include_router(routes_cases.router)
 app.include_router(routes_contracts.router)
 app.include_router(routes_review.router)
+app.include_router(routes_stream.router)
+app.include_router(routes_evidence.router)
+routes_web.install(app)
+
+# Vite dev server only. Read here rather than in app/config.py (lane 19 owns it); moves to Settings after P19.
+if os.environ.get("ARBITER_DEV_CORS") == "1":
+    app.add_middleware(
+        CORSMiddleware, allow_origins=["http://localhost:5173"], allow_methods=["*"], allow_headers=["*"]
+    )
 
 
 def _error_response(exc: ArbiterError, *, run_id: str | None = None) -> JSONResponse:
