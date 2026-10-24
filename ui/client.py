@@ -8,7 +8,7 @@ from typing import Any
 import httpx
 
 DEFAULT_BASE_URL = "http://localhost:8000"
-TIMEOUT = 90.0
+TIMEOUT = 400.0
 
 
 class ArbiterAPIError(Exception):
