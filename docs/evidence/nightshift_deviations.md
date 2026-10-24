@@ -40,6 +40,12 @@ Three proof runs were made on 24 October while the operator changed Console sett
 
 In run 3 both lanes are in `auto` mode, which picks the model per request. That run's tiny prompts landed on Lightning (fast) and Super VL (deep). In the first live example attempt, a 4,986-character planner prompt sent on the deep lane was coerced the same way and landed on Lightning, which returned HTTP 502 `nvidia/nemotron-3.5-lightning-30b-a3b_empty_response`. Lane separation is therefore not guaranteed while the app rule is in force.
 
+## Vendor acknowledgement
+
+The operator reports that Meterless's support chat on 24 October 2026 acknowledged this bug: "We've updated Nightshift so requesting an exact model ID respects that choice instead of silently switching models." The fix is targeted for Sunday's release. The live proof captures the current behaviour: both lanes are coerced to `auto`, and `auto` picks the model per request (run 3: fast → Lightning, deep → Super VL; runs 1–2: Super VL on both). This is a known Nightshift bug with a fix pending.
+
+In the same chat, the operator was told that the HTTP 502 empty response is a known issue with Nemotron reasoning models: the reasoning budget uses up the whole output budget. The suggested workaround is a `/no_think` system message. Arbiter's live examples, memory session and evaluation in P15 ran with `METERLESS_NO_THINK=1`, which prepends that message on every Nightshift call and records `no_think: true` in the trace. Planner calls coerced onto Lightning still sometimes returned the empty-response 502 with the workaround on. Those calls fell back to deterministic logic, and the trace labels them `fallback`.
+
 ## Conclusion
 
 The proof records what actually ran. The fleet's lane bindings are correct, but the app rule overrides them, and the Console offers no way to remove it. The daemon and its lane routing are outside this repository and were not changed. Every completion is a Nemotron model served through Meterless Nightshift.
