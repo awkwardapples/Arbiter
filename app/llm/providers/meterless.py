@@ -31,7 +31,13 @@ _RECEIPT_KEYS = (
     "mode",
     "requires_review",
 )
-_ROUTE_KEYS = ("provider", "label", "kind", "tier")
+_ROUTE_KEYS = ("provider", "label", "kind", "tier", "model")
+# Scalar fields of these receipt objects are flattened as `<object>.<field>`; nested objects
+# other than `cost.baseline` are dropped. Phases, egress, lineage and cache never reach a trace.
+_POLICY_KEYS = ("app", "has_rule", "bound_mode", "requested_mode", "routed_mode", "mode_coerced", "privacy")
+_COST_KEYS = ("actual_usd", "naive_usd", "race_overhead_usd", "verifier_usd")
+_BASELINE_KEYS = ("model", "label", "source")
+_SAVINGS_KEYS = ("amount", "currency", "vs", "baseline_source")
 
 
 def normalise_base_url(url: str) -> str:
@@ -155,20 +161,38 @@ def discover_from_settings(
 def receipt_meta(body: dict[str, Any], resp_headers: httpx.Headers | None = None) -> dict[str, str]:
     """Route and receipt metadata: the body's `meterless` object plus any `meterless-*` headers."""
     meta: dict[str, str] = {}
+    if isinstance(body.get("id"), str):
+        meta["response_id"] = body["id"]
     receipt = body.get("meterless")
     if isinstance(receipt, dict):
         for key in _RECEIPT_KEYS:
             if receipt.get(key) is not None:
                 meta[key] = str(receipt[key])
-        route = receipt.get("winning_route")
-        if isinstance(route, dict):
-            for key in _ROUTE_KEYS:
-                if route.get(key) is not None:
-                    meta[f"winning_route.{key}"] = str(route[key])
+        inner = receipt.get("receipt")
+        policy = receipt.get("app_policy")
+        if not isinstance(policy, dict) and isinstance(inner, dict):
+            policy = inner.get("app_policy")
+        cost = receipt.get("cost")
+        _flatten(meta, "winning_route", receipt.get("winning_route"), _ROUTE_KEYS)
+        _flatten(meta, "app_policy", policy, _POLICY_KEYS)
+        _flatten(meta, "cost", cost, _COST_KEYS)
+        _flatten(
+            meta, "cost.baseline", cost.get("baseline") if isinstance(cost, dict) else None, _BASELINE_KEYS
+        )
+        _flatten(meta, "savings", receipt.get("savings"), _SAVINGS_KEYS)
     for name, value in (resp_headers or {}).items():
         if name.lower().startswith("meterless-"):
             meta[f"header.{name.lower()}"] = value
     return meta
+
+
+def _flatten(meta: dict[str, str], prefix: str, source: object, keys: tuple[str, ...]) -> None:
+    if not isinstance(source, dict):
+        return
+    for key in keys:
+        value = source.get(key)
+        if value is not None and not isinstance(value, (dict, list)):
+            meta[f"{prefix}.{key}"] = str(value)
 
 
 class MeterlessProvider:
