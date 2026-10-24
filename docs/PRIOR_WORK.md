@@ -12,12 +12,12 @@ Open Agent Hackathon 2026 rules: "Work committed before the build window opens (
   - `docs/DAY0_CHECKS.md` (template).
 - **When:** written 20–21 October 2026, before the build window; committed unchanged in the first commit after the window opened.
   - Import commit sha: `b3c720deca0140efe6ef53fd88e9f18474ca707c`
-- **How:** by me with an AI assistant (Claude, Anthropic) acting as architect. All application code was written during the build window in Cursor.
+- **How:** by me with an AI assistant (Claude, Anthropic) acting as architect. All Application code for passes P0-P13 was written in Cursor (see docs/cursor-usage/). P14-B, P15, and P17 were built in Claude Code in VS Code after I got the update that we can use any IDE. (see docs/CLAUDE_CODE_USAGE.md).
 
 ## 2. Concept, research and narrative from an earlier prototype
 
 - **What:** the problem framing (third-party vendor onboarding risk), user research and pitch narrative from my earlier prototype "Vendor-Risk-Assessment-Agent" (React/Node; `github.com/awkwardapples/Vendor-Risk-Assessment-Agent`).
-- **Code reused:** none. Arbiter is a new Python codebase with a different architecture.
+- **Code reused:** NONE. Arbiter is a completly  new Python codebase with a different architecture entirely that only reuses the rough idea.
 
 ## 3. Market-research slide content
 
