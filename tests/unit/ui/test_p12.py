@@ -5,10 +5,10 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 from tests.unit.ui.conftest import FakeArbiterClient
 from tests.unit.ui.test_pages_smoke import PAGES, _run_page
-from PIL import Image
 
 pytestmark = pytest.mark.p5a
 
