@@ -1,0 +1,5 @@
+# Keep hashed sources byte-identical across OSes (web/dist/.source-hash).
+* text=auto eol=lf
+*.png binary
+*.woff binary
+*.woff2 binary
