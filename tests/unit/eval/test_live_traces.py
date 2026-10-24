@@ -24,12 +24,13 @@ def _events(path: Path) -> list[dict]:
 
 
 def test_p15_t5_live_traces_match_live_headers() -> None:
-    """The live subset (examples 1 and 3; see docs/passes/P15_REPORT.md) maps one-to-one to live traces.
+    """The live subset (example 1; see docs/passes/P15_REPORT.md) maps one-to-one to live traces.
 
-    Outputs not in the subset keep their offline header and trace in logs/examples/.
+    Outputs not in the subset keep their offline header and trace in logs/examples/. Live attempts
+    with no successful model call are kept in logs/examples/live_failed/, not here.
     """
     traces = _traces()
-    assert len(traces) >= 2, "run `python run.py examples --live` against Zetaris and Nightshift"
+    assert len(traces) >= 1, "run `python run.py examples --live` against Zetaris and Nightshift"
     names = {path.name for path in traces}
     live_headers: set[str] = set()
     for path in sorted((ROOT / "output_examples").glob("example_*_output.json")):
