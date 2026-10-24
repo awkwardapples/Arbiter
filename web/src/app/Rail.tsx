@@ -17,8 +17,9 @@ const NAV = [
 export function Rail() {
   return (
     <nav aria-label="Main" className="sticky top-0 flex h-screen w-[200px] shrink-0 flex-col border-r border-hairline bg-sheet max-lg:w-[64px]">
-      <NavLink to="/" className="flex items-center gap-2 px-4 py-4" aria-label="Arbiter home">
-        <img src={`${import.meta.env.BASE_URL}arbiter_logo.png`} alt="Arbiter" className="h-8 w-auto max-lg:h-7" />
+      <NavLink to="/" className="m-3 flex items-center justify-center rounded-panel bg-ink px-3 py-2" aria-label="Arbiter home">
+        {/* The wordmark is white on transparent, so it sits on an ink tile. */}
+        <img src={`${import.meta.env.BASE_URL}arbiter_logo.png`} alt="Arbiter" className="h-9 w-auto max-lg:h-6" />
       </NavLink>
       <ul className="flex flex-1 flex-col gap-0.5 px-2">
         {NAV.map(({ to, label, icon: Icon, end }) => (

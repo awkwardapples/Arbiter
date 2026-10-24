@@ -14,11 +14,12 @@ export function BorderBeam({ color = "var(--color-ink)", duration = 1200, radius
   return (
     <span aria-hidden data-beam className="pointer-events-none absolute inset-0 overflow-hidden" style={{ borderRadius: radius }}>
       <span
-        className="arbiter-beam absolute size-16"
+        className="arbiter-beam absolute size-10"
         style={{
           ["--beam-duration" as string]: `${duration}ms`,
           ["--beam-radius" as string]: `${radius}px`,
           background: `radial-gradient(closest-side, ${color}, transparent)`,
+          opacity: 0.6,
         }}
       />
     </span>

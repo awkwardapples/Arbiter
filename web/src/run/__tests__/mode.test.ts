@@ -25,3 +25,10 @@ describe("mode chip text (design §5)", () => {
     expect(modeChipText({ kind: "mode", mode: { data: "zetaris", llm: "offline" } }).text).not.toMatch(/^Live/);
   });
 });
+
+describe("recordings are labelled by their recorded mode", () => {
+  it("does not call a sample-mode recording live", () => {
+    const chip = modeChipText({ kind: "recording", startedAt: "2026-10-24T05:35:02Z", mode: { data: "duckdb", llm: "offline" } });
+    expect(chip.text).toBe("Recorded sample-mode run, 24 Oct 2026 05:35 UTC");
+  });
+});
