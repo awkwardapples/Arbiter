@@ -29,6 +29,7 @@ _LIVE_NOTE = "p50 is the wall time of this one run, including provider calls."
 def register(sub: argparse._SubParsersAction) -> None:
     p = sub.add_parser("examples", help="Generate output examples and traces")
     p.add_argument("--live", action="store_true")
+    p.add_argument("--only", nargs="+", metavar="STEM", help="run only these examples, e.g. example_2")
     p.set_defaults(_handler=cmd_examples)
 
 
@@ -45,7 +46,10 @@ def cmd_examples(args: argparse.Namespace) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     traces.mkdir(parents=True, exist_ok=True)
     live_miss: list[str] = []
+    only = set(getattr(args, "only", None) or [])
     for path in sorted((ROOT / "input_examples").glob("example_*.json")):
+        if only and path.stem not in only:
+            continue
         case = CaseInput.model_validate(json.loads(path.read_text(encoding="utf-8")))
         response, trace_bytes, run_id, mode, latency_ms = _once(case, live=bool(args.live))
         if args.live and not _is_live(mode):

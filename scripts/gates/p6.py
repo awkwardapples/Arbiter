@@ -24,11 +24,12 @@ def main() -> int:
     for path in sorted((ROOT / "output_examples").glob("example_*_output.json")):
         document = json.loads(path.read_text(encoding="utf-8"))
         header = document["header"]
-        trace = ROOT / "logs" / "examples" / f"trace-{header['run_id']}.jsonl"
+        live = _says_live(header)  # P15: live traces live in logs/examples/live/
+        trace = ROOT / "logs" / "examples" / ("live" if live else "") / f"trace-{header['run_id']}.jsonl"
         if not trace.is_file():
             errors.append(f"missing {trace.name}")
             continue
-        errors.extend(validate_file(trace, require_collaboration=True, require_live=_says_live(header)))
+        errors.extend(validate_file(trace, require_collaboration=True, require_live=live))
     if errors:
         for item in errors:
             print(item)
