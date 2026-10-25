@@ -1,6 +1,2 @@
-// Placeholder owned by lane 18c/18d, which replaces this file.
-import { PlaceholderPage } from "../../app/PlaceholderPage";
-
-export default function MemoryPage() {
-  return <PlaceholderPage title="Memory" classicPage="the Precedents page" />;
-}
+// Lane 18d replaces 18b's placeholder with the real page.
+export { MemoryPage as default } from "./MemoryPage";
