@@ -20,15 +20,49 @@ FORBIDDEN_STRINGS = [
 VND_RE = re.compile(r"VND-\d{4}")
 CASE_RE = re.compile(r"CASE-\d+")
 SCENARIO_RE = re.compile(r'"S\d\d"')
+WEB_SCENARIO_RE = re.compile(r"""["'`]S\d\d["'`]""")
 
-SCAN_DIRS = ["app", "sources", "ui"]
+SCAN_DIRS = ["app", "sources", "ui", "web/src"]
 SKIP_UNDER_APP = {"cli"}
+WEB_SUFFIXES = {".ts", ".tsx"}
+
+
+def _is_web_src(base: Path) -> bool:
+    return base.name == "src" and base.parent.name == "web"
+
+
+def scan_web(base: Path) -> list[str]:
+    """web/src (P18-B): forbidden strings and id or scenario literals in .ts/.tsx, except __tests__."""
+    findings: list[str] = []
+    for file in sorted(base.rglob("*")):
+        if not file.is_file() or file.suffix not in WEB_SUFFIXES:
+            continue
+        rel = file.relative_to(base)
+        if "__tests__" in rel.parts:
+            continue
+        try:
+            text = file.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        display = f"web/src/{rel.as_posix()}"
+        for s in FORBIDDEN_STRINGS:
+            if s in text:
+                findings.append(f"{display}: forbidden string {s!r}")
+        if vnd := VND_RE.search(text):
+            findings.append(f"{display}: forbidden vendor id literal {vnd.group(0)}")
+        if case := CASE_RE.search(text):
+            findings.append(f"{display}: forbidden case id literal {case.group(0)}")
+        if WEB_SCENARIO_RE.search(text):
+            findings.append(f"{display}: forbidden scenario code literal")
+    return findings
 
 
 def scan_path(base: Path) -> list[str]:
     findings: list[str] = []
     if not base.exists():
         return findings
+    if _is_web_src(base):
+        return scan_web(base)
     for file in base.rglob("*"):
         if not file.is_file() or file.suffix not in {".py", ".yaml", ".yml", ".md"}:
             continue
