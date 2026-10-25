@@ -7,6 +7,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import httpx
@@ -37,12 +38,18 @@ def _dist_fresh() -> int:
 
 
 def _console_served() -> bool:
-    try:
-        health = httpx.get(f"{BASE}/health", timeout=3)
-        console = httpx.get(f"{BASE}/console/", timeout=3)
-    except httpx.HTTPError:
-        return False
-    return health.status_code == 200 and console.status_code == 200 and '<div id="root">' in console.text
+    # /health also probes Zetaris, so allow it time; retry because the sample-mode API can answer 500
+    # while another request holds its database (reported to lane 18a).
+    for attempt in range(3):
+        try:
+            health = httpx.get(f"{BASE}/health", timeout=20)
+            console = httpx.get(f"{BASE}/console/", timeout=10)
+        except httpx.HTTPError:
+            return False
+        if health.status_code == 200 and console.status_code == 200 and '<div id="root">' in console.text:
+            return True
+        time.sleep(1 + attempt)
+    return False
 
 
 def _smoke() -> int:
