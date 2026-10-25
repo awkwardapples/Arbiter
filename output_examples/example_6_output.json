@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-23T01:03:19Z",
+    "generated_at": "2026-10-25T15:12:22Z",
     "generated_by": "python run.py examples",
-    "git_sha": "f3415c3c844e9f4a95a3f6a007b5d30f0529ae9c",
+    "git_sha": "7b9a7982b26bb522e82cd035357d74ed7a675c62",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 292.6190339999266,
+    "p50_ms": 308.8741659994412,
     "provider": "offline",
-    "run_id": "run-c97e248333c6",
+    "run_id": "run-f8a3d8fe25ba",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.2926190339999266,
-    "log_file": "logs/trace-run-c97e248333c6.jsonl",
+    "execution_time_seconds": 0.3088741659994412,
+    "log_file": "logs/trace-run-f8a3d8fe25ba.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,18 +46,30 @@
       "actions": [
         {
           "capability": "procurement.approval.record",
-          "contract_id": "ctr-d10a4e8e8446",
+          "contract_id": "ctr-bb2eb04d5792",
           "intent": "vendor.onboarding.approve",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/procurement/ctr-d10a4e8e8446.json"
+        "var/outbox/procurement/ctr-bb2eb04d5792.json"
       ],
+      "brief": {
+        "generator": "template:v2",
+        "headline": "Approve: Inline Clean T3 Ltd meets the checks this assessment could verify.",
+        "next_steps": [
+          {
+            "action": "Record the approval once the required approvers sign.",
+            "due": null,
+            "owner_role": "tprm_analyst"
+          }
+        ],
+        "why": []
+      },
       "case_id": "CASE-F0595FCA",
       "confidence": {
         "abstained": false,
-        "gate": 0.8,
+        "gate": 0.95,
         "signals": {
           "contradiction_free": 1.0,
           "coverage": 1.0,
@@ -65,11 +77,19 @@
           "precedent_alignment": 1.0,
           "source_health": 1.0
         },
+        "unknown_controls": [],
         "value": 1.0
       },
       "contradictions": [],
       "counterfactuals": [],
       "decision": "APPROVE",
+      "drafts": [
+        {
+          "body": "This memo records approval for Inline Clean T3 Ltd.\nTier T3. Residual risk 15 out of 100.\n\nConditions:\n- None.",
+          "subject": "Approval memo: Inline Clean T3 Ltd",
+          "to_role": "tprm_analyst"
+        }
+      ],
       "findings": [
         {
           "citations": [
@@ -88,14 +108,34 @@
       ],
       "residual_risk": 15,
       "risk_tier": "T3",
-      "summary": "Outcome APPROVE: ALL_REQUIRED_CONTROLS_MET.",
+      "summary": "Approve: Inline Clean T3 Ltd meets the checks this assessment could verify.",
       "vendor": {
         "legal_name": "Inline Clean T3 Ltd",
         "vendor_id": null
+      },
+      "workload": {
+        "answers_read": 5,
+        "claims_extracted": 5,
+        "claims_grounded": 5,
+        "contradictions": 0,
+        "documents_read": 0,
+        "dq_flags": 0,
+        "elapsed_seconds": 0.3088741659994412,
+        "guard_blocks": 0,
+        "model_calls": 0,
+        "models": [],
+        "queries": 7,
+        "rows_read": 9,
+        "systems_queried": [
+          "Service desk (ITSM)",
+          "Vendor trust portal",
+          "Procurement (ERP)",
+          "Sanctions watchlist (GRC)"
+        ]
       }
     },
-    "run_id": "run-c97e248333c6",
+    "run_id": "run-f8a3d8fe25ba",
     "status": "success",
-    "trace_id": "run-c97e248333c6"
+    "trace_id": "run-f8a3d8fe25ba"
   }
 }

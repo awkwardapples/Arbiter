@@ -1,17 +1,17 @@
 {
   "header": {
-    "generated_at": "2026-10-24T04:43:59Z",
+    "generated_at": "2026-10-25T15:12:20Z",
     "generated_by": "python run.py examples",
-    "git_sha": "4c6f6b012b699376771da136f28df398ec85428c",
+    "git_sha": "7b9a7982b26bb522e82cd035357d74ed7a675c62",
     "mode": {
-      "data": "zetaris",
-      "llm": "meterless"
+      "data": "duckdb",
+      "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 159037.19624100084,
-    "provider": "meterless",
-    "run_id": "run-83de5da137c0",
-    "timing_note": "p50 is the wall time of this one run, including provider calls."
+    "p50_ms": 467.116382000313,
+    "provider": "offline",
+    "run_id": "run-cea4afd517a5",
+    "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
     "agents": [
@@ -36,23 +36,23 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 159.03719624100086,
-    "log_file": "logs/trace-run-83de5da137c0.jsonl",
+    "execution_time_seconds": 0.467116382000313,
+    "log_file": "logs/trace-run-cea4afd517a5.jsonl",
     "mode": {
-      "data": "zetaris",
-      "llm": "meterless"
+      "data": "duckdb",
+      "llm": "offline"
     },
     "output": {
       "actions": [
         {
           "capability": "procurement.approval.record",
-          "contract_id": "ctr-2326d46143bf",
+          "contract_id": "ctr-9928de961fce",
           "intent": "vendor.onboarding.approve",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/procurement/ctr-2326d46143bf.json"
+        "var/outbox/procurement/ctr-9928de961fce.json"
       ],
       "brief": {
         "generator": "template:v2",
@@ -99,7 +99,8 @@
         }
       ],
       "limitations": [
-        "template:v1 deterministic report from the decision record."
+        "template:v1 deterministic report from the decision record.",
+        "LLM offline: deterministic extraction and reporting used."
       ],
       "precedents": [],
       "recommendations": [
@@ -119,24 +120,23 @@
         "contradictions": 0,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 159.03719624100086,
+        "elapsed_seconds": 0.467116382000313,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
-        "queries": 0,
-        "rows_read": 24,
+        "queries": 10,
+        "rows_read": 23,
         "systems_queried": [
           "Vendor trust portal",
           "Procurement (ERP)",
           "Contract system (CLM)",
-          "CISA Known Exploited Vulnerabilities",
           "Service desk (ITSM)",
           "Sanctions watchlist (GRC)"
         ]
       }
     },
-    "run_id": "run-83de5da137c0",
+    "run_id": "run-cea4afd517a5",
     "status": "success",
-    "trace_id": "run-83de5da137c0"
+    "trace_id": "run-cea4afd517a5"
   }
 }
