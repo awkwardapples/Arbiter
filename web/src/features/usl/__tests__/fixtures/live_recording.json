@@ -2,7 +2,7 @@
   "meta": {
     "run_id": "run-83de5da137c0",
     "kind": "live_example",
-    "path": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+    "path": "logs/examples/live/history/trace-run-83de5da137c0.jsonl",
     "case_id": "CASE-0003",
     "vendor_name": "Pellucid Forms Ltd",
     "outcome": "APPROVE",

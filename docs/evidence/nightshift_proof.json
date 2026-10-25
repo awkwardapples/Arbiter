@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-24T04:05:15Z",
+  "timestamp": "2026-10-25T11:22:20Z",
   "base_url": "http://localhost:8088/v1",
   "provider": "meterless",
   "fast": {
@@ -13,17 +13,17 @@
     "mode_coerced": true,
     "requested_mode": "fast",
     "routed_mode": "auto",
-    "receipt_id": "rcpt_req_924f14pn",
-    "response_id": "chatcmpl-9c0aa03b-0eb7-4c4d-9e12-6d6e1317039c",
-    "latency_ms": 5728,
+    "receipt_id": "rcpt_req_936ew345",
+    "response_id": "chatcmpl-24bdbdd9-ff3c-450d-9358-06a517f34bb1",
+    "latency_ms": 2236,
     "tokens_in": 57,
-    "tokens_out": 262,
+    "tokens_out": 258,
     "receipt": {
       "requested_model": "meterless/fast",
-      "response_id": "chatcmpl-9c0aa03b-0eb7-4c4d-9e12-6d6e1317039c",
+      "response_id": "chatcmpl-24bdbdd9-ff3c-450d-9358-06a517f34bb1",
       "schema": "meterless.compute_receipt.v1",
-      "receipt_id": "rcpt_req_924f14pn",
-      "decision_id": "req_924f14pn",
+      "receipt_id": "rcpt_req_936ew345",
+      "decision_id": "req_936ew345",
       "provider_model": "meterless/auto",
       "routed_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
       "mode": "auto",
@@ -64,17 +64,17 @@
     "mode_coerced": true,
     "requested_mode": "deep",
     "routed_mode": "auto",
-    "receipt_id": "rcpt_req_p412l7ql",
-    "response_id": "chatcmpl-683248df-1dff-40c7-8be2-b1fc7d5f942f",
-    "latency_ms": 615,
+    "receipt_id": "rcpt_req_wu3r6jyf",
+    "response_id": "chatcmpl-728ac60d-f923-410f-869e-06a38e1a93f2",
+    "latency_ms": 747,
     "tokens_in": 57,
     "tokens_out": 34,
     "receipt": {
       "requested_model": "meterless/deep",
-      "response_id": "chatcmpl-683248df-1dff-40c7-8be2-b1fc7d5f942f",
+      "response_id": "chatcmpl-728ac60d-f923-410f-869e-06a38e1a93f2",
       "schema": "meterless.compute_receipt.v1",
-      "receipt_id": "rcpt_req_p412l7ql",
-      "decision_id": "req_p412l7ql",
+      "receipt_id": "rcpt_req_wu3r6jyf",
+      "decision_id": "req_wu3r6jyf",
       "provider_model": "meterless/auto",
       "routed_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "mode": "auto",
@@ -107,18 +107,18 @@
   "deviations": [
     {
       "kind": "mode_coerced",
-      "detail": "fast: Nightshift coerced requested mode fast to auto (receipt rcpt_req_924f14pn)",
+      "detail": "fast: Nightshift coerced requested mode fast to auto (receipt rcpt_req_936ew345)",
       "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
       "receipt_ids": [
-        "rcpt_req_924f14pn"
+        "rcpt_req_936ew345"
       ]
     },
     {
       "kind": "mode_coerced",
-      "detail": "deep: Nightshift coerced requested mode deep to auto (receipt rcpt_req_p412l7ql)",
+      "detail": "deep: Nightshift coerced requested mode deep to auto (receipt rcpt_req_wu3r6jyf)",
       "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "receipt_ids": [
-        "rcpt_req_p412l7ql"
+        "rcpt_req_wu3r6jyf"
       ]
     }
   ],

@@ -24,10 +24,11 @@ def _events(path: Path) -> list[dict]:
 
 
 def test_p15_t5_live_traces_match_live_headers() -> None:
-    """The live subset (example 1; see docs/passes/P15_REPORT.md) maps one-to-one to live traces.
+    """The live examples map one-to-one to live traces.
 
-    Outputs not in the subset keep their offline header and trace in logs/examples/. Live attempts
-    with no successful model call are kept in logs/examples/live_failed/, not here.
+    P20 retarget: an example with no passing live run keeps a byte copy of its sample-mode output at the
+    root, with its trace in logs/examples/sample_mode/. Live attempts with no successful model call are
+    kept in logs/examples/live_failed/, not here.
     """
     traces = _traces()
     assert len(traces) >= 1, "run `python run.py examples --live` against Zetaris and Nightshift"
@@ -36,7 +37,9 @@ def test_p15_t5_live_traces_match_live_headers() -> None:
     for path in sorted((ROOT / "output_examples").glob("example_*_output.json")):
         header = json.loads(path.read_text(encoding="utf-8"))["header"]
         if header["mode"].get("llm") == "offline":
-            assert (ROOT / "logs" / "examples" / f"trace-{header['run_id']}.jsonl").is_file(), path.name
+            assert (
+                ROOT / "logs" / "examples" / "sample_mode" / f"trace-{header['run_id']}.jsonl"
+            ).is_file(), path.name
             continue
         assert header["mode"] == {"data": "zetaris", "llm": "meterless"}, path.name
         live_headers.add(f"trace-{header['run_id']}.jsonl")

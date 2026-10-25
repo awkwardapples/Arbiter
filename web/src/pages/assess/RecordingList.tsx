@@ -1,9 +1,9 @@
 // Committed traces this instance can replay (GET /recordings). Live kinds first, grouped by kind; a
-// recording whose events say DuckDB and offline is listed apart, so nothing sample-mode passes as live.
+// recording that Zetaris and Nightshift did not both serve is listed apart, so nothing passes as live.
 import { useNavigate } from "react-router";
 import { useRecordings } from "../../api/queries";
 import type { RecordingMeta } from "../../api/types";
-import { formatUtc } from "../../run/mode";
+import { fallbackText, formatUtc, recordedLive } from "../../run/mode";
 import { duration } from "../../run/parse";
 import { Button } from "../../ui/button";
 import { Callout } from "../../ui/Callout";
@@ -17,7 +17,7 @@ const KIND_WORDS: Record<string, string> = {
   sample_example: "Sample-mode examples",
 };
 
-const isLive = (r: RecordingMeta) => r.mode?.data === "zetaris" && r.mode?.llm === "meterless";
+const isLive = (r: RecordingMeta) => recordedLive(r.mode, r.model_ids);
 
 function Row({ rec }: { rec: RecordingMeta }) {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Row({ rec }: { rec: RecordingMeta }) {
           <OutcomeBadge outcome={rec.outcome} />
         </span>
         <span className="block text-[13px] text-graphite">
-          {[rec.duration_s !== null ? duration(rec.duration_s) : null, when, rec.n_model_calls ? `${rec.n_model_calls} model calls` : "no model calls", rec.n_fallbacks ? `${rec.n_fallbacks} fallbacks` : null]
+          {[rec.duration_s !== null ? duration(rec.duration_s) : null, when, rec.n_model_calls ? `${rec.n_model_calls} model calls` : "no model calls", fallbackText(rec.n_fallbacks)]
             .filter(Boolean)
             .join(". ")}
         </span>
@@ -77,7 +77,7 @@ export function RecordingList() {
       {live.length ? <Groups list={live} /> : <p className="text-sm text-graphite">No recorded live runs are committed in this build.</p>}
       {other.length ? (
         <details>
-          <summary className="cursor-pointer text-sm text-graphite">Recordings of sample-mode runs ({other.length})</summary>
+          <summary className="cursor-pointer text-sm text-graphite">Other recordings: sample mode, or no model call served ({other.length})</summary>
           <div className="mt-3">
             <Groups list={other} />
           </div>

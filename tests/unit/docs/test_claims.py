@@ -272,8 +272,9 @@ def test_p17_t5_readme_eval_block_is_latest_live_summary() -> None:
 def test_p17_t5_readme_eval_labels() -> None:
     """P17-T5: the README labels the live subset, the unmeasured baseline and the offline split."""
     section = _read("README.md").split("## Evaluation", 1)[1].split("\n## ", 1)[0]
-    assert "5/5" in section and "5 of 25" in section
-    assert "baseline could not be measured" in section
+    # P20 (human-approved update): the 25 October live run, n=10.
+    assert "10/10" in section and "10 of 21" in section and "6 of 10" in section
+    assert "baseline could not be measured" in section.lower()
     assert "16/16" in section
     assert "docs/EVALUATION.md" in section and "--publish" in section
 
@@ -300,17 +301,21 @@ def test_p17_t10_demo_script_timing() -> None:
     for (_, end), (start, _) in zip(secs, secs[1:], strict=False):
         assert end == start
     assert secs[-1][1] == 215
-    assert "run-83de5da137c0" in text
-    assert "rcpt_req_924f14pn" in text and "rcpt_req_p412l7ql" in text
+    # P20 (human-approved update): the hero is the Quillfeather live run, the receipts are proof run 4's.
+    assert "run-211916c1544d" in text
+    assert "rcpt_req_936ew345" in text and "rcpt_req_wu3r6jyf" in text
     assert "sample mode" in text.lower()
     assert "nightshift_deviations.md" in text
 
 
 def test_p17_t10_slides_outline() -> None:
-    """P17-T10: 13 numbered slides and a rubric coverage table with all six weighted criteria."""
+    """P17-T10: 23 numbered slides and a rubric coverage table with all six weighted criteria.
+
+    P20 (human-approved update): the outline is the 23-slide submission deck.
+    """
     text = _read("docs/SLIDES.md")
     numbers = [int(n) for n in re.findall(r"^## (\d+)\. ", text, re.MULTILINE)]
-    assert numbers == list(range(1, 14))
+    assert numbers == list(range(1, 24))
     for criterion in (
         "Impact (30)",
         "Technical (20)",
@@ -320,7 +325,7 @@ def test_p17_t10_slides_outline() -> None:
         "Sponsor Tech (10)",
     ):
         assert criterion in text, criterion
-    future = text.split("## 13. ", 1)[1]
+    future = text.split("## 22. ", 1)[1]
     assert "monitor" in future.lower()
 
 

@@ -22,19 +22,19 @@ The bottleneck is not the decision itself. It is assembling and cross-checking e
 
 ## 3. Before and after, one onboarding
 
-"Today" is the manual process. Where a step is not covered by a cited source it is marked *assumption*. "With Arbiter" uses only committed live runs: example 1 (`logs/examples/live/trace-run-83de5da137c0.jsonl`) unless another run is named.
+"Today" is the manual process. Where a step is not covered by a cited source it is marked *assumption*. "With Arbiter" uses only committed live runs: example 2, Quillfeather Payroll Cloud Ltd (`logs/examples/live/trace-run-211916c1544d.jsonl`, 25 October 2026), unless another run is named.
 
 | Step | Today (manual) | With Arbiter (measured from live runs) |
 |---|---|---|
-| Collect evidence | Open the questionnaire and four internal systems, one by one (*assumption*) | 12 registry queries through one Zetaris USL, 16.6 s of Zetaris time in total, each with a request id |
-| Read answers and documents | Read every answer and attachment (*assumption*) | 16 claims extracted from 15 answers, each with a verbatim quote; none discarded at grounding |
-| Cross-check against records | Usually skipped (*assumption*); incomplete vendor information is the top backlog cause, cited by 67%[^ponemon] | The Evaluator checks claims against systems of record. Live eval: the one residency contradiction in the subset (VND-0007, vendor says EU, contract says US) was found |
-| Check exploited vulnerabilities | Rarely done (*assumption*) | KEV joined to the vendor's declared components inside Zetaris. Live eval run `run-257c86984507`: 15 KEV matches for Quillfeather |
+| Collect evidence | Open the questionnaire and four internal systems, one by one (*assumption*) | 14 registry queries through one Zetaris USL, 21.9 s of Zetaris time in total, each with a request id |
+| Read answers and documents | Read every answer and attachment (*assumption*) | 16 claims extracted from 16 answers, each with a verbatim quote; none discarded at grounding |
+| Cross-check against records | Usually skipped (*assumption*); incomplete vendor information is the top backlog cause, cited by 67%[^ponemon] | The Evaluator checks claims against systems of record and found the residency contradiction: the vendor says EU, contract `CTR-30007` says US |
+| Check exploited vulnerabilities | Rarely done (*assumption*) | KEV joined to the vendor's declared components inside Zetaris: 15 known-exploited FortiOS vulnerabilities, one query with one request id |
 | Decide | Reviewer judgement | Versioned policy (`policy/arbiter_policy.v1.yaml`); 4/4 live consistency repeats identical; every decision replays from the audit log |
 | Follow up | Write the follow-up by hand; 43% of responses need one[^ponemon] | Next action drafted with the missing questions and what evidence would satisfy them (`output_examples/`) |
 | Record | Write it up (*assumption*) | Brief, dossier export (`app/dossier.py`) and a hash-chained audit entry (`python run.py audit-verify`) |
 
-The live run took 159 s end to end, most of it model calls through Nightshift. The analyst's time goes on the exceptions the policy sends to a person, not on assembling the file.
+The live run took 228 s end to end; 206 s of it was model calls through Nightshift. It escalated to the TPRM lead with the ticket drafted. The analyst's time goes on the exceptions the policy sends to a person, not on assembling the file.
 
 ## 4. What changes in the analyst's day
 
@@ -70,19 +70,19 @@ Arithmetic: low = 5 × (70 − 15) = 275 minutes, about 4.6 hours; high = 10 × 
 
 ## 6. Reliability results
 
-From the live evaluation (`docs/EVALUATION.md`, `eval/results_live/20261024T045916036274Z/summary.json`):
+From the live evaluation (`docs/EVALUATION.md`, `eval/results_live/20261025T153035975818Z/summary.json`, 25 October 2026):
 
 | System | n | Correct | Unsafe approvals | Notes |
 |---|---:|---:|---:|---|
-| Arbiter, live | 5 | 5/5 | 0/5 | 5 of 25 model calls fell back to deterministic logic (HTTP 502); 4/4 repeats consistent |
-| Single-Nemotron baseline, live | 5 | not measured | – | All 9 calls returned HTTP 502 from Nightshift's forced `auto` routing |
+| Arbiter, live | 10 | 10/10 | 0/10 | 10 of 21 model calls fell back to deterministic logic (HTTP 502), up from 5 of 25 on 24 October; 6 of 10 cases decided without a successful model call; 4/4 repeats consistent |
+| Single-Nemotron baseline, live | 10 | not measured | – | All 10 calls (and 4 repeats) returned HTTP 502 from Nightshift's forced `auto` routing |
 | Arbiter, offline | 16 | 16/16 | 0/16 | Full test split, DuckDB mirror, deterministic fallback |
 
-**What the baseline got wrong, in plain words.** Nothing that can be fairly judged. The baseline sends the whole policy and every piece of evidence in one prompt. Nightshift's app rule routed that large prompt to Nemotron 3.5 Lightning, which returned an empty response every time. So its 0/5 measures the routing problem (`docs/evidence/nightshift_deviations.md`), not a single model's judgement, and it is not counted as an Arbiter win.
+**What the baseline got wrong, in plain words.** Nothing that can be fairly judged. The baseline sends the whole policy and every piece of evidence in one prompt. Nightshift's app rule routed that large prompt to Nemotron 3.5 Lightning, which returned an empty response every time. So its 0/10 measures the routing problem (`docs/evidence/nightshift_deviations.md`), not a single model's judgement, and it is not counted as an Arbiter win.
 
-**What the architecture guarantees regardless.** A model only plans, extracts, critiques and challenges; the policy decides. When a live call failed, the step fell back and the outcome still matched its label. In an earlier live attempt, a weaker extraction left two controls unknown and the outcome dropped to `REQUEST_INFO`. It lowered the outcome; it could not raise it.
+**What the architecture guarantees regardless.** A model only plans, extracts, critiques and challenges; the policy decides. When a live call failed, the step fell back and the outcome still matched its label: in six of the ten live cases no model call succeeded, and all ten decisions were correct. In an earlier live attempt, a weaker extraction left two controls unknown and the outcome dropped to `REQUEST_INFO`. It lowered the outcome; it could not raise it.
 
-Injection: vendor text passes ScoutGuard before any model sees it. In the offline sample, Oakhaven's planted instruction is blocked and the case escalates (`logs/examples/trace-run-ac35d0a215a4.jsonl`).
+Injection: vendor text passes ScoutGuard before any model sees it. In the live run of example 3 (Oakhaven), ScoutGuard blocked the document segment carrying a planted instruction (score 0.92), no model saw it, and the case escalated (`logs/examples/live/trace-run-1b185078f01b.jsonl`).
 
 ## 7. Limits and the path to production
 

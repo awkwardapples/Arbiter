@@ -62,3 +62,31 @@ def test_p4_t18_clean_clone_local() -> None:
     text = report.read_text(encoding="utf-8")
     for step in range(1, 9):
         assert f"step {step}: pass" in text
+
+
+@pytest.mark.p20
+def test_p20_history_scan_follows_deleted_files(tmp_path: Path) -> None:
+    """A deleted file's diff ends in '+++ /dev/null'; its lines belong to its '--- a/' path."""
+    from scripts.clean_clone_check import _history_secrets
+
+    def git(*args: str) -> None:
+        subprocess.run(
+            ["git", "-c", "user.name=example", "-c", "user.email=example@example.invalid", *args],
+            cwd=tmp_path,
+            check=True,
+            capture_output=True,
+        )
+
+    lookalike = "sk" + "-" + "x" * 24  # minified-bundle text that matches the key pattern
+    (tmp_path / ".secrets-allowlist").write_text("bundle/*\n", encoding="utf-8")
+    (tmp_path / "bundle").mkdir()
+    (tmp_path / "bundle" / "app.js").write_text(f"var a='{lookalike}';\n", encoding="utf-8")
+    (tmp_path / "a.txt").write_text("one\n", encoding="utf-8")
+    git("init", "-q")
+    git("add", ".")
+    git("commit", "-q", "-m", "add")
+    (tmp_path / "bundle" / "app.js").unlink()
+    (tmp_path / "a.txt").write_text("two\n", encoding="utf-8")
+    git("add", "-A")
+    git("commit", "-q", "-m", "delete the bundle")
+    assert _history_secrets(tmp_path) == ""

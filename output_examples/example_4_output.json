@@ -1,17 +1,17 @@
 {
   "header": {
-    "generated_at": "2026-10-23T01:03:18Z",
+    "generated_at": "2026-10-25T15:21:35Z",
     "generated_by": "python run.py examples",
-    "git_sha": "f3415c3c844e9f4a95a3f6a007b5d30f0529ae9c",
+    "git_sha": "ea471907172016f22a183aece7ac560d78b604c0",
     "mode": {
-      "data": "duckdb",
-      "llm": "offline"
+      "data": "zetaris",
+      "llm": "meterless"
     },
     "n_runs": 1,
-    "p50_ms": 385.9407209999972,
-    "provider": "offline",
-    "run_id": "run-be10a4e1768e",
-    "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
+    "p50_ms": 136840.31824799968,
+    "provider": "meterless",
+    "run_id": "run-28ca582caf3d",
+    "timing_note": "p50 is the wall time of this one run, including provider calls."
   },
   "response": {
     "agents": [
@@ -36,36 +36,69 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.3859407209999972,
-    "log_file": "logs/trace-run-be10a4e1768e.jsonl",
+    "execution_time_seconds": 136.84031824799968,
+    "log_file": "logs/trace-run-28ca582caf3d.jsonl",
     "mode": {
-      "data": "duckdb",
-      "llm": "offline"
+      "data": "zetaris",
+      "llm": "meterless"
     },
     "output": {
       "actions": [
         {
           "capability": "outbox.email.draft",
-          "contract_id": "ctr-7fcd2148f4f1",
+          "contract_id": "ctr-f9c928d02a12",
           "intent": "vendor.onboarding.request_info",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/email/ctr-7fcd2148f4f1.json"
+        "var/outbox/email/ctr-f9c928d02a12.json"
       ],
+      "brief": {
+        "generator": "template:v2",
+        "headline": "Ask the vendor for more information: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
+        "next_steps": [
+          {
+            "action": "Send the clarification email and wait for the vendor's reply.",
+            "due": null,
+            "owner_role": "tprm_analyst"
+          }
+        ],
+        "why": [
+          {
+            "citations": [
+              "F-C01-1"
+            ],
+            "claim": null,
+            "record": null,
+            "text": "MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception."
+          },
+          {
+            "citations": [
+              "F-C04-1"
+            ],
+            "claim": null,
+            "record": null,
+            "text": "Encryption at rest and in transit is unverified. What would satisfy it: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+."
+          }
+        ]
+      },
       "case_id": "CASE-0022",
       "confidence": {
-        "abstained": false,
-        "gate": 0.8,
+        "abstained": true,
+        "gate": 0.95,
         "signals": {
           "contradiction_free": 1.0,
-          "coverage": 1.0,
+          "coverage": 0.6,
           "grounding": 1.0,
           "precedent_alignment": 1.0,
           "source_health": 1.0
         },
-        "value": 1.0
+        "unknown_controls": [
+          "C01",
+          "C04"
+        ],
+        "value": 0.88
       },
       "contradictions": [],
       "counterfactuals": [
@@ -93,6 +126,13 @@
         }
       ],
       "decision": "REQUEST_INFO",
+      "drafts": [
+        {
+          "body": "Please send the following so we can finish the assessment of Fennimore Survey Tools Ltd.\n\nIs MFA enforced for all administrative and privileged accounts?\nEvidence that would satisfy this: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception\n\nIs MFA enforced for all remote and employee access to systems processing our data?\nEvidence that would satisfy this: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception\n\nIs customer data encrypted at rest? Which standard?\nEvidence that would satisfy this: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+\n\nIs data encrypted in transit (TLS 1.2+)?\nEvidence that would satisfy this: Q05 naming the standard (e.g. AES-256); Q06 confirming TLS 1.2+",
+          "subject": "Information requested for Fennimore Survey Tools Ltd (CASE-0022)",
+          "to_role": "vendor"
+        }
+      ],
       "findings": [
         {
           "citations": [
@@ -122,8 +162,7 @@
         }
       ],
       "limitations": [
-        "template:v1 deterministic report from the decision record.",
-        "LLM offline: deterministic extraction and reporting used."
+        "template:v1 deterministic report from the decision record."
       ],
       "precedents": [],
       "recommendations": [
@@ -131,14 +170,37 @@
       ],
       "residual_risk": 30,
       "risk_tier": "T3",
-      "summary": "Outcome REQUEST_INFO: EVIDENCE_MISSING, ALL_REQUIRED_CONTROLS_MET. Failing controls: C01, C04.",
+      "summary": "Ask the vendor for more information: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
       "vendor": {
         "legal_name": "Fennimore Survey Tools Ltd",
         "vendor_id": "VND-0022"
+      },
+      "workload": {
+        "answers_read": 14,
+        "claims_extracted": 14,
+        "claims_grounded": 14,
+        "contradictions": 0,
+        "documents_read": 0,
+        "dq_flags": 0,
+        "elapsed_seconds": 136.84031824799968,
+        "guard_blocks": 0,
+        "model_calls": 3,
+        "models": [
+          "nvidia/nemotron-3.5-super-vl-120b-a12b"
+        ],
+        "queries": 10,
+        "rows_read": 21,
+        "systems_queried": [
+          "Vendor trust portal",
+          "Procurement (ERP)",
+          "Contract system (CLM)",
+          "Service desk (ITSM)",
+          "Sanctions watchlist (GRC)"
+        ]
       }
     },
-    "run_id": "run-be10a4e1768e",
+    "run_id": "run-28ca582caf3d",
     "status": "success",
-    "trace_id": "run-be10a4e1768e"
+    "trace_id": "run-28ca582caf3d"
   }
 }

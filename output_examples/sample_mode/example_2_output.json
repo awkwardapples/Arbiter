@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-24T03:21:38Z",
+    "generated_at": "2026-10-25T15:12:20Z",
     "generated_by": "python run.py examples",
-    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "git_sha": "7b9a7982b26bb522e82cd035357d74ed7a675c62",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 673.5748209994199,
+    "p50_ms": 583.6874039996474,
     "provider": "offline",
-    "run_id": "run-a90b795279e5",
+    "run_id": "run-414d88adfb02",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.6735748209994199,
-    "log_file": "logs/trace-run-a90b795279e5.jsonl",
+    "execution_time_seconds": 0.5836874039996474,
+    "log_file": "logs/trace-run-414d88adfb02.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,13 +46,13 @@
       "actions": [
         {
           "capability": "itsm.ticket.create",
-          "contract_id": "ctr-549e9d3374f4",
+          "contract_id": "ctr-adebb87cfa0f",
           "intent": "vendor.onboarding.escalate",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/itsm/ctr-549e9d3374f4.json"
+        "var/outbox/itsm/ctr-adebb87cfa0f.json"
       ],
       "brief": {
         "generator": "template:v2",
@@ -235,11 +235,11 @@
         "contradictions": 1,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 0.6735748209994199,
+        "elapsed_seconds": 0.5836874039996474,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
-        "queries": 0,
+        "queries": 14,
         "rows_read": 39,
         "systems_queried": [
           "Vendor trust portal",
@@ -251,8 +251,8 @@
         ]
       }
     },
-    "run_id": "run-a90b795279e5",
+    "run_id": "run-414d88adfb02",
     "status": "success",
-    "trace_id": "run-a90b795279e5"
+    "trace_id": "run-414d88adfb02"
   }
 }

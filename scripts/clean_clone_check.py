@@ -332,6 +332,9 @@ def _history_secrets(clone: Path) -> str:
     current = "git-history"
     hits: list[str] = []
     for line in proc.stdout.splitlines():
+        if line.startswith("--- a/"):
+            current = line[6:]  # a deleted file has no "+++ b/" line; its "+++" is /dev/null
+            continue
         if line.startswith("+++ b/"):
             current = line[6:]
             continue

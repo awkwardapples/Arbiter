@@ -87,7 +87,7 @@ export function RunCanvas({
 
   const recorded = source.kind !== "live";
   const chip = recorded
-    ? modeChipText({ kind: "recording", startedAt: playback.meta?.recorded_at ?? state.startedAt, fallbacks: state.fallbacks, mode: playback.meta?.mode ?? state.mode })
+    ? modeChipText({ kind: "recording", startedAt: playback.meta?.recorded_at ?? state.startedAt, fallbacks: state.fallbacks, mode: playback.meta?.mode ?? state.mode, modelIds: playback.meta?.model_ids })
     : modeChipText({ kind: "mode", mode: state.mode, fallbacks: state.fallbacks, paced: playback.mode === "paced" && playback.applied < playback.total });
 
   const select = (next: Selection) => {

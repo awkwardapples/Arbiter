@@ -1,0 +1,142 @@
+{
+  "header": {
+    "generated_at": "2026-10-24T04:43:59Z",
+    "generated_by": "python run.py examples",
+    "git_sha": "4c6f6b012b699376771da136f28df398ec85428c",
+    "mode": {
+      "data": "zetaris",
+      "llm": "meterless"
+    },
+    "n_runs": 1,
+    "p50_ms": 159037.19624100084,
+    "provider": "meterless",
+    "run_id": "run-83de5da137c0",
+    "timing_note": "p50 is the wall time of this one run, including provider calls."
+  },
+  "response": {
+    "agents": [
+      {
+        "name": "PlannerAgent",
+        "role": "Chooses registry queries and extraction targets; revises the plan from feedback"
+      },
+      {
+        "name": "EvidenceAgent",
+        "role": "Runs registry queries via the data layer, guards vendor text, extracts quoted claims"
+      },
+      {
+        "name": "EvaluatorAgent",
+        "role": "Grounds claims, derives facts, critiques coverage and requests verification"
+      },
+      {
+        "name": "ChallengerAgent",
+        "role": "Stress-tests a favourable decision; can only accept, re-plan or escalate"
+      },
+      {
+        "name": "ReporterAgent",
+        "role": "Writes a cited report of the policy decision, or the deterministic template"
+      }
+    ],
+    "execution_time_seconds": 159.03719624100086,
+    "log_file": "logs/trace-run-83de5da137c0.jsonl",
+    "mode": {
+      "data": "zetaris",
+      "llm": "meterless"
+    },
+    "output": {
+      "actions": [
+        {
+          "capability": "procurement.approval.record",
+          "contract_id": "ctr-2326d46143bf",
+          "intent": "vendor.onboarding.approve",
+          "state": "executed"
+        }
+      ],
+      "artifacts": [
+        "var/outbox/procurement/ctr-2326d46143bf.json"
+      ],
+      "brief": {
+        "generator": "template:v2",
+        "headline": "Approve: Pellucid Forms Ltd meets the checks this assessment could verify.",
+        "next_steps": [
+          {
+            "action": "Record the approval once the required approvers sign.",
+            "due": null,
+            "owner_role": "tprm_analyst"
+          }
+        ],
+        "why": []
+      },
+      "case_id": "CASE-0003",
+      "confidence": {
+        "abstained": false,
+        "gate": 0.95,
+        "signals": {
+          "contradiction_free": 1.0,
+          "coverage": 1.0,
+          "grounding": 1.0,
+          "precedent_alignment": 1.0,
+          "source_health": 1.0
+        },
+        "unknown_controls": [],
+        "value": 1.0
+      },
+      "contradictions": [],
+      "counterfactuals": [],
+      "decision": "APPROVE",
+      "drafts": [
+        {
+          "body": "This memo records approval for Pellucid Forms Ltd.\nTier T3. Residual risk 15 out of 100.\n\nConditions:\n- None.",
+          "subject": "Approval memo: Pellucid Forms Ltd",
+          "to_role": "tprm_analyst"
+        }
+      ],
+      "findings": [
+        {
+          "citations": [
+            "F-C01-1"
+          ],
+          "text": "No required control failed for outcome APPROVE."
+        }
+      ],
+      "limitations": [
+        "template:v1 deterministic report from the decision record."
+      ],
+      "precedents": [],
+      "recommendations": [
+        "Record the approval once required approvers sign the contract."
+      ],
+      "residual_risk": 15,
+      "risk_tier": "T3",
+      "summary": "Approve: Pellucid Forms Ltd meets the checks this assessment could verify.",
+      "vendor": {
+        "legal_name": "Pellucid Forms Ltd",
+        "vendor_id": "VND-0003"
+      },
+      "workload": {
+        "answers_read": 16,
+        "claims_extracted": 16,
+        "claims_grounded": 16,
+        "contradictions": 0,
+        "documents_read": 0,
+        "dq_flags": 0,
+        "elapsed_seconds": 159.03719624100086,
+        "guard_blocks": 0,
+        "model_calls": 0,
+        "models": [],
+        "queries": 0,
+        "rows_read": 24,
+        "systems_queried": [
+          "Vendor trust portal",
+          "Procurement (ERP)",
+          "Contract system (CLM)",
+          "CISA Known Exploited Vulnerabilities",
+          "Service desk (ITSM)",
+          "Sanctions watchlist (GRC)"
+        ]
+      }
+    },
+    "run_id": "run-83de5da137c0",
+    "status": "success",
+    "trace_id": "run-83de5da137c0"
+  }
+}

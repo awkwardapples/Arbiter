@@ -24,8 +24,14 @@ def main() -> int:
     for path in sorted((ROOT / "output_examples").glob("example_*_output.json")):
         document = json.loads(path.read_text(encoding="utf-8"))
         header = document["header"]
-        live = _says_live(header)  # P15: live traces live in logs/examples/live/
-        trace = ROOT / "logs" / "examples" / ("live" if live else "") / f"trace-{header['run_id']}.jsonl"
+        live = _says_live(header)  # P15: live traces in logs/examples/live/; P20: offline in sample_mode/
+        trace = (
+            ROOT
+            / "logs"
+            / "examples"
+            / ("live" if live else "sample_mode")
+            / f"trace-{header['run_id']}.jsonl"
+        )
         if not trace.is_file():
             errors.append(f"missing {trace.name}")
             continue

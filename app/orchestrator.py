@@ -306,7 +306,8 @@ def run(case_input: CaseInput, *, options: RunOptions, deps: Deps | None = None)
     log_file = f"logs/trace-{run_id}.jsonl"
     elapsed = max(time.perf_counter() - started, 1e-6)
     output = build_output(state, record, report)
-    workload = _workload(state, log_file, elapsed)
+    # Read the file the tracer wrote: a caller's tracer_factory may log outside logs/.
+    workload = _workload(state, tracer.path, elapsed)
     output = output.model_copy(update={"workload": workload})
     if hasattr(sink, "save_workload"):
         sink.save_workload(state.case_id, workload)
@@ -562,10 +563,9 @@ def _finish(
     )
 
 
-def _workload(state: CaseState, log_file: str, elapsed: float) -> Workload:
+def _workload(state: CaseState, path: Path, elapsed: float) -> Workload:
     """Counts from the trace and the executed case. Nothing here is estimated."""
     events: list[dict[str, Any]] = []
-    path = Path(log_file)
     if path.is_file():
         events = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
     model_ids = sorted(

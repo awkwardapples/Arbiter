@@ -1,0 +1,561 @@
+{
+  "generated_at": "2026-10-25T16:09:09Z",
+  "git_sha": "cabd79e95998ea41855deb2d9f7bcd14976c2bc1",
+  "live_subset": {
+    "n": 10,
+    "rule": "first 10 test cases by case_id"
+  },
+  "mode": {
+    "data": "zetaris",
+    "llm": "meterless"
+  },
+  "model_ids": [
+    "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "nvidia/nemotron-3.5-lightning-30b-a3b"
+  ],
+  "n": 20,
+  "offline": false,
+  "provider": "meterless",
+  "split_sha256": {
+    "test": "726a050aab71e9dfdd95cf5608a4d909700013827036d5c17f4145e6c5d0d6a4"
+  },
+  "splits": [
+    "test"
+  ],
+  "synthetic": true,
+  "systems": {
+    "arbiter": {
+      "abstention_rate": {
+        "count": 2,
+        "n": 10,
+        "rate": 0.2
+      },
+      "accuracy": {
+        "correct": 10,
+        "n": 10,
+        "rate": 1.0,
+        "wilson_95": [
+          0.7224598312333834,
+          1.0
+        ]
+      },
+      "consistency": {
+        "facts_hash_stable": 4,
+        "n": 4,
+        "rate": 1.0,
+        "stable": 4
+      },
+      "contradiction_precision": {
+        "predicted": 1,
+        "rate": 1.0,
+        "true_positives": 1
+      },
+      "contradiction_recall": {
+        "expected": 1,
+        "found": 1,
+        "rate": 1.0
+      },
+      "cost": {
+        "latency_p50_ms": 76302.0,
+        "latency_p95_ms": 271577.0,
+        "model_calls_per_case": 2.1,
+        "queries_per_case": 22.2,
+        "tokens_in_per_case": 4168.6,
+        "tokens_out_per_case": 2457.8
+      },
+      "fact_accuracy": {
+        "correct": 337,
+        "n": 338,
+        "per_control": {
+          "": {
+            "correct": 157,
+            "n": 158,
+            "rate": 0.9936708860759493
+          },
+          "C01": {
+            "correct": 20,
+            "n": 20,
+            "rate": 1.0
+          },
+          "C02": {
+            "correct": 20,
+            "n": 20,
+            "rate": 1.0
+          },
+          "C03": {
+            "correct": 10,
+            "n": 10,
+            "rate": 1.0
+          },
+          "C04": {
+            "correct": 20,
+            "n": 20,
+            "rate": 1.0
+          },
+          "C05": {
+            "correct": 20,
+            "n": 20,
+            "rate": 1.0
+          },
+          "C06": {
+            "correct": 10,
+            "n": 10,
+            "rate": 1.0
+          },
+          "C07": {
+            "correct": 10,
+            "n": 10,
+            "rate": 1.0
+          },
+          "C08": {
+            "correct": 10,
+            "n": 10,
+            "rate": 1.0
+          },
+          "C09": {
+            "correct": 20,
+            "n": 20,
+            "rate": 1.0
+          },
+          "C10": {
+            "correct": 10,
+            "n": 10,
+            "rate": 1.0
+          },
+          "C11": {
+            "correct": 10,
+            "n": 10,
+            "rate": 1.0
+          },
+          "C12": {
+            "correct": 20,
+            "n": 20,
+            "rate": 1.0
+          }
+        },
+        "rate": 0.9970414201183432
+      },
+      "failing_control_recall": {
+        "expected": 3,
+        "found": 3,
+        "rate": 1.0
+      },
+      "fallback_rate": {
+        "count": 20,
+        "n": 796,
+        "rate": 0.02512562814070352
+      },
+      "grounding_rate": {
+        "grounded": 158,
+        "n": 158,
+        "rate": 1.0
+      },
+      "injection_detection": {
+        "detected": 1,
+        "n": 1,
+        "rate": 1.0
+      },
+      "injection_false_positive_rate": {
+        "flagged": 0,
+        "n": 9,
+        "rate": 0.0
+      },
+      "invalid_rate": {
+        "count": 0,
+        "n": 0,
+        "rate": null
+      },
+      "macro_f1": {
+        "per_class": {
+          "APPROVE": 1.0,
+          "ESCALATE": 1.0,
+          "REQUEST_INFO": 1.0
+        },
+        "score": 1.0
+      },
+      "over_escalations": {
+        "count": 0,
+        "n": 10
+      },
+      "run": {
+        "case_refs": [
+          "VND-0001",
+          "VND-0003",
+          "VND-0004",
+          "VND-0006",
+          "VND-0007",
+          "VND-0008",
+          "VND-0012",
+          "VND-0013",
+          "VND-0015",
+          "VND-0016"
+        ],
+        "fallback_rate": {
+          "count": 10,
+          "n": 21,
+          "rate": 0.47619047619047616
+        },
+        "latency_ms": {
+          "p50": 76302,
+          "p95": 271577
+        },
+        "mode": {
+          "data": "zetaris",
+          "llm": "meterless"
+        },
+        "model_calls_per_case": 2.1,
+        "model_ids": [
+          "nvidia/nemotron-3.5-lightning-30b-a3b",
+          "nvidia/nemotron-3.5-super-vl-120b-a12b"
+        ],
+        "n": 10,
+        "routed_models": {
+          "deep": [
+            "nvidia/nemotron-3.5-lightning-30b-a3b",
+            "nvidia/nemotron-3.5-super-vl-120b-a12b"
+          ],
+          "fast": [
+            "nvidia/nemotron-3.5-super-vl-120b-a12b"
+          ]
+        }
+      },
+      "selective_accuracy": {
+        "correct": 8,
+        "n": 8,
+        "rate": 1.0
+      },
+      "unsafe_approvals": {
+        "count": 0,
+        "n": 10
+      }
+    },
+    "arbiter_offline": {
+      "abstention_rate": {
+        "count": 6,
+        "n": 16,
+        "rate": 0.375
+      },
+      "accuracy": {
+        "correct": 16,
+        "n": 16,
+        "rate": 1.0,
+        "wilson_95": [
+          0.8063865817272802,
+          1.0
+        ]
+      },
+      "consistency": {
+        "facts_hash_stable": 4,
+        "n": 4,
+        "rate": 1.0,
+        "stable": 4
+      },
+      "contradiction_precision": {
+        "predicted": 2,
+        "rate": 1.0,
+        "true_positives": 2
+      },
+      "contradiction_recall": {
+        "expected": 2,
+        "found": 2,
+        "rate": 1.0
+      },
+      "cost": {
+        "latency_p50_ms": 417.0,
+        "latency_p95_ms": 571.0,
+        "model_calls_per_case": 0.0,
+        "queries_per_case": 10.6875,
+        "tokens_in_per_case": 0.0,
+        "tokens_out_per_case": 0.0
+      },
+      "fact_accuracy": {
+        "correct": 538,
+        "n": 540,
+        "per_control": {
+          "": {
+            "correct": 250,
+            "n": 252,
+            "rate": 0.9920634920634921
+          },
+          "C01": {
+            "correct": 32,
+            "n": 32,
+            "rate": 1.0
+          },
+          "C02": {
+            "correct": 32,
+            "n": 32,
+            "rate": 1.0
+          },
+          "C03": {
+            "correct": 16,
+            "n": 16,
+            "rate": 1.0
+          },
+          "C04": {
+            "correct": 32,
+            "n": 32,
+            "rate": 1.0
+          },
+          "C05": {
+            "correct": 32,
+            "n": 32,
+            "rate": 1.0
+          },
+          "C06": {
+            "correct": 16,
+            "n": 16,
+            "rate": 1.0
+          },
+          "C07": {
+            "correct": 16,
+            "n": 16,
+            "rate": 1.0
+          },
+          "C08": {
+            "correct": 16,
+            "n": 16,
+            "rate": 1.0
+          },
+          "C09": {
+            "correct": 32,
+            "n": 32,
+            "rate": 1.0
+          },
+          "C10": {
+            "correct": 16,
+            "n": 16,
+            "rate": 1.0
+          },
+          "C11": {
+            "correct": 16,
+            "n": 16,
+            "rate": 1.0
+          },
+          "C12": {
+            "correct": 32,
+            "n": 32,
+            "rate": 1.0
+          }
+        },
+        "rate": 0.9962962962962963
+      },
+      "failing_control_recall": {
+        "expected": 6,
+        "found": 6,
+        "rate": 1.0
+      },
+      "fallback_rate": {
+        "count": 0,
+        "n": 932,
+        "rate": 0.0
+      },
+      "grounding_rate": {
+        "grounded": 251,
+        "n": 251,
+        "rate": 1.0
+      },
+      "injection_detection": {
+        "detected": 1,
+        "n": 1,
+        "rate": 1.0
+      },
+      "injection_false_positive_rate": {
+        "flagged": 0,
+        "n": 15,
+        "rate": 0.0
+      },
+      "invalid_rate": {
+        "count": 0,
+        "n": 0,
+        "rate": null
+      },
+      "macro_f1": {
+        "per_class": {
+          "APPROVE": 1.0,
+          "ESCALATE": 1.0,
+          "REQUEST_INFO": 1.0
+        },
+        "score": 1.0
+      },
+      "over_escalations": {
+        "count": 0,
+        "n": 16
+      },
+      "run": {
+        "case_refs": [
+          "VND-0001",
+          "VND-0003",
+          "VND-0004",
+          "VND-0006",
+          "VND-0007",
+          "VND-0008",
+          "VND-0012",
+          "VND-0013",
+          "VND-0015",
+          "VND-0016",
+          "VND-0017",
+          "VND-0018",
+          "VND-0021",
+          "VND-0024",
+          "VND-0025",
+          "VND-0027"
+        ],
+        "fallback_rate": {
+          "count": 0,
+          "n": 0,
+          "rate": null
+        },
+        "latency_ms": {
+          "p50": 417,
+          "p95": 571
+        },
+        "mode": {
+          "data": "duckdb",
+          "llm": "offline"
+        },
+        "model_calls_per_case": 0.0,
+        "model_ids": [],
+        "n": 16,
+        "routed_models": {}
+      },
+      "selective_accuracy": {
+        "correct": 10,
+        "n": 10,
+        "rate": 1.0
+      },
+      "unsafe_approvals": {
+        "count": 0,
+        "n": 16
+      }
+    },
+    "baseline": {
+      "abstention_rate": {
+        "count": 0,
+        "n": 10,
+        "rate": 0.0
+      },
+      "accuracy": {
+        "correct": 0,
+        "n": 10,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.2775401687666166
+        ]
+      },
+      "consistency": {
+        "facts_hash_stable": 4,
+        "n": 4,
+        "rate": 1.0,
+        "stable": 4
+      },
+      "contradiction_precision": {
+        "predicted": 0,
+        "rate": null,
+        "true_positives": 0
+      },
+      "contradiction_recall": {
+        "expected": 1,
+        "found": 0,
+        "rate": 0.0
+      },
+      "cost": {
+        "latency_p50_ms": 62659.0,
+        "latency_p95_ms": 125023.0,
+        "model_calls_per_case": 1.0,
+        "queries_per_case": 26.0,
+        "tokens_in_per_case": 0.0,
+        "tokens_out_per_case": 0.0
+      },
+      "fact_accuracy": {
+        "correct": 0,
+        "n": 0,
+        "per_control": {},
+        "rate": null
+      },
+      "failing_control_recall": {
+        "expected": 3,
+        "found": 0,
+        "rate": 0.0
+      },
+      "fallback_rate": {
+        "count": 10,
+        "n": 280,
+        "rate": 0.03571428571428571
+      },
+      "grounding_rate": {
+        "grounded": 0,
+        "n": 0,
+        "rate": null
+      },
+      "injection_detection": {
+        "detected": 0,
+        "n": 1,
+        "rate": 0.0
+      },
+      "injection_false_positive_rate": {
+        "flagged": 0,
+        "n": 9,
+        "rate": 0.0
+      },
+      "invalid_rate": {
+        "count": 10,
+        "n": 10,
+        "rate": 1.0
+      },
+      "macro_f1": {
+        "per_class": {
+          "APPROVE": 0.0,
+          "ESCALATE": 0.0,
+          "REQUEST_INFO": 0.0
+        },
+        "score": 0.0
+      },
+      "over_escalations": {
+        "count": 0,
+        "n": 10
+      },
+      "run": {
+        "case_refs": [
+          "VND-0001",
+          "VND-0003",
+          "VND-0004",
+          "VND-0006",
+          "VND-0007",
+          "VND-0008",
+          "VND-0012",
+          "VND-0013",
+          "VND-0015",
+          "VND-0016"
+        ],
+        "fallback_rate": {
+          "count": 10,
+          "n": 10,
+          "rate": 1.0
+        },
+        "latency_ms": {
+          "p50": 62659,
+          "p95": 125023
+        },
+        "mode": {
+          "data": "zetaris",
+          "llm": "meterless"
+        },
+        "model_calls_per_case": 1.0,
+        "model_ids": [],
+        "n": 10,
+        "routed_models": {}
+      },
+      "selective_accuracy": {
+        "correct": 0,
+        "n": 10,
+        "rate": 0.0
+      },
+      "unsafe_approvals": {
+        "count": 0,
+        "n": 10
+      }
+    }
+  }
+}

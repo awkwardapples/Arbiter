@@ -20,7 +20,8 @@
   "entry_points": {
     "api": "POST http://localhost:8000/run",
     "cli": "python run.py assess --input input_examples/example_1.json",
-    "docker_sample_mode": "docker run --rm -p 8000:8000 -e SAMPLE_MODE=true arbiter"
+    "docker_sample_mode": "docker run --rm -p 8000:8000 -e SAMPLE_MODE=true arbiter",
+    "console": "http://localhost:8000/console/"
   },
   "track_mapping": {
     "Data": "Zetaris USL vendor_risk: five systems plus CISA KEV",
@@ -122,7 +123,7 @@
       "evidence": [
         "docs/passes/P1-B_parity.json",
         "docs/ZETARIS_USL.md",
-        "logs/examples/live/trace-run-83de5da137c0.jsonl"
+        "logs/examples/live/trace-run-211916c1544d.jsonl"
       ]
     },
     "meterless": {
@@ -145,7 +146,7 @@
         "docs/evidence/nightshift_proof.json",
         "docs/evidence/nightshift_deviations.md",
         "docs/evidence/memory_session.md",
-        "logs/examples/live/trace-run-83de5da137c0.jsonl"
+        "logs/examples/live/trace-run-211916c1544d.jsonl"
       ]
     },
     "nvidia": {
@@ -153,14 +154,14 @@
         "nvidia/nemotron-3.5-super-vl-120b-a12b",
         "nvidia/nemotron-3.5-lightning-30b-a3b"
       ],
-      "access": "Via Meterless Nightshift. Arbiter requests meterless/fast and meterless/deep; a Nightshift app rule currently coerces both lanes to auto, which picks the model per request (docs/evidence/nightshift_deviations.md).",
+      "access": "Via Meterless Nightshift. Arbiter requests meterless/fast and meterless/deep; a Nightshift app rule still coerces both lanes to auto, which picks the model per request, and exact model ids are not yet respected (docs/evidence/nightshift_deviations.md).",
       "files": [
         "app/llm/providers/meterless.py",
         "app/llm/providers/nvidia.py"
       ],
       "evidence": [
         "docs/evidence/nightshift_proof.json",
-        "logs/examples/live/trace-run-83de5da137c0.jsonl"
+        "logs/examples/live/trace-run-211916c1544d.jsonl"
       ]
     },
     "cursor": {
@@ -189,18 +190,18 @@
   "model_evidence": {
     "nvidia/nemotron-3.5-super-vl-120b-a12b": [
       {
-        "file": "logs/examples/live/trace-run-83de5da137c0.jsonl",
-        "receipt_id": "rcpt_req_ltd0d684"
+        "file": "logs/examples/live/trace-run-211916c1544d.jsonl",
+        "receipt_id": "rcpt_req_306f1su6"
       },
       {
         "file": "docs/evidence/nightshift_proof.json",
-        "receipt_id": "rcpt_req_p412l7ql"
+        "receipt_id": "rcpt_req_wu3r6jyf"
       }
     ],
     "nvidia/nemotron-3.5-lightning-30b-a3b": [
       {
         "file": "docs/evidence/nightshift_proof.json",
-        "receipt_id": "rcpt_req_924f14pn"
+        "receipt_id": "rcpt_req_936ew345"
       },
       {
         "file": "eval/results_live/20261024T045916036274Z/traces/trace-run-f59a50433bf5.jsonl",
@@ -209,7 +210,7 @@
     ]
   },
   "lane_deviation": {
-    "summary": "The deep lane is served by Nemotron 3.5 Super VL, and a Nightshift app rule coerces both lanes to auto; Meterless has acknowledged the routing bug, with a fix targeted for its Sunday release.",
+    "summary": "Both lanes are still coerced to auto by a Nightshift app rule. Meterless acknowledged the bug and targeted a fix for its Sunday 25 October release; on 25 October neither routing modes nor exact model ids were respected (proof runs 4 and 5). Every successful call in the live examples was served by Nemotron 3.5 Super VL.",
     "file": "docs/evidence/nightshift_deviations.md",
     "proof": "docs/evidence/nightshift_proof.json"
   },
@@ -231,8 +232,8 @@
       "feature": "USL model vendor_risk",
       "file": "zetaris/sql/03_usl.sql",
       "evidence": "docs/passes/P1-B_parity.json",
-      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
-      "match": "query_id=Q_VENDOR_360"
+      "trace": "logs/examples/live/trace-run-211916c1544d.jsonl",
+      "match": "zetaris_request_id=ddbc292a-c2b4-47b6-a34e-1034e97f82c1"
     },
     {
       "sponsor": "zetaris",
@@ -244,23 +245,23 @@
       "sponsor": "zetaris",
       "feature": "Federated public and private join",
       "file": "zetaris/sql/02_kev.sql",
-      "trace": "eval/results_live/20261024T045916036274Z/traces/trace-run-257c86984507.jsonl",
-      "match": "zetaris_request_id=75b06ff3-786b-45f2-9f74-cefdba9b659b"
+      "trace": "logs/examples/live/trace-run-211916c1544d.jsonl",
+      "match": "zetaris_request_id=04559cdd-f5ae-4ee7-af41-f742d4703094"
     },
     {
       "sponsor": "zetaris",
       "feature": "REST SQL API",
       "file": "app/data/zetaris.py",
-      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
-      "match": "zetaris_request_id=55bf9cc1-e25e-4a48-9b41-f2bda35d935d"
+      "trace": "logs/examples/live/trace-run-211916c1544d.jsonl",
+      "match": "zetaris_request_id=a80b2d0a-530b-4214-9899-cdbba5cf8951"
     },
     {
       "sponsor": "meterless",
       "feature": "Nightshift Runtime (POWER contract)",
       "file": "app/llm/providers/meterless.py",
       "evidence": "docs/evidence/nightshift_proof.json",
-      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
-      "match": "rcpt_req_ltd0d684"
+      "trace": "logs/examples/live/trace-run-211916c1544d.jsonl",
+      "match": "rcpt_req_306f1su6"
     },
     {
       "sponsor": "meterless",
@@ -275,7 +276,7 @@
       "feature": "Scout Intent (guard and execution contracts subset)",
       "file": "app/guard/scout_guard.py",
       "evidence": "tests/conformance/test_scout_adversarial.py",
-      "trace": "logs/examples/live/trace-run-83de5da137c0.jsonl",
+      "trace": "logs/examples/live/trace-run-211916c1544d.jsonl",
       "match": "executed: ok"
     }
   ],

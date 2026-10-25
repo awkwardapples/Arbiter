@@ -12,7 +12,7 @@ Open Agent Hackathon 2026 rules: "Work committed before the build window opens (
   - `docs/DAY0_CHECKS.md` (template).
 - **When:** written 20–21 October 2026, before the build window; committed unchanged in the first commit after the window opened.
   - Import commit sha: `b3c720deca0140efe6ef53fd88e9f18474ca707c`
-- **How:** by me with an AI assistant (Claude, Anthropic) acting as architect. All application code for passes P0–P14-A was written in Cursor. From P14-B onwards it was written in Claude Code in VS Code, after the organisers confirmed that any IDE may be used. `docs/CURSOR_USAGE.md` records the tool and model used for each pass. The Release 3 specifications and reviews were drafted by Claude (Anthropic) outside the repository, as for Releases 1 and 2.
+- **How:** by me with an AI assistant (Claude, Anthropic) acting as architect. All application code for passes P0–P14-A was written in Cursor. From P14-B onwards it was written in Claude Code in VS Code, after the organisers confirmed that any IDE may be used ([organisers' message on the hackathon platform](https://hackathon.genai.works/messages?c=01a01e1c-8ff8-7c95-8191-618849846e28&m=01a16397-d04e-793e-a5b5-2cc816383471), 22 October 2026, 13:30). `docs/CURSOR_USAGE.md` records the tool and model used for each pass. The Release 3 specifications and reviews were drafted by Claude (Anthropic) outside the repository, as for Releases 1 and 2.
 
 ## 2. Concept, research and narrative from an earlier prototype
 
@@ -21,7 +21,7 @@ Open Agent Hackathon 2026 rules: "Work committed before the build window opens (
 
 ## 3. Market-research slide content
 
-- **What:** problem, users and competitor research slides from my earlier market-research deck. They are refreshed (DBIR 2026 statistics) and reused in deck slides 2–4.
+- **What:** problem, users and competitor research slides from my earlier market-research deck. They are refreshed (DBIR 2026 statistics) and reused in deck slides 4 and 6.
 
 ## 4. Third-party open material (used under licence; attributed in README)
 

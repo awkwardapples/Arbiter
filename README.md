@@ -18,6 +18,11 @@ Sample mode needs no credentials. It runs the same agents and policy on a DuckDB
 ```bash
 docker build -t arbiter .
 docker run --rm -p 8000:8000 -e SAMPLE_MODE=true arbiter
+```
+
+Open http://localhost:8000 for the web console. Pick Quillfeather Payroll Cloud Ltd and press **Start assessment** to watch the agents work, or replay a run recorded live. The API is the same process:
+
+```bash
 curl -s -X POST localhost:8000/run -H "Content-Type: application/json" -d @input_examples/example_2.json
 ```
 
@@ -47,33 +52,43 @@ Arbiter turns one onboarding into a cited, replayable decision with the follow-u
 
 ## See it work
 
-Live example 1, `run-83de5da137c0` (Pellucid Forms Ltd), ran on 24 October 2026 against the Zetaris USL and Meterless Nightshift. Outcome `APPROVE`, matching its label, in 159 s; brief: "Approve: Pellucid Forms Ltd meets the checks this assessment could verify." (`output_examples/example_1_output.json`, trace `logs/examples/live/trace-run-83de5da137c0.jsonl`).
+Live example 2, `run-211916c1544d` (Quillfeather Payroll Cloud Ltd), ran on 25 October 2026 against the Zetaris USL and Meterless Nightshift. Outcome `ESCALATE`, matching its label, in 228 s; brief: "Escalate to the TPRM lead: Quillfeather Payroll Cloud Ltd says EU, but its contract (CTR-30007) shows US." (`output_examples/example_2_output.json`, trace `logs/examples/live/trace-run-211916c1544d.jsonl`).
 
-Twelve registry queries went through Zetaris, each with a request id:
+Fourteen registry queries went through Zetaris, each with a request id. One of them joins the vendor's declared components to CISA's known-exploited list inside Zetaris, and finds 15 FortiOS entries:
 
 ```jsonl
-{"timestamp":"2026-10-24T04:41:21.164571Z","run_id":"run-83de5da137c0","trace_id":"run-83de5da137c0","span_id":"9ff44f96653943a7","parent_span_id":null,"agent_name":"data","action":"query_zetaris","input_summary":"query_id=Q_VENDOR_PROFILE","output_summary":"rows=1 zetaris_request_id=55bf9cc1-e25e-4a48-9b41-f2bda35d935d","target_agent":null,"confidence":null,"retry_count":0,"status":"success","provider":null,"route":null,"model":null,"latency_ms":1024,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":"Q_VENDOR_PROFILE","rows":1,"backend":"zetaris","loop":null,"iteration":null,"mode":{"data":"zetaris","llm":"meterless"}}
+{"timestamp":"2026-10-25T15:16:55.887221Z","run_id":"run-211916c1544d","trace_id":"run-211916c1544d","span_id":"2e67b49302d94d47","parent_span_id":null,"agent_name":"data","action":"query_zetaris","input_summary":"query_id=Q_COMPONENT_KEV","output_summary":"rows=15 zetaris_request_id=04559cdd-f5ae-4ee7-af41-f742d4703094","target_agent":null,"confidence":null,"retry_count":0,"status":"success","provider":null,"route":null,"model":null,"latency_ms":1992,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":"Q_COMPONENT_KEV","rows":15,"backend":"zetaris","loop":null,"iteration":null,"mode":{"data":"zetaris","llm":"meterless"}}
 ```
 
-Five agent steps ran on Nemotron through Nightshift, each with a receipt. The Planner's first plan:
+Four agent steps ran on Nemotron through Nightshift, each with a receipt. The Planner's first plan:
 
 ```jsonl
-{"timestamp":"2026-10-24T04:41:35.414838Z","run_id":"run-83de5da137c0","trace_id":"run-83de5da137c0","span_id":"b644cd34198c4a27","parent_span_id":null,"agent_name":"PlannerAgent","action":"model_call","input_summary":"purpose=plan route=deep response=json attempt=1 prompt_chars=4985","output_summary":"json valid (PlanOut)","target_agent":null,"confidence":null,"retry_count":0,"status":"success","provider":"meterless","route":"deep","model":"nvidia/nemotron-3.5-super-vl-120b-a12b","latency_ms":14180,"tokens_in":3368,"tokens_out":3148,"purpose":"plan","provider_meta":{"requested_model":"meterless/deep","response_id":"chatcmpl-02a396e9-0707-4dab-bfd1-542a5ae7ff5a","schema":"meterless.compute_receipt.v1","receipt_id":"rcpt_req_ltd0d684","decision_id":"req_ltd0d684","provider_model":"meterless/auto","routed_model":"nvidia/nemotron-3.5-super-vl-120b-a12b","mode":"auto","requires_review":"False","winning_route.provider":"nvidia","winning_route.label":"Nemotron 3.5 Super VL 120B A12B","winning_route.kind":"cloud","winning_route.tier":"C","winning_route.model":"nvidia/nemotron-3.5-super-vl-120b-a12b","app_policy.app":"arbiter","app_policy.has_rule":"True","app_policy.bound_mode":"auto","app_policy.requested_mode":"deep","app_policy.routed_mode":"auto","app_policy.mode_coerced":"True","app_policy.privacy":"cloud-ok","cost.actual_usd":"0","cost.naive_usd":"0","cost.race_overhead_usd":"0","cost.verifier_usd":"0","cost.baseline.model":"nvidia/nemotron-3.5-super-vl-120b-a12b","cost.baseline.label":"Nemotron 3.5 Super VL 120B A12B","cost.baseline.source":"mode-default-frontier","savings.amount":"0","savings.currency":"USD","savings.vs":"Nemotron 3.5 Super VL 120B A12B","savings.baseline_source":"mode-default-frontier","no_think":"true"},"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":null,"mode":{"data":"zetaris","llm":"meterless"}}
+{"timestamp":"2026-10-25T15:14:39.993028Z","run_id":"run-211916c1544d","trace_id":"run-211916c1544d","span_id":"b52b708295384d10","parent_span_id":null,"agent_name":"PlannerAgent","action":"model_call","input_summary":"purpose=plan route=deep response=json attempt=1 prompt_chars=4986","output_summary":"json valid (PlanOut)","target_agent":null,"confidence":null,"retry_count":0,"status":"success","provider":"meterless","route":"deep","model":"nvidia/nemotron-3.5-super-vl-120b-a12b","latency_ms":51498,"tokens_in":3773,"tokens_out":3072,"purpose":"plan","provider_meta":{"requested_model":"meterless/deep","response_id":"chatcmpl-f243a055-8ec9-4f92-aeae-2e6e46d5e019","schema":"meterless.compute_receipt.v1","receipt_id":"rcpt_req_306f1su6","decision_id":"req_306f1su6","provider_model":"meterless/auto","routed_model":"nvidia/nemotron-3.5-super-vl-120b-a12b","mode":"auto","requires_review":"False","winning_route.provider":"nvidia","winning_route.label":"Nemotron 3.5 Super VL 120B A12B","winning_route.kind":"cloud","winning_route.tier":"C","winning_route.model":"nvidia/nemotron-3.5-super-vl-120b-a12b","app_policy.app":"arbiter","app_policy.has_rule":"True","app_policy.bound_mode":"auto","app_policy.requested_mode":"deep","app_policy.routed_mode":"auto","app_policy.mode_coerced":"True","app_policy.privacy":"cloud-ok","cost.actual_usd":"0","cost.naive_usd":"0","cost.race_overhead_usd":"0","cost.verifier_usd":"0","cost.baseline.model":"nvidia/nemotron-3.5-super-vl-120b-a12b","cost.baseline.label":"Nemotron 3.5 Super VL 120B A12B","cost.baseline.source":"mode-default-frontier","savings.amount":"0","savings.currency":"USD","savings.vs":"Nemotron 3.5 Super VL 120B A12B","savings.baseline_source":"mode-default-frontier","no_think":"true"},"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":null,"mode":{"data":"zetaris","llm":"meterless"}}
 ```
 
 The Evaluator then sent the Planner back for missing incident and contract evidence:
 
 ```jsonl
-{"timestamp":"2026-10-24T04:42:44.302557Z","run_id":"run-83de5da137c0","trace_id":"run-83de5da137c0","span_id":"070a17b8d08d4146","parent_span_id":null,"agent_name":"EvaluatorAgent","action":"evaluate","input_summary":"claims=16 queries=8","output_summary":"gaps: C06→Q_VENDOR_INCIDENTS; C09→Q_VENDOR_CONTRACT","target_agent":"PlannerAgent","confidence":null,"retry_count":0,"status":"needs_revision","provider":null,"route":null,"model":null,"latency_ms":null,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":1,"mode":{"data":"zetaris","llm":"meterless"}}
+{"timestamp":"2026-10-25T15:16:01.106320Z","run_id":"run-211916c1544d","trace_id":"run-211916c1544d","span_id":"6a0ba5b7bd4d4030","parent_span_id":null,"agent_name":"EvaluatorAgent","action":"evaluate","input_summary":"claims=16 queries=8","output_summary":"gaps: C06→Q_VENDOR_INCIDENTS; C07→Q_VENDOR_CONTRACT; C08→Q_VENDOR_CONTRACT; C09→Q_VENDOR_CONTRACT; C10→Q_VENDOR_CONTRACT; C12→Q_COMPONENT_KEV","target_agent":"PlannerAgent","confidence":null,"retry_count":0,"status":"needs_revision","provider":null,"route":null,"model":null,"latency_ms":null,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":1,"mode":{"data":"zetaris","llm":"meterless"}}
 ```
 
-The reviewer console (`python run.py ui`; screenshots from `scripts/capture_ui.py`):
+With the contract in hand, it found the vendor's claim contradicted by the system of record. The policy engine escalated, and the Challenger confirmed the escalation:
 
-| Case: claim versus record | Queue by residual risk |
+```jsonl
+{"timestamp":"2026-10-25T15:16:55.888882Z","run_id":"run-211916c1544d","trace_id":"run-211916c1544d","span_id":"10fb766705404e07","parent_span_id":null,"agent_name":"EvaluatorAgent","action":"contradiction_found","input_summary":"key=residency.regions control=C09","output_summary":"vendor=EU record=US system=clm record_key=contract_id=CTR-30007","target_agent":null,"confidence":null,"retry_count":0,"status":"success","provider":null,"route":null,"model":null,"latency_ms":null,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":null,"mode":{"data":"zetaris","llm":"meterless"}}
+```
+
+One Planner call returned HTTP 502 and fell back to deterministic planning; the trace labels it `fallback`.
+
+The web console shows the same trace as it happens: the agents, the records they read and every send-back (screenshots from `scripts/capture_web.py`):
+
+| Live run, mid-way | The ruling |
 |---|---|
-| ![Case](docs/img/ui_case.png) | ![Queue](docs/img/ui_queue.png) |
-| **Drafted next action** | **Governed precedents** |
-| ![Next action](docs/img/ui_case_next_action.png) | ![Precedents](docs/img/ui_memory.png) |
+| ![Run in progress](docs/img/console_run_mid.png) | ![Ruling](docs/img/console_live_ruling.png) |
+| **Case: claim versus record** | **Sources: the Zetaris USL** |
+| ![Case](docs/img/console_case_decision.png) | ![Sources](docs/img/console_sources.png) |
+
+The Streamlit console (`python run.py ui`) remains as a fallback.
 
 ## How it works
 
@@ -117,29 +132,31 @@ The full build, bisect and reflection are in [docs/ZETARIS_USL.md](docs/ZETARIS_
 
 ## Nemotron and Nightshift
 
-Every model call goes through one seam, `app/llm/generator.py`, to Meterless Nightshift (`app/llm/providers/meterless.py`). Arbiter requests a lane, `meterless/fast` or `meterless/deep`; Nightshift chooses the Nemotron model and returns a compute receipt, which the trace keeps. `python run.py llm proof` wrote `docs/evidence/nightshift_proof.json`:
+Every model call goes through one seam, `app/llm/generator.py`, to Meterless Nightshift (`app/llm/providers/meterless.py`). Arbiter requests a lane, `meterless/fast` or `meterless/deep`; Nightshift chooses the Nemotron model and returns a compute receipt, which the trace keeps. `python run.py llm proof` wrote `docs/evidence/nightshift_proof.json` on 25 October 2026:
 
 | Lane | Arbiter sent | Routed mode | Model served | Receipt |
 |---|---|---|---|---|
-| fast | `meterless/fast` | `auto` (coerced) | `nvidia/nemotron-3.5-lightning-30b-a3b` | `rcpt_req_924f14pn` |
-| deep | `meterless/deep` | `auto` (coerced) | `nvidia/nemotron-3.5-super-vl-120b-a12b` | `rcpt_req_p412l7ql` |
+| fast | `meterless/fast` | `auto` (coerced) | `nvidia/nemotron-3.5-lightning-30b-a3b` | `rcpt_req_936ew345` |
+| deep | `meterless/deep` | `auto` (coerced) | `nvidia/nemotron-3.5-super-vl-120b-a12b` | `rcpt_req_wu3r6jyf` |
 
-Which agent steps run on which lane: planning and challenge request the deep lane; claim extraction and critique request the fast lane. In live example 1 all five successful calls were served by Nemotron 3.5 Super VL. The brief came from the deterministic template (`generator=template:v1`), so every sentence in it is checkable.
+Which agent steps run on which lane: planning and challenge request the deep lane; claim extraction and critique request the fast lane. In live example 2 all four successful calls were served by Nemotron 3.5 Super VL. The report comes from the deterministic template `template:v1`; the brief from `template:v2`, so every sentence in it is checkable.
 
-**Deviation, stated plainly.** The deep lane runs `nvidia/nemotron-3.5-super-vl-120b-a12b`. It was designed for `nvidia/nemotron-3-super-120b-a12b`, which returns 404 on this NVIDIA account (not entitled). Separately, a Nightshift Default app rule coerces both lanes to `auto`, which picks the model per request, so lane separation is not guaranteed: most live calls on both lanes landed on Super VL, and large deep-lane prompts sometimes landed on Lightning and returned HTTP 502. Meterless has acknowledged the routing bug, with a fix targeted for its Sunday release. Every receipt records the coercion (`app_policy.mode_coerced: True`). Operator observations and the vendor acknowledgement: `docs/evidence/nightshift_deviations.md`.
+**Deviation, stated plainly.** The deep lane runs `nvidia/nemotron-3.5-super-vl-120b-a12b`. It was designed for `nvidia/nemotron-3-super-120b-a12b`, which returns 404 on this NVIDIA account (not entitled). Separately, a Nightshift Default app rule coerces both lanes to `auto`, which picks the model per request, so lane separation is not guaranteed. Meterless acknowledged the routing bug on 24 October and targeted a fix for its Sunday release; on Sunday 25 October the fix had not reached this build. The receipts above still record `app_policy.mode_coerced: True`, and a proof that named exact model ids got Super VL on both lanes (`docs/evidence/history/nightshift_proof-run5-exact-ids.json`). In the live examples every successful call was served by Super VL, and the calls `auto` sent to Lightning returned HTTP 502 and fell back. Operator observations and the vendor acknowledgement: `docs/evidence/nightshift_deviations.md`.
 
 ## Evaluation
 
-**Live evaluation: 5/5 on the first 5 test cases, with 5 of 25 model calls falling back to deterministic. The baseline could not be measured — all 9 baseline calls returned 502 from Nightshift's forced auto mode. Arbiter offline remains 16/16 on the full test split.**
+**Live: 10/10 on the first 10 test cases, 0 unsafe, 4/4 consistent; 10 of 21 model calls fell back (6 of 10 cases decided without a successful model call). Baseline could not be measured: all 10 baseline calls returned 502. Offline 16/16.**
 
-- Live Arbiter: 0 unsafe approvals; 4/4 consistency repeats identical; the one residency contradiction in the subset (VND-0007) found; p50 141.8 s per case.
-- The baseline is one Nemotron prompt with the policy and all the evidence. Its 0/5 measures Nightshift routing, not single-model quality, so it is **not** reported as an Arbiter win.
-- n is small: five live cases give a Wilson 95% interval of 0.57–1.00 on accuracy.
+- The one residency contradiction in the subset (VND-0007) was found; failing-control recall 3/3.
+- The model-call fallback rate rose from 0.20 on 24 October (5 of 25, n=5) to 0.48 in this run (10 of 21, n=10), under the same Nightshift routing rule. Lightning served two deep-lane calls successfully; the rest it was sent were 502s.
+- The median case took 76.3 s (p95 271.6 s). It is lower than on 24 October (141.8 s) largely because more cases lost their first model call and finished on deterministic logic, so it is not a speed improvement.
+- The baseline is one Nemotron prompt with the policy and all the evidence. Its 0/10 measures Nightshift routing, not single-model quality, so it is **not** reported as an Arbiter win.
+- n is small: ten live cases give a Wilson 95% interval of 0.72–1.00 on accuracy.
 
-The block below is the rendered `eval/results_live/20261024T045916036274Z/summary.json`; `tests/unit/docs/test_claims.py` checks that it matches the latest live summary. `python run.py eval --live --publish` regenerates `docs/EVALUATION.md`, not this README block. Method, labels and discussion: [docs/EVALUATION.md](docs/EVALUATION.md).
+The block below is the rendered `eval/results_live/20261025T153035975818Z/summary.json`; `tests/unit/docs/test_claims.py` checks that it matches the latest live summary. `eval.report.publish` regenerates it and `docs/EVALUATION.md` from the latest live summary (`python run.py eval --live ... --publish` writes `docs/EVALUATION.md` only). Method, labels and discussion: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 <!-- EVAL:START -->
-# Evaluation
+### Evaluation results
 
 Synthetic data. Small n. Intervals are Wilson 95% where a rate has a denominator.
 Only the tier gates are calibrated. Weights stay at their a-priori values.
@@ -149,24 +166,24 @@ Only the tier gates are calibrated. Weights stay at their a-priori values.
 - model ids (from traces): nvidia/nemotron-3.5-super-vl-120b-a12b, nvidia/nemotron-3.5-lightning-30b-a3b
 - splits: test
 - n: 20
-- git sha: 4b4680b0586ae50003f87bab2337931aa6f6c37b
-- generated: 2026-10-24T05:35:05Z
+- git sha: cabd79e95998ea41855deb2d9f7bcd14976c2bc1
+- generated: 2026-10-25T16:09:09Z
 
 | System | Accuracy | Unsafe approvals | Invalid | Abstention |
 |---|---:|---:|---:|---:|
-| arbiter | 1.000 (5/5) | 0/5 | — | 0.200 (1/5) |
+| arbiter | 1.000 (10/10) | 0/10 | — | 0.200 (2/10) |
 | arbiter_offline | 1.000 (16/16) | 0/16 | — | 0.375 (6/16) |
-| baseline | 0.000 (0/5) | 0/5 | 1.000 (5/5) | 0.000 (0/5) |
+| baseline | 0.000 (0/10) | 0/10 | 1.000 (10/10) | 0.000 (0/10) |
 
-Reduced n: n=5 for the live systems, n=16 for the offline system; the live subset is the first 5 test cases by case_id.
+Reduced n: n=10 for the live systems, n=16 for the offline system; the live subset is the first 10 test cases by case_id.
 
 | System | Mode | n | Contradiction recall | Failing-control recall | p50 ms | p95 ms | Model calls/case | Model-call fallback |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| arbiter | zetaris / meterless | 5 | 1.000 (1/1) | 1.000 (2/2) | 141817 | 233333 | 5.0 | 0.200 (5/25) |
-| arbiter_offline | duckdb / offline | 16 | 1.000 (2/2) | 1.000 (6/6) | 436 | 611 | 0.0 | — |
-| baseline | zetaris / meterless | 5 | 0.000 (0/1) | 0.000 (0/2) | 58800 | 80770 | 1.0 | 1.000 (5/5) |
+| arbiter | zetaris / meterless | 10 | 1.000 (1/1) | 1.000 (3/3) | 76302 | 271577 | 2.1 | 0.476 (10/21) |
+| arbiter_offline | duckdb / offline | 16 | 1.000 (2/2) | 1.000 (6/6) | 417 | 571 | 0.0 | — |
+| baseline | zetaris / meterless | 10 | 0.000 (0/1) | 0.000 (0/3) | 62659 | 125023 | 1.0 | 1.000 (10/10) |
 
-- deep lane routed to: nvidia/nemotron-3.5-super-vl-120b-a12b, nvidia/nemotron-3.5-lightning-30b-a3b (from trace receipts)
+- deep lane routed to: nvidia/nemotron-3.5-lightning-30b-a3b, nvidia/nemotron-3.5-super-vl-120b-a12b (from trace receipts)
 - fast lane routed to: nvidia/nemotron-3.5-super-vl-120b-a12b (from trace receipts)
 <!-- EVAL:END -->
 
@@ -256,7 +273,7 @@ Every claim, with its file and a verbatim trace line: [docs/SPONSORS.md](docs/SP
 
 **At runtime**, the only models that ran are NVIDIA Nemotron 3.5 Super VL (`nvidia/nemotron-3.5-super-vl-120b-a12b`) and Nemotron 3.5 Lightning (`nvidia/nemotron-3.5-lightning-30b-a3b`), through Meterless Nightshift; the trace receipts show which served each call. Models plan, extract, critique and challenge. They never decide the outcome.
 
-**To build it**, application code for passes P0 to P14-A was written by Cursor agents (Composer, Grok 4.7 and Claude Opus as the agent model). P14-B, P15 and P17 were done in Claude Code (Claude Sonnet 5.5 and Claude Opus 5.5). The per-pass record is the table in [docs/CURSOR_USAGE.md](docs/CURSOR_USAGE.md), compiled from `docs/cursor-usage/`. The architecture specs (Release 1 and 2), the independent reviews and the small Release 2 tooling patch (lane ids, markers, opt-in Docker test) were drafted by Claude (Anthropic) outside the repo and applied and committed through Cursor. I reviewed every change.
+**To build it**, application code for passes P0 to P14-A was written by Cursor agents (Composer, Grok 4.7 and Claude Opus as the agent model). From P14-B onwards (P14-B, P15, P17, P18-A to P18-D, P19 and P20) the passes were done in Claude Code (Claude Sonnet 5.5 and Claude Opus 5.5), after the organisers confirmed that any IDE may be used (`docs/PRIOR_WORK.md`). The per-pass record is the table in [docs/CURSOR_USAGE.md](docs/CURSOR_USAGE.md), compiled from `docs/cursor-usage/`. The architecture specs (Release 1 and 2), the independent reviews and the small Release 2 tooling patch (lane ids, markers, opt-in Docker test) were drafted by Claude (Anthropic) outside the repo and applied and committed through Cursor. I reviewed every change.
 
 There is no agent framework; coordination is the state machine in `app/orchestrator.py`.
 
@@ -280,15 +297,17 @@ Arbiter itself is MIT-licensed.
 
 Runtime libraries, pinned in `requirements.txt`: FastAPI, pydantic, DuckDB, Streamlit, httpx, tenacity and PyYAML.
 
+The web console (`web/`, built into `web/dist/`), pinned in `web/package.json`: React, React Router, TanStack Query, React Flow (`@xyflow/react`) with dagre, Radix UI, Motion, Lucide icons, Sonner, zod, class-variance-authority, clsx and tailwind-merge (all MIT or ISC); fonts Public Sans, Source Serif 4 and IBM Plex Mono (SIL OFL 1.1) via Fontsource.
+
 Meterless H-MEM conformance vectors and Scout adversarial eval cases are Apache-2.0, ported and copied with notices in `vendor/meterless/NOTICE.md` and `vendor/meterless/NOTICE-scout.md`; the licence text is `vendor/meterless/LICENSE`. CISA KEV is CC0 1.0.
 
 ## Limitations
 
 - The enterprise systems are simulated and the company data is synthetic. KEV is the public catalogue, as a committed snapshot.
-- The live evaluation covers five cases; the offline one covers 16. These numbers show the live path works end to end, not a precision estimate.
-- The single-model baseline is unmeasured live (every call returned 502). Live Arbiter took a median of 141.8 s per case, almost all of it model calls.
-- Nightshift lane routing is coerced to `auto` until the vendor fix ships, so the lane-to-model mapping is not guaranteed (see above).
-- Only one of the six input examples has a successful live run committed. Example 3's two live attempts failed on their first call and are kept in `logs/examples/live_failed/`.
+- The live evaluation covers ten cases; the offline one covers 16. These numbers show the live path works end to end, not a precision estimate.
+- The single-model baseline is unmeasured live (every call returned 502). In live Arbiter, 10 of 21 model calls fell back (0.48, up from 0.20 on 24 October), and 6 of 10 cases were decided without a successful model call. The policy still decided all ten correctly.
+- Nightshift lane routing is still coerced to `auto` (the vendor fix had not reached this build on 25 October), so the lane-to-model mapping is not guaranteed (see above).
+- Four of the six input examples have a committed live run (2, 3, 4 and 5). Examples 1 and 6 failed live twice each, on their first and only model call (HTTP 502); their root outputs are the current sample-mode outputs, and the failed attempts are in `logs/examples/live_failed/`.
 - No OCR of real PDFs, no SSO or RBAC beyond the policy's role strings, and the outbox writes local files rather than sending email or opening real tickets.
 - One decision type (SaaS onboarding that may process personal data) and twelve controls.
 
@@ -315,8 +334,9 @@ Declared in [docs/PRIOR_WORK.md](docs/PRIOR_WORK.md):
 | `sources/` | Enterprise-systems simulator that Zetaris federates |
 | `data/` | Synthetic sample data, KEV snapshot, generator, eval labels |
 | `eval/` | Harness, baseline, offline results and `eval/results_live/` |
-| `ui/` | Streamlit reviewer console |
-| `input_examples/`, `output_examples/` | Six inputs; live output for example 1 and the sample-mode set in `output_examples/sample_mode/` |
-| `logs/examples/` | Traces: `live/`, `session/` (memory), `sample_mode/`, `live_failed/` |
+| `web/` | Web console (React); the built `web/dist/` is served by the API at `/console/` |
+| `ui/` | Streamlit reviewer console (fallback) |
+| `input_examples/`, `output_examples/` | Six inputs. At the root of `output_examples/`, examples 2–5 are live runs and examples 1 and 6 are byte copies of their sample-mode outputs; the full sample-mode set is in `output_examples/sample_mode/` |
+| `logs/examples/` | Traces: `live/`, `session/` (memory), `sample_mode/`, `live_failed/`; superseded traces in `history/` folders |
 | `docs/` | Architecture, impact, sponsors, evaluation, USL, evidence, demo script, slides, submission |
 | `vendor/meterless/` | Third-party vectors and notices |

@@ -10,14 +10,15 @@ import pytest
 pytestmark = pytest.mark.p19
 
 ROOT = Path(__file__).resolve().parents[3]
-TRACE = ROOT / "logs" / "examples" / "live" / "trace-run-83de5da137c0.jsonl"
+# P20: the before/after column is example 2 (Quillfeather) live.
+TRACE = ROOT / "logs" / "examples" / "live" / "trace-run-211916c1544d.jsonl"
 
 
 def test_p19_t1_impact_zetaris_time() -> None:
     """Each query is logged twice; only the query_zetaris events carry the Zetaris latency."""
     events = [json.loads(line) for line in TRACE.read_text(encoding="utf-8").splitlines() if line.strip()]
     queries = [event for event in events if event.get("action") == "query_zetaris"]
-    assert len(queries) == 12
+    assert len(queries) == 14
     seconds = sum(int(event["latency_ms"]) for event in queries) / 1000
     impact = (ROOT / "docs" / "IMPACT.md").read_text(encoding="utf-8")
     assert f"{seconds:.1f} s of Zetaris time" in impact

@@ -13,7 +13,8 @@ from tests.unit.ui.p14b_support import live_health
 pytestmark = pytest.mark.p19
 
 ROOT = Path(__file__).resolve().parents[3]
-TRACE = ROOT / "logs" / "examples" / "live" / "trace-run-83de5da137c0.jsonl"
+# P20: the P15 live run is archived; it is still the fixture for both lanes served by Super VL.
+TRACE = ROOT / "logs" / "examples" / "live" / "history" / "trace-run-83de5da137c0.jsonl"
 
 
 def test_p19_t4_sidebar_names_served_model() -> None:

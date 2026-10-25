@@ -103,6 +103,11 @@ class Tracer:
         finally:
             self._parent_span_id = parent_before
 
+    @property
+    def path(self) -> Path:
+        """The file this tracer writes, wherever its log directory is."""
+        return self._path
+
     def close(self) -> None:
         with self._lock:
             self._file.flush()

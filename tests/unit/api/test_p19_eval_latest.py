@@ -8,6 +8,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api.main import app
+from eval.report import latest_summary
 
 pytestmark = pytest.mark.p19
 
@@ -20,10 +21,12 @@ def test_p19_t3_eval_latest_live_first(monkeypatch: pytest.MonkeyPatch) -> None:
     assert resp.status_code == 200, resp.text
     body = resp.json()
     live = body["live"]
-    assert live["generated_at"].startswith("2026-10-24")
+    # P20 (approved): expected values come from the latest committed live summary, not one run's date.
+    latest = latest_summary(ROOT / "eval" / "results_live")
+    assert live["generated_at"] == latest["generated_at"]
     assert live["offline"] is False
     assert sorted(live["systems"]) == ["arbiter", "arbiter_offline", "baseline"]
-    assert live["systems"]["arbiter"]["accuracy"]["n"] == 5
+    assert live["systems"]["arbiter"]["accuracy"]["n"] == latest["systems"]["arbiter"]["accuracy"]["n"]
     assert body["offline"] is not None
     assert "Synthetic data" in body["live_markdown"]
     assert "Synthetic data" in body["offline_markdown"]
