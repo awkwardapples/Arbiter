@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Planner",
+    "trace_name": "PlannerAgent",
+    "kind": "LLM + fallback",
+    "lane": "deep",
+    "can": "Choose registry queries from the USL catalogue; revise the plan",
+    "cannot": "Write SQL, or skip a required control"
+  },
+  {
+    "name": "Evidence",
+    "trace_name": "EvidenceAgent",
+    "kind": "Tools + LLM + fallback",
+    "lane": "fast",
+    "can": "Run registry queries, run ScoutGuard, extract claims with verbatim quotes",
+    "cannot": "Mark a claim verified"
+  },
+  {
+    "name": "Evaluator",
+    "trace_name": "EvaluatorAgent",
+    "kind": "Code + LLM critic",
+    "lane": "fast",
+    "can": "Ground quotes, cross-check claims against systems of record, send the plan back",
+    "cannot": "Decide an outcome"
+  },
+  {
+    "name": "Policy engine",
+    "trace_name": "PolicyEngine",
+    "kind": "Code",
+    "lane": "–",
+    "can": "Tier the vendor; produce the outcome and what evidence would change it",
+    "cannot": "Call a model"
+  },
+  {
+    "name": "Memory (H-MEM)",
+    "trace_name": "MemoryKeeper",
+    "kind": "Meterless H-MEM",
+    "lane": "–",
+    "can": "Retrieve lead-approved precedents; record feedback",
+    "cannot": "Change the policy"
+  },
+  {
+    "name": "Challenger",
+    "trace_name": "ChallengerAgent",
+    "kind": "LLM + deterministic triggers",
+    "lane": "deep",
+    "can": "Attack the candidate decision; request one re-plan; escalate",
+    "cannot": "Approve or upgrade an outcome"
+  },
+  {
+    "name": "Reporter",
+    "trace_name": "ReporterAgent",
+    "kind": "Template + optional LLM rewrite + validator",
+    "lane": "deep",
+    "can": "Write the cited brief and draft the next action",
+    "cannot": "Cite anything outside the decision record"
+  },
+  {
+    "name": "Scout guard",
+    "trace_name": "ScoutGuard",
+    "kind": "Meterless Scout subset",
+    "lane": "–",
+    "can": "Block, warn or pass untrusted vendor text; redact PII",
+    "cannot": "Decide"
+  },
+  {
+    "name": "Action executor",
+    "trace_name": "ActionExecutor",
+    "kind": "Scout execution contracts",
+    "lane": "–",
+    "can": "Issue and verify signed contracts; run the outbox once approvals exist",
+    "cannot": "Act without a valid contract"
+  }
+]

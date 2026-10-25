@@ -1,0 +1,297 @@
+[
+  {
+    "id": "Q_VENDOR_LIST",
+    "description": "Onboarding requests from procurement",
+    "systems": [
+      "procurement"
+    ],
+    "control_ids": [],
+    "params": [],
+    "sql": "SELECT vendor_id, legal_name, category, criticality, onboarding_status\nFROM vendor\nWHERE onboarding_status IN ('requested', 'in_review')\nORDER BY vendor_id"
+  },
+  {
+    "id": "Q_VENDOR_PROFILE",
+    "description": "Vendor master record",
+    "systems": [
+      "procurement"
+    ],
+    "control_ids": [],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT vendor_id, legal_name, trading_name, category, requested_service, business_owner,\n  annual_spend_gbp, criticality, data_categories, processing_countries, clm_supplier_ref,\n  onboarding_status, requested_at\nFROM vendor\nWHERE vendor_id = :vendor_id"
+  },
+  {
+    "id": "Q_VENDOR_ALIASES",
+    "description": "Normalised aliases for a vendor",
+    "systems": [
+      "procurement"
+    ],
+    "control_ids": [
+      "C06",
+      "C11"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT alias_id, vendor_id, alias_lower\nFROM vendor_alias\nWHERE vendor_id = :vendor_id\nORDER BY alias_id"
+  },
+  {
+    "id": "Q_VENDOR_CONTRACT",
+    "description": "CLM contract joined to procurement vendor",
+    "systems": [
+      "procurement",
+      "clm"
+    ],
+    "control_ids": [
+      "C07",
+      "C08",
+      "C09",
+      "C10"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT v.vendor_id, c.contract_id, c.supplier_ref, c.status, c.dpa_signed, c.dpa_signed_date,\n  c.hosting_region_clause, c.transfer_mechanism, c.breach_notification_hours,\n  c.subprocessor_list_attached, c.renewal_date\nFROM vendor v\nINNER JOIN contract c ON v.clm_supplier_ref = c.supplier_ref\nWHERE v.vendor_id = :vendor_id"
+  },
+  {
+    "id": "Q_VENDOR_INCIDENTS",
+    "description": "ITSM incidents matched via vendor aliases",
+    "systems": [
+      "itsm",
+      "procurement"
+    ],
+    "control_ids": [
+      "C06"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      },
+      {
+        "name": "since",
+        "type": "date",
+        "required": true
+      }
+    ],
+    "sql": "SELECT i.incident_number, i.opened_at, i.vendor_name_raw, i.severity, i.category,\n  i.root_cause_tag, i.status, i.rca_completed, i.closed_at\nFROM incident i\nINNER JOIN vendor_alias a\n  ON lower(trim(i.vendor_name_raw)) = a.alias_lower\nWHERE a.vendor_id = :vendor_id\n  AND i.opened_at >= :since\nORDER BY i.opened_at DESC"
+  },
+  {
+    "id": "Q_WATCHLIST_SCREEN",
+    "description": "Watchlist entries exactly matching vendor aliases",
+    "systems": [
+      "grc_watchlist",
+      "procurement"
+    ],
+    "control_ids": [
+      "C11"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT w.entry_id, w.entity_name, w.list_name, w.country, w.added_on, w.reason\nFROM watchlist_entry w\nINNER JOIN vendor_alias a\n  ON lower(trim(w.entity_name)) = a.alias_lower\nWHERE a.vendor_id = :vendor_id\nORDER BY w.entry_id"
+  },
+  {
+    "id": "Q_SUBMISSION",
+    "description": "Latest trust portal submission header",
+    "systems": [
+      "trust_portal"
+    ],
+    "control_ids": [
+      "C12"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT submission_id, vendor_id, submitted_at, patch_sla_critical_days, contact_role\nFROM submission\nWHERE vendor_id = :vendor_id\nORDER BY submitted_at DESC\nLIMIT 1"
+  },
+  {
+    "id": "Q_VENDOR_COMPONENTS",
+    "description": "Declared software components",
+    "systems": [
+      "trust_portal"
+    ],
+    "control_ids": [
+      "C12"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT component_id, vendor_id, vendor_project, product, version\nFROM vendor_component\nWHERE vendor_id = :vendor_id\nORDER BY component_id"
+  },
+  {
+    "id": "Q_SUBMISSION_ANSWERS",
+    "description": "Questionnaire answers for vendor",
+    "systems": [
+      "trust_portal"
+    ],
+    "control_ids": [],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT answer_id, submission_id, vendor_id, question_id, question, answer_text\nFROM submission_answer\nWHERE vendor_id = :vendor_id\nORDER BY question_id"
+  },
+  {
+    "id": "Q_SUBMISSION_DOCUMENTS",
+    "description": "Assurance documents for vendor",
+    "systems": [
+      "trust_portal"
+    ],
+    "control_ids": [
+      "C05",
+      "C12"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT doc_id, submission_id, vendor_id, doc_type, title, issued_on, expires_on, text\nFROM submission_document\nWHERE vendor_id = :vendor_id\nORDER BY doc_id"
+  },
+  {
+    "id": "Q_COMPONENT_KEV",
+    "description": "KEV matches for declared components",
+    "systems": [
+      "trust_portal",
+      "cisa_kev"
+    ],
+    "control_ids": [
+      "C12"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT DISTINCT c.component_id, c.vendor_id, k.cve_id, k.vendor_project, k.product,\n  k.vulnerability_name, k.date_added, k.due_date, k.ransomware_use\nFROM vendor_component c\nINNER JOIN kev_vuln k\n  ON lower(k.vendor_project) = lower(c.vendor_project)\n AND lower(k.product) LIKE concat('%', lower(c.product), '%')\nWHERE c.vendor_id = :vendor_id\nORDER BY k.cve_id"
+  },
+  {
+    "id": "Q_KEV_BY_PRODUCTS",
+    "description": "KEV lookup by product names (inline submissions)",
+    "systems": [
+      "cisa_kev"
+    ],
+    "control_ids": [
+      "C12"
+    ],
+    "params": [
+      {
+        "name": "products",
+        "type": "product_list",
+        "required": true
+      }
+    ],
+    "sql": "SELECT cve_id, vendor_project, product, vulnerability_name, date_added, due_date, ransomware_use\nFROM kev_vuln\nWHERE lower(product) IN :products\nORDER BY cve_id"
+  },
+  {
+    "id": "Q_WATCHLIST_ALL",
+    "description": "Entire synthetic watchlist",
+    "systems": [
+      "grc_watchlist"
+    ],
+    "control_ids": [
+      "C11"
+    ],
+    "params": [],
+    "sql": "SELECT entry_id, entity_name, list_name, country, added_on, reason\nFROM watchlist_entry\nORDER BY entry_id"
+  },
+  {
+    "id": "Q_INCIDENTS_BY_NAME",
+    "description": "ITSM incidents for normalised vendor names",
+    "systems": [
+      "itsm"
+    ],
+    "control_ids": [
+      "C06"
+    ],
+    "params": [
+      {
+        "name": "names",
+        "type": "string_list",
+        "required": true
+      },
+      {
+        "name": "since",
+        "type": "date",
+        "required": true
+      }
+    ],
+    "sql": "SELECT incident_number, opened_at, vendor_name_raw, severity, category, root_cause_tag,\n  status, rca_completed, closed_at\nFROM incident\nWHERE lower(trim(vendor_name_raw)) IN :names\n  AND opened_at >= :since\nORDER BY opened_at DESC"
+  },
+  {
+    "id": "Q_VENDOR_360",
+    "description": "One row for a vendor across procurement, CLM, the trust portal, and CISA KEV",
+    "systems": [
+      "procurement",
+      "clm",
+      "trust_portal",
+      "cisa_kev"
+    ],
+    "control_ids": [],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": "SELECT v.vendor_id,\n  c.status AS contract_status,\n  c.dpa_signed,\n  c.hosting_region_clause,\n  c.breach_notification_hours,\n  s.patch_sla_critical_days,\n  COUNT(DISTINCT comp.component_id) AS component_count,\n  COUNT(DISTINCT k.cve_id) AS kev_cve_count,\n  MAX(k.date_added) AS latest_kev_date\nFROM vendor v\nINNER JOIN contract c ON v.clm_supplier_ref = c.supplier_ref\nINNER JOIN submission s ON s.vendor_id = v.vendor_id\nLEFT JOIN vendor_component comp ON comp.vendor_id = v.vendor_id\nLEFT JOIN kev_vuln k\n  ON lower(k.vendor_project) = lower(comp.vendor_project)\n AND lower(k.product) LIKE concat('%', lower(comp.product), '%')\nWHERE v.vendor_id = :vendor_id\nGROUP BY v.vendor_id, c.status, c.dpa_signed, c.hosting_region_clause,\n  c.breach_notification_hours, s.patch_sla_critical_days"
+  },
+  {
+    "id": "Q_DQ_INVALID",
+    "description": "DQ-invalid primary keys for vendor-related tables",
+    "systems": [
+      "clm",
+      "trust_portal",
+      "itsm",
+      "procurement"
+    ],
+    "control_ids": [
+      "C05",
+      "C07",
+      "C08"
+    ],
+    "params": [
+      {
+        "name": "vendor_id",
+        "type": "vendor_id",
+        "required": true
+      }
+    ],
+    "sql": null
+  }
+]

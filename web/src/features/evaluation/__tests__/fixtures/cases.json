@@ -1,0 +1,110 @@
+[
+  {
+    "case_id": "CASE-0007",
+    "vendor": "Quillfeather Payroll Cloud Ltd",
+    "outcome": "ESCALATE",
+    "tier": "T1",
+    "residual_risk": 100,
+    "status": "success",
+    "created": "2026-10-24T15:40:28.869195Z"
+  },
+  {
+    "case_id": "CASE-0010",
+    "vendor": "Juniper Ledger 0010 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T1",
+    "residual_risk": 55,
+    "status": "success",
+    "created": "2026-10-24T15:40:30.409993Z"
+  },
+  {
+    "case_id": "CASE-0011",
+    "vendor": "Marrowgate Analytics Ltd",
+    "outcome": "APPROVE_WITH_CONDITIONS",
+    "tier": "T2",
+    "residual_risk": 53,
+    "status": "success",
+    "created": "2026-10-24T15:40:30.974039Z"
+  },
+  {
+    "case_id": "CASE-0006",
+    "vendor": "Cinder Mail 0006 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T2",
+    "residual_risk": 35,
+    "status": "success",
+    "created": "2026-10-24T15:40:28.010562Z"
+  },
+  {
+    "case_id": "CASE-0008",
+    "vendor": "Glimmer Relay 0008 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T2",
+    "residual_risk": 35,
+    "status": "success",
+    "created": "2026-10-24T15:40:29.380254Z"
+  },
+  {
+    "case_id": "CASE-0009",
+    "vendor": "Ivory Cloud 0009 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T2",
+    "residual_risk": 35,
+    "status": "success",
+    "created": "2026-10-24T15:40:29.894854Z"
+  },
+  {
+    "case_id": "CASE-0012",
+    "vendor": "Tessellate HR Cloud Ltd",
+    "outcome": "APPROVE_WITH_CONDITIONS",
+    "tier": "T2",
+    "residual_risk": 35,
+    "status": "success",
+    "created": "2026-10-24T15:40:31.635319Z"
+  },
+  {
+    "case_id": "CASE-0002",
+    "vendor": "Kettle Survey 0002 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T3",
+    "residual_risk": 15,
+    "status": "success",
+    "created": "2026-10-24T15:40:26.105993Z"
+  },
+  {
+    "case_id": "CASE-0003",
+    "vendor": "Pellucid Forms Ltd",
+    "outcome": "APPROVE",
+    "tier": "T3",
+    "residual_risk": 15,
+    "status": "success",
+    "created": "2026-10-24T15:40:26.613546Z"
+  },
+  {
+    "case_id": "CASE-0004",
+    "vendor": "Cinder Ledger 0004 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T3",
+    "residual_risk": 15,
+    "status": "success",
+    "created": "2026-10-24T15:40:27.066128Z"
+  },
+  {
+    "case_id": "CASE-0005",
+    "vendor": "Ember Payroll 0005 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T3",
+    "residual_risk": 15,
+    "status": "success",
+    "created": "2026-10-24T15:40:27.505799Z"
+  },
+  {
+    "case_id": "CASE-0001",
+    "vendor": "Cinder Mail 0001 Ltd",
+    "outcome": "APPROVE",
+    "tier": "T3",
+    "residual_risk": 15,
+    "status": "success",
+    "created": "2026-10-24T15:40:32.960982Z"
+  }
+]

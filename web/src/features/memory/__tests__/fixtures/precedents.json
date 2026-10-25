@@ -1,0 +1,135 @@
+[
+  {
+    "precedent_id": "P-0001",
+    "hmem_id": "mem-13",
+    "confidence": 0.75,
+    "control_id": "C05",
+    "ledger": [
+      {
+        "memory_id": "mem-13",
+        "action": "create",
+        "actor": "MemoryKeeper",
+        "timestamp": 1792856431144,
+        "previous_state": null,
+        "new_state": {
+          "id": "mem-13",
+          "content": "precedent control c05 mitigation bridge letter tier t2 category hr saas. Recorded by record-fixtures.",
+          "type": "factual",
+          "layer": "long_term",
+          "timestamp": 1792856431144,
+          "lastAccessed": 1792856431144,
+          "accessCount": 0,
+          "tags": [
+            "precedent",
+            "c05",
+            "bridge_letter",
+            "approve_with_conditions",
+            "t2"
+          ],
+          "confidence": 0.7,
+          "source": "human_review:lead@example.com",
+          "provenance": {
+            "origin": "manual",
+            "learnedAt": 1792856431144,
+            "label": "human_review:lead@example.com"
+          },
+          "domain": "general",
+          "namespace": "general/facts",
+          "entities": [
+            "recorded"
+          ],
+          "relatedTo": [],
+          "agentId": "MemoryKeeper",
+          "runId": "rev-9d68cf1f6efa",
+          "taskId": "CASE-0011"
+        },
+        "details": null
+      },
+      {
+        "memory_id": "mem-13",
+        "action": "read",
+        "actor": "MemoryKeeper",
+        "timestamp": 1792856431597,
+        "previous_state": null,
+        "new_state": null,
+        "details": {
+          "query": "precedent control c05 mitigation bridge letter tier t2 category hr saas"
+        }
+      },
+      {
+        "memory_id": "mem-13",
+        "action": "feedback",
+        "actor": "MemoryKeeper",
+        "timestamp": 1792856431792,
+        "previous_state": {
+          "id": "mem-13",
+          "content": "precedent control c05 mitigation bridge letter tier t2 category hr saas. Recorded by record-fixtures.",
+          "type": "factual",
+          "layer": "long_term",
+          "timestamp": 1792856431144,
+          "lastAccessed": 1792856431597,
+          "accessCount": 1,
+          "tags": [
+            "precedent",
+            "c05",
+            "bridge_letter",
+            "approve_with_conditions",
+            "t2"
+          ],
+          "confidence": 0.7,
+          "source": "human_review:lead@example.com",
+          "provenance": {
+            "origin": "manual",
+            "learnedAt": 1792856431144,
+            "label": "human_review:lead@example.com"
+          },
+          "domain": "general",
+          "namespace": "general/facts",
+          "entities": [
+            "recorded"
+          ],
+          "relatedTo": [],
+          "agentId": "MemoryKeeper",
+          "runId": "rev-9d68cf1f6efa",
+          "taskId": "CASE-0011"
+        },
+        "new_state": {
+          "id": "mem-13",
+          "content": "precedent control c05 mitigation bridge letter tier t2 category hr saas. Recorded by record-fixtures.",
+          "type": "factual",
+          "layer": "long_term",
+          "timestamp": 1792856431144,
+          "lastAccessed": 1792856431597,
+          "accessCount": 2,
+          "tags": [
+            "precedent",
+            "c05",
+            "bridge_letter",
+            "approve_with_conditions",
+            "t2"
+          ],
+          "confidence": 0.75,
+          "source": "human_review:lead@example.com",
+          "provenance": {
+            "origin": "manual",
+            "learnedAt": 1792856431144,
+            "label": "human_review:lead@example.com"
+          },
+          "domain": "general",
+          "namespace": "general/facts",
+          "entities": [
+            "recorded"
+          ],
+          "relatedTo": [],
+          "agentId": "MemoryKeeper",
+          "runId": "rev-9d68cf1f6efa",
+          "taskId": "CASE-0011"
+        },
+        "details": {
+          "kind": "helpful",
+          "delta": 0.05
+        }
+      }
+    ]
+  }
+]
