@@ -1,6 +1,6 @@
 # Judge Q&A preparation
 
-Twenty-five likely questions, each with a two-sentence answer and the file or trace to show. Every answer is backed by a committed file.
+Twenty-eight likely questions, each with a two-sentence answer and the file or trace to show. Every answer is backed by a committed file.
 
 ## Impact and users
 
@@ -8,7 +8,7 @@ Twenty-five likely questions, each with a two-sentence answer and the file or tr
 |---|---|---|---|
 | 1 | Who is the user? | A third-party risk analyst at a 500–5,000-person company who owns vendor onboarding decisions, and the TPRM lead who signs off exceptions. Arbiter assembles and cross-checks the evidence so the analyst reviews exceptions instead of building the file. | `docs/IMPACT.md` §1 |
 | 2 | How big is the problem? | Third parties are involved in nearly half of breaches, and most organisations assess only about a third of their vendors while carrying a backlog. The cited figures and sources are in the impact doc. | `docs/IMPACT.md` §2 |
-| 3 | How much time does it save? | We have not measured that in a real team, so we show it as an estimate with stated assumptions: roughly 5 to 24 hours a week of the hours the Whistic survey reports. What we did measure is one live onboarding: 12 Zetaris queries, 16 quoted claims and a decision in 159 s. | `docs/IMPACT.md` §3 and §5 |
+| 3 | How much time does it save? | We have not measured that in a real team, so we show it as an estimate with stated assumptions: roughly 5 to 24 hours a week of the hours the Whistic survey reports. What we did measure is one live onboarding, Quillfeather: 14 Zetaris queries, 16 quoted claims, a contradiction and a decision in 228 s. | `docs/IMPACT.md` §3 and §5 |
 | 4 | Why onboarding, not continuous monitoring? | Onboarding is the control point: the moment the evidence can be checked before access is granted. Re-checking approved vendors when CISA adds a vulnerability was designed but not shipped, and is listed as future work. | `docs/IMPACT.md` §7 |
 
 ## Reasoning architecture
@@ -38,10 +38,10 @@ Twenty-five likely questions, each with a two-sentence answer and the file or tr
 |---|---|---|---|
 | 16 | What does Zetaris do that a database would not? | It federates five REST source systems and the public KEV feed into one semantic layer with descriptions, keys and DQ rules, and the agents query only that layer. The Planner reads the USL model as a 304-token catalogue. | `docs/ZETARIS_USL.md`, `zetaris/sql/03_usl.sql` |
 | 17 | Is the Zetaris use real or mocked? | Live runs carry a request id on every query, and the parity run compares 416 registry queries against the mirror, all green. Sample mode is a documented fallback that runs the same query ids on a DuckDB mirror. | `docs/passes/P1-B_parity.json`; `zetaris_request_id` lines in `docs/SPONSORS.md` |
-| 18 | Why does the deep lane say Super VL, not Nemotron 3 Super? | Our NVIDIA account is not entitled to Nemotron 3 Super (it returns 404), so the deep lane is bound to Nemotron 3.5 Super VL. Separately, a Nightshift app rule coerces both lanes to auto; Meterless acknowledged it, with a fix targeted for Sunday's release. | `docs/evidence/nightshift_deviations.md`, `docs/evidence/nightshift_proof.json` |
+| 18 | Why does the deep lane say Super VL, not Nemotron 3 Super? | Our NVIDIA account is not entitled to Nemotron 3 Super (it returns 404), so the deep lane is bound to Nemotron 3.5 Super VL. Separately, a Nightshift app rule coerces both lanes to auto; Meterless acknowledged it with a fix targeted for Sunday's release, and on 25 October that fix had not reached our build. | `docs/evidence/nightshift_deviations.md`, `docs/evidence/nightshift_proof.json` |
 | 19 | How do we know Nemotron actually ran? | Every successful call has a Nightshift compute receipt with the routed model in the trace. The proof file has one receipt per lane: Lightning on fast, Super VL on deep. | `docs/evidence/nightshift_proof.json`, `metadata.json` `model_evidence` |
-| 20 | Which steps run on Nemotron? | Planning and challenge request the deep lane; claim extraction and critique request the fast lane. In live example 1 all five successful calls were served by Super VL. | `docs/SPONSORS.md`, "Our agents do real work on Nemotron" |
-| 21 | How did you use Cursor? | Each pass ran from `AGENTS.md` and project rules, with a plan, tests first and a stop hook that re-runs the pass gate. Three later passes were done in Claude Code, and the per-pass record says which. | `docs/CURSOR_USAGE.md`, `.cursor/` |
+| 20 | Which steps run on Nemotron? | Planning and challenge request the deep lane; claim extraction and critique request the fast lane. In live example 2 all four successful calls were served by Super VL; the Challenger's deterministic T1 rule fired before it needed a model. | `docs/SPONSORS.md`, "Our agents do real work on Nemotron" |
+| 21 | How did you use Cursor? | Each pass ran from `AGENTS.md` and project rules, with a plan, tests first and a stop hook that re-runs the pass gate. From P14-B onwards the passes were done in Claude Code, and the per-pass record says which. | `docs/CURSOR_USAGE.md`, `.cursor/` |
 
 ## Results and limits
 
@@ -51,3 +51,11 @@ Twenty-five likely questions, each with a two-sentence answer and the file or tr
 | 23 | Isn't n = 5 too small? | Yes for a precision claim: the Wilson interval on 5/5 is 0.57–1.00. It shows the live path works end to end; the offline 16/16 shows the policy and agents on the full test split. | README eval block |
 | 24 | Why is a live case so slow? | The median was 141.8 s, almost all of it model calls through Nightshift; the same case offline takes under a second. Faster routing and fewer re-plans are the obvious levers. | `docs/EVALUATION.md` |
 | 25 | What would production need? | Real connectors through Zetaris, SSO and RBAC, document OCR, a policy authoring UI and a much larger labelled evaluation. None of these is claimed as built. | `docs/IMPACT.md` §7 |
+
+## The console and the routing fix
+
+| # | Question | Answer | Show |
+|---|---|---|---|
+| 26 | Is the graph real? | It is the trace, streamed: each node and edge is drawn from a trace event as the orchestrator writes it, over `/runs/{run_id}/events`. A replayed run says "Recorded live run" with its date, and sample mode is labelled on screen. | `app/api/routes_stream.py`, `web/src/run/` |
+| 27 | Is that run live? | Examples 2–5 are committed live runs against Zetaris and Nightshift; examples 1 and 6 failed live twice on their only model call, so their outputs are sample mode, and the failed attempts are kept. The console's mode chip says which. | `logs/examples/live/`, `logs/examples/live_failed/` |
+| 28 | Did Meterless's routing fix ship? | Not in our build on 25 October: routing modes were still coerced to auto, and a request naming Lightning by exact id was served by Super VL. Both proofs are committed, and we kept the routing modes. | `docs/evidence/nightshift_proof.json`, `docs/evidence/history/nightshift_proof-run5-exact-ids.json` |
