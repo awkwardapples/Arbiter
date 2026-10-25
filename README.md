@@ -145,13 +145,15 @@ Which agent steps run on which lane: planning and challenge request the deep lan
 
 ## Evaluation
 
-**Live evaluation: 5/5 on the first 5 test cases, with 5 of 25 model calls falling back to deterministic. The baseline could not be measured — all 9 baseline calls returned 502 from Nightshift's forced auto mode. Arbiter offline remains 16/16 on the full test split.**
+**Live: 10/10 on the first 10 test cases, 0 unsafe, 4/4 consistent; 10 of 21 model calls fell back (6 of 10 cases decided without a successful model call). Baseline could not be measured: all 10 baseline calls returned 502. Offline 16/16.**
 
-- Live Arbiter: 0 unsafe approvals; 4/4 consistency repeats identical; the one residency contradiction in the subset (VND-0007) found; p50 141.8 s per case.
-- The baseline is one Nemotron prompt with the policy and all the evidence. Its 0/5 measures Nightshift routing, not single-model quality, so it is **not** reported as an Arbiter win.
-- n is small: five live cases give a Wilson 95% interval of 0.57–1.00 on accuracy.
+- The one residency contradiction in the subset (VND-0007) was found; failing-control recall 3/3.
+- The model-call fallback rate rose from 0.20 on 24 October (5 of 25, n=5) to 0.48 in this run (10 of 21, n=10), under the same Nightshift routing rule. Lightning served two deep-lane calls successfully; the rest it was sent were 502s.
+- The median case took 76.3 s (p95 271.6 s). It is lower than on 24 October (141.8 s) largely because more cases lost their first model call and finished on deterministic logic, so it is not a speed improvement.
+- The baseline is one Nemotron prompt with the policy and all the evidence. Its 0/10 measures Nightshift routing, not single-model quality, so it is **not** reported as an Arbiter win.
+- n is small: ten live cases give a Wilson 95% interval of 0.72–1.00 on accuracy.
 
-The block below is the rendered `eval/results_live/20261024T045916036274Z/summary.json`; `tests/unit/docs/test_claims.py` checks that it matches the latest live summary. `python run.py eval --live --publish` regenerates `docs/EVALUATION.md`, not this README block. Method, labels and discussion: [docs/EVALUATION.md](docs/EVALUATION.md).
+The block below is the rendered `eval/results_live/20261025T153035975818Z/summary.json`; `tests/unit/docs/test_claims.py` checks that it matches the latest live summary. `eval.report.publish` regenerates it and `docs/EVALUATION.md` from the latest live summary (`python run.py eval --live ... --publish` writes `docs/EVALUATION.md` only). Method, labels and discussion: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 <!-- EVAL:START -->
 ### Evaluation results
@@ -164,24 +166,24 @@ Only the tier gates are calibrated. Weights stay at their a-priori values.
 - model ids (from traces): nvidia/nemotron-3.5-super-vl-120b-a12b, nvidia/nemotron-3.5-lightning-30b-a3b
 - splits: test
 - n: 20
-- git sha: 4b4680b0586ae50003f87bab2337931aa6f6c37b
-- generated: 2026-10-24T05:35:05Z
+- git sha: cabd79e95998ea41855deb2d9f7bcd14976c2bc1
+- generated: 2026-10-25T16:09:09Z
 
 | System | Accuracy | Unsafe approvals | Invalid | Abstention |
 |---|---:|---:|---:|---:|
-| arbiter | 1.000 (5/5) | 0/5 | — | 0.200 (1/5) |
+| arbiter | 1.000 (10/10) | 0/10 | — | 0.200 (2/10) |
 | arbiter_offline | 1.000 (16/16) | 0/16 | — | 0.375 (6/16) |
-| baseline | 0.000 (0/5) | 0/5 | 1.000 (5/5) | 0.000 (0/5) |
+| baseline | 0.000 (0/10) | 0/10 | 1.000 (10/10) | 0.000 (0/10) |
 
-Reduced n: n=5 for the live systems, n=16 for the offline system; the live subset is the first 5 test cases by case_id.
+Reduced n: n=10 for the live systems, n=16 for the offline system; the live subset is the first 10 test cases by case_id.
 
 | System | Mode | n | Contradiction recall | Failing-control recall | p50 ms | p95 ms | Model calls/case | Model-call fallback |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| arbiter | zetaris / meterless | 5 | 1.000 (1/1) | 1.000 (2/2) | 141817 | 233333 | 5.0 | 0.200 (5/25) |
-| arbiter_offline | duckdb / offline | 16 | 1.000 (2/2) | 1.000 (6/6) | 436 | 611 | 0.0 | — |
-| baseline | zetaris / meterless | 5 | 0.000 (0/1) | 0.000 (0/2) | 58800 | 80770 | 1.0 | 1.000 (5/5) |
+| arbiter | zetaris / meterless | 10 | 1.000 (1/1) | 1.000 (3/3) | 76302 | 271577 | 2.1 | 0.476 (10/21) |
+| arbiter_offline | duckdb / offline | 16 | 1.000 (2/2) | 1.000 (6/6) | 417 | 571 | 0.0 | — |
+| baseline | zetaris / meterless | 10 | 0.000 (0/1) | 0.000 (0/3) | 62659 | 125023 | 1.0 | 1.000 (10/10) |
 
-- deep lane routed to: nvidia/nemotron-3.5-super-vl-120b-a12b, nvidia/nemotron-3.5-lightning-30b-a3b (from trace receipts)
+- deep lane routed to: nvidia/nemotron-3.5-lightning-30b-a3b, nvidia/nemotron-3.5-super-vl-120b-a12b (from trace receipts)
 - fast lane routed to: nvidia/nemotron-3.5-super-vl-120b-a12b (from trace receipts)
 <!-- EVAL:END -->
 
@@ -302,8 +304,8 @@ Meterless H-MEM conformance vectors and Scout adversarial eval cases are Apache-
 ## Limitations
 
 - The enterprise systems are simulated and the company data is synthetic. KEV is the public catalogue, as a committed snapshot.
-- The live evaluation covers five cases; the offline one covers 16. These numbers show the live path works end to end, not a precision estimate.
-- The single-model baseline is unmeasured live (every call returned 502). Live Arbiter took a median of 141.8 s per case, almost all of it model calls.
+- The live evaluation covers ten cases; the offline one covers 16. These numbers show the live path works end to end, not a precision estimate.
+- The single-model baseline is unmeasured live (every call returned 502). In live Arbiter, 10 of 21 model calls fell back (0.48, up from 0.20 on 24 October), and 6 of 10 cases were decided without a successful model call. The policy still decided all ten correctly.
 - Nightshift lane routing is still coerced to `auto` (the vendor fix had not reached this build on 25 October), so the lane-to-model mapping is not guaranteed (see above).
 - Four of the six input examples have a committed live run (2, 3, 4 and 5). Examples 1 and 6 failed live twice each, on their first and only model call (HTTP 502); their root outputs are the current sample-mode outputs, and the failed attempts are in `logs/examples/live_failed/`.
 - No OCR of real PDFs, no SSO or RBAC beyond the policy's role strings, and the outbox writes local files rather than sending email or opening real tickets.

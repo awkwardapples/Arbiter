@@ -131,7 +131,7 @@ The policy engine, not a model, decides:
 {"timestamp":"2026-10-25T15:17:34.796807Z","run_id":"run-211916c1544d","trace_id":"run-211916c1544d","span_id":"07ac0516bbc2444b","parent_span_id":null,"agent_name":"PolicyEngine","action":"decide","input_summary":"facts=34 contradictions=1 precedents=0","output_summary":"outcome=ESCALATE tier=T1 failing=C09,C12 unknown=C05","target_agent":null,"confidence":null,"retry_count":0,"status":"success","provider":null,"route":null,"model":null,"latency_ms":null,"tokens_in":null,"tokens_out":null,"purpose":null,"provider_meta":null,"source_system":null,"query_id":null,"rows":null,"backend":null,"loop":null,"iteration":null,"mode":{"data":"zetaris","llm":"meterless"}}
 ```
 
-Across the 24 October live evaluation, 20 of 25 model calls succeeded: 19 served by Super VL and 1 deep-lane plan served by `nvidia/nemotron-3.5-lightning-30b-a3b` (`rcpt_req_szjmqbge`, `eval/results_live/20261024T045916036274Z/traces/trace-run-f59a50433bf5.jsonl`). The 5 failures were HTTP 502s and fell back to deterministic logic (`docs/EVALUATION.md`). `app/llm/providers/nvidia.py` is the build.nvidia.com fallback; no committed run used it.
+Across the 25 October live evaluation, 11 of 21 primary model calls succeeded: 9 served by Super VL and 2 deep-lane calls served by `nvidia/nemotron-3.5-lightning-30b-a3b` (a plan, `rcpt_req_eu1iqmuc`, and a challenge, `rcpt_req_yaqwjyz1`, in `eval/results_live/20261025T153035975818Z/traces/`). The 10 failures were HTTP 502s and fell back to deterministic logic (`docs/EVALUATION.md`). `app/llm/providers/nvidia.py` is the build.nvidia.com fallback; no committed run used it.
 
 ## Cursor
 

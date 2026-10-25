@@ -70,17 +70,17 @@ Arithmetic: low = 5 × (70 − 15) = 275 minutes, about 4.6 hours; high = 10 × 
 
 ## 6. Reliability results
 
-From the live evaluation (`docs/EVALUATION.md`, `eval/results_live/20261024T045916036274Z/summary.json`):
+From the live evaluation (`docs/EVALUATION.md`, `eval/results_live/20261025T153035975818Z/summary.json`, 25 October 2026):
 
 | System | n | Correct | Unsafe approvals | Notes |
 |---|---:|---:|---:|---|
-| Arbiter, live | 5 | 5/5 | 0/5 | 5 of 25 model calls fell back to deterministic logic (HTTP 502); 4/4 repeats consistent |
-| Single-Nemotron baseline, live | 5 | not measured | – | All 9 calls returned HTTP 502 from Nightshift's forced `auto` routing |
+| Arbiter, live | 10 | 10/10 | 0/10 | 10 of 21 model calls fell back to deterministic logic (HTTP 502), up from 5 of 25 on 24 October; 6 of 10 cases decided without a successful model call; 4/4 repeats consistent |
+| Single-Nemotron baseline, live | 10 | not measured | – | All 10 calls (and 4 repeats) returned HTTP 502 from Nightshift's forced `auto` routing |
 | Arbiter, offline | 16 | 16/16 | 0/16 | Full test split, DuckDB mirror, deterministic fallback |
 
-**What the baseline got wrong, in plain words.** Nothing that can be fairly judged. The baseline sends the whole policy and every piece of evidence in one prompt. Nightshift's app rule routed that large prompt to Nemotron 3.5 Lightning, which returned an empty response every time. So its 0/5 measures the routing problem (`docs/evidence/nightshift_deviations.md`), not a single model's judgement, and it is not counted as an Arbiter win.
+**What the baseline got wrong, in plain words.** Nothing that can be fairly judged. The baseline sends the whole policy and every piece of evidence in one prompt. Nightshift's app rule routed that large prompt to Nemotron 3.5 Lightning, which returned an empty response every time. So its 0/10 measures the routing problem (`docs/evidence/nightshift_deviations.md`), not a single model's judgement, and it is not counted as an Arbiter win.
 
-**What the architecture guarantees regardless.** A model only plans, extracts, critiques and challenges; the policy decides. When a live call failed, the step fell back and the outcome still matched its label. In an earlier live attempt, a weaker extraction left two controls unknown and the outcome dropped to `REQUEST_INFO`. It lowered the outcome; it could not raise it.
+**What the architecture guarantees regardless.** A model only plans, extracts, critiques and challenges; the policy decides. When a live call failed, the step fell back and the outcome still matched its label: in six of the ten live cases no model call succeeded, and all ten decisions were correct. In an earlier live attempt, a weaker extraction left two controls unknown and the outcome dropped to `REQUEST_INFO`. It lowered the outcome; it could not raise it.
 
 Injection: vendor text passes ScoutGuard before any model sees it. In the live run of example 3 (Oakhaven), ScoutGuard blocked the document segment carrying a planted instruction (score 0.92), no model saw it, and the case escalated (`logs/examples/live/trace-run-1b185078f01b.jsonl`).
 
