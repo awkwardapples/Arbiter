@@ -1,0 +1,7 @@
+{
+  "artifact": "var/outbox/procurement/ctr-7af773dd5e1e.json",
+  "contract_id": "ctr-7af773dd5e1e",
+  "executed": true,
+  "parent_id": "ctr-7694f85c4949",
+  "state": "executed"
+}

@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "contract_signatures": true,
+    "policy_hash": true,
+    "record_hash": true
+  },
+  "diff": [],
+  "human_override": {
+    "at": "2026-10-24T15:32:13.773702Z",
+    "decision": "APPROVE_WITH_CONDITIONS",
+    "rationale": "Residency confirmed with the vendor's DPO in writing; hosting moves to the EU region.",
+    "review_id": "rev-e2da0f82f05a",
+    "reviewer": "Sam Lead",
+    "role": "tprm_lead"
+  },
+  "machine_outcome": "ESCALATE",
+  "machine_source": "stored",
+  "match": true
+}
