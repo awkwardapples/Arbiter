@@ -1,0 +1,1 @@
+Superseded offline (DuckDB, deterministic) example traces from 22 and 23 October 2026, made before the P14-A fixes; kept for history only. Current traces: `../live/` (live) and `../sample_mode/` (sample mode).
