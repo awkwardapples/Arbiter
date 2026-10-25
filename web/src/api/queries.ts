@@ -4,15 +4,17 @@ import { api } from "./client";
 import type { AgentInfo, CaseDetail, Health, Recording, RecordingMeta, RegistryQuery, Vendor } from "./types";
 
 const MINUTE = 60_000;
+// The API can answer 500 while a run holds the sample database (reported to lane 18a); retry reads a few times.
+const READ_RETRY = { retry: 3, retryDelay: (attempt: number) => Math.min(500 * 2 ** attempt, 4000) };
 
 export const useHealth = () =>
-  useQuery({ queryKey: ["health"], queryFn: () => api.get<Health>("/health"), staleTime: MINUTE, retry: 1 });
+  useQuery({ queryKey: ["health"], queryFn: () => api.get<Health>("/health"), staleTime: MINUTE, ...READ_RETRY });
 
 export const useVendors = () =>
-  useQuery({ queryKey: ["vendors"], queryFn: () => api.get<Vendor[]>("/vendors"), staleTime: 5 * MINUTE });
+  useQuery({ queryKey: ["vendors"], queryFn: () => api.get<Vendor[]>("/vendors"), staleTime: 5 * MINUTE, ...READ_RETRY });
 
 export const useRecordings = () =>
-  useQuery({ queryKey: ["recordings"], queryFn: () => api.get<RecordingMeta[]>("/recordings"), staleTime: 5 * MINUTE });
+  useQuery({ queryKey: ["recordings"], queryFn: () => api.get<RecordingMeta[]>("/recordings"), staleTime: 5 * MINUTE, ...READ_RETRY });
 
 export const useRecording = (runId: string | null) =>
   useQuery({

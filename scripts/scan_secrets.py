@@ -83,20 +83,16 @@ def scan_tree(paths: list[Path], allow_globs: list[str]) -> list[str]:
     return messages
 
 
-def scan_history(allow_globs: list[str] | None = None) -> list[str]:
+def scan_patch(patch: str, allow_globs: list[str] | None = None) -> list[str]:
+    """Findings in `git log -p` output, each attributed to the file its line belongs to."""
     allow = allow_globs or []
-    proc = subprocess.run(
-        ["git", "log", "-p", "--no-color"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if proc.returncode != 0:
-        return []
     messages: list[str] = []
     current_file = "git-history"
-    for line in proc.stdout.splitlines():
+    for line in patch.splitlines():
+        if line.startswith("--- a/"):
+            # A deleted file's header is `+++ /dev/null`; its lines still belong to this path.
+            current_file = line[6:]
+            continue
         if line.startswith("+++ b/"):
             current_file = line[6:]
             continue
@@ -110,6 +106,19 @@ def scan_history(allow_globs: list[str] | None = None) -> list[str]:
                 continue
             messages.append(f"{current_file}:history [{name}] {mask_secret_value(m.group(0)[:32])}")
     return messages
+
+
+def scan_history(allow_globs: list[str] | None = None) -> list[str]:
+    proc = subprocess.run(
+        ["git", "log", "-p", "--no-color"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        return []
+    return scan_patch(proc.stdout, allow_globs)
 
 
 def main(argv: list[str] | None = None) -> int:
