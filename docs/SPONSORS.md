@@ -137,4 +137,4 @@ Across the 25 October live evaluation, 11 of 21 primary model calls succeeded: 9
 
 Arbiter was built pass by pass from `AGENTS.md`, under five project rules (`.cursor/rules/`), four commands (`.cursor/commands/`, including `/start-pass` and `/verify-pass`) and a stop hook (`.cursor/hooks.json`) that re-runs `python scripts/tasks.py verify-pass` and feeds failures back, up to six times. Each pass has a plan in `.cursor/plans/` (24 files), a gate in `scripts/gates/`, a report in `docs/passes/` and a usage note in `docs/cursor-usage/`, compiled into `docs/CURSOR_USAGE.md`. Parallel lanes ran in separate worktrees (`.cursor/worktrees.json`).
 
-Of the 21 pass notes, 17 record Cursor (Composer, Grok 4.7 and Claude Opus as the agent model), one names its model without the tool, and three (P14-B, P15 and P17) were done in Claude Code; see the table in `docs/CURSOR_USAGE.md`.
+Of the 27 pass notes, 17 record Cursor (Composer, Grok 4.7 and Claude Opus as the agent model), one names its model without the tool, and nine (P14-B, P15, P17, P18-A to P18-D, P19 and P20) were done in Claude Code; see the table in `docs/CURSOR_USAGE.md`.
