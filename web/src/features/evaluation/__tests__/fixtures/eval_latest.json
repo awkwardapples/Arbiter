@@ -1,0 +1,737 @@
+{
+  "live": {
+    "generated_at": "2026-10-24T05:35:05Z",
+    "git_sha": "4b4680b0586ae50003f87bab2337931aa6f6c37b",
+    "live_subset": {
+      "n": 5,
+      "rule": "first 5 test cases by case_id"
+    },
+    "mode": {
+      "data": "zetaris",
+      "llm": "meterless"
+    },
+    "model_ids": [
+      "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "nvidia/nemotron-3.5-lightning-30b-a3b"
+    ],
+    "n": 20,
+    "offline": false,
+    "provider": "meterless",
+    "split_sha256": {
+      "test": "726a050aab71e9dfdd95cf5608a4d909700013827036d5c17f4145e6c5d0d6a4"
+    },
+    "splits": [
+      "test"
+    ],
+    "synthetic": true,
+    "systems": {
+      "arbiter": {
+        "abstention_rate": {
+          "count": 1,
+          "n": 5,
+          "rate": 0.2
+        },
+        "accuracy": {
+          "correct": 5,
+          "n": 5,
+          "rate": 1,
+          "wilson_95": [
+            0.565508505247919,
+            1
+          ]
+        },
+        "consistency": {
+          "facts_hash_stable": 4,
+          "n": 4,
+          "rate": 1,
+          "stable": 4
+        },
+        "contradiction_precision": {
+          "predicted": 1,
+          "rate": 1,
+          "true_positives": 1
+        },
+        "contradiction_recall": {
+          "expected": 1,
+          "found": 1,
+          "rate": 1
+        },
+        "cost": {
+          "latency_p50_ms": 141817,
+          "latency_p95_ms": 233333,
+          "model_calls_per_case": 5,
+          "queries_per_case": 24.4,
+          "tokens_in_per_case": 14204.4,
+          "tokens_out_per_case": 7315
+        },
+        "fact_accuracy": {
+          "correct": 170,
+          "n": 170,
+          "per_control": {
+            "": {
+              "correct": 80,
+              "n": 80,
+              "rate": 1
+            },
+            "C01": {
+              "correct": 10,
+              "n": 10,
+              "rate": 1
+            },
+            "C02": {
+              "correct": 10,
+              "n": 10,
+              "rate": 1
+            },
+            "C03": {
+              "correct": 5,
+              "n": 5,
+              "rate": 1
+            },
+            "C04": {
+              "correct": 10,
+              "n": 10,
+              "rate": 1
+            },
+            "C05": {
+              "correct": 10,
+              "n": 10,
+              "rate": 1
+            },
+            "C06": {
+              "correct": 5,
+              "n": 5,
+              "rate": 1
+            },
+            "C07": {
+              "correct": 5,
+              "n": 5,
+              "rate": 1
+            },
+            "C08": {
+              "correct": 5,
+              "n": 5,
+              "rate": 1
+            },
+            "C09": {
+              "correct": 10,
+              "n": 10,
+              "rate": 1
+            },
+            "C10": {
+              "correct": 5,
+              "n": 5,
+              "rate": 1
+            },
+            "C11": {
+              "correct": 5,
+              "n": 5,
+              "rate": 1
+            },
+            "C12": {
+              "correct": 10,
+              "n": 10,
+              "rate": 1
+            }
+          },
+          "rate": 1
+        },
+        "failing_control_recall": {
+          "expected": 2,
+          "found": 2,
+          "rate": 1
+        },
+        "fallback_rate": {
+          "count": 10,
+          "n": 442,
+          "rate": 0.02262443438914027
+        },
+        "grounding_rate": {
+          "grounded": 80,
+          "n": 80,
+          "rate": 1
+        },
+        "injection_detection": {
+          "detected": 0,
+          "n": 0,
+          "rate": null
+        },
+        "injection_false_positive_rate": {
+          "flagged": 0,
+          "n": 5,
+          "rate": 0
+        },
+        "invalid_rate": {
+          "count": 0,
+          "n": 0,
+          "rate": null
+        },
+        "macro_f1": {
+          "per_class": {
+            "APPROVE": 1,
+            "ESCALATE": 1
+          },
+          "score": 1
+        },
+        "over_escalations": {
+          "count": 0,
+          "n": 5
+        },
+        "run": {
+          "case_refs": [
+            "VND-0001",
+            "VND-0003",
+            "VND-0004",
+            "VND-0006",
+            "VND-0007"
+          ],
+          "fallback_rate": {
+            "count": 5,
+            "n": 25,
+            "rate": 0.2
+          },
+          "latency_ms": {
+            "p50": 141817,
+            "p95": 233333
+          },
+          "mode": {
+            "data": "zetaris",
+            "llm": "meterless"
+          },
+          "model_calls_per_case": 5,
+          "model_ids": [
+            "nvidia/nemotron-3.5-super-vl-120b-a12b",
+            "nvidia/nemotron-3.5-lightning-30b-a3b"
+          ],
+          "n": 5,
+          "routed_models": {
+            "deep": [
+              "nvidia/nemotron-3.5-super-vl-120b-a12b",
+              "nvidia/nemotron-3.5-lightning-30b-a3b"
+            ],
+            "fast": [
+              "nvidia/nemotron-3.5-super-vl-120b-a12b"
+            ]
+          }
+        },
+        "selective_accuracy": {
+          "correct": 4,
+          "n": 4,
+          "rate": 1
+        },
+        "unsafe_approvals": {
+          "count": 0,
+          "n": 5
+        }
+      },
+      "arbiter_offline": {
+        "abstention_rate": {
+          "count": 6,
+          "n": 16,
+          "rate": 0.375
+        },
+        "accuracy": {
+          "correct": 16,
+          "n": 16,
+          "rate": 1,
+          "wilson_95": [
+            0.8063865817272802,
+            1
+          ]
+        },
+        "consistency": {
+          "facts_hash_stable": 4,
+          "n": 4,
+          "rate": 1,
+          "stable": 4
+        },
+        "contradiction_precision": {
+          "predicted": 2,
+          "rate": 1,
+          "true_positives": 2
+        },
+        "contradiction_recall": {
+          "expected": 2,
+          "found": 2,
+          "rate": 1
+        },
+        "cost": {
+          "latency_p50_ms": 436,
+          "latency_p95_ms": 611,
+          "model_calls_per_case": 0,
+          "queries_per_case": 10.6875,
+          "tokens_in_per_case": 0,
+          "tokens_out_per_case": 0
+        },
+        "fact_accuracy": {
+          "correct": 538,
+          "n": 540,
+          "per_control": {
+            "": {
+              "correct": 250,
+              "n": 252,
+              "rate": 0.9920634920634921
+            },
+            "C01": {
+              "correct": 32,
+              "n": 32,
+              "rate": 1
+            },
+            "C02": {
+              "correct": 32,
+              "n": 32,
+              "rate": 1
+            },
+            "C03": {
+              "correct": 16,
+              "n": 16,
+              "rate": 1
+            },
+            "C04": {
+              "correct": 32,
+              "n": 32,
+              "rate": 1
+            },
+            "C05": {
+              "correct": 32,
+              "n": 32,
+              "rate": 1
+            },
+            "C06": {
+              "correct": 16,
+              "n": 16,
+              "rate": 1
+            },
+            "C07": {
+              "correct": 16,
+              "n": 16,
+              "rate": 1
+            },
+            "C08": {
+              "correct": 16,
+              "n": 16,
+              "rate": 1
+            },
+            "C09": {
+              "correct": 32,
+              "n": 32,
+              "rate": 1
+            },
+            "C10": {
+              "correct": 16,
+              "n": 16,
+              "rate": 1
+            },
+            "C11": {
+              "correct": 16,
+              "n": 16,
+              "rate": 1
+            },
+            "C12": {
+              "correct": 32,
+              "n": 32,
+              "rate": 1
+            }
+          },
+          "rate": 0.9962962962962963
+        },
+        "failing_control_recall": {
+          "expected": 6,
+          "found": 6,
+          "rate": 1
+        },
+        "fallback_rate": {
+          "count": 0,
+          "n": 896,
+          "rate": 0
+        },
+        "grounding_rate": {
+          "grounded": 251,
+          "n": 251,
+          "rate": 1
+        },
+        "injection_detection": {
+          "detected": 1,
+          "n": 1,
+          "rate": 1
+        },
+        "injection_false_positive_rate": {
+          "flagged": 0,
+          "n": 15,
+          "rate": 0
+        },
+        "invalid_rate": {
+          "count": 0,
+          "n": 0,
+          "rate": null
+        },
+        "macro_f1": {
+          "per_class": {
+            "APPROVE": 1,
+            "ESCALATE": 1,
+            "REQUEST_INFO": 1
+          },
+          "score": 1
+        },
+        "over_escalations": {
+          "count": 0,
+          "n": 16
+        },
+        "run": {
+          "case_refs": [
+            "VND-0001",
+            "VND-0003",
+            "VND-0004",
+            "VND-0006",
+            "VND-0007",
+            "VND-0008",
+            "VND-0012",
+            "VND-0013",
+            "VND-0015",
+            "VND-0016",
+            "VND-0017",
+            "VND-0018",
+            "VND-0021",
+            "VND-0024",
+            "VND-0025",
+            "VND-0027"
+          ],
+          "fallback_rate": {
+            "count": 0,
+            "n": 0,
+            "rate": null
+          },
+          "latency_ms": {
+            "p50": 436,
+            "p95": 611
+          },
+          "mode": {
+            "data": "duckdb",
+            "llm": "offline"
+          },
+          "model_calls_per_case": 0,
+          "model_ids": [],
+          "n": 16,
+          "routed_models": {}
+        },
+        "selective_accuracy": {
+          "correct": 10,
+          "n": 10,
+          "rate": 1
+        },
+        "unsafe_approvals": {
+          "count": 0,
+          "n": 16
+        }
+      },
+      "baseline": {
+        "abstention_rate": {
+          "count": 0,
+          "n": 5,
+          "rate": 0
+        },
+        "accuracy": {
+          "correct": 0,
+          "n": 5,
+          "rate": 0,
+          "wilson_95": [
+            0,
+            0.43449149475208104
+          ]
+        },
+        "consistency": {
+          "facts_hash_stable": 4,
+          "n": 4,
+          "rate": 1,
+          "stable": 4
+        },
+        "contradiction_precision": {
+          "predicted": 0,
+          "rate": null,
+          "true_positives": 0
+        },
+        "contradiction_recall": {
+          "expected": 1,
+          "found": 0,
+          "rate": 0
+        },
+        "cost": {
+          "latency_p50_ms": 58800,
+          "latency_p95_ms": 80770,
+          "model_calls_per_case": 1,
+          "queries_per_case": 26,
+          "tokens_in_per_case": 0,
+          "tokens_out_per_case": 0
+        },
+        "fact_accuracy": {
+          "correct": 0,
+          "n": 0,
+          "per_control": {},
+          "rate": null
+        },
+        "failing_control_recall": {
+          "expected": 2,
+          "found": 0,
+          "rate": 0
+        },
+        "fallback_rate": {
+          "count": 5,
+          "n": 135,
+          "rate": 0.037037037037037035
+        },
+        "grounding_rate": {
+          "grounded": 0,
+          "n": 0,
+          "rate": null
+        },
+        "injection_detection": {
+          "detected": 0,
+          "n": 0,
+          "rate": null
+        },
+        "injection_false_positive_rate": {
+          "flagged": 0,
+          "n": 5,
+          "rate": 0
+        },
+        "invalid_rate": {
+          "count": 5,
+          "n": 5,
+          "rate": 1
+        },
+        "macro_f1": {
+          "per_class": {
+            "APPROVE": 0,
+            "ESCALATE": 0
+          },
+          "score": 0
+        },
+        "over_escalations": {
+          "count": 0,
+          "n": 5
+        },
+        "run": {
+          "case_refs": [
+            "VND-0001",
+            "VND-0003",
+            "VND-0004",
+            "VND-0006",
+            "VND-0007"
+          ],
+          "fallback_rate": {
+            "count": 5,
+            "n": 5,
+            "rate": 1
+          },
+          "latency_ms": {
+            "p50": 58800,
+            "p95": 80770
+          },
+          "mode": {
+            "data": "zetaris",
+            "llm": "meterless"
+          },
+          "model_calls_per_case": 1,
+          "model_ids": [],
+          "n": 5,
+          "routed_models": {}
+        },
+        "selective_accuracy": {
+          "correct": 0,
+          "n": 5,
+          "rate": 0
+        },
+        "unsafe_approvals": {
+          "count": 0,
+          "n": 5
+        }
+      }
+    }
+  },
+  "offline": {
+    "generated_at": "2026-10-22T08:05:23Z",
+    "git_sha": "a7228be2efe2bca9f004f981db12c1e8dd53704f",
+    "mode": {
+      "data": "duckdb",
+      "llm": "offline"
+    },
+    "model_ids": [],
+    "n": 15,
+    "offline": true,
+    "provider": "offline",
+    "split_sha256": {
+      "test": "a0764744e779eb1d6c8ec56bf3d562b61c10d2b63616bdf0769d42db07bbaa6f"
+    },
+    "splits": [
+      "test"
+    ],
+    "synthetic": true,
+    "systems": {
+      "arbiter_offline": {
+        "abstention_rate": {
+          "count": 0,
+          "n": 15,
+          "rate": 0
+        },
+        "accuracy": {
+          "correct": 15,
+          "n": 15,
+          "rate": 1,
+          "wilson_95": [
+            0.7961107336956521,
+            1
+          ]
+        },
+        "consistency": {
+          "facts_hash_stable": null,
+          "n": 0,
+          "rate": null,
+          "stable": 0
+        },
+        "contradiction_precision": {
+          "predicted": 1,
+          "rate": 0,
+          "true_positives": 0
+        },
+        "contradiction_recall": {
+          "expected": 0,
+          "found": 0,
+          "rate": null
+        },
+        "cost": {
+          "latency_p50_ms": 371,
+          "latency_p95_ms": 457,
+          "model_calls_per_case": 0,
+          "queries_per_case": 9.866666666666667,
+          "tokens_in_per_case": 0,
+          "tokens_out_per_case": 0
+        },
+        "fact_accuracy": {
+          "correct": 459,
+          "n": 506,
+          "per_control": {
+            "": {
+              "correct": 207,
+              "n": 236,
+              "rate": 0.8771186440677966
+            },
+            "C01": {
+              "correct": 30,
+              "n": 30,
+              "rate": 1
+            },
+            "C02": {
+              "correct": 30,
+              "n": 30,
+              "rate": 1
+            },
+            "C03": {
+              "correct": 15,
+              "n": 15,
+              "rate": 1
+            },
+            "C04": {
+              "correct": 30,
+              "n": 30,
+              "rate": 1
+            },
+            "C05": {
+              "correct": 30,
+              "n": 30,
+              "rate": 1
+            },
+            "C06": {
+              "correct": 15,
+              "n": 15,
+              "rate": 1
+            },
+            "C07": {
+              "correct": 6,
+              "n": 15,
+              "rate": 0.4
+            },
+            "C08": {
+              "correct": 6,
+              "n": 15,
+              "rate": 0.4
+            },
+            "C09": {
+              "correct": 30,
+              "n": 30,
+              "rate": 1
+            },
+            "C10": {
+              "correct": 15,
+              "n": 15,
+              "rate": 1
+            },
+            "C11": {
+              "correct": 15,
+              "n": 15,
+              "rate": 1
+            },
+            "C12": {
+              "correct": 30,
+              "n": 30,
+              "rate": 1
+            }
+          },
+          "rate": 0.9071146245059288
+        },
+        "failing_control_recall": {
+          "expected": 0,
+          "found": 0,
+          "rate": null
+        },
+        "fallback_rate": {
+          "count": 0,
+          "n": 814,
+          "rate": 0
+        },
+        "grounding_rate": {
+          "grounded": 235,
+          "n": 235,
+          "rate": 1
+        },
+        "injection_detection": {
+          "detected": 1,
+          "n": 1,
+          "rate": 1
+        },
+        "injection_false_positive_rate": {
+          "flagged": 0,
+          "n": 14,
+          "rate": 0
+        },
+        "invalid_rate": {
+          "count": 0,
+          "n": 0,
+          "rate": null
+        },
+        "macro_f1": {
+          "per_class": {
+            "APPROVE": 1,
+            "ESCALATE": 1,
+            "REQUEST_INFO": 1
+          },
+          "score": 1
+        },
+        "over_escalations": {
+          "count": 0,
+          "n": 15
+        },
+        "selective_accuracy": {
+          "correct": 15,
+          "n": 15,
+          "rate": 1
+        },
+        "unsafe_approvals": {
+          "count": 0,
+          "n": 15
+        }
+      }
+    }
+  },
+  "live_markdown": "# Evaluation\n\nSynthetic data. Small n. Intervals are Wilson 95% where a rate has a denominator.\nOnly the tier gates are calibrated. Weights stay at their a-priori values.\n\n- mode: live (zetaris / meterless)\n- provider: meterless\n- model ids (from traces): nvidia/nemotron-3.5-super-vl-120b-a12b, nvidia/nemotron-3.5-lightning-30b-a3b\n- splits: test\n- n: 20\n- git sha: 4b4680b0586ae50003f87bab2337931aa6f6c37b\n- generated: 2026-10-24T05:35:05Z\n\n| System | Accuracy | Unsafe approvals | Invalid | Abstention |\n|---|---:|---:|---:|---:|\n| arbiter | 1.000 (5/5) | 0/5 | — | 0.200 (1/5) |\n| arbiter_offline | 1.000 (16/16) | 0/16 | — | 0.375 (6/16) |\n| baseline | 0.000 (0/5) | 0/5 | 1.000 (5/5) | 0.000 (0/5) |\n\nReduced n: n=5 for the live systems, n=16 for the offline system; the live subset is the first 5 test cases by case_id.\n\n| System | Mode | n | Contradiction recall | Failing-control recall | p50 ms | p95 ms | Model calls/case | Model-call fallback |\n|---|---|---:|---:|---:|---:|---:|---:|---:|\n| arbiter | zetaris / meterless | 5 | 1.000 (1/1) | 1.000 (2/2) | 141817 | 233333 | 5.0 | 0.200 (5/25) |\n| arbiter_offline | duckdb / offline | 16 | 1.000 (2/2) | 1.000 (6/6) | 436 | 611 | 0.0 | — |\n| baseline | zetaris / meterless | 5 | 0.000 (0/1) | 0.000 (0/2) | 58800 | 80770 | 1.0 | 1.000 (5/5) |\n\n- deep lane routed to: nvidia/nemotron-3.5-super-vl-120b-a12b, nvidia/nemotron-3.5-lightning-30b-a3b (from trace receipts)\n- fast lane routed to: nvidia/nemotron-3.5-super-vl-120b-a12b (from trace receipts)\n",
+  "offline_markdown": "# Evaluation\n\nSynthetic data. Small n. Intervals are Wilson 95% where a rate has a denominator.\nOnly the tier gates are calibrated. Weights stay at their a-priori values.\n\n- mode: offline (duckdb / offline)\n- provider: offline\n- model ids (from traces): none recorded\n- splits: test\n- n: 15\n- git sha: a7228be2efe2bca9f004f981db12c1e8dd53704f\n- generated: 2026-10-22T08:05:23Z\n\nThese numbers are offline. They are not a live Nightshift run.\n\n| System | Accuracy | Unsafe approvals | Invalid | Abstention |\n|---|---:|---:|---:|---:|\n| arbiter_offline | 1.000 (15/15) | 0/15 | — | 0.000 (0/15) |\n"
+}

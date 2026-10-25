@@ -1,0 +1,131 @@
+{
+  "query_layer": "usl",
+  "source_mode": "github_raw",
+  "all_green": true,
+  "table_counts": [
+    {
+      "table": "vendor",
+      "expected": 32,
+      "zetaris": 32,
+      "ok": true
+    },
+    {
+      "table": "vendor_alias",
+      "expected": 64,
+      "zetaris": 64,
+      "ok": true
+    },
+    {
+      "table": "contract",
+      "expected": 32,
+      "zetaris": 32,
+      "ok": true
+    },
+    {
+      "table": "incident",
+      "expected": 2,
+      "zetaris": 2,
+      "ok": true
+    },
+    {
+      "table": "watchlist_entry",
+      "expected": 2,
+      "zetaris": 2,
+      "ok": true
+    },
+    {
+      "table": "submission",
+      "expected": 32,
+      "zetaris": 32,
+      "ok": true
+    },
+    {
+      "table": "submission_answer",
+      "expected": 504,
+      "zetaris": 504,
+      "ok": true
+    },
+    {
+      "table": "submission_document",
+      "expected": 9,
+      "zetaris": 9,
+      "ok": true
+    },
+    {
+      "table": "vendor_component",
+      "expected": 2,
+      "zetaris": 2,
+      "ok": true
+    }
+  ],
+  "rules": [
+    {
+      "id": "dq_contract_dpa_date",
+      "table": "contract",
+      "expr": "dpa_signed = false OR dpa_signed_date IS NOT NULL",
+      "pk": "contract_id"
+    },
+    {
+      "id": "dq_contract_breach_hours",
+      "table": "contract",
+      "expr": "breach_notification_hours IS NULL OR (breach_notification_hours >= 1 AND breach_notification_hours <= 720)",
+      "pk": "contract_id"
+    },
+    {
+      "id": "dq_document_dates",
+      "table": "submission_document",
+      "expr": "expires_on IS NULL OR expires_on >= issued_on",
+      "pk": "doc_id"
+    },
+    {
+      "id": "dq_incident_rca",
+      "table": "incident",
+      "expr": "status <> 'closed' OR rca_completed IS NOT NULL",
+      "pk": "incident_number"
+    },
+    {
+      "id": "dq_vendor_spend",
+      "table": "vendor",
+      "expr": "annual_spend_gbp >= 0",
+      "pk": "vendor_id"
+    }
+  ],
+  "invalid_by_table": [
+    {
+      "table": "contract",
+      "zetaris": [
+        "CTR-30028"
+      ],
+      "mirror": [
+        "CTR-30028"
+      ],
+      "ok": true
+    },
+    {
+      "table": "submission_document",
+      "zetaris": [],
+      "mirror": [],
+      "ok": true
+    },
+    {
+      "table": "incident",
+      "zetaris": [],
+      "mirror": [],
+      "ok": true
+    },
+    {
+      "table": "vendor",
+      "zetaris": [],
+      "mirror": [],
+      "ok": true
+    }
+  ],
+  "query_comparisons": {
+    "total": 416,
+    "ok": 416
+  },
+  "kev_checks": {
+    "total": 32,
+    "ok": 32
+  }
+}

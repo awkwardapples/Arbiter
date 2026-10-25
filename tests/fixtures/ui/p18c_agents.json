@@ -1,0 +1,74 @@
+[
+  {
+    "can": "Choose registry queries from the USL catalogue; revise the plan",
+    "cannot": "Write SQL, or skip a required control",
+    "kind": "LLM + fallback",
+    "lane": "deep",
+    "name": "Planner",
+    "trace_name": "PlannerAgent"
+  },
+  {
+    "can": "Run registry queries, run ScoutGuard, extract claims with verbatim quotes",
+    "cannot": "Mark a claim verified",
+    "kind": "Tools + LLM + fallback",
+    "lane": "fast",
+    "name": "Evidence",
+    "trace_name": "EvidenceAgent"
+  },
+  {
+    "can": "Ground quotes, cross-check claims against systems of record, send the plan back",
+    "cannot": "Decide an outcome",
+    "kind": "Code + LLM critic",
+    "lane": "fast",
+    "name": "Evaluator",
+    "trace_name": "EvaluatorAgent"
+  },
+  {
+    "can": "Tier the vendor; produce the outcome and what evidence would change it",
+    "cannot": "Call a model",
+    "kind": "Code",
+    "lane": "–",
+    "name": "Policy engine",
+    "trace_name": "PolicyEngine"
+  },
+  {
+    "can": "Retrieve lead-approved precedents; record feedback",
+    "cannot": "Change the policy",
+    "kind": "Meterless H-MEM",
+    "lane": "–",
+    "name": "Memory (H-MEM)",
+    "trace_name": "MemoryKeeper"
+  },
+  {
+    "can": "Attack the candidate decision; request one re-plan; escalate",
+    "cannot": "Approve or upgrade an outcome",
+    "kind": "LLM + deterministic triggers",
+    "lane": "deep",
+    "name": "Challenger",
+    "trace_name": "ChallengerAgent"
+  },
+  {
+    "can": "Write the cited brief and draft the next action",
+    "cannot": "Cite anything outside the decision record",
+    "kind": "Template + optional LLM rewrite + validator",
+    "lane": "deep",
+    "name": "Reporter",
+    "trace_name": "ReporterAgent"
+  },
+  {
+    "can": "Block, warn or pass untrusted vendor text; redact PII",
+    "cannot": "Decide",
+    "kind": "Meterless Scout subset",
+    "lane": "–",
+    "name": "Scout guard",
+    "trace_name": "ScoutGuard"
+  },
+  {
+    "can": "Issue and verify signed contracts; run the outbox once approvals exist",
+    "cannot": "Act without a valid contract",
+    "kind": "Scout execution contracts",
+    "lane": "–",
+    "name": "Action executor",
+    "trace_name": "ActionExecutor"
+  }
+]

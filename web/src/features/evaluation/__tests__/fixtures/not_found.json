@@ -1,0 +1,14 @@
+{
+  "status": 404,
+  "body": {
+    "run_id": null,
+    "status": "error",
+    "error": {
+      "type": "NotFound",
+      "message": "case CASE-does-not-exist not found",
+      "recoverable": false
+    },
+    "trace_id": null,
+    "execution_time_seconds": null
+  }
+}

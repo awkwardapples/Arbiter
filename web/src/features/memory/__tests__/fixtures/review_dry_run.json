@@ -1,0 +1,46 @@
+{
+  "ineligible": {
+    "case_id": "CASE-0007",
+    "request": {
+      "reviewer": "lead@example.com",
+      "role": "tprm_lead",
+      "decision": "APPROVE_WITH_CONDITIONS",
+      "rationale": "Recorded by record-fixtures.mjs to capture the review shapes.",
+      "mitigations": [
+        "assurance.bridge_letter_current"
+      ],
+      "conditions": [
+        "SOC 2 Type II report within 60 days"
+      ],
+      "create_precedent": true
+    },
+    "response": {
+      "eligible": false,
+      "reasons": [
+        "mitigation_not_true",
+        "no_exception_control_failing",
+        "non_exception_control_failing"
+      ]
+    }
+  },
+  "eligible": {
+    "case_id": "CASE-0011",
+    "request": {
+      "reviewer": "lead@example.com",
+      "role": "tprm_lead",
+      "decision": "APPROVE_WITH_CONDITIONS",
+      "rationale": "Recorded by record-fixtures.mjs to capture the review shapes.",
+      "mitigations": [
+        "assurance.bridge_letter_current"
+      ],
+      "conditions": [
+        "SOC 2 Type II report within 60 days"
+      ],
+      "create_precedent": true
+    },
+    "response": {
+      "eligible": true,
+      "reasons": []
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-10-24T04:05:15Z",
+  "base_url_host": "localhost:8088",
+  "fast": {
+    "sent_model": "meterless/fast",
+    "response_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "routed_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "requested_mode": "fast",
+    "routed_mode": "auto",
+    "mode_coerced": true,
+    "receipt_id": "rcpt_req_924f14pn",
+    "latency_ms": 5728,
+    "tokens_in": 57,
+    "tokens_out": 262
+  },
+  "deep": {
+    "sent_model": "meterless/deep",
+    "response_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "routed_model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "requested_mode": "deep",
+    "routed_mode": "auto",
+    "mode_coerced": true,
+    "receipt_id": "rcpt_req_p412l7ql",
+    "latency_ms": 615,
+    "tokens_in": 57,
+    "tokens_out": 34
+  },
+  "deviations": [
+    {
+      "kind": "mode_coerced",
+      "detail": "fast: Nightshift coerced requested mode fast to auto (receipt rcpt_req_924f14pn)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "receipt_ids": [
+        "rcpt_req_924f14pn"
+      ]
+    },
+    {
+      "kind": "mode_coerced",
+      "detail": "deep: Nightshift coerced requested mode deep to auto (receipt rcpt_req_p412l7ql)",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "receipt_ids": [
+        "rcpt_req_p412l7ql"
+      ]
+    }
+  ]
+}
