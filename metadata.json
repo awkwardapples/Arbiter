@@ -15,8 +15,8 @@
     ]
   },
   "repository": "https://github.com/awkwardapples/Arbiter",
-  "demo_video": "",
-  "slide_deck": "",
+  "demo_video": "https://youtu.be/qzYbxp3Pc2U",
+  "slide_deck": "https://drive.google.com/file/d/1bLk0TJypcDtn7ZVOfptUXQ9txrTQCzir/view?usp=sharing",
   "entry_points": {
     "api": "POST http://localhost:8000/run",
     "cli": "python run.py assess --input input_examples/example_1.json",

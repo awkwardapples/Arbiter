@@ -356,7 +356,7 @@ def test_p17_t10_submission_checklist_state() -> None:
     assert re.search(r"- \[ \] .*[Dd]eck", text)
     assert "docs/PRIOR_WORK.md" in text
     meta = _meta()
-    assert meta["demo_video"] == "" and meta["slide_deck"] == ""
+    assert meta["demo_video"].startswith("https://") and meta["slide_deck"].startswith("https://")
 
 
 # --- P17-T11 ------------------------------------------------------------------------------------
