@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseDone, parseTraceEvent } from "../events";
 
-const LIVE = resolve(__dirname, "../../../../logs/examples/live/trace-run-83de5da137c0.jsonl");
+const LIVE = resolve(__dirname, "../../../../logs/examples/live/history/trace-run-83de5da137c0.jsonl");
 
 describe("SSE payload validation", () => {
   it("accepts every committed live trace line", () => {

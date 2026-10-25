@@ -2,7 +2,7 @@
 
 export type ModeSource =
   | { kind: "mode"; mode: Record<string, string> | null | undefined; fallbacks?: number; paced?: boolean }
-  | { kind: "recording"; startedAt: string | null | undefined; fallbacks?: number; mode?: Record<string, string> | null };
+  | { kind: "recording"; startedAt: string | null | undefined; fallbacks?: number; mode?: Record<string, string> | null; modelIds?: string[] };
 
 export interface ModeChip {
   text: string;
@@ -20,9 +20,22 @@ export function formatUtc(iso: string): string | null {
   return `${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())} UTC`;
 }
 
-function fallbackText(count: number | undefined): string | null {
+// Counts trace steps marked fallback: a failed model call and the deterministic step that replaced it
+// count once each. The behaviour strip's "Retries and fallbacks" counts calls and queries instead.
+export function fallbackText(count: number | undefined): string | null {
   if (!count) return null;
-  return count === 1 ? "1 fallback" : `${count} fallbacks`;
+  return count === 1 ? "1 fallback step" : `${count} fallback steps`;
+}
+
+/**
+ * A recording is live when Zetaris served the data and Nightshift served the models. `llm: "auto"`
+ * (the memory session) counts only when a model call carried a model id, which only a Nightshift
+ * completion records.
+ */
+export function recordedLive(mode: Record<string, string> | null | undefined, modelIds?: string[]): boolean {
+  if (!mode) return false;
+  if (mode.data !== "zetaris") return false;
+  return mode.llm === "meterless" || (mode.llm === "auto" && (modelIds ?? []).length > 0);
 }
 
 const DATA_WORDS: Record<string, string> = { zetaris: "Zetaris USL", duckdb: "DuckDB mirror" };
@@ -37,7 +50,7 @@ export function modeChipText(source: ModeSource): ModeChip {
   if (source.kind === "recording") {
     const when = source.startedAt ? formatUtc(source.startedAt) : null;
     // A recording is called live only when its events say Zetaris and Nightshift served it.
-    const live = !source.mode || (source.mode.data === "zetaris" && source.mode.llm === "meterless");
+    const live = !source.mode || recordedLive(source.mode, source.modelIds);
     const what = live ? "Recorded live run" : source.mode?.data === "duckdb" ? "Recorded sample-mode run" : "Recorded run";
     return {
       text: when ? `${what}, ${when}` : what,

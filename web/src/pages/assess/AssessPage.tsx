@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { PageHeader } from "../../app/PageHeader";
-import { Callout } from "../../ui/Callout";
+import { Button } from "../../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import { RecordingList } from "./RecordingList";
 import { VendorList } from "./VendorList";
@@ -19,10 +19,12 @@ export function AssessPage() {
             <VendorList />
           </TabsContent>
           <TabsContent value="new" className="pt-4">
-            <Callout title="The questionnaire form is not in the web console yet.">
-              Open <Link className="text-record underline" to="/new">New vendor assessment</Link>, or use the classic console's questionnaire tab
-              (<code className="font-mono text-ink">python run.py ui</code>).
-            </Callout>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="text-sm text-graphite">Fill in the questionnaire for a vendor that is not in the company's records yet.</p>
+              <Button asChild size="sm">
+                <Link to="/new">New vendor assessment</Link>
+              </Button>
+            </div>
           </TabsContent>
         </Tabs>
         <section aria-labelledby="recordings-heading" className="flex flex-col gap-3">

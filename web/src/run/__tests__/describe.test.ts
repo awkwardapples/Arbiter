@@ -40,7 +40,7 @@ group("P18B-T4 plain-English activity lines", () => {
   });
 
   it("matches the design's example sentences", () => {
-    const live = loadTrace("logs/examples/live/trace-run-83de5da137c0.jsonl");
+    const live = loadTrace("logs/examples/live/history/trace-run-83de5da137c0.jsonl");
     const texts = live.map((e) => describe(e, registry).text);
     expect(texts).toContain("Started the assessment of CASE-0003 with a 600 s budget.");
     expect(texts).toContain("The Planner read the semantic layer's model (304 tokens).");
