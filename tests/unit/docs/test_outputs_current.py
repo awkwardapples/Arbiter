@@ -31,7 +31,7 @@ def test_p20_t2_no_stale_control_reason() -> None:
     assert len(documents) == 12, [path.name for path in documents]
     for path in documents:
         text = path.read_text(encoding="utf-8")
-        outcome = json.loads(text)["response"]["outcome"]
+        outcome = json.loads(text)["response"]["output"]["decision"]
         if outcome != "APPROVE":
             assert "ALL_REQUIRED_CONTROLS_MET" not in text, f"{path.relative_to(ROOT)} ({outcome})"
 
