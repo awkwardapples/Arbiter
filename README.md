@@ -9,7 +9,7 @@
 
 Auditable reasoning for third-party vendor onboarding: agents gather cited evidence, a versioned policy decides, and the next action is a signed contract.
 
-**Demo video:** the link is added here and in `metadata.json` when the video is uploaded (`docs/SUBMISSION.md`). **Track:** Reasoning Architecture.
+**Demo video:** https://youtu.be/qzYbxp3Pc2U  **Track:** Reasoning Architecture. **Slide deck:** https://drive.google.com/file/d/1bLk0TJypcDtn7ZVOfptUXQ9txrTQCzir/view?usp=sharing
 
 ## Quick start
 
