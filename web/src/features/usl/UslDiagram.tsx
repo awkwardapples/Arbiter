@@ -12,16 +12,21 @@ const NODE_TYPES = { table: TableNode };
 export function UslDiagram({
   model,
   registry,
+  rowCounts,
   selected,
   onSelect,
 }: {
   model: UslModel;
   registry: RegistryQuery[];
+  rowCounts?: Record<string, number>;
   selected: string | null;
   onSelect: (name: string) => void;
 }) {
   const rels = useMemo(() => relationships(model, registry), [model, registry]);
-  const { nodes, edges } = useMemo(() => layoutGraph(model.tables, rels, selected, onSelect), [model.tables, rels, selected, onSelect]);
+  const { nodes, edges } = useMemo(
+    () => layoutGraph(model.tables, rels, selected, onSelect, rowCounts),
+    [model.tables, rels, selected, onSelect, rowCounts],
+  );
   return (
     <div className="flex flex-col gap-3">
       <div className="h-[620px] overflow-hidden rounded-panel border border-hairline" data-testid="usl-diagram">

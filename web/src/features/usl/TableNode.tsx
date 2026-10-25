@@ -6,7 +6,7 @@ import type { TableNodeData } from "./layout";
 
 /** One USL table: name, description, primary key, and its columns on demand. */
 export function TableNode({ data }: NodeProps<Node<TableNodeData>>) {
-  const { table, selected, onSelect } = data;
+  const { table, rows, selected, onSelect } = data;
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -43,6 +43,7 @@ export function TableNode({ data }: NodeProps<Node<TableNodeData>>) {
       >
         {open ? <ChevronDown className="size-3" aria-hidden /> : <ChevronRight className="size-3" aria-hidden />}
         {table.columns.length} columns
+        {rows != null ? <span className="ml-auto font-mono" data-testid={`usl-rows-${table.name}`}>{rows.toLocaleString("en-GB")} rows</span> : null}
       </button>
       {open ? (
         <ul className="max-h-48 overflow-y-auto border-t border-hairline px-3 py-2 text-xs" data-testid={`usl-columns-${table.name}`}>

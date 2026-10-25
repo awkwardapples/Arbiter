@@ -55,6 +55,11 @@ export const useCaseTrace = (caseId: string | null | undefined) =>
   });
 
 /** Data mode in words, from /health only. */
+/** Row counts per table from /health, on whichever backend this API reads. */
+export function tableCounts(data: Record<string, unknown> | null | undefined): Record<string, number> | undefined {
+  return data?.table_counts as Record<string, number> | undefined;
+}
+
 export function dataModeLine(data: Record<string, unknown> | null | undefined, mode: Record<string, string> | undefined): string {
   const backend = (data?.backend as string | undefined) ?? mode?.data;
   if (backend === "zetaris") {

@@ -4,7 +4,7 @@ import { PageHeader } from "../../app/PageHeader";
 import { Callout } from "../../ui/Callout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { DocLink } from "../../ui/DocLink";
-import { dataModeLine, useCaseTrace, useCases, useParity, useUslModel } from "../../features/usl/api";
+import { dataModeLine, tableCounts, useCaseTrace, useCases, useParity, useUslModel } from "../../features/usl/api";
 import { Catalogue } from "../../features/usl/Catalogue";
 import { DataQuality } from "../../features/usl/DataQuality";
 import { QueriesForTable } from "../../features/usl/QueriesForTable";
@@ -52,7 +52,13 @@ export function SourcesPage() {
               </Callout>
             ) : model.data && registry.data ? (
               <div className="flex flex-col gap-6">
-                <UslDiagram model={model.data} registry={registry.data} selected={selected} onSelect={onSelect} />
+                <UslDiagram
+                  model={model.data}
+                  registry={registry.data}
+                  rowCounts={tableCounts(health.data?.data)}
+                  selected={selected}
+                  onSelect={onSelect}
+                />
                 <aside className="min-w-0 max-w-4xl" aria-live="polite">
                   {selected ? (
                     <QueriesForTable table={selected} registry={registry.data} usage={usage} usageCase={latestCase} />

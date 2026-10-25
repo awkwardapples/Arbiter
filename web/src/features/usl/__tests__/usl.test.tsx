@@ -52,6 +52,8 @@ describe("Sources: the USL diagram and data quality", () => {
 
     renderSources();
     for (const table of model.tables) expect(await screen.findByTestId(`usl-table-${table.name}`)).toBeInTheDocument();
+    // Row counts come from /health on the current backend.
+    expect(await screen.findByTestId("usl-rows-submission_answer")).toHaveTextContent("504 rows");
     const list = screen.getByTestId("usl-relationships");
     expect(within(list).getAllByTestId("rel-declared")).toHaveLength(5);
     expect(within(list).getAllByTestId("rel-undeclared")).toHaveLength(2);

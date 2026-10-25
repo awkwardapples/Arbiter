@@ -8,6 +8,8 @@ export const TABLE_HEIGHT = 128;
 
 export interface TableNodeData extends Record<string, unknown> {
   table: UslTable;
+  /** Rows in this table on the current data backend, from /health; absent if not reported. */
+  rows?: number;
   selected: boolean;
   onSelect: (name: string) => void;
 }
@@ -21,6 +23,7 @@ export function layoutGraph(
   rels: Relationship[],
   selected: string | null,
   onSelect: (name: string) => void,
+  rowCounts: Record<string, number> = {},
 ): { nodes: Node<TableNodeData>[]; edges: Edge<RelationshipEdgeData>[] } {
   const g = new dagre.graphlib.Graph();
   g.setGraph({ rankdir: "LR", nodesep: 24, ranksep: 64, marginx: 16, marginy: 16 });
@@ -39,7 +42,7 @@ export function layoutGraph(
       id: table.name,
       type: "table",
       position: { x: pos.x - TABLE_WIDTH / 2, y: pos.y - TABLE_HEIGHT / 2 },
-      data: { table, selected: table.name === selected, onSelect },
+      data: { table, rows: rowCounts[table.name], selected: table.name === selected, onSelect },
       focusable: true,
     };
   });
