@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "contract_signatures": true,
+    "policy_hash": true,
+    "record_hash": true
+  },
+  "diff": [],
+  "human_override": null,
+  "machine_outcome": null,
+  "machine_source": null,
+  "match": true
+}

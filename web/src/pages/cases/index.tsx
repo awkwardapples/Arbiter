@@ -1,6 +1,3 @@
-// Placeholder owned by lane 18c/18d, which replaces this file.
-import { PlaceholderPage } from "../../app/PlaceholderPage";
+import { CasesPage } from "./CasesPage";
 
-export default function CasesPage() {
-  return <PlaceholderPage title="Cases" classicPage="the Cases page" />;
-}
+export default CasesPage;
