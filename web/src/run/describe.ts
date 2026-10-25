@@ -203,6 +203,7 @@ function specific(e: TraceEvent, registry: Registry | undefined): Omit<Line, "ge
     case "plan_fallback":
     case "critique_fallback":
     case "extract_fallback":
+    case "report_fallback":
       return { text: `${who} fell back to its deterministic logic after the model call failed.`, detail: e.output_summary, tone: "clash" };
     case "guard_segment": {
       const segment = input.segment_id ?? "";

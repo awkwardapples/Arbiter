@@ -1,5 +1,6 @@
 // Test fixtures come from committed files only: traces from the repo, the registry from app/data/queries.yaml.
-import { globSync, readFileSync } from "node:fs";
+import { globSync } from "glob";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { parse } from "yaml";
 import type { RegistryQuery, TraceEvent } from "../../api/types";
