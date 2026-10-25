@@ -49,7 +49,7 @@ def test_p18a_t6_recordings_index(client: TestClient) -> None:
     """P18A-T6: kinds, vendor lookup, no baselines, failed only on request, safe detail lookup."""
     rows = client.get("/recordings").json()
     by_id = {row["run_id"]: row for row in rows}
-    assert by_id["run-83de5da137c0"]["kind"] == "live_example"
+    assert by_id["run-211916c1544d"]["kind"] == "live_example"  # P20: example 2 live (approved repoint)
     live_eval = by_id["run-257c86984507"]
     assert live_eval["kind"] == "live_eval"
     assert live_eval["vendor_name"] == "Quillfeather Payroll Cloud Ltd"
