@@ -1,0 +1,589 @@
+{
+  "name": "vendor_risk",
+  "namespace": "lightning.metastore.arbiter",
+  "tables": [
+    {
+      "name": "vendor",
+      "description": "One row per vendor onboarding request from procurement; tier inputs and the CLM supplier reference.",
+      "primary_key": [
+        "vendor_id"
+      ],
+      "columns": [
+        {
+          "name": "vendor_id",
+          "data_type": "varchar(12)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "legal_name",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "trading_name",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "category",
+          "data_type": "varchar(80)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "requested_service",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "business_owner",
+          "data_type": "varchar(120)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "annual_spend_gbp",
+          "data_type": "decimal(14,2)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "criticality",
+          "data_type": "varchar(10)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "data_categories",
+          "data_type": "varchar(120)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "processing_countries",
+          "data_type": "varchar(120)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "clm_supplier_ref",
+          "data_type": "varchar(16)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "onboarding_status",
+          "data_type": "varchar(20)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "requested_at",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "name": "vendor_alias",
+      "description": "Other names procurement holds for a vendor, used to match incidents and watchlist entries.",
+      "primary_key": [
+        "alias_id"
+      ],
+      "columns": [
+        {
+          "name": "alias_id",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "vendor_id",
+          "data_type": "varchar(12)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "alias_lower",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "vendor_id"
+          ],
+          "target_table": "vendor",
+          "target_columns": [
+            "vendor_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "contract",
+      "description": "The CLM contract for the supplier: DPA, hosting region, breach notice window, and renewal.",
+      "primary_key": [
+        "contract_id"
+      ],
+      "columns": [
+        {
+          "name": "contract_id",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "supplier_ref",
+          "data_type": "varchar(16)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "status",
+          "data_type": "varchar(16)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "dpa_signed",
+          "data_type": "boolean",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "dpa_signed_date",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "hosting_region_clause",
+          "data_type": "varchar(10)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "transfer_mechanism",
+          "data_type": "varchar(10)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "breach_notification_hours",
+          "data_type": "integer",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "subprocessor_list_attached",
+          "data_type": "boolean",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "renewal_date",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "name": "incident",
+      "description": "An ITSM incident whose raw vendor name is matched to a procurement alias.",
+      "primary_key": [
+        "incident_number"
+      ],
+      "columns": [
+        {
+          "name": "incident_number",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "opened_at",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "vendor_name_raw",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "severity",
+          "data_type": "varchar(4)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "category",
+          "data_type": "varchar(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "root_cause_tag",
+          "data_type": "varchar(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "status",
+          "data_type": "varchar(12)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "rca_completed",
+          "data_type": "boolean",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "closed_at",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "name": "watchlist_entry",
+      "description": "A sanctions or restricted-party name from the GRC watchlist.",
+      "primary_key": [
+        "entry_id"
+      ],
+      "columns": [
+        {
+          "name": "entry_id",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "entity_name",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "list_name",
+          "data_type": "varchar(60)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "country",
+          "data_type": "varchar(4)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "added_on",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "reason",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "name": "submission",
+      "description": "The trust-portal submission header, including the critical patch SLA.",
+      "primary_key": [
+        "submission_id"
+      ],
+      "columns": [
+        {
+          "name": "submission_id",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "vendor_id",
+          "data_type": "varchar(12)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "submitted_at",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "patch_sla_critical_days",
+          "data_type": "integer",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "contact_role",
+          "data_type": "varchar(60)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "vendor_id"
+          ],
+          "target_table": "vendor",
+          "target_columns": [
+            "vendor_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "submission_answer",
+      "description": "One answer to a fixed questionnaire question on a submission.",
+      "primary_key": [
+        "answer_id"
+      ],
+      "columns": [
+        {
+          "name": "answer_id",
+          "data_type": "varchar(20)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "submission_id",
+          "data_type": "varchar(16)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "vendor_id",
+          "data_type": "varchar(12)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "question_id",
+          "data_type": "varchar(4)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "question",
+          "data_type": "varchar(300)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "answer_text",
+          "data_type": "varchar(4000)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "submission_id"
+          ],
+          "target_table": "submission",
+          "target_columns": [
+            "submission_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "submission_document",
+      "description": "An assurance document uploaded with a submission, with issue and expiry dates.",
+      "primary_key": [
+        "doc_id"
+      ],
+      "columns": [
+        {
+          "name": "doc_id",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "submission_id",
+          "data_type": "varchar(16)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "vendor_id",
+          "data_type": "varchar(12)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "doc_type",
+          "data_type": "varchar(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "issued_on",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "expires_on",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "doc_text",
+          "data_type": "varchar(12000)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "submission_id"
+          ],
+          "target_table": "submission",
+          "target_columns": [
+            "submission_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vendor_component",
+      "description": "A software component the vendor declared, joined to CISA KEV.",
+      "primary_key": [
+        "component_id"
+      ],
+      "columns": [
+        {
+          "name": "component_id",
+          "data_type": "varchar(16)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "vendor_id",
+          "data_type": "varchar(12)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "vendor_project",
+          "data_type": "varchar(120)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "product",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "version",
+          "data_type": "varchar(60)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "vendor_id"
+          ],
+          "target_table": "vendor",
+          "target_columns": [
+            "vendor_id"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "kev_vuln",
+      "description": "One entry in the CISA Known Exploited Vulnerabilities catalogue.",
+      "primary_key": [
+        "cve_id"
+      ],
+      "columns": [
+        {
+          "name": "cve_id",
+          "data_type": "varchar(24)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "vendor_project",
+          "data_type": "varchar(200)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "product",
+          "data_type": "varchar(300)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "vulnerability_name",
+          "data_type": "varchar(400)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "date_added",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "due_date",
+          "data_type": "date",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "ransomware_use",
+          "data_type": "varchar(16)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "foreign_keys": []
+    }
+  ],
+  "catalogue_tokens": 304
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "seq": 6,
+    "timestamp": "2026-10-24T15:40:42Z",
+    "case_id": "CASE-0007",
+    "event_type": "review_recorded"
+  },
+  {
+    "seq": 5,
+    "timestamp": "2026-10-24T15:40:31Z",
+    "case_id": "CASE-0001",
+    "event_type": "review_recorded"
+  },
+  {
+    "seq": 4,
+    "timestamp": "2026-10-24T15:40:31Z",
+    "case_id": "CASE-0012",
+    "event_type": "review_recorded"
+  },
+  {
+    "seq": 3,
+    "timestamp": "2026-10-24T15:40:31Z",
+    "case_id": "CASE-0012",
+    "event_type": "feedback_recorded"
+  },
+  {
+    "seq": 2,
+    "timestamp": "2026-10-24T15:40:31Z",
+    "case_id": "CASE-0011",
+    "event_type": "review_recorded"
+  },
+  {
+    "seq": 1,
+    "timestamp": "2026-10-24T15:40:31Z",
+    "case_id": "CASE-0011",
+    "event_type": "precedent_created"
+  }
+]

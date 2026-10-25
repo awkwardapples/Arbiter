@@ -1,6 +1,2 @@
-// Placeholder owned by lane 18c/18d, which replaces this file.
-import { PlaceholderPage } from "../../app/PlaceholderPage";
-
-export default function ProviderPage() {
-  return <PlaceholderPage title="Provider" classicPage="the provider panel in the sidebar" />;
-}
+// Lane 18d replaces 18b's placeholder with the real page.
+export { ProviderPage as default } from "./ProviderPage";
