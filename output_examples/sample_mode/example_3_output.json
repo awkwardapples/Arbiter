@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-25T11:35:15Z",
+    "generated_at": "2026-10-25T15:12:21Z",
     "generated_by": "python run.py examples",
-    "git_sha": "1294cf7af550704ef242a14bdce7b5da951517cc",
+    "git_sha": "7b9a7982b26bb522e82cd035357d74ed7a675c62",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 389.0490920020966,
+    "p50_ms": 369.6085530009441,
     "provider": "offline",
-    "run_id": "run-5e0f871c2b23",
+    "run_id": "run-141d4c84ae2d",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.3890490920020966,
-    "log_file": "logs/trace-run-5e0f871c2b23.jsonl",
+    "execution_time_seconds": 0.3696085530009441,
+    "log_file": "logs/trace-run-141d4c84ae2d.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,13 +46,13 @@
       "actions": [
         {
           "capability": "itsm.ticket.create",
-          "contract_id": "ctr-04370aac3645",
+          "contract_id": "ctr-2a4155f12871",
           "intent": "vendor.onboarding.escalate",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/itsm/ctr-04370aac3645.json"
+        "var/outbox/itsm/ctr-2a4155f12871.json"
       ],
       "brief": {
         "generator": "template:v2",
@@ -127,11 +127,11 @@
         "contradictions": 0,
         "documents_read": 1,
         "dq_flags": 0,
-        "elapsed_seconds": 0.3890490920020966,
+        "elapsed_seconds": 0.3696085530009441,
         "guard_blocks": 2,
         "model_calls": 0,
         "models": [],
-        "queries": 0,
+        "queries": 10,
         "rows_read": 24,
         "systems_queried": [
           "Vendor trust portal",
@@ -142,8 +142,8 @@
         ]
       }
     },
-    "run_id": "run-5e0f871c2b23",
+    "run_id": "run-141d4c84ae2d",
     "status": "success",
-    "trace_id": "run-5e0f871c2b23"
+    "trace_id": "run-141d4c84ae2d"
   }
 }

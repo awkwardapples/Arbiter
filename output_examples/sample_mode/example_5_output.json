@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-25T11:35:15Z",
+    "generated_at": "2026-10-25T15:12:22Z",
     "generated_by": "python run.py examples",
-    "git_sha": "1294cf7af550704ef242a14bdce7b5da951517cc",
+    "git_sha": "7b9a7982b26bb522e82cd035357d74ed7a675c62",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 396.0766140080523,
+    "p50_ms": 358.9080620004097,
     "provider": "offline",
-    "run_id": "run-7952092e2b24",
+    "run_id": "run-57a0d9180a13",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.3960766140080523,
-    "log_file": "logs/trace-run-7952092e2b24.jsonl",
+    "execution_time_seconds": 0.3589080620004097,
+    "log_file": "logs/trace-run-57a0d9180a13.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,7 +46,7 @@
       "actions": [
         {
           "capability": "procurement.decline.record",
-          "contract_id": "ctr-973ffb97f83a",
+          "contract_id": "ctr-ba5b88d10795",
           "intent": "vendor.onboarding.decline",
           "state": "pending_approval"
         }
@@ -142,11 +142,11 @@
         "contradictions": 0,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 0.3960766140080523,
+        "elapsed_seconds": 0.3589080620004097,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
-        "queries": 0,
+        "queries": 10,
         "rows_read": 24,
         "systems_queried": [
           "Vendor trust portal",
@@ -157,8 +157,8 @@
         ]
       }
     },
-    "run_id": "run-7952092e2b24",
+    "run_id": "run-57a0d9180a13",
     "status": "success",
-    "trace_id": "run-7952092e2b24"
+    "trace_id": "run-57a0d9180a13"
   }
 }
