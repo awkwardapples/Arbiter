@@ -39,7 +39,9 @@ def test_p19_t3_eval_page_live_first(fake_client: FakeArbiterClient, monkeypatch
     subheaders = [item.value for item in at.subheader]
     assert subheaders.index("Live evaluation") < subheaders.index("Offline benchmark")
     blob = _text(at.markdown)
-    assert "| arbiter | 1.000 (5/5) |" in blob
+    # P20 (approved): the arbiter row of the latest committed live summary, not one run's figures.
+    accuracy = payload["live"]["systems"]["arbiter"]["accuracy"]
+    assert f"| arbiter | {accuracy['rate']:.3f} ({accuracy['correct']}/{accuracy['n']}) |" in blob
     assert "not published yet" not in _text(at.info).lower()
 
 

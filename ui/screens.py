@@ -129,7 +129,11 @@ def _chain_intact_text(result: dict[str, Any], client: Any) -> str:
 
 
 def _render_eval_markdown(text: str) -> None:
-    head, tail = split_eval_summary(strip_leading_h1(text))
+    body = strip_leading_h1(text)
+    # P20: summaries now open with "### Evaluation results"; the page title already says Evaluation.
+    if body.startswith("### Evaluation results"):
+        body = body.split("\n", 1)[1] if "\n" in body else ""
+    head, tail = split_eval_summary(body)
     st.markdown(head)
     if tail:
         st.markdown(tail)
