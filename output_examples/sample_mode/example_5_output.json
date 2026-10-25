@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-24T03:21:39Z",
+    "generated_at": "2026-10-25T11:35:15Z",
     "generated_by": "python run.py examples",
-    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "git_sha": "1294cf7af550704ef242a14bdce7b5da951517cc",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 378.30725599997095,
+    "p50_ms": 396.0766140080523,
     "provider": "offline",
-    "run_id": "run-ce24c4cc49df",
+    "run_id": "run-7952092e2b24",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.37830725599997095,
-    "log_file": "logs/trace-run-ce24c4cc49df.jsonl",
+    "execution_time_seconds": 0.3960766140080523,
+    "log_file": "logs/trace-run-7952092e2b24.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,7 +46,7 @@
       "actions": [
         {
           "capability": "procurement.decline.record",
-          "contract_id": "ctr-afda97fa84b1",
+          "contract_id": "ctr-973ffb97f83a",
           "intent": "vendor.onboarding.decline",
           "state": "pending_approval"
         }
@@ -54,7 +54,7 @@
       "artifacts": [],
       "brief": {
         "generator": "template:v2",
-        "headline": "Decline to the business owner: Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases.",
+        "headline": "Decline, and tell the business owner: Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases.",
         "next_steps": [
           {
             "action": "Tell the business owner the vendor is declined.",
@@ -130,7 +130,7 @@
       ],
       "residual_risk": 33,
       "risk_tier": "T3",
-      "summary": "Decline to the business owner: Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases.",
+      "summary": "Decline, and tell the business owner: Sanctions and watchlist clear is not met. What would satisfy it: GRC watchlist screening across all vendor aliases.",
       "vendor": {
         "legal_name": "Corvid Ledger Services Ltd",
         "vendor_id": "VND-0019"
@@ -142,7 +142,7 @@
         "contradictions": 0,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 0.37830725599997095,
+        "elapsed_seconds": 0.3960766140080523,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
@@ -157,8 +157,8 @@
         ]
       }
     },
-    "run_id": "run-ce24c4cc49df",
+    "run_id": "run-7952092e2b24",
     "status": "success",
-    "trace_id": "run-ce24c4cc49df"
+    "trace_id": "run-7952092e2b24"
   }
 }

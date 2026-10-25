@@ -31,5 +31,5 @@ export function allTraceFiles(): string[] {
 
 export const LIVE = "logs/examples/live/history/trace-run-83de5da137c0.jsonl";
 export const EVAL = "eval/results_live/20261024T045916036274Z/traces/trace-run-257c86984507.jsonl";
-export const SAMPLE = "logs/examples/sample_mode/trace-run-a90b795279e5.jsonl";
+export const SAMPLE = "logs/examples/sample_mode/history/trace-run-a90b795279e5.jsonl";
 export const NEW_SCHEMA = "web/src/run/__tests__/fixtures/trace-run-5568c241c8e3.jsonl";

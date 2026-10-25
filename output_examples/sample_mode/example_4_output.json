@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-24T03:21:39Z",
+    "generated_at": "2026-10-25T11:35:15Z",
     "generated_by": "python run.py examples",
-    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "git_sha": "1294cf7af550704ef242a14bdce7b5da951517cc",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 373.78964699928474,
+    "p50_ms": 372.4553920037579,
     "provider": "offline",
-    "run_id": "run-5dbcf5511284",
+    "run_id": "run-4d607777c588",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.37378964699928474,
-    "log_file": "logs/trace-run-5dbcf5511284.jsonl",
+    "execution_time_seconds": 0.3724553920037579,
+    "log_file": "logs/trace-run-4d607777c588.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,17 +46,17 @@
       "actions": [
         {
           "capability": "outbox.email.draft",
-          "contract_id": "ctr-d75bfa662bf5",
+          "contract_id": "ctr-3c030e57b78c",
           "intent": "vendor.onboarding.request_info",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/email/ctr-d75bfa662bf5.json"
+        "var/outbox/email/ctr-3c030e57b78c.json"
       ],
       "brief": {
         "generator": "template:v2",
-        "headline": "Request information to the vendor: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
+        "headline": "Ask the vendor for more information: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
         "next_steps": [
           {
             "action": "Send the clarification email and wait for the vendor's reply.",
@@ -171,7 +171,7 @@
       ],
       "residual_risk": 30,
       "risk_tier": "T3",
-      "summary": "Request information to the vendor: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
+      "summary": "Ask the vendor for more information: MFA enforced for privileged and remote access is unverified. What would satisfy it: Q01 and Q02 affirmative, naming the mechanism; or assurance report noting the MFA control without exception.",
       "vendor": {
         "legal_name": "Fennimore Survey Tools Ltd",
         "vendor_id": "VND-0022"
@@ -183,7 +183,7 @@
         "contradictions": 0,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 0.37378964699928474,
+        "elapsed_seconds": 0.3724553920037579,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
@@ -198,8 +198,8 @@
         ]
       }
     },
-    "run_id": "run-5dbcf5511284",
+    "run_id": "run-4d607777c588",
     "status": "success",
-    "trace_id": "run-5dbcf5511284"
+    "trace_id": "run-4d607777c588"
   }
 }

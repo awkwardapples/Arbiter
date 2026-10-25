@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-24T03:21:38Z",
+    "generated_at": "2026-10-25T11:35:14Z",
     "generated_by": "python run.py examples",
-    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "git_sha": "1294cf7af550704ef242a14bdce7b5da951517cc",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 673.5748209994199,
+    "p50_ms": 638.8548579998314,
     "provider": "offline",
-    "run_id": "run-a90b795279e5",
+    "run_id": "run-245a432e642c",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.6735748209994199,
-    "log_file": "logs/trace-run-a90b795279e5.jsonl",
+    "execution_time_seconds": 0.6388548579998314,
+    "log_file": "logs/trace-run-245a432e642c.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,13 +46,13 @@
       "actions": [
         {
           "capability": "itsm.ticket.create",
-          "contract_id": "ctr-549e9d3374f4",
+          "contract_id": "ctr-522d5110f7e6",
           "intent": "vendor.onboarding.escalate",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/itsm/ctr-549e9d3374f4.json"
+        "var/outbox/itsm/ctr-522d5110f7e6.json"
       ],
       "brief": {
         "generator": "template:v2",
@@ -235,7 +235,7 @@
         "contradictions": 1,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 0.6735748209994199,
+        "elapsed_seconds": 0.6388548579998314,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
@@ -251,8 +251,8 @@
         ]
       }
     },
-    "run_id": "run-a90b795279e5",
+    "run_id": "run-245a432e642c",
     "status": "success",
-    "trace_id": "run-a90b795279e5"
+    "trace_id": "run-245a432e642c"
   }
 }

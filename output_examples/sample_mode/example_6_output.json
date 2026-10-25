@@ -1,16 +1,16 @@
 {
   "header": {
-    "generated_at": "2026-10-24T03:21:40Z",
+    "generated_at": "2026-10-25T11:35:16Z",
     "generated_by": "python run.py examples",
-    "git_sha": "b02eef9dd887803d3b2ad1a544683b29119920cc",
+    "git_sha": "1294cf7af550704ef242a14bdce7b5da951517cc",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
     },
     "n_runs": 1,
-    "p50_ms": 321.21544199981145,
+    "p50_ms": 322.11103799636476,
     "provider": "offline",
-    "run_id": "run-b30f45d4527a",
+    "run_id": "run-4fbdf5ded23c",
     "timing_note": "Offline sample-mode timings do not include a model call. p50 is recorded anyway and is not a live latency."
   },
   "response": {
@@ -36,8 +36,8 @@
         "role": "Writes a cited report of the policy decision, or the deterministic template"
       }
     ],
-    "execution_time_seconds": 0.32121544199981145,
-    "log_file": "logs/trace-run-b30f45d4527a.jsonl",
+    "execution_time_seconds": 0.32211103799636476,
+    "log_file": "logs/trace-run-4fbdf5ded23c.jsonl",
     "mode": {
       "data": "duckdb",
       "llm": "offline"
@@ -46,13 +46,13 @@
       "actions": [
         {
           "capability": "procurement.approval.record",
-          "contract_id": "ctr-dc06098f18b0",
+          "contract_id": "ctr-8b5f1710ad78",
           "intent": "vendor.onboarding.approve",
           "state": "executed"
         }
       ],
       "artifacts": [
-        "var/outbox/procurement/ctr-dc06098f18b0.json"
+        "var/outbox/procurement/ctr-8b5f1710ad78.json"
       ],
       "brief": {
         "generator": "template:v2",
@@ -120,7 +120,7 @@
         "contradictions": 0,
         "documents_read": 0,
         "dq_flags": 0,
-        "elapsed_seconds": 0.32121544199981145,
+        "elapsed_seconds": 0.32211103799636476,
         "guard_blocks": 0,
         "model_calls": 0,
         "models": [],
@@ -134,8 +134,8 @@
         ]
       }
     },
-    "run_id": "run-b30f45d4527a",
+    "run_id": "run-4fbdf5ded23c",
     "status": "success",
-    "trace_id": "run-b30f45d4527a"
+    "trace_id": "run-4fbdf5ded23c"
   }
 }
