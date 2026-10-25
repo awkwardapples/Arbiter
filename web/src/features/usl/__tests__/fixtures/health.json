@@ -6,7 +6,7 @@
   },
   "data": {
     "backend": "duckdb",
-    "sample_dir": "/home/josh/arbiter-p18d-pages/data/sample/systems",
+    "sample_dir": "data/sample/systems",
     "table_counts": {
       "vendor": 32,
       "vendor_alias": 64,

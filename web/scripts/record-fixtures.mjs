@@ -127,7 +127,7 @@ const LANES = {
     for (const [area, name, path] of plain) {
       const { status, body } = await call("GET", path);
       if (status !== 200) throw new Error(`GET ${path} answered ${status}`);
-      if (name === "health") scrubModels(body);
+      if (name === "health") scrubHealth(body);
       await save(`src/features/${area}/__tests__/fixtures/${name}.json`, body);
     }
     // POST /runs answers with the run id the form navigates to.
@@ -151,13 +151,16 @@ const LANES = {
   },
 };
 
-/** The only edit to a recorded payload: models_seen keeps the Nemotron and Meterless routes, not the
- *  recording machine's other local models, which say nothing about Arbiter and are private. */
-function scrubModels(health) {
+/** The only edits to a recorded payload, both about the recording machine rather than Arbiter:
+ *  models_seen keeps the Nemotron and Meterless routes, not the machine's other local models, and
+ *  data.sample_dir becomes repo-relative so no home directory is committed. */
+function scrubHealth(health) {
   const meterless = health?.provider?.meterless;
   if (meterless && Array.isArray(meterless.models_seen)) {
     meterless.models_seen = meterless.models_seen.filter((m) => m.startsWith("nvidia/") || m.startsWith("meterless/"));
   }
+  const dir = health?.data?.sample_dir;
+  if (typeof dir === "string" && dir.includes("/data/")) health.data.sample_dir = dir.slice(dir.lastIndexOf("/data/") + 1);
 }
 
 if (!LANES[LANE]) {
