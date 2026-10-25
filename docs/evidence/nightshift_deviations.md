@@ -46,6 +46,19 @@ The operator reports that Meterless's support chat on 24 October 2026 acknowledg
 
 In the same chat, the operator was told that the HTTP 502 empty response is a known issue with Nemotron reasoning models: the reasoning budget uses up the whole output budget. The suggested workaround is a `/no_think` system message. Arbiter's live examples, memory session and evaluation in P15 ran with `METERLESS_NO_THINK=1`, which prepends that message on every Nightshift call and records `no_think: true` in the trace. Planner calls coerced onto Lightning still sometimes returned the empty-response 502 with the workaround on. Those calls fell back to deterministic logic, and the trace labels them `fallback`.
 
+## 25 October 2026: the Sunday release
+
+The operator updated Nightshift for the release that was to carry the fix. Nightshift Console version: v1.2.1 (read from the Console by the operator). Two proofs were made, at 11:22:20Z and 11:22:33Z:
+
+| Run | File | Arbiter sent | fast | deep |
+|---|---|---|---|---|
+| 4 (routing modes) | `nightshift_proof.json` | `meterless/fast`, `meterless/deep` | `bound_mode: auto`, coerced; Lightning, `rcpt_req_936ew345` | `bound_mode: auto`, coerced; Super VL, `rcpt_req_wu3r6jyf` |
+| 5 (exact model ids) | `history/nightshift_proof-run5-exact-ids.json` | `nvidia/nemotron-3.5-lightning-30b-a3b`, `nvidia/nemotron-3.5-super-vl-120b-a12b` | not coerced, but served in `auto` mode by Super VL, `rcpt_req_504ono0n` | Super VL, `rcpt_req_ieobohlf` |
+
+Run 4 is the same as run 3: the app rule still forces `auto`. Run 5 is the fix's own test: the request named Lightning by exact id, and Nightshift served Super VL. The proof derives `same_model_both_lanes` and `lane_model_differs_from_design` from those receipts. The fix had therefore not reached this build. Arbiter keeps the routing modes (run 4 is the committed proof), and the live examples and the live evaluation of 25 October ran with `METERLESS_NO_THINK=1`. Run 3 is kept as `history/nightshift_proof-run3.json`.
+
+In the 25 October live examples, every successful call was served by Super VL. The calls `auto` routed to Lightning returned HTTP 502 `nvidia/nemotron-3.5-lightning-30b-a3b_empty_response` and fell back; examples 1 and 6, whose only model call failed this way twice, keep their sample-mode outputs.
+
 ## Conclusion
 
 The proof records what actually ran. The fleet's lane bindings are correct, but the app rule overrides them, and the Console offers no way to remove it. The daemon and its lane routing are outside this repository and were not changed. Every completion is a Nemotron model served through Meterless Nightshift.
