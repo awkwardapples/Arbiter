@@ -21,7 +21,7 @@ Open Agent Hackathon 2026 rules: "Work committed before the build window opens (
 
 ## 3. Market-research slide content
 
-- **What:** problem, users and competitor research slides from my earlier market-research deck. They are refreshed (DBIR 2026 statistics) and reused in deck slides 2–4.
+- **What:** problem, users and competitor research slides from my earlier market-research deck. They are refreshed (DBIR 2026 statistics) and reused in deck slides 4 and 6.
 
 ## 4. Third-party open material (used under licence; attributed in README)
 
