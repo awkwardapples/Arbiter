@@ -86,17 +86,19 @@ Branch `p18c-case`, built on `origin/p18b-run` (18b parts 1 and 2), for a PR int
 - **Outbox file names.** `/audit/recent` does not return payloads. For contracts the run executed, the file name is read from the trace's `ActionExecutor execute_action` line. For approvals made in the console, it comes from the approval response. A contract approved in another session with no trace line shows "The <action> was sent to the outbox." with no file name.
 - **Role choices.** The role select offers the contract's required roles and any role seen in approvals. Only when a contract names none does it offer `tprm_analyst` and `tprm_lead` (the policy's ranked roles, which no API serves).
 - **Precedents.** In sample mode with memory off, no precedents are considered, so the precedents table was exercised only in its empty state.
-- **Secret history scan (blocked, outside this lane).** `tests/unit/docs/test_secrets_history.py::test_p6_t5_history_clean` fails.
+- **Secret history scan (resolved by P18-B).** `tests/unit/docs/test_secrets_history.py::test_p6_t5_history_clean` failed.
   - Cause: `scripts/scan_secrets.py --history` attributes the lines of a deleted file (`+++ /dev/null`) to the previous file in the diff. Deleting an old Tailwind bundle under `web/dist/assets/` therefore reports a Tailwind mask utility class (it fits the `sk-` key pattern) against `web/dist/.source-hash`, which is not allowlisted.
   - It is a false positive: no key is involved. It affects every lane that rebuilds `web/dist` (18b's `48355ff` and `bd5ac01` delete bundles too).
-  - Not changed here; raised with the human.
+  - Not changed here. The human chose to fix the scanner, not to allowlist `.source-hash`. P18-B committed the fix (PR #34), and it reached this branch by merging `origin/p18-console`.
 
 ## Commands run
 
 ```
+git merge origin/p18-console                                     # PR #34; web/dist rebuilt
+.venv/bin/python scripts/compile_cursor_usage.py
 .venv/bin/python scripts/record_p18c_fixtures.py
 cd web && npm ci && npm run check && npm run build
 SAMPLE_MODE=true LLM_PROVIDER=offline .venv/bin/python run.py serve
 .venv/bin/python scripts/capture_web.py --smoke --out <scratch>   # smoke: ok
-.venv/bin/python scripts/tasks.py verify-pass --pass 18c           # see the secret history scan above
+.venv/bin/python scripts/tasks.py verify-pass --pass 18c           # green after merging origin/p18-console
 ```
