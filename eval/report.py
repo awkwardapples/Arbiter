@@ -17,7 +17,7 @@ def render_summary_md(summary: dict[str, Any]) -> str:
     mode = summary.get("mode") or {}
     offline = bool(summary.get("offline")) or mode.get("llm") == "offline"
     lines = [
-        "# Evaluation",
+        "### Evaluation results",
         "",
         "Synthetic data. Small n. Intervals are Wilson 95% where a rate has a denominator.",
         "Only the tier gates are calibrated. Weights stay at their a-priori values.",

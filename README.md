@@ -139,7 +139,7 @@ Which agent steps run on which lane: planning and challenge request the deep lan
 The block below is the rendered `eval/results_live/20261024T045916036274Z/summary.json`; `tests/unit/docs/test_claims.py` checks that it matches the latest live summary. `python run.py eval --live --publish` regenerates `docs/EVALUATION.md`, not this README block. Method, labels and discussion: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 <!-- EVAL:START -->
-# Evaluation
+### Evaluation results
 
 Synthetic data. Small n. Intervals are Wilson 95% where a rate has a denominator.
 Only the tier gates are calibrated. Weights stay at their a-priori values.
